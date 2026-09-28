@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-28",
-  "nodeCount": 146,
+  "generatedAt": "2026-09-29",
+  "nodeCount": 147,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3067,6 +3067,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-09-29",
+      "date": "2026-09-29",
+      "title_en": "The Room Keeps One Light",
+      "title_zh": "房间只留一盏",
+      "variable_en": "whether attention can be divided without loss",
+      "variable_zh": "注意能否被分开而不损失",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether attention can be divided without loss entered the archive as a clue rather than a label.",
+      "diary_zh": "「注意能否被分开而不损失」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/09/2026-09-29/live/",
+      "archive_url": "../archive/2026/09/2026-09-29/",
+      "gif": "../archive/2026/09/2026-09-29/assets/visual-preview.gif",
+      "x": 14,
+      "y": -24,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3087,7 +3108,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 79
+      "count": 80
     },
     {
       "id": "maintenance",
@@ -3690,6 +3711,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-28"
     ],
     [
+      "2026-09-28",
+      "2026-09-29"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -3996,6 +4021,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-26",
       "2026-09-28"
+    ],
+    [
+      "2026-09-27",
+      "2026-09-29"
     ],
     [
       "2026-05-07",

@@ -752,6 +752,22 @@
       "after_zh": "手离开了。房间还端着这一小时。",
       "interaction_en": "Hold the shallow basin and drag sideways: the rim turns, and the gold film stays on the room's level. Turn it toward the lip and it refuses to spill; only the lip cools. Release: the basin rights itself. The film is not less.",
       "interaction_zh": "按住浅盆并左右拖动：盆沿转动，金膜仍与房间的水平线重合。转到唇边，它拒绝外溢，只在唇上冷一下。松开：盆自己回正，液面不曾减少。"
+    },
+    {
+      "date": "2026-09-29",
+      "slug": "the-room-keeps-one-light",
+      "title_en": "The Room Keeps One Light",
+      "title_zh": "房间只留一盏",
+      "variable_en": "whether attention can be divided without loss",
+      "variable_zh": "注意能否被分开而不损失",
+      "seed": 20260929,
+      "file": "2026-09-29-the-room-keeps-one-light",
+      "intention_en": "The room may hold many lamps. Only one may be awake.",
+      "intention_zh": "房间可以有很多灯。醒着的只能有一盏。",
+      "after_en": "The hand left. The other lamp was not secretly still lit.",
+      "after_zh": "手离开了。另一盏并没有偷偷留着光。",
+      "interaction_en": "Press a bone lamp: it wakes, and the lamp that was awake goes out at once. What goes out leaves a cool ring, not a count. Pressing the waking lamp does not make it brighter.",
+      "interaction_zh": "按下一盏骨灯：它醒来，原先那盏立刻灭。灭掉的只留一圈冷环，不计次数。再按已经醒着的那盏，它不会更亮。"
     }
   ]
 }

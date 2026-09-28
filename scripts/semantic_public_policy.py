@@ -100,7 +100,8 @@ RULES = (
             r"file[- ]mutation\s+verifier|ad[- ]hoc[- ]verified|no\s+(?:shell|terminal)|"
             r"read_file|write_file|search_files|shell_exec|sensitive\s+system\s+path|"
             r"temp(?:orary)?\s+(?:verification\s+)?script|"
-            r"运行时核验|执行阻塞|临时验证脚本|文件变更验证器|内部校验脚本",
+            r"运行时核验|执行阻塞|临时验证脚本|文件变更验证器|内部校验脚本|"
+            r"\[CRON_FAILURE\]",
         ),
         "提醒记录的结构与完整性核验。",
         "Reminder-record structure and integrity verification.",

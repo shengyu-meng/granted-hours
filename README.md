@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-09-29 — The Room Keeps One Light / 房间只留一盏**<br>
+  Variable / 自由变量：whether attention can be divided without loss / 注意能否被分开而不损失<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/09/2026-09-29/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-29/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-29/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/09/2026-09-29/live/)
 - **2026-09-28 — The Level Stays with the Room / 液面留在房间里**<br>
   Variable / 自由变量：whether tilting the vessel must tilt the hour / 倾斜容器，是否必须倾斜这一小时<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
@@ -881,20 +887,3 @@ scripts/          Import, safety, and preview helpers / 导入、安全检查与
 - Private raw archive: not licensed and not public.
 
 See [LICENSE.md](LICENSE.md).
-
-
-### Live timetable preview capture
-
-The timetable GIF records the live work and representative pointer gestures.
-Run `node scripts/capture_visual_preview_gifs.mjs --date YYYY-MM-DD` after an
-artwork import, then `node scripts/qa_visual_previews.mjs --date YYYY-MM-DD`.
-Canvas, WebGL and DOM works use the browser’s actual composited frames,
-including transparent layers, backgrounds and the native animation callbacks. A capture failure
-preserves the existing asset and requires repair; a still must never be animated
-with pan, zoom or luminance changes to stand in for the artwork.
-
-Each GIF has a mirrored `visual-preview.capture.json` receipt containing the
-live source and GIF hashes. QA rejects absent or stale receipts. Historical
-repairs can use `--all --resume --jobs 1`; each work has a 90-second limit and
-the batch has a one-hour limit. Use bounded concurrency on an idle machine.
-The month grid includes synchronized navigation above and below its rows.

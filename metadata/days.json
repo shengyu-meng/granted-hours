@@ -3285,5 +3285,29 @@
     },
     "bgm": "archive/2026/09/2026-09-28/live/2026-09-28-the-level-stays-with-the-room-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-28/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-29",
+    "source_date": "2026-09-28",
+    "crystallization_date": "2026-09-29",
+    "title_en": "The Room Keeps One Light",
+    "title_zh": "房间只留一盏",
+    "type": "live",
+    "seed": 20260929,
+    "preview": "archive/2026/09/2026-09-29/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-29/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-29/",
+    "live_url": "archive/2026/09/2026-09-29/live/",
+    "variable_en": "whether attention can be divided without loss",
+    "variable_zh": "注意能否被分开而不损失",
+    "brief_en": "The room may hold many lamps. Only one may be awake.",
+    "brief_zh": "房间可以有很多灯。醒着的只能有一盏。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-29/live/2026-09-29-the-room-keeps-one-light-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-29/assets/visual-preview.gif"
   }
 ]
