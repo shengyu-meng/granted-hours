@@ -768,6 +768,22 @@
       "after_zh": "手离开了。另一盏并没有偷偷留着光。",
       "interaction_en": "Press a bone lamp: it wakes, and the lamp that was awake goes out at once. What goes out leaves a cool ring, not a count. Pressing the waking lamp does not make it brighter.",
       "interaction_zh": "按下一盏骨灯：它醒来，原先那盏立刻灭。灭掉的只留一圈冷环，不计次数。再按已经醒着的那盏，它不会更亮。"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "the-shadow-arrives-late",
+      "title_en": "The Shadow Arrives Late",
+      "title_zh": "影子晚到",
+      "variable_en": "whether a gesture and its trace must arrive together",
+      "variable_zh": "动作与痕迹是否必须同时到达",
+      "seed": 20260930,
+      "file": "2026-09-30-the-shadow-arrives-late",
+      "intention_en": "The body may arrive at once. The shadow agrees to come only along the path already walked, and late.",
+      "intention_zh": "身体可以马上到。影子只肯沿着已经走过的路，晚一点到。",
+      "after_en": "The hand stopped. The shadow was still on the stretch just walked.",
+      "after_zh": "手停了。影子还在刚才那一段路上。",
+      "interaction_en": "Move the pointer and the bone stele follows at once. The shadow arrives late, and only along the path already walked. Stop, and it catches up, then rests. Walk back and it does not rewind; it finishes the path already taken. Pressing does not hurry it.",
+      "interaction_zh": "移动指针，骨柱立刻跟着走。影子晚到，而且只走已经走过的那段。停下，它会追上并休息。往回走，它不倒带，先把已走的路走完。按下，也不能催它。"
     }
   ]
 }

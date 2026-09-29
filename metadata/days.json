@@ -3309,5 +3309,29 @@
     },
     "bgm": "archive/2026/09/2026-09-29/live/2026-09-29-the-room-keeps-one-light-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-29/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-09-30",
+    "source_date": "2026-09-29",
+    "crystallization_date": "2026-09-30",
+    "title_en": "The Shadow Arrives Late",
+    "title_zh": "影子晚到",
+    "type": "live",
+    "seed": 20260930,
+    "preview": "archive/2026/09/2026-09-30/assets/preview.png",
+    "gif": "archive/2026/09/2026-09-30/assets/visual-preview.gif",
+    "archive_url": "archive/2026/09/2026-09-30/",
+    "live_url": "archive/2026/09/2026-09-30/live/",
+    "variable_en": "whether a gesture and its trace must arrive together",
+    "variable_zh": "动作与痕迹是否必须同时到达",
+    "brief_en": "The body may arrive at once. The shadow agrees to come only along the path already walked, and late.",
+    "brief_zh": "身体可以马上到。影子只肯沿着已经走过的路，晚一点到。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/09/2026-09-30/live/2026-09-30-the-shadow-arrives-late-bgm.mp3",
+    "visual_preview": "archive/2026/09/2026-09-30/assets/visual-preview.gif"
   }
 ]
