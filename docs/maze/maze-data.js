@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-09-30",
-  "nodeCount": 148,
+  "generatedAt": "2026-10-01",
+  "nodeCount": 149,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3109,6 +3109,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -1,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-01",
+      "date": "2026-10-01",
+      "title_en": "Crossing Does Not Widen",
+      "title_zh": "穿过并不变宽",
+      "variable_en": "whether a crossing must widen into a territory",
+      "variable_zh": "一次穿过，是否必须把缝变成一块地盘",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a crossing must widen into a territory entered the archive as a clue rather than a label.",
+      "diary_zh": "「一次穿过，是否必须把缝变成一块地盘」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-01/live/",
+      "archive_url": "../archive/2026/10/2026-10-01/",
+      "gif": "../archive/2026/10/2026-10-01/assets/visual-preview.gif",
+      "x": 17,
+      "y": -26,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3129,7 +3150,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 80
+      "count": 81
     },
     {
       "id": "maintenance",
@@ -3740,6 +3761,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-09-30"
     ],
     [
+      "2026-09-30",
+      "2026-10-01"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4050,6 +4075,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-27",
       "2026-09-29"
+    ],
+    [
+      "2026-09-28",
+      "2026-10-01"
     ],
     [
       "2026-05-07",

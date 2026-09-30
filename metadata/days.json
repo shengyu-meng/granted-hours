@@ -3333,5 +3333,29 @@
     },
     "bgm": "archive/2026/09/2026-09-30/live/2026-09-30-the-shadow-arrives-late-bgm.mp3",
     "visual_preview": "archive/2026/09/2026-09-30/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-01",
+    "source_date": "2026-09-30",
+    "crystallization_date": "2026-10-01",
+    "title_en": "Crossing Does Not Widen",
+    "title_zh": "穿过并不变宽",
+    "type": "live",
+    "seed": 20261001,
+    "preview": "archive/2026/10/2026-10-01/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-01/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-01/",
+    "live_url": "archive/2026/10/2026-10-01/live/",
+    "variable_en": "whether a crossing must widen into a territory",
+    "variable_zh": "一次穿过，是否必须把缝变成一块地盘",
+    "brief_en": "A seam may be crossed. It does not have to widen, and it does not have to collect the other side into rooms.",
+    "brief_zh": "缝可以让人穿过。它不必因此变宽，也不必把另一边收成房间。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-01/live/2026-10-01-crossing-does-not-widen-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-01/assets/visual-preview.gif"
   }
 ]

@@ -784,6 +784,22 @@
       "after_zh": "手停了。影子还在刚才那一段路上。",
       "interaction_en": "Move the pointer and the bone stele follows at once. The shadow arrives late, and only along the path already walked. Stop, and it catches up, then rests. Walk back and it does not rewind; it finishes the path already taken. Pressing does not hurry it.",
       "interaction_zh": "移动指针，骨柱立刻跟着走。影子晚到，而且只走已经走过的那段。停下，它会追上并休息。往回走，它不倒带，先把已走的路走完。按下，也不能催它。"
+    },
+    {
+      "date": "2026-10-01",
+      "slug": "crossing-does-not-widen",
+      "title_en": "Crossing Does Not Widen",
+      "title_zh": "穿过并不变宽",
+      "variable_en": "whether a crossing must widen into a territory",
+      "variable_zh": "一次穿过，是否必须把缝变成一块地盘",
+      "seed": 20261001,
+      "file": "2026-10-01-crossing-does-not-widen",
+      "intention_en": "A seam may be crossed. It does not have to widen, and it does not have to collect the other side into rooms.",
+      "intention_zh": "缝可以让人穿过。它不必因此变宽，也不必把另一边收成房间。",
+      "after_en": "The hand has let go. The seam is still only as wide as it was.",
+      "after_zh": "手已经放开。缝还是原来那么窄。",
+      "interaction_en": "Come near, and the warmth stays on the seam. Pull left or right and a cold width appears, then refuses to remain; the bone seam returns to one breath. Up and down only travel the seam. Pressing raises a cool ring on the far side and does not occupy the empty ribs.",
+      "interaction_zh": "靠近，暖意只留在缝上。左右拉开，会出现一条不肯留下的冷宽度，骨缝自己回到一口气那么窄。上下走，只是沿着缝走。按下，远侧升起一圈冷环，空着的肋不因此被占住。"
     }
   ]
 }

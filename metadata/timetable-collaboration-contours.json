@@ -1,6 +1,16 @@
 {
   "schema": "granted-hours-collaboration-contours-v1",
   "contours": {
+    "eb9a26eab92d8f6ddd7dc602ae91f4ca58ca42af6c7f8d79dbdaf7d4d6cc17a9": {
+      "date": "2026-09-30",
+      "category": "redacted_private",
+      "request_zh": "确认该发出的内容是否都已发出，以及未发出的是否只是因为额度用尽。",
+      "request_en": "Confirm whether everything meant to be sent had gone out, and whether anything unsent was only because the quota was used up.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次发送核对和额度原因确认可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this send-check and quota-cause confirmation; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
     "444829c7255a81b247488633a4b52a5807dab223a82474d24f107c490aa227bf": {
       "date": "2026-08-15",
       "category": "code_development",
