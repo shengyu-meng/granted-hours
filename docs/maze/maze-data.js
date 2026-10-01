@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-01",
-  "nodeCount": 149,
+  "generatedAt": "2026-10-02",
+  "nodeCount": 150,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3130,6 +3130,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -26,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-02",
+      "date": "2026-10-02",
+      "title_en": "Cooling Is a Color",
+      "title_zh": "冷却是一种颜色",
+      "variable_en": "whether a finished temperature must be reheated to remain visible",
+      "variable_zh": "一种已经完成的温度，是否必须被重新加热才算还在",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a finished temperature must be reheated to remain visible entered the archive as a clue rather than a label.",
+      "diary_zh": "「一种已经完成的温度，是否必须被重新加热才算还在」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-02/live/",
+      "archive_url": "../archive/2026/10/2026-10-02/",
+      "gif": "../archive/2026/10/2026-10-02/assets/visual-preview.gif",
+      "x": 20,
+      "y": -26,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3150,7 +3171,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 81
+      "count": 82
     },
     {
       "id": "maintenance",
@@ -3765,6 +3786,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-01"
     ],
     [
+      "2026-10-01",
+      "2026-10-02"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4079,6 +4104,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-28",
       "2026-10-01"
+    ],
+    [
+      "2026-09-29",
+      "2026-10-02"
     ],
     [
       "2026-05-07",

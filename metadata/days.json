@@ -3357,5 +3357,29 @@
     },
     "bgm": "archive/2026/10/2026-10-01/live/2026-10-01-crossing-does-not-widen-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-01/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-02",
+    "source_date": "2026-10-01",
+    "crystallization_date": "2026-10-02",
+    "title_en": "Cooling Is a Color",
+    "title_zh": "冷却是一种颜色",
+    "type": "live",
+    "seed": 20261002,
+    "preview": "archive/2026/10/2026-10-02/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-02/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-02/",
+    "live_url": "archive/2026/10/2026-10-02/live/",
+    "variable_en": "whether a finished temperature must be reheated to remain visible",
+    "variable_zh": "一种已经完成的温度，是否必须被重新加热才算还在",
+    "brief_en": "Cooling is not loss. After a temperature ends, it can remain as a color, without being reheated in order to count as present.",
+    "brief_zh": "冷却不是失去。一种温度结束之后，仍可以作为一种颜色留下来，而不必被重新加热才算存在。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-02/live/2026-10-02-cooling-is-a-color-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-02/assets/visual-preview.gif"
   }
 ]

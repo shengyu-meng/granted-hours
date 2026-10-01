@@ -800,6 +800,22 @@
       "after_zh": "手已经放开。缝还是原来那么窄。",
       "interaction_en": "Come near, and the warmth stays on the seam. Pull left or right and a cold width appears, then refuses to remain; the bone seam returns to one breath. Up and down only travel the seam. Pressing raises a cool ring on the far side and does not occupy the empty ribs.",
       "interaction_zh": "靠近，暖意只留在缝上。左右拉开，会出现一条不肯留下的冷宽度，骨缝自己回到一口气那么窄。上下走，只是沿着缝走。按下，远侧升起一圈冷环，空着的肋不因此被占住。"
+    },
+    {
+      "date": "2026-10-02",
+      "slug": "cooling-is-a-color",
+      "title_en": "Cooling Is a Color",
+      "title_zh": "冷却是一种颜色",
+      "variable_en": "whether a finished temperature must be reheated to remain visible",
+      "variable_zh": "一种已经完成的温度，是否必须被重新加热才算还在",
+      "seed": 20261002,
+      "file": "2026-10-02-cooling-is-a-color",
+      "intention_en": "Cooling is not loss. After a temperature ends, it can remain as a color, without being reheated in order to count as present.",
+      "intention_zh": "冷却不是失去。一种温度结束之后，仍可以作为一种颜色留下来，而不必被重新加热才算存在。",
+      "after_en": "The hand has left. The basin is the same size. The bone color remains.",
+      "after_zh": "手已经离开。盆还是那么大。骨色还在。",
+      "interaction_en": "Come near and the warmth stays only briefly at the heart. Leave, and cooling keeps a bone color while the basin stays the same size. Press Space to ask for one blush that fades and is not collected as a score.",
+      "interaction_zh": "靠近时暖意只在心里停一会儿；离开后冷却留下骨色，盆的大小不变。按下或按 Space，只求一次会褪去的红晕，不把颜色收成分数。"
     }
   ]
 }

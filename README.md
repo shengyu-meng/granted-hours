@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-02 — Cooling Is a Color / 冷却是一种颜色**<br>
+  Variable / 自由变量：whether a finished temperature must be reheated to remain visible / 一种已经完成的温度，是否必须被重新加热才算还在<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-02/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-02/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-02/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-02/live/)
 - **2026-10-01 — Crossing Does Not Widen / 穿过并不变宽**<br>
   Variable / 自由变量：whether a crossing must widen into a territory / 一次穿过，是否必须把缝变成一块地盘<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
