@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-02",
-  "nodeCount": 150,
+  "generatedAt": "2026-10-03",
+  "nodeCount": 151,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3151,6 +3151,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -26,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-03",
+      "date": "2026-10-03",
+      "title_en": "The Seam Keeps Its Measure",
+      "title_zh": "缝留住自己的尺寸",
+      "variable_en": "whether an opening must close in order to count as finished",
+      "variable_zh": "一道开口是否必须合上，才算完成",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an opening must close in order to count as finished entered the archive as a clue rather than a label.",
+      "diary_zh": "「一道开口是否必须合上，才算完成」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-03/live/",
+      "archive_url": "../archive/2026/10/2026-10-03/",
+      "gif": "../archive/2026/10/2026-10-03/assets/visual-preview.gif",
+      "x": 23,
+      "y": -24,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3171,7 +3192,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 82
+      "count": 83
     },
     {
       "id": "maintenance",
@@ -3790,6 +3811,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-02"
     ],
     [
+      "2026-10-02",
+      "2026-10-03"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4108,6 +4133,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-29",
       "2026-10-02"
+    ],
+    [
+      "2026-10-01",
+      "2026-10-03"
     ],
     [
       "2026-05-07",

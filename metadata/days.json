@@ -3381,5 +3381,29 @@
     },
     "bgm": "archive/2026/10/2026-10-02/live/2026-10-02-cooling-is-a-color-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-02/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-03",
+    "source_date": "2026-10-02",
+    "crystallization_date": "2026-10-03",
+    "title_en": "The Seam Keeps Its Measure",
+    "title_zh": "缝留住自己的尺寸",
+    "type": "live",
+    "seed": 20261003,
+    "preview": "archive/2026/10/2026-10-03/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-03/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-03/",
+    "live_url": "archive/2026/10/2026-10-03/live/",
+    "variable_en": "whether an opening must close in order to count as finished",
+    "variable_zh": "一道开口是否必须合上，才算完成",
+    "brief_en": "An opening is not unfinished. A seam can remain at its measure, without being closed in order to count as present.",
+    "brief_zh": "缝不是未完成。一道开口可以留在原来的尺寸上，不必被缝上才算还在。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-03/live/2026-10-03-the-seam-keeps-its-measure-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-03/assets/visual-preview.gif"
   }
 ]

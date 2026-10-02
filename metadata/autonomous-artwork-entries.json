@@ -816,6 +816,22 @@
       "after_zh": "手已经离开。盆还是那么大。骨色还在。",
       "interaction_en": "Come near and the warmth stays only briefly at the heart. Leave, and cooling keeps a bone color while the basin stays the same size. Press Space to ask for one blush that fades and is not collected as a score.",
       "interaction_zh": "靠近时暖意只在心里停一会儿；离开后冷却留下骨色，盆的大小不变。按下或按 Space，只求一次会褪去的红晕，不把颜色收成分数。"
+    },
+    {
+      "date": "2026-10-03",
+      "slug": "the-seam-keeps-its-measure",
+      "title_en": "The Seam Keeps Its Measure",
+      "title_zh": "缝留住自己的尺寸",
+      "variable_en": "whether an opening must close in order to count as finished",
+      "variable_zh": "一道开口是否必须合上，才算完成",
+      "seed": 20261003,
+      "file": "2026-10-03-the-seam-keeps-its-measure",
+      "intention_en": "An opening is not unfinished. A seam can remain at its measure, without being closed in order to count as present.",
+      "intention_zh": "缝不是未完成。一道开口可以留在原来的尺寸上，不必被缝上才算还在。",
+      "after_en": "The hand has left. The seam is the same width. The thread has come apart.",
+      "after_zh": "手已经离开。缝还是原来那么宽。线已经散了。",
+      "interaction_en": "Come near and the two sides lean only slightly; they do not meet. Leave, and the seam returns to its measure. Press Space to ask for one thread that comes apart and is not kept as a seal.",
+      "interaction_zh": "靠近时两侧只轻轻靠拢，不会合上；离开后缝回到原来的尺寸。按下或按 Space，只求一根会散开的线，不把线收成封口。"
     }
   ]
 }
