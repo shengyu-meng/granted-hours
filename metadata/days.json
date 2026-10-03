@@ -3405,5 +3405,29 @@
     },
     "bgm": "archive/2026/10/2026-10-03/live/2026-10-03-the-seam-keeps-its-measure-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-03/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-04",
+    "source_date": "2026-10-03",
+    "crystallization_date": "2026-10-04",
+    "title_en": "The Hand Passes Without Taking",
+    "title_zh": "手经过，并不取走",
+    "type": "live",
+    "seed": 20261004,
+    "preview": "archive/2026/10/2026-10-04/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-04/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-04/",
+    "live_url": "archive/2026/10/2026-10-04/live/",
+    "variable_en": "whether a passing hand must collect the mark it passes",
+    "variable_zh": "经过的手是否必须取走它经过的标记",
+    "brief_en": "A passage is not a collection. A notch that has been set down may remain where it was put. The hand may pass it without bringing it back.",
+    "brief_zh": "经过不是收取。一个被放下的刻度可以留在原处，金针经过时不必把它带回。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-04/live/2026-10-04-the-hand-passes-without-taking-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-04/assets/visual-preview.gif"
   }
 ]

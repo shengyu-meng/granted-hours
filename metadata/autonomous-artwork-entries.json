@@ -832,6 +832,22 @@
       "after_zh": "手已经离开。缝还是原来那么宽。线已经散了。",
       "interaction_en": "Come near and the two sides lean only slightly; they do not meet. Leave, and the seam returns to its measure. Press Space to ask for one thread that comes apart and is not kept as a seal.",
       "interaction_zh": "靠近时两侧只轻轻靠拢，不会合上；离开后缝回到原来的尺寸。按下或按 Space，只求一根会散开的线，不把线收成封口。"
+    },
+    {
+      "date": "2026-10-04",
+      "slug": "the-hand-passes-without-taking",
+      "title_en": "The Hand Passes Without Taking",
+      "title_zh": "手经过，并不取走",
+      "variable_en": "whether a passing hand must collect the mark it passes",
+      "variable_zh": "经过的手是否必须取走它经过的标记",
+      "seed": 20261004,
+      "file": "2026-10-04-the-hand-passes-without-taking",
+      "intention_en": "A passage is not a collection. A notch that has been set down may remain where it was put. The hand may pass it without bringing it back.",
+      "intention_zh": "经过不是收取。一个被放下的刻度可以留在原处，金针经过时不必把它带回。",
+      "after_en": "The hand has gone past. The posts are still where they were put. The ring is still turning.",
+      "after_zh": "手已经走过去了。门柱还在被放下的地方。环还在转。",
+      "interaction_en": "Come near and the witness travels along the ring. Press or press Enter to set a pair of bone posts on the ring; they stay. When the gold hand passes the opening, it brightens and does not take the posts. Leave, and the witness returns to the outer edge; the posts remain. Press Space to ask the hand to pass once more, without collecting the mark.",
+      "interaction_zh": "靠近时，观看者沿着环移动。按下或按 Enter，把一对骨瓷门柱放在环上，它们就停在那里。金针穿过门缝时只轻轻变亮，并不取走门柱。离开后，观看者回到外缘，门柱仍在原处。按 Space，只求金针再经过一次，不把刻度收回。"
     }
   ]
 }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-03",
-  "nodeCount": 151,
+  "generatedAt": "2026-10-04",
+  "nodeCount": 152,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3172,6 +3172,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -24,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-04",
+      "date": "2026-10-04",
+      "title_en": "The Hand Passes Without Taking",
+      "title_zh": "手经过，并不取走",
+      "variable_en": "whether a passing hand must collect the mark it passes",
+      "variable_zh": "经过的手是否必须取走它经过的标记",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a passing hand must collect the mark it passes entered the archive as a clue rather than a label.",
+      "diary_zh": "「经过的手是否必须取走它经过的标记」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-04/live/",
+      "archive_url": "../archive/2026/10/2026-10-04/",
+      "gif": "../archive/2026/10/2026-10-04/assets/visual-preview.gif",
+      "x": 24,
+      "y": -21,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3192,7 +3213,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 83
+      "count": 84
     },
     {
       "id": "maintenance",
@@ -3815,6 +3836,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-03"
     ],
     [
+      "2026-10-03",
+      "2026-10-04"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4137,6 +4162,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-01",
       "2026-10-03"
+    ],
+    [
+      "2026-10-02",
+      "2026-10-04"
     ],
     [
       "2026-05-07",

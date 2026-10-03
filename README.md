@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-04 — The Hand Passes Without Taking / 手经过，并不取走**<br>
+  Variable / 自由变量：whether a passing hand must collect the mark it passes / 经过的手是否必须取走它经过的标记<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-04/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-04/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-04/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-04/live/)
 - **2026-10-03 — The Seam Keeps Its Measure / 缝留住自己的尺寸**<br>
   Variable / 自由变量：whether an opening must close in order to count as finished / 一道开口是否必须合上，才算完成<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
