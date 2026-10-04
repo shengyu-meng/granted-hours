@@ -3429,5 +3429,29 @@
     },
     "bgm": "archive/2026/10/2026-10-04/live/2026-10-04-the-hand-passes-without-taking-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-04/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-05",
+    "source_date": "2026-10-04",
+    "crystallization_date": "2026-10-05",
+    "title_en": "The Reflection Does Not Cross",
+    "title_zh": "反光不越过",
+    "type": "live",
+    "seed": 20261005,
+    "preview": "archive/2026/10/2026-10-05/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-05/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-05/",
+    "live_url": "archive/2026/10/2026-10-05/live/",
+    "variable_en": "whether a reflection must become the thing it shows",
+    "variable_zh": "反光是否必须变成它所照见的东西",
+    "brief_en": "A reflection does not have to become the thing it shows. It may come near the glass and remain on its own side.",
+    "brief_zh": "经过的反光不必变成它所照见的东西。它可以靠近玻璃，停在自己的一侧。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-05/live/2026-10-05-the-reflection-does-not-cross-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-05/assets/visual-preview.gif"
   }
 ]

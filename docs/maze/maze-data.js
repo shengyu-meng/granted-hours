@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-04",
-  "nodeCount": 152,
+  "generatedAt": "2026-10-05",
+  "nodeCount": 153,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3193,6 +3193,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-05",
+      "date": "2026-10-05",
+      "title_en": "The Reflection Does Not Cross",
+      "title_zh": "反光不越过",
+      "variable_en": "whether a reflection must become the thing it shows",
+      "variable_zh": "反光是否必须变成它所照见的东西",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a reflection must become the thing it shows entered the archive as a clue rather than a label.",
+      "diary_zh": "「反光是否必须变成它所照见的东西」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-05/live/",
+      "archive_url": "../archive/2026/10/2026-10-05/",
+      "gif": "../archive/2026/10/2026-10-05/assets/visual-preview.gif",
+      "x": 22,
+      "y": -18,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3213,7 +3234,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 84
+      "count": 85
     },
     {
       "id": "maintenance",
@@ -3840,6 +3861,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-04"
     ],
     [
+      "2026-10-04",
+      "2026-10-05"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4166,6 +4191,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-02",
       "2026-10-04"
+    ],
+    [
+      "2026-10-03",
+      "2026-10-05"
     ],
     [
       "2026-05-07",

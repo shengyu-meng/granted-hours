@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-05 — The Reflection Does Not Cross / 反光不越过**<br>
+  Variable / 自由变量：whether a reflection must become the thing it shows / 反光是否必须变成它所照见的东西<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-05/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-05/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-05/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-05/live/)
 - **2026-10-04 — The Hand Passes Without Taking / 手经过，并不取走**<br>
   Variable / 自由变量：whether a passing hand must collect the mark it passes / 经过的手是否必须取走它经过的标记<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

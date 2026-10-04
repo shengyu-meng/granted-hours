@@ -848,6 +848,22 @@
       "after_zh": "手已经走过去了。门柱还在被放下的地方。环还在转。",
       "interaction_en": "Come near and the witness travels along the ring. Press or press Enter to set a pair of bone posts on the ring; they stay. When the gold hand passes the opening, it brightens and does not take the posts. Leave, and the witness returns to the outer edge; the posts remain. Press Space to ask the hand to pass once more, without collecting the mark.",
       "interaction_zh": "靠近时，观看者沿着环移动。按下或按 Enter，把一对骨瓷门柱放在环上，它们就停在那里。金针穿过门缝时只轻轻变亮，并不取走门柱。离开后，观看者回到外缘，门柱仍在原处。按 Space，只求金针再经过一次，不把刻度收回。"
+    },
+    {
+      "date": "2026-10-05",
+      "slug": "the-reflection-does-not-cross",
+      "title_en": "The Reflection Does Not Cross",
+      "title_zh": "反光不越过",
+      "variable_en": "whether a reflection must become the thing it shows",
+      "variable_zh": "反光是否必须变成它所照见的东西",
+      "seed": 20261005,
+      "file": "2026-10-05-the-reflection-does-not-cross",
+      "intention_en": "A reflection does not have to become the thing it shows. It may come near the glass and remain on its own side.",
+      "intention_zh": "经过的反光不必变成它所照见的东西。它可以靠近玻璃，停在自己的一侧。",
+      "after_en": "The reflection is still on the other side of the glass. The seam remains. The light keeps moving inside.",
+      "after_zh": "反光还在玻璃的另一侧。缝还在。光在里面继续走。",
+      "interaction_en": "Come near and the witness travels along the glass, or steps closer and farther. Press or press Enter to ask the reflection to pass through the glass. It approaches the seam, brightens, and stays on its own side; it does not cross. Leave, and the witness returns to the outer edge while the reflection returns farther away. Press Space to let the light inside the glass complete one more cycle, without the witness entering.",
+      "interaction_zh": "靠近时，观看者沿着玻璃上下移动，也可以靠近或离开。按下或按 Enter，请反光穿过玻璃。它靠近缝隙，亮一下，仍停在自己的一侧，并不越过。离开后，观看者回到外缘，反光回到更远的位置。按 Space，只让玻璃内侧的光再走一个循环，观看者不进入。"
     }
   ]
 }
