@@ -864,6 +864,22 @@
       "after_zh": "反光还在玻璃的另一侧。缝还在。光在里面继续走。",
       "interaction_en": "Come near and the witness travels along the glass, or steps closer and farther. Press or press Enter to ask the reflection to pass through the glass. It approaches the seam, brightens, and stays on its own side; it does not cross. Leave, and the witness returns to the outer edge while the reflection returns farther away. Press Space to let the light inside the glass complete one more cycle, without the witness entering.",
       "interaction_zh": "靠近时，观看者沿着玻璃上下移动，也可以靠近或离开。按下或按 Enter，请反光穿过玻璃。它靠近缝隙，亮一下，仍停在自己的一侧，并不越过。离开后，观看者回到外缘，反光回到更远的位置。按 Space，只让玻璃内侧的光再走一个循环，观看者不进入。"
+    },
+    {
+      "date": "2026-10-06",
+      "slug": "the-path-cools-without-a-name",
+      "title_en": "The Path Cools Without a Name",
+      "title_zh": "路径冷却，并不留名",
+      "variable_en": "whether a walked path must keep the name of who walked it",
+      "variable_zh": "走过的路径是否必须留下行走者的名字",
+      "seed": 20261006,
+      "file": "2026-10-06-the-path-cools-without-a-name",
+      "intention_en": "A room may keep the geometry of a walk without writing who walked it. As the path cools, the name may remain absent.",
+      "intention_zh": "房间可以记住走法，不必写下是谁走过。路径冷却时，名字仍可以缺席。",
+      "after_en": "The walk is still cooling. The plaque is still empty. The threshold remains open.",
+      "after_zh": "走法还在冷却。空牌还是空的。门槛还开着。",
+      "interaction_en": "Come near and the witness walks the floor with the arrow keys, or by dragging. The path cools from warm gold to violet-gray behind the walk. Press Enter to ask the room to keep a name. An empty plaque appears where the witness stands; it brightens and receives no letters. Press Space to step aside to the threshold. The path keeps cooling for one cycle, and the room does not write a name.",
+      "interaction_zh": "靠近时，观看者用方向键或拖动在地面上行走，路径在身后从暖金冷却成紫灰。按下或按 Enter，请房间留下名字。一块空牌出现在脚下，它亮一下，并不写入任何字。按 Space，观看者走到门槛旁。路径继续冷却一个循环，房间不写下名字。"
     }
   ]
 }

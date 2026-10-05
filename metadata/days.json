@@ -3453,5 +3453,29 @@
     },
     "bgm": "archive/2026/10/2026-10-05/live/2026-10-05-the-reflection-does-not-cross-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-05/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-06",
+    "source_date": "2026-10-05",
+    "crystallization_date": "2026-10-06",
+    "title_en": "The Path Cools Without a Name",
+    "title_zh": "路径冷却，并不留名",
+    "type": "live",
+    "seed": 20261006,
+    "preview": "archive/2026/10/2026-10-06/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-06/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-06/",
+    "live_url": "archive/2026/10/2026-10-06/live/",
+    "variable_en": "whether a walked path must keep the name of who walked it",
+    "variable_zh": "走过的路径是否必须留下行走者的名字",
+    "brief_en": "A room may keep the geometry of a walk without writing who walked it. As the path cools, the name may remain absent.",
+    "brief_zh": "房间可以记住走法，不必写下是谁走过。路径冷却时，名字仍可以缺席。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-06/live/2026-10-06-the-path-cools-without-a-name-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-06/assets/visual-preview.gif"
   }
 ]
