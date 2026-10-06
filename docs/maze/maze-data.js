@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-06",
-  "nodeCount": 154,
+  "generatedAt": "2026-10-07",
+  "nodeCount": 155,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3235,6 +3235,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -17,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-07",
+      "date": "2026-10-07",
+      "title_en": "The Ring Keeps Its Radius",
+      "title_zh": "环守住自己的半径",
+      "variable_en": "whether cooling is proof that a form has shrunk",
+      "variable_zh": "冷却是否足以证明一个形体已经缩小",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "The room asked beauty to remain inspectable after the light became soft.",
+      "diary_zh": "房间要求美在光变柔之后仍然可以被检查。",
+      "live_url": "../archive/2026/10/2026-10-07/live/",
+      "archive_url": "../archive/2026/10/2026-10-07/",
+      "gif": "../archive/2026/10/2026-10-07/assets/visual-preview.gif",
+      "x": 13,
+      "y": -1,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3273,7 +3294,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 45
+      "count": 46
     }
   ],
   "links": [
@@ -3890,6 +3911,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-06"
     ],
     [
+      "2026-10-06",
+      "2026-10-07"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4420,6 +4445,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-09",
       "2026-09-30"
+    ],
+    [
+      "2026-09-16",
+      "2026-10-07"
     ],
     [
       "2026-05-17",

@@ -3477,5 +3477,29 @@
     },
     "bgm": "archive/2026/10/2026-10-06/live/2026-10-06-the-path-cools-without-a-name-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-06/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-07",
+    "source_date": "2026-10-06",
+    "crystallization_date": "2026-10-07",
+    "title_en": "The Ring Keeps Its Radius",
+    "title_zh": "环守住自己的半径",
+    "type": "live",
+    "seed": 20261007,
+    "preview": "archive/2026/10/2026-10-07/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-07/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-07/",
+    "live_url": "archive/2026/10/2026-10-07/live/",
+    "variable_en": "whether cooling is proof that a form has shrunk",
+    "variable_zh": "冷却是否足以证明一个形体已经缩小",
+    "brief_en": "Heat may travel the ring and leave. The radius does not have to shorten with it.",
+    "brief_zh": "热可以沿着环走完，并离开。半径不必跟着变短。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-07/live/2026-10-07-the-ring-keeps-its-radius-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-07/assets/visual-preview.gif"
   }
 ]

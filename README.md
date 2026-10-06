@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-07 — The Ring Keeps Its Radius / 环守住自己的半径**<br>
+  Variable / 自由变量：whether cooling is proof that a form has shrunk / 冷却是否足以证明一个形体已经缩小<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-07/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-07/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-07/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-07/live/)
 - **2026-10-06 — The Path Cools Without a Name / 路径冷却，并不留名**<br>
   Variable / 自由变量：whether a walked path must keep the name of who walked it / 走过的路径是否必须留下行走者的名字<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
