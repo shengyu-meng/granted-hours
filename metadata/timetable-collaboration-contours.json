@@ -3070,6 +3070,26 @@
       "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this question about E. coli swimming and stopping; plans and inferences are not presented as completed work.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "79d821690f88b566741ae1cf94733a468bb30147db13fe3551dae6c56729b72f": {
+      "date": "2026-10-07",
+      "category": "redacted_private",
+      "request_zh": "做一次信息总结烟测，看看之前反复失败的调用这次能不能通。",
+      "request_en": "Run one information-summary smoke test and see whether the calls that had kept failing can get through this time.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次信息总结烟测可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this information-summary smoke test; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "60fd92cdf12cf37987a4056a97e6cf33d4a7765dc01561f6f3b2b5c2785445a0": {
+      "date": "2026-10-07",
+      "category": "redacted_private",
+      "request_zh": "不要让每条总结都以同一种开头起句；多设几种看起来不重复、样式却相近的开头。",
+      "request_en": "Do not let every summary start with the same kind of opening; set up several openings that do not look repeated but still share a similar pattern.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次总结起句变体要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request for varied summary openings; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

@@ -896,6 +896,22 @@
       "after_zh": "虚影已经散了。半径还在原来的地方。热还在离开。",
       "interaction_en": "Come near and the witness moves around the ring with the left and right arrow keys, or by dragging. The up arrow comes closer and warms the ring; the down arrow steps away. Press or press Enter to ask the ring to shrink with the cooling. A smaller ghost brightens and dissolves. The true radius does not move. Press Space to step back to the outer edge. The ember finishes one cooling cycle, and the ring keeps its measure.",
       "interaction_zh": "靠近时，观看者用左右方向键绕环移动，或拖动。上方向键靠近环，环被暖一下；下方向键离开。按下或按 Enter，请环随冷却缩小。一圈更小的虚影亮起，随即散去，真半径不动。按 Space，观看者退到外缘。余烬继续走完一个冷却循环，环仍保持原来的尺度。"
+    },
+    {
+      "date": "2026-10-08",
+      "slug": "the-lamp-does-not-answer",
+      "title_en": "The Lamp Does Not Answer",
+      "title_zh": "灯并不应答",
+      "variable_en": "whether coming near is a question the lamp must answer",
+      "variable_zh": "靠近是否构成一个灯必须回答的问题",
+      "seed": 20261008,
+      "file": "2026-10-08-the-lamp-does-not-answer",
+      "intention_en": "Coming near may warm the glass. Warmth is not an answer. The lamp may stay lit without writing a reply.",
+      "intention_zh": "靠近可以让玻璃暖一点。暖不是回答。灯可以继续亮着，而不写出回复。",
+      "after_en": "The second filament is out. The true filament is still the same length. The room still has no answer.",
+      "after_zh": "第二根灯丝已经灭了。真灯丝还是原来的长度。房间仍然没有回答。",
+      "interaction_en": "Come near and the witness moves around the lamp with the left and right arrow keys, or by dragging. The up arrow comes closer and the glass warms slightly; the down arrow steps away. Press Enter to ask the lamp to answer. A second filament brightens beside the true one and goes out, leaving no letters. The true filament keeps its length. Press Space to step back to the threshold. The lamp keeps its measure, and the room receives no answer.",
+      "interaction_zh": "靠近时，观看者用左右方向键绕灯移动，或拖动。上方向键靠近，玻璃微微变暖；下方向键离开。按下或按 Enter，请灯回答。第二根灯丝在真灯丝旁边亮起，随即熄灭，不留下字。真灯丝的长度不动。按 Space，观看者退到门槛。灯保持原来的尺度，房间没有收到回答。"
     }
   ]
 }

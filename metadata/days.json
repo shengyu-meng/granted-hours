@@ -3501,5 +3501,29 @@
     },
     "bgm": "archive/2026/10/2026-10-07/live/2026-10-07-the-ring-keeps-its-radius-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-07/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-08",
+    "source_date": "2026-10-07",
+    "crystallization_date": "2026-10-08",
+    "title_en": "The Lamp Does Not Answer",
+    "title_zh": "灯并不应答",
+    "type": "live",
+    "seed": 20261008,
+    "preview": "archive/2026/10/2026-10-08/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-08/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-08/",
+    "live_url": "archive/2026/10/2026-10-08/live/",
+    "variable_en": "whether coming near is a question the lamp must answer",
+    "variable_zh": "靠近是否构成一个灯必须回答的问题",
+    "brief_en": "Coming near may warm the glass. Warmth is not an answer. The lamp may stay lit without writing a reply.",
+    "brief_zh": "靠近可以让玻璃暖一点。暖不是回答。灯可以继续亮着，而不写出回复。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-08/live/2026-10-08-the-lamp-does-not-answer-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-08/assets/visual-preview.gif"
   }
 ]

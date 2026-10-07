@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-07",
-  "nodeCount": 155,
+  "generatedAt": "2026-10-08",
+  "nodeCount": 156,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3256,6 +3256,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -1,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-08",
+      "date": "2026-10-08",
+      "title_en": "The Lamp Does Not Answer",
+      "title_zh": "灯并不应答",
+      "variable_en": "whether coming near is a question the lamp must answer",
+      "variable_zh": "靠近是否构成一个灯必须回答的问题",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether coming near is a question the lamp must answer entered the archive as a clue rather than a label.",
+      "diary_zh": "「靠近是否构成一个灯必须回答的问题」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-08/live/",
+      "archive_url": "../archive/2026/10/2026-10-08/",
+      "gif": "../archive/2026/10/2026-10-08/assets/visual-preview.gif",
+      "x": 15,
+      "y": -17,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3276,7 +3297,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 86
+      "count": 87
     },
     {
       "id": "maintenance",
@@ -3915,6 +3936,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-07"
     ],
     [
+      "2026-10-07",
+      "2026-10-08"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4249,6 +4274,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-04",
       "2026-10-06"
+    ],
+    [
+      "2026-10-05",
+      "2026-10-08"
     ],
     [
       "2026-05-07",

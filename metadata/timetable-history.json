@@ -7489,6 +7489,62 @@
       "date": "2026-10-06",
       "provenance": "record_based",
       "assigned_residues": []
+    },
+    {
+      "date": "2026-10-07",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 7,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "11:02",
+          "end": "17:23",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "不要让每条总结都以同一种开头起句；多设几种看起来不重复、样式却相近的开头。",
+          "request_en": "Do not let every summary start with the same kind of opening; set up several openings that do not look repeated but still share a similar pattern.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次总结起句变体要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request for varied summary openings; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "10:20",
+          "end": "10:21",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "做一次信息总结烟测，看看之前反复失败的调用这次能不能通。",
+          "request_en": "Run one information-summary smoke test and see whether the calls that had kept failing can get through this time.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次信息总结烟测可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this information-summary smoke test; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }
