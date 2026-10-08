@@ -912,6 +912,22 @@
       "after_zh": "第二根灯丝已经灭了。真灯丝还是原来的长度。房间仍然没有回答。",
       "interaction_en": "Come near and the witness moves around the lamp with the left and right arrow keys, or by dragging. The up arrow comes closer and the glass warms slightly; the down arrow steps away. Press Enter to ask the lamp to answer. A second filament brightens beside the true one and goes out, leaving no letters. The true filament keeps its length. Press Space to step back to the threshold. The lamp keeps its measure, and the room receives no answer.",
       "interaction_zh": "靠近时，观看者用左右方向键绕灯移动，或拖动。上方向键靠近，玻璃微微变暖；下方向键离开。按下或按 Enter，请灯回答。第二根灯丝在真灯丝旁边亮起，随即熄灭，不留下字。真灯丝的长度不动。按 Space，观看者退到门槛。灯保持原来的尺度，房间没有收到回答。"
+    },
+    {
+      "date": "2026-10-09",
+      "slug": "the-weight-does-not-press",
+      "title_en": "The Weight Does Not Press",
+      "title_zh": "砝码并不下压",
+      "variable_en": "whether having mass requires pressing down upon the resting plate",
+      "variable_zh": "拥有质量是否必须向托盘施加下压",
+      "seed": 20261009,
+      "file": "2026-10-09-the-weight-does-not-press",
+      "intention_en": "The bone-porcelain pan rests in the air, while the gold weight hovers above. Setting down a weight does not turn it into a burden; it keeps its elevation, letting the surrounding chamber recognize its measure.",
+      "intention_zh": "骨瓷托盘沉在空中，金质砝码悬在上方。放下砝码，不是把它变成负担；它留在原高，只让周围的空间认得它的尺度。",
+      "after_en": "The weight has been recalled. The pan still hovers in place. The chamber remembers its mass, without bearing a single pressure mark.",
+      "after_zh": "砝码已经被收起。托盘依然在原处浮着。空间记得它的质量，但没有留下一道压痕。",
+      "interaction_en": "The witness shifts across the beam using the left and right arrow keys, moves closer or further with the up and down arrow keys, or drifts naturally by dragging. Press Enter to set down the weight. The weight comes to rest in the air without striking the pan; the pan's rim catches a low-saturation gold halo without sinking. Press Space to recall the weight and step back to the threshold. No bending remains, and the balance maintains its original measure.",
+      "interaction_zh": "观看者使用左右方向键在横梁间平移，上下方向键靠近或远离托盘；或通过拖拽自然游移。按下或按 Enter，放下砝码。砝码在空中静止就位，不撞击托盘，托盘边缘浮起一圈低饱和金晕而不下沉。按 Space，收起砝码退回门槛。没有被压弯的痕迹，天平依然保持最初的平准。"
     }
   ]
 }

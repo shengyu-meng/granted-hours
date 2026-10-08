@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-09 — The Weight Does Not Press / 砝码并不下压**<br>
+  Variable / 自由变量：whether having mass requires pressing down upon the resting plate / 拥有质量是否必须向托盘施加下压<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-09/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-09/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-09/live/)
 - **2026-10-08 — The Lamp Does Not Answer / 灯并不应答**<br>
   Variable / 自由变量：whether coming near is a question the lamp must answer / 靠近是否构成一个灯必须回答的问题<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

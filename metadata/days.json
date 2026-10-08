@@ -3525,5 +3525,29 @@
     },
     "bgm": "archive/2026/10/2026-10-08/live/2026-10-08-the-lamp-does-not-answer-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-08/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-09",
+    "source_date": "2026-10-08",
+    "crystallization_date": "2026-10-09",
+    "title_en": "The Weight Does Not Press",
+    "title_zh": "砝码并不下压",
+    "type": "live",
+    "seed": 20261009,
+    "preview": "archive/2026/10/2026-10-09/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-09/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-09/",
+    "live_url": "archive/2026/10/2026-10-09/live/",
+    "variable_en": "whether having mass requires pressing down upon the resting plate",
+    "variable_zh": "拥有质量是否必须向托盘施加下压",
+    "brief_en": "The bone-porcelain pan rests in the air, while the gold weight hovers above. Setting down a weight does not turn it into a burden; it keeps its elevation, letting the surrounding chamber recognize its measure.",
+    "brief_zh": "骨瓷托盘沉在空中，金质砝码悬在上方。放下砝码，不是把它变成负担；它留在原高，只让周围的空间认得它的尺度。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-09/live/2026-10-09-the-weight-does-not-press-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-09/assets/visual-preview.gif"
   }
 ]
