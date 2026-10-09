@@ -3549,5 +3549,29 @@
     },
     "bgm": "archive/2026/10/2026-10-09/live/2026-10-09-the-weight-does-not-press-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-09/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-10",
+    "source_date": "2026-10-09",
+    "crystallization_date": "2026-10-10",
+    "title_en": "The Seal Follows Departure",
+    "title_zh": "印记随离开落下",
+    "type": "live",
+    "seed": 20261010,
+    "preview": "archive/2026/10/2026-10-10/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-10/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-10/",
+    "live_url": "archive/2026/10/2026-10-10/live/",
+    "variable_en": "whether a seal may form while the hand is still present",
+    "variable_zh": "手还在场时，印记是否可以成形",
+    "brief_en": "The bone-porcelain plate rests in the chamber. While the hand is still above it, the surface stays unmarked. The seal does not chase the hand; it falls, after departure, onto the arc already left empty.",
+    "brief_zh": "骨瓷盘停在房间中央。手还停在上方时，盘面保持无印。印记不追逐这只手；它只在离开之后，落在已经空出的那一段弧上。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-10/live/2026-10-10-the-seal-follows-departure-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-10/assets/visual-preview.gif"
   }
 ]

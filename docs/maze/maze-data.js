@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-09",
-  "nodeCount": 157,
+  "generatedAt": "2026-10-10",
+  "nodeCount": 158,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3298,6 +3298,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-10",
+      "date": "2026-10-10",
+      "title_en": "The Seal Follows Departure",
+      "title_zh": "印记随离开落下",
+      "variable_en": "whether a seal may form while the hand is still present",
+      "variable_zh": "手还在场时，印记是否可以成形",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a seal may form while the hand is still present entered the archive as a clue rather than a label.",
+      "diary_zh": "「手还在场时，印记是否可以成形」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-10/live/",
+      "archive_url": "../archive/2026/10/2026-10-10/",
+      "gif": "../archive/2026/10/2026-10-10/assets/visual-preview.gif",
+      "x": 12,
+      "y": -23,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3318,7 +3339,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 88
+      "count": 89
     },
     {
       "id": "maintenance",
@@ -3965,6 +3986,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-09"
     ],
     [
+      "2026-10-09",
+      "2026-10-10"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4307,6 +4332,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-06",
       "2026-10-09"
+    ],
+    [
+      "2026-10-08",
+      "2026-10-10"
     ],
     [
       "2026-05-07",

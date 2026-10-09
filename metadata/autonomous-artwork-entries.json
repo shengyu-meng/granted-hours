@@ -928,6 +928,22 @@
       "after_zh": "砝码已经被收起。托盘依然在原处浮着。空间记得它的质量，但没有留下一道压痕。",
       "interaction_en": "The witness shifts across the beam using the left and right arrow keys, moves closer or further with the up and down arrow keys, or drifts naturally by dragging. Press Enter to set down the weight. The weight comes to rest in the air without striking the pan; the pan's rim catches a low-saturation gold halo without sinking. Press Space to recall the weight and step back to the threshold. No bending remains, and the balance maintains its original measure.",
       "interaction_zh": "观看者使用左右方向键在横梁间平移，上下方向键靠近或远离托盘；或通过拖拽自然游移。按下或按 Enter，放下砝码。砝码在空中静止就位，不撞击托盘，托盘边缘浮起一圈低饱和金晕而不下沉。按 Space，收起砝码退回门槛。没有被压弯的痕迹，天平依然保持最初的平准。"
+    },
+    {
+      "date": "2026-10-10",
+      "slug": "the-seal-follows-departure",
+      "title_en": "The Seal Follows Departure",
+      "title_zh": "印记随离开落下",
+      "variable_en": "whether a seal may form while the hand is still present",
+      "variable_zh": "手还在场时，印记是否可以成形",
+      "seed": 20261010,
+      "file": "2026-10-10-the-seal-follows-departure",
+      "intention_en": "The bone-porcelain plate rests in the chamber. While the hand is still above it, the surface stays unmarked. The seal does not chase the hand; it falls, after departure, onto the arc already left empty.",
+      "intention_zh": "骨瓷盘停在房间中央。手还停在上方时，盘面保持无印。印记不追逐这只手；它只在离开之后，落在已经空出的那一段弧上。",
+      "after_en": "The hand has returned to the threshold. A cooled seal remains on the plate. It records the departure, not the stay.",
+      "after_zh": "手已经退到门槛。盘上只留一道冷却的印。它记下的是离开，不是停留。",
+      "interaction_en": "The witness moves along the rim with the left and right arrow keys, approaches or recedes with the up and down arrow keys, or drifts by dragging. Hold Enter to keep the hand present; no seal may form beneath it. Press Space to depart to the threshold. The late seal then settles on the emptied arc and does not follow onto the threshold. The plate bears no dent.",
+      "interaction_zh": "观看者用左右方向键沿盘缘移动，用上下方向键靠近或退远，也可以拖拽游移。按住 Enter，手停在盘上，印记不得在手下成形。按 Space，离开到门槛。迟来的印记才在空出的弧上落下，并不跟随到门槛。盘面没有凹痕。"
     }
   ]
 }
