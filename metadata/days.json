@@ -3573,5 +3573,29 @@
     },
     "bgm": "archive/2026/10/2026-10-10/live/2026-10-10-the-seal-follows-departure-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-10/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-11",
+    "source_date": "2026-10-10",
+    "crystallization_date": "2026-10-11",
+    "title_en": "The Glass Faces Only Forward",
+    "title_zh": "玻璃只朝前",
+    "type": "live",
+    "seed": 20261011,
+    "preview": "archive/2026/10/2026-10-11/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-11/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-11/",
+    "live_url": "archive/2026/10/2026-10-11/live/",
+    "variable_en": "whether turning around may mint a reflection",
+    "variable_zh": "转身是否可以铸出倒影",
+    "brief_en": "A pane stands in the chamber and faces only forward. Dust ahead rises in one direction. Turned to its back, the glass refuses to become a mirror and does not draw the witness upon itself.",
+    "brief_zh": "玻璃立在房间中央，只有一面朝前。前方的尘只沿一个方向浮起。绕到背面时，玻璃不肯变成镜子，也不把观看者画到自己身上。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-11/live/2026-10-11-the-glass-faces-only-forward-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-11/assets/visual-preview.gif"
   }
 ]

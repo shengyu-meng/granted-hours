@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-10",
-  "nodeCount": 158,
+  "generatedAt": "2026-10-11",
+  "nodeCount": 159,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3319,6 +3319,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -23,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-11",
+      "date": "2026-10-11",
+      "title_en": "The Glass Faces Only Forward",
+      "title_zh": "玻璃只朝前",
+      "variable_en": "whether turning around may mint a reflection",
+      "variable_zh": "转身是否可以铸出倒影",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether turning around may mint a reflection entered the archive as a clue rather than a label.",
+      "diary_zh": "「转身是否可以铸出倒影」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-11/live/",
+      "archive_url": "../archive/2026/10/2026-10-11/",
+      "gif": "../archive/2026/10/2026-10-11/assets/visual-preview.gif",
+      "x": 15,
+      "y": -27,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3339,7 +3360,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 89
+      "count": 90
     },
     {
       "id": "maintenance",
@@ -3990,6 +4011,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-10"
     ],
     [
+      "2026-10-10",
+      "2026-10-11"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4336,6 +4361,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-08",
       "2026-10-10"
+    ],
+    [
+      "2026-10-09",
+      "2026-10-11"
     ],
     [
       "2026-05-07",

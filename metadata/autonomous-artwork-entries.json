@@ -944,6 +944,22 @@
       "after_zh": "手已经退到门槛。盘上只留一道冷却的印。它记下的是离开，不是停留。",
       "interaction_en": "The witness moves along the rim with the left and right arrow keys, approaches or recedes with the up and down arrow keys, or drifts by dragging. Hold Enter to keep the hand present; no seal may form beneath it. Press Space to depart to the threshold. The late seal then settles on the emptied arc and does not follow onto the threshold. The plate bears no dent.",
       "interaction_zh": "观看者用左右方向键沿盘缘移动，用上下方向键靠近或退远，也可以拖拽游移。按住 Enter，手停在盘上，印记不得在手下成形。按 Space，离开到门槛。迟来的印记才在空出的弧上落下，并不跟随到门槛。盘面没有凹痕。"
+    },
+    {
+      "date": "2026-10-11",
+      "slug": "the-glass-faces-only-forward",
+      "title_en": "The Glass Faces Only Forward",
+      "title_zh": "玻璃只朝前",
+      "variable_en": "whether turning around may mint a reflection",
+      "variable_zh": "转身是否可以铸出倒影",
+      "seed": 20261011,
+      "file": "2026-10-11-the-glass-faces-only-forward",
+      "intention_en": "A pane stands in the chamber and faces only forward. Dust ahead rises in one direction. Turned to its back, the glass refuses to become a mirror and does not draw the witness upon itself.",
+      "intention_zh": "玻璃立在房间中央，只有一面朝前。前方的尘只沿一个方向浮起。绕到背面时，玻璃不肯变成镜子，也不把观看者画到自己身上。",
+      "after_en": "No figure remains on the back. The dust still rises only forward. The glass remembers a direction, not a turning back.",
+      "after_zh": "背面没有留下人影。尘仍只向前浮起。玻璃记住的是方向，不是回头。",
+      "interaction_en": "The witness orbits the pane with the left and right arrow keys, approaches or recedes with the up and down arrow keys, or drifts by dragging. Hold Enter to face the front; the forward field is visible and the reflection count stays at zero. Press Space to step behind; the same forward direction is seen from the back, the pane darkens, and it still does not reflect.",
+      "interaction_zh": "观看者用左右方向键绕玻璃转动，用上下方向键靠近或退远，也可以拖拽游移。按住 Enter，停在正面，前方的场可见，倒影保持为零。按 Space，绕到背面，同一向前的方向从背后看去，玻璃变暗，仍然不反射。"
     }
   ]
 }
