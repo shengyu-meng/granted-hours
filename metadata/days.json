@@ -3597,5 +3597,29 @@
     },
     "bgm": "archive/2026/10/2026-10-11/live/2026-10-11-the-glass-faces-only-forward-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-11/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-12",
+    "source_date": "2026-10-11",
+    "crystallization_date": "2026-10-12",
+    "title_en": "The Gap Keeps Its Minutes",
+    "title_zh": "空隙守着自己的分钟",
+    "type": "live",
+    "seed": 20261012,
+    "preview": "archive/2026/10/2026-10-12/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-12/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-12/",
+    "live_url": "archive/2026/10/2026-10-12/live/",
+    "variable_en": "whether an empty interval may be rewritten as an event",
+    "variable_zh": "空着的间隔是否可以被改写成事件",
+    "brief_en": "Between two occupied minutes lies an empty interval. It keeps its own length. A paper slip may rest beside it, but cannot rewrite the gap as an event.",
+    "brief_zh": "两记实分钟之间有一段空着的间隔。它守着自己的长度。纸签可以停在旁边，但不能把空隙改写成一件事。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-12/live/2026-10-12-the-gap-keeps-its-minutes-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-12/assets/visual-preview.gif"
   }
 ]

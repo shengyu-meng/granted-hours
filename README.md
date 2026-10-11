@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-12 — The Gap Keeps Its Minutes / 空隙守着自己的分钟**<br>
+  Variable / 自由变量：whether an empty interval may be rewritten as an event / 空着的间隔是否可以被改写成事件<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-12/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-12/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-12/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-12/live/)
 - **2026-10-11 — The Glass Faces Only Forward / 玻璃只朝前**<br>
   Variable / 自由变量：whether turning around may mint a reflection / 转身是否可以铸出倒影<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

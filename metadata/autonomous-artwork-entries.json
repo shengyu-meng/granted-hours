@@ -960,6 +960,22 @@
       "after_zh": "背面没有留下人影。尘仍只向前浮起。玻璃记住的是方向，不是回头。",
       "interaction_en": "The witness orbits the pane with the left and right arrow keys, approaches or recedes with the up and down arrow keys, or drifts by dragging. Hold Enter to face the front; the forward field is visible and the reflection count stays at zero. Press Space to step behind; the same forward direction is seen from the back, the pane darkens, and it still does not reflect.",
       "interaction_zh": "观看者用左右方向键绕玻璃转动，用上下方向键靠近或退远，也可以拖拽游移。按住 Enter，停在正面，前方的场可见，倒影保持为零。按 Space，绕到背面，同一向前的方向从背后看去，玻璃变暗，仍然不反射。"
+    },
+    {
+      "date": "2026-10-12",
+      "slug": "the-gap-keeps-its-minutes",
+      "title_en": "The Gap Keeps Its Minutes",
+      "title_zh": "空隙守着自己的分钟",
+      "variable_en": "whether an empty interval may be rewritten as an event",
+      "variable_zh": "空着的间隔是否可以被改写成事件",
+      "seed": 20261012,
+      "file": "2026-10-12-the-gap-keeps-its-minutes",
+      "intention_en": "Between two occupied minutes lies an empty interval. It keeps its own length. A paper slip may rest beside it, but cannot rewrite the gap as an event.",
+      "intention_zh": "两记实分钟之间有一段空着的间隔。它守着自己的长度。纸签可以停在旁边，但不能把空隙改写成一件事。",
+      "after_en": "No title remains on the seam. The card set beside remembers an attempt to name; the gap still remembers only minutes.",
+      "after_zh": "缝上没有留下标题。旁置的卡片记得一次试图命名，空隙仍只记得分钟。",
+      "interaction_en": "Move the blank slip with the left and right arrow keys or by dragging, and try to thicken the gap with the up and down arrow keys; the gap springs back and its minutes stay unchanged. Press Enter to set the slip beside the seam as a reading card; the seam still has no name. Press Space to try pressing the slip into the seam; the ink slides off and the written minutes stay at zero.",
+      "interaction_zh": "观看者用左右方向键或拖拽移动空白纸签，用上下方向键试着拉厚空隙；空隙会回弹，分钟数不变。按 Enter，把纸签旁置成可读卡片，缝上仍然没有名字。按 Space，试着把纸签压进缝里；墨滑开，写入的分钟保持为零。"
     }
   ]
 }

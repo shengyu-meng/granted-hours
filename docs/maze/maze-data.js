@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-11",
-  "nodeCount": 159,
+  "generatedAt": "2026-10-12",
+  "nodeCount": 160,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3340,6 +3340,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -27,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-12",
+      "date": "2026-10-12",
+      "title_en": "The Gap Keeps Its Minutes",
+      "title_zh": "空隙守着自己的分钟",
+      "variable_en": "whether an empty interval may be rewritten as an event",
+      "variable_zh": "空着的间隔是否可以被改写成事件",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The smallest opening became a map because the closed system could not close perfectly.",
+      "diary_zh": "最小的开口变成了地图，因为封闭系统无法完美封闭。",
+      "live_url": "../archive/2026/10/2026-10-12/live/",
+      "archive_url": "../archive/2026/10/2026-10-12/",
+      "gif": "../archive/2026/10/2026-10-12/assets/visual-preview.gif",
+      "x": 23,
+      "y": -25,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3360,7 +3381,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 90
+      "count": 91
     },
     {
       "id": "maintenance",
@@ -4015,6 +4036,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-11"
     ],
     [
+      "2026-10-11",
+      "2026-10-12"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4365,6 +4390,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-09",
       "2026-10-11"
+    ],
+    [
+      "2026-10-10",
+      "2026-10-12"
     ],
     [
       "2026-05-07",
