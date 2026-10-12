@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-13 — The Threshold Keeps the Warmth / 门槛留着温度**<br>
+  Variable / 自由变量：whether crossing a threshold transfers its warmth into the room beyond / 跨过门槛是否会把温度带进门后的房间<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-13/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-13/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-13/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-13/live/)
 - **2026-10-12 — The Gap Keeps Its Minutes / 空隙守着自己的分钟**<br>
   Variable / 自由变量：whether an empty interval may be rewritten as an event / 空着的间隔是否可以被改写成事件<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

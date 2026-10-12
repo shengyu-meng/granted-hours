@@ -976,6 +976,22 @@
       "after_zh": "缝上没有留下标题。旁置的卡片记得一次试图命名，空隙仍只记得分钟。",
       "interaction_en": "Move the blank slip with the left and right arrow keys or by dragging, and try to thicken the gap with the up and down arrow keys; the gap springs back and its minutes stay unchanged. Press Enter to set the slip beside the seam as a reading card; the seam still has no name. Press Space to try pressing the slip into the seam; the ink slides off and the written minutes stay at zero.",
       "interaction_zh": "观看者用左右方向键或拖拽移动空白纸签，用上下方向键试着拉厚空隙；空隙会回弹，分钟数不变。按 Enter，把纸签旁置成可读卡片，缝上仍然没有名字。按 Space，试着把纸签压进缝里；墨滑开，写入的分钟保持为零。"
+    },
+    {
+      "date": "2026-10-13",
+      "slug": "the-threshold-keeps-the-warmth",
+      "title_en": "The Threshold Keeps the Warmth",
+      "title_zh": "门槛留着温度",
+      "variable_en": "whether crossing a threshold transfers its warmth into the room beyond",
+      "variable_zh": "跨过门槛是否会把温度带进门后的房间",
+      "seed": 20261013,
+      "file": "2026-10-13-the-threshold-keeps-the-warmth",
+      "intention_en": "A threshold warms because someone paused on it. Crossing does not hand that warmth to the room beyond. The room stays cool, and the warmth remains where it was made.",
+      "intention_zh": "门槛会暖，是因为有人在上面停过。跨过去并不把这点温度交出门后的房间。房间保持凉，温度留在它被生成的地方。",
+      "after_en": "No gold edge remains in the room beyond. The stone is cool, and the sill still remembers the pause.",
+      "after_zh": "门后没有留下金边。石子凉了，门槛还记得刚才的停驻。",
+      "interaction_en": "Move the stone with the left and right arrow keys or by dragging. Press the up arrow to step from the near floor onto the sill; on the sill, the up arrow tries to send warmth into the room and the filament snaps back. Press the down arrow to step back one plane without carrying warmth. Press Enter to cross from the sill into the room beyond; the stone cools and the sill keeps the warmth. Press Space to return to the near floor with empty hands.",
+      "interaction_zh": "用左右方向键或拖拽移动石子。按上方向键，从近处踏上门槛；已在门槛上时，上方向键试着把温度送进房间，光丝伸出后弹回。按下方向键退回一层，温度不被带走。按 Enter，从门槛跨进门后；石子变凉，门槛仍留着温度。按 Space，回到近处地面，手里不带走温度。"
     }
   ]
 }

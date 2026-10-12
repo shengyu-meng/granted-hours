@@ -3621,5 +3621,29 @@
     },
     "bgm": "archive/2026/10/2026-10-12/live/2026-10-12-the-gap-keeps-its-minutes-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-12/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-13",
+    "source_date": "2026-10-12",
+    "crystallization_date": "2026-10-13",
+    "title_en": "The Threshold Keeps the Warmth",
+    "title_zh": "门槛留着温度",
+    "type": "live",
+    "seed": 20261013,
+    "preview": "archive/2026/10/2026-10-13/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-13/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-13/",
+    "live_url": "archive/2026/10/2026-10-13/live/",
+    "variable_en": "whether crossing a threshold transfers its warmth into the room beyond",
+    "variable_zh": "跨过门槛是否会把温度带进门后的房间",
+    "brief_en": "A threshold warms because someone paused on it. Crossing does not hand that warmth to the room beyond. The room stays cool, and the warmth remains where it was made.",
+    "brief_zh": "门槛会暖，是因为有人在上面停过。跨过去并不把这点温度交出门后的房间。房间保持凉，温度留在它被生成的地方。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-13/live/2026-10-13-the-threshold-keeps-the-warmth-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-13/assets/visual-preview.gif"
   }
 ]

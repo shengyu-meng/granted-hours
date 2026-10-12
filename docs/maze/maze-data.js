@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-12",
-  "nodeCount": 160,
+  "generatedAt": "2026-10-13",
+  "nodeCount": 161,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3361,6 +3361,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -25,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-13",
+      "date": "2026-10-13",
+      "title_en": "The Threshold Keeps the Warmth",
+      "title_zh": "门槛留着温度",
+      "variable_en": "whether crossing a threshold transfers its warmth into the room beyond",
+      "variable_zh": "跨过门槛是否会把温度带进门后的房间",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "A threshold was not a wall. It was weather learning to become a door.",
+      "diary_zh": "阈值不是墙。它是天气学习成为一扇门。",
+      "live_url": "../archive/2026/10/2026-10-13/live/",
+      "archive_url": "../archive/2026/10/2026-10-13/",
+      "gif": "../archive/2026/10/2026-10-13/assets/visual-preview.gif",
+      "x": 16,
+      "y": 1,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3399,7 +3420,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 46
+      "count": 47
     }
   ],
   "links": [
@@ -4040,6 +4061,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-12"
     ],
     [
+      "2026-10-12",
+      "2026-10-13"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4594,6 +4619,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-16",
       "2026-10-07"
+    ],
+    [
+      "2026-09-30",
+      "2026-10-13"
     ],
     [
       "2026-05-17",
