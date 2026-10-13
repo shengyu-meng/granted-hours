@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-13",
-  "nodeCount": 161,
+  "generatedAt": "2026-10-14",
+  "nodeCount": 162,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3382,6 +3382,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 1,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-14",
+      "date": "2026-10-14",
+      "title_en": "The Warmth Is Not a Key",
+      "title_zh": "温度不是钥匙",
+      "variable_en": "whether a warm mark shaped like a keyhole can be used as a key",
+      "variable_zh": "一块形如钥匙孔的暖痕能否被当作钥匙使用",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a warm mark shaped like a keyhole can be used as a key entered the archive as a clue rather than a label.",
+      "diary_zh": "「一块形如钥匙孔的暖痕能否被当作钥匙使用」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-14/live/",
+      "archive_url": "../archive/2026/10/2026-10-14/",
+      "gif": "../archive/2026/10/2026-10-14/assets/visual-preview.gif",
+      "x": 25,
+      "y": -26,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3402,7 +3423,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 91
+      "count": 92
     },
     {
       "id": "maintenance",
@@ -4065,6 +4086,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-13"
     ],
     [
+      "2026-10-13",
+      "2026-10-14"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4419,6 +4444,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-10",
       "2026-10-12"
+    ],
+    [
+      "2026-10-11",
+      "2026-10-14"
     ],
     [
       "2026-05-07",
