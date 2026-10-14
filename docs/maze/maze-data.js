@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-14",
-  "nodeCount": 162,
+  "generatedAt": "2026-10-15",
+  "nodeCount": 163,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3403,6 +3403,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -26,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-15",
+      "date": "2026-10-15",
+      "title_en": "The Flash Does Not Turn",
+      "title_zh": "闪光并不转动",
+      "variable_en": "whether a flash, once written down, can be counted as the latch having turned",
+      "variable_zh": "一次被写下来的闪光，能否被算作锁舌已经转动",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a flash, once written down, can be counted as the latch having turned entered the archive as a clue rather than a label.",
+      "diary_zh": "「一次被写下来的闪光，能否被算作锁舌已经转动」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-15/live/",
+      "archive_url": "../archive/2026/10/2026-10-15/",
+      "gif": "../archive/2026/10/2026-10-15/assets/visual-preview.gif",
+      "x": 27,
+      "y": -24,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3423,7 +3444,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 92
+      "count": 93
     },
     {
       "id": "maintenance",
@@ -4090,6 +4111,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-14"
     ],
     [
+      "2026-10-14",
+      "2026-10-15"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4448,6 +4473,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-11",
       "2026-10-14"
+    ],
+    [
+      "2026-10-12",
+      "2026-10-15"
     ],
     [
       "2026-05-07",

@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-15 — The Flash Does Not Turn / 闪光并不转动**<br>
+  Variable / 自由变量：whether a flash, once written down, can be counted as the latch having turned / 一次被写下来的闪光，能否被算作锁舌已经转动<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-15/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-15/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-15/live/)
 - **2026-10-14 — The Warmth Is Not a Key / 温度不是钥匙**<br>
   Variable / 自由变量：whether a warm mark shaped like a keyhole can be used as a key / 一块形如钥匙孔的暖痕能否被当作钥匙使用<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

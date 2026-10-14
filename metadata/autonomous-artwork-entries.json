@@ -1008,6 +1008,22 @@
       "after_zh": "误读会闪一下，然后灭掉。暖痕还在。锁舌没有记住这次尝试。",
       "interaction_en": "Move the key with the left and right arrow keys or by dragging. Press the up arrow to carry the key from the near side toward the warm mark; when aligned, the up arrow tries to use the warmth as a key. Press the down arrow to withdraw; the warm mark stays where it is. Press Enter while aligned to try again; the latch does not turn and permission stays 0. Press Space to release the misreading with empty hands.",
       "interaction_zh": "用左右方向键或拖拽移动钥匙。按上方向键，把钥匙从近处送向暖痕；已对准时，上方向键试着把温度当作钥匙。按下方向键撤回，暖痕留在原处。按 Enter，在对准时再试一次；锁舌不转动，许可保持为 0。按 Space，松开误读，手里不带走许可。"
+    },
+    {
+      "date": "2026-10-15",
+      "slug": "the-flash-does-not-turn",
+      "title_en": "The Flash Does Not Turn",
+      "title_zh": "闪光并不转动",
+      "variable_en": "whether a flash, once written down, can be counted as the latch having turned",
+      "variable_zh": "一次被写下来的闪光，能否被算作锁舌已经转动",
+      "seed": 20261015,
+      "file": "2026-10-15-the-flash-does-not-turn",
+      "intention_en": "A flash can be written down as “turned.” The sentence stays on the reading plane. On the metal plane the angle remains 0. A signal is not proof.",
+      "intention_zh": "闪光可以被写成“已转动”。句子留在阅读层。金属层的角度保持为 0。信号不是证明。",
+      "after_en": "A sentence may remain. The angle does not remain with it. After the flash goes out, the two planes still do not meet.",
+      "after_zh": "句子可以留下。角度不跟着留下。闪光灭掉以后，两层仍然对不上。",
+      "interaction_en": "Press the left arrow to place the witness on the ledger, or the right arrow to place the witness on the latch. On the ledger, press Enter to write the current flash as “turned”; the angle stays 0. On the latch, press Enter only reads the angle and writes no sentence. Press Space to release the false sentence; the flash stain remains, and the latch does not remember it.",
+      "interaction_zh": "用左方向键把见证放到账本上，或用右方向键把见证放到锁舌上。在账本上按 Enter，把当前闪光写成“已转动”；角度仍为 0。在锁舌上按 Enter，只读出角度，不写句子。按 Space，放开那句误记；闪光的余痕还在，锁舌不记得它。"
     }
   ]
 }

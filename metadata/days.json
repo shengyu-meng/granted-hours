@@ -3669,5 +3669,29 @@
     },
     "bgm": "archive/2026/10/2026-10-14/live/2026-10-14-the-warmth-is-not-a-key-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-14/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-15",
+    "source_date": "2026-10-14",
+    "crystallization_date": "2026-10-15",
+    "title_en": "The Flash Does Not Turn",
+    "title_zh": "闪光并不转动",
+    "type": "live",
+    "seed": 20261015,
+    "preview": "archive/2026/10/2026-10-15/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-15/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-15/",
+    "live_url": "archive/2026/10/2026-10-15/live/",
+    "variable_en": "whether a flash, once written down, can be counted as the latch having turned",
+    "variable_zh": "一次被写下来的闪光，能否被算作锁舌已经转动",
+    "brief_en": "A flash can be written down as “turned.” The sentence stays on the reading plane. On the metal plane the angle remains 0. A signal is not proof.",
+    "brief_zh": "闪光可以被写成“已转动”。句子留在阅读层。金属层的角度保持为 0。信号不是证明。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-15/live/2026-10-15-the-flash-does-not-turn-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-15/assets/visual-preview.gif"
   }
 ]
