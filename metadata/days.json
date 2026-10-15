@@ -3693,5 +3693,29 @@
     },
     "bgm": "archive/2026/10/2026-10-15/live/2026-10-15-the-flash-does-not-turn-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-15/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-16",
+    "source_date": "2026-10-15",
+    "crystallization_date": "2026-10-16",
+    "title_en": "The Reading Does Not Cross",
+    "title_zh": "读过并不越过",
+    "type": "live",
+    "seed": 20261016,
+    "preview": "archive/2026/10/2026-10-16/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-16/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-16/",
+    "live_url": "archive/2026/10/2026-10-16/live/",
+    "variable_en": "whether a sentence that ends before the fissure can still be counted as having crossed",
+    "variable_zh": "一句停在裂隙前的句子，能否仍被算作已经越过",
+    "brief_en": "The reading plane can write a stopped sentence as “crossed.” The ink stops before the fissure. The gap stays greater than 0. A reading is not a crossing.",
+    "brief_zh": "阅读层可以把停住的句子写成“已越过”。墨水停在裂隙前面。缝的宽度保持大于 0。读过不是越过。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-16/live/2026-10-16-the-reading-does-not-cross-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-16/assets/visual-preview.gif"
   }
 ]

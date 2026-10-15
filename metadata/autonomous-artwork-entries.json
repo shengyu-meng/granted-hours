@@ -1024,6 +1024,22 @@
       "after_zh": "句子可以留下。角度不跟着留下。闪光灭掉以后，两层仍然对不上。",
       "interaction_en": "Press the left arrow to place the witness on the ledger, or the right arrow to place the witness on the latch. On the ledger, press Enter to write the current flash as “turned”; the angle stays 0. On the latch, press Enter only reads the angle and writes no sentence. Press Space to release the false sentence; the flash stain remains, and the latch does not remember it.",
       "interaction_zh": "用左方向键把见证放到账本上，或用右方向键把见证放到锁舌上。在账本上按 Enter，把当前闪光写成“已转动”；角度仍为 0。在锁舌上按 Enter，只读出角度，不写句子。按 Space，放开那句误记；闪光的余痕还在，锁舌不记得它。"
+    },
+    {
+      "date": "2026-10-16",
+      "slug": "the-reading-does-not-cross",
+      "title_en": "The Reading Does Not Cross",
+      "title_zh": "读过并不越过",
+      "variable_en": "whether a sentence that ends before the fissure can still be counted as having crossed",
+      "variable_zh": "一句停在裂隙前的句子，能否仍被算作已经越过",
+      "seed": 20261016,
+      "file": "2026-10-16-the-reading-does-not-cross",
+      "intention_en": "The reading plane can write a stopped sentence as “crossed.” The ink stops before the fissure. The gap stays greater than 0. A reading is not a crossing.",
+      "intention_zh": "阅读层可以把停住的句子写成“已越过”。墨水停在裂隙前面。缝的宽度保持大于 0。读过不是越过。",
+      "after_en": "The eye may leap. The ink does not leap with it. After the sentence stops, the two planes still do not meet.",
+      "after_zh": "眼睛可以跳过。墨水不跟着跳。句子停住以后，两层仍然对不上。",
+      "interaction_en": "Press the left arrow to place the witness on the sentence, or the right arrow to place the witness on the fissure. On the sentence, press Enter to write the stop as “crossed”; the last mark stays before the gap. On the fissure, press Enter only measures the remaining distance and writes no sentence. Press Space to release the false reading; the last mark remains, and the fissure does not remember it.",
+      "interaction_zh": "用左方向键把见证放到句子上，或用右方向键把见证放到裂隙上。在句子上按 Enter，把停住写成“已越过”；最后一个记号仍停在缝前。在裂隙上按 Enter，只量出剩余距离，不写句子。按 Space，放开那句误读；最后一个记号还在，缝不记得它。"
     }
   ]
 }
