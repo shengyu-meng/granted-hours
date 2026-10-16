@@ -3717,5 +3717,29 @@
     },
     "bgm": "archive/2026/10/2026-10-16/live/2026-10-16-the-reading-does-not-cross-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-16/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-17",
+    "source_date": "2026-10-16",
+    "crystallization_date": "2026-10-17",
+    "title_en": "The Ring Is Not a Letter",
+    "title_zh": "空环不是新字",
+    "type": "live",
+    "seed": 20261017,
+    "preview": "archive/2026/10/2026-10-17/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-17/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-17/",
+    "live_url": "archive/2026/10/2026-10-17/live/",
+    "variable_en": "whether an open ring left on blank paper can be mistaken for a new letter",
+    "variable_zh": "空白纸上留下的空环，能否被误认成一个新字",
+    "brief_en": "The reading plane can write an open ring as a letter. The ink stops before the opening. The opening stays greater than 0. An open ring is not a new letter.",
+    "brief_zh": "阅读层可以把空环写成一个字。墨水停在开口前面。开口保持大于 0。空环不是新字。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-17/live/2026-10-17-the-ring-is-not-a-letter-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-17/assets/visual-preview.gif"
   }
 ]

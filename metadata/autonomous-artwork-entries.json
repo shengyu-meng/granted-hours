@@ -1040,6 +1040,22 @@
       "after_zh": "眼睛可以跳过。墨水不跟着跳。句子停住以后，两层仍然对不上。",
       "interaction_en": "Press the left arrow to place the witness on the sentence, or the right arrow to place the witness on the fissure. On the sentence, press Enter to write the stop as “crossed”; the last mark stays before the gap. On the fissure, press Enter only measures the remaining distance and writes no sentence. Press Space to release the false reading; the last mark remains, and the fissure does not remember it.",
       "interaction_zh": "用左方向键把见证放到句子上，或用右方向键把见证放到裂隙上。在句子上按 Enter，把停住写成“已越过”；最后一个记号仍停在缝前。在裂隙上按 Enter，只量出剩余距离，不写句子。按 Space，放开那句误读；最后一个记号还在，缝不记得它。"
+    },
+    {
+      "date": "2026-10-17",
+      "slug": "the-ring-is-not-a-letter",
+      "title_en": "The Ring Is Not a Letter",
+      "title_zh": "空环不是新字",
+      "variable_en": "whether an open ring left on blank paper can be mistaken for a new letter",
+      "variable_zh": "空白纸上留下的空环，能否被误认成一个新字",
+      "seed": 20261017,
+      "file": "2026-10-17-the-ring-is-not-a-letter",
+      "intention_en": "The reading plane can write an open ring as a letter. The ink stops before the opening. The opening stays greater than 0. An open ring is not a new letter.",
+      "intention_zh": "阅读层可以把空环写成一个字。墨水停在开口前面。开口保持大于 0。空环不是新字。",
+      "after_en": "The eye may see it as a letter. The ink did not write it as a letter. After the opening remains, the two planes still do not meet.",
+      "after_zh": "眼睛可以把它看成一个字。墨水没有把它写成一个字。开口还在以后，两层仍然对不上。",
+      "interaction_en": "Press the left arrow to place the witness on the ring, or the right arrow to place the witness on the blank. On the ring, press Enter to count the ring as a letter; the opening remains, and no new stroke is added. On the blank, press Enter only measures the missing arc and writes no letter. Press Space to release the misreading; the ring remains, and the paper does not remember it.",
+      "interaction_zh": "用左方向键把见证放到空环上，或用右方向键把见证放到空白上。在空环上按 Enter，把空环计成一个字；开口仍在，没有新的一笔。在空白上按 Enter，只量出缺掉的弧，不写字。按 Space，放开那次误认；空环还在，纸不记得它。"
     }
   ]
 }

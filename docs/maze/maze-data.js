@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-16",
-  "nodeCount": 164,
+  "generatedAt": "2026-10-17",
+  "nodeCount": 165,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3445,6 +3445,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -22,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-17",
+      "date": "2026-10-17",
+      "title_en": "The Ring Is Not a Letter",
+      "title_zh": "空环不是新字",
+      "variable_en": "whether an open ring left on blank paper can be mistaken for a new letter",
+      "variable_zh": "空白纸上留下的空环，能否被误认成一个新字",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an open ring left on blank paper can be mistaken for a new letter entered the archive as a clue rather than a label.",
+      "diary_zh": "「空白纸上留下的空环，能否被误认成一个新字」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-17/live/",
+      "archive_url": "../archive/2026/10/2026-10-17/",
+      "gif": "../archive/2026/10/2026-10-17/assets/visual-preview.gif",
+      "x": 22,
+      "y": -21,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3465,7 +3486,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 94
+      "count": 95
     },
     {
       "id": "maintenance",
@@ -4140,6 +4161,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-16"
     ],
     [
+      "2026-10-16",
+      "2026-10-17"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4506,6 +4531,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-14",
       "2026-10-16"
+    ],
+    [
+      "2026-10-15",
+      "2026-10-17"
     ],
     [
       "2026-05-07",
