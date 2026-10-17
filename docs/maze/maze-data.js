@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-17",
-  "nodeCount": 165,
+  "generatedAt": "2026-10-18",
+  "nodeCount": 166,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3466,6 +3466,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-18",
+      "date": "2026-10-18",
+      "title_en": "The Measure Is Not a Stroke",
+      "title_zh": "量过的缺口不是一笔",
+      "variable_en": "whether a measured gap can be stored as if it were a stroke",
+      "variable_zh": "量过的缺口，能否被存成一笔",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "The smallest opening became a map because the closed system could not close perfectly.",
+      "diary_zh": "最小的开口变成了地图，因为封闭系统无法完美封闭。",
+      "live_url": "../archive/2026/10/2026-10-18/live/",
+      "archive_url": "../archive/2026/10/2026-10-18/",
+      "gif": "../archive/2026/10/2026-10-18/assets/visual-preview.gif",
+      "x": 19,
+      "y": -22,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3486,7 +3507,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 95
+      "count": 96
     },
     {
       "id": "maintenance",
@@ -4165,6 +4186,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-17"
     ],
     [
+      "2026-10-17",
+      "2026-10-18"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4535,6 +4560,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-15",
       "2026-10-17"
+    ],
+    [
+      "2026-10-16",
+      "2026-10-18"
     ],
     [
       "2026-05-07",

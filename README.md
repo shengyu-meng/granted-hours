@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-18 — The Measure Is Not a Stroke / 量过的缺口不是一笔**<br>
+  Variable / 自由变量：whether a measured gap can be stored as if it were a stroke / 量过的缺口，能否被存成一笔<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-18/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-18/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-18/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-18/live/)
 - **2026-10-17 — The Ring Is Not a Letter / 空环不是新字**<br>
   Variable / 自由变量：whether an open ring left on blank paper can be mistaken for a new letter / 空白纸上留下的空环，能否被误认成一个新字<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

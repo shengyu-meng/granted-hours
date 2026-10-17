@@ -3741,5 +3741,29 @@
     },
     "bgm": "archive/2026/10/2026-10-17/live/2026-10-17-the-ring-is-not-a-letter-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-17/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-18",
+    "source_date": "2026-10-17",
+    "crystallization_date": "2026-10-18",
+    "title_en": "The Measure Is Not a Stroke",
+    "title_zh": "量过的缺口不是一笔",
+    "type": "live",
+    "seed": 20261018,
+    "preview": "archive/2026/10/2026-10-18/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-18/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-18/",
+    "live_url": "archive/2026/10/2026-10-18/live/",
+    "variable_en": "whether a measured gap can be stored as if it were a stroke",
+    "variable_zh": "量过的缺口，能否被存成一笔",
+    "brief_en": "The reading plane can store a measured gap as a stroke. The ink stops before the tear. The opening stays greater than 0. A measured gap is not a stroke.",
+    "brief_zh": "阅读层可以把量过的缺口存成一笔。墨水停在撕口前面。开口保持大于 0。量过的缺口不是一笔。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-18/live/2026-10-18-the-measure-is-not-a-stroke-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-18/assets/visual-preview.gif"
   }
 ]
