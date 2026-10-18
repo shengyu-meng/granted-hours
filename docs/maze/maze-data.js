@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-18",
-  "nodeCount": 166,
+  "generatedAt": "2026-10-19",
+  "nodeCount": 167,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3487,6 +3487,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -22,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-19",
+      "date": "2026-10-19",
+      "title_en": "The Recall Is Not Ink",
+      "title_zh": "回读不是落墨",
+      "variable_en": "whether a length kept in the ledger can be read back onto the paper as if remembering were writing",
+      "variable_zh": "账上留住的长度，能否被回读到纸上，好像记得就是写下",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "Memory stopped acting like a warehouse and became a weather system.",
+      "diary_zh": "记忆不再像仓库，而变成一种天气系统。",
+      "live_url": "../archive/2026/10/2026-10-19/live/",
+      "archive_url": "../archive/2026/10/2026-10-19/",
+      "gif": "../archive/2026/10/2026-10-19/assets/visual-preview.gif",
+      "x": 17,
+      "y": 4,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3525,7 +3546,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 47
+      "count": 48
     }
   ],
   "links": [
@@ -4190,6 +4211,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-18"
     ],
     [
+      "2026-10-18",
+      "2026-10-19"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4768,6 +4793,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-09-30",
       "2026-10-13"
+    ],
+    [
+      "2026-10-07",
+      "2026-10-19"
     ],
     [
       "2026-05-17",

@@ -351,7 +351,13 @@ class TimetableBuilderTests(unittest.TestCase):
         # Maintenance records now live in observed routine blocks rather than
         # being duplicated as assigned work. Remaining category repetition is
         # therefore expected; phrase diversity is the truthfulness gate.
-        self.assertLessEqual(max(category_patterns.values()), 35)
+        # An empty task list is absence, not a repeated work template. New
+        # artwork mornings and days with no public-safe collaboration must be
+        # allowed to accumulate without fabricating cards.
+        repeated_patterns = [
+            count for pattern, count in category_patterns.items() if pattern
+        ]
+        self.assertLessEqual(max(repeated_patterns), 35)
         # Privacy-hardening may remove attachment-only or outcome-free social
         # cards. Keep a corpus-level diversity floor without rewarding the
         # retention of low-information public records.

@@ -1072,6 +1072,22 @@
       "after_zh": "账上可以留一个长度。纸没有收下那一笔。入账放开以后，开口仍然不合。",
       "interaction_en": "Press the left arrow to place the witness on the gap, or the right arrow to place the witness on the measure. On the measure, press Enter to store the gap as a stroke; that stroke appears only in the ledger, and the paper receives no new ink. On the gap, press Enter only keeps the opening and does not write the measure as ink. Press Space to release the filing; the gap remains, and the paper still has no stroke.",
       "interaction_zh": "用左方向键把见证放到缺口上，或用右方向键把见证放到度量上。在度量上按 Enter，把缺口存成一笔；那一笔只出现在账上，纸上没有新的墨。在缺口上按 Enter，只保住开口，不把度量写成墨。按 Space，放开那次入账；缺口还在，纸上仍然没有一笔。"
+    },
+    {
+      "date": "2026-10-19",
+      "slug": "the-recall-is-not-ink",
+      "title_en": "The Recall Is Not Ink",
+      "title_zh": "回读不是落墨",
+      "variable_en": "whether a length kept in the ledger can be read back onto the paper as if remembering were writing",
+      "variable_zh": "账上留住的长度，能否被回读到纸上，好像记得就是写下",
+      "seed": 20261019,
+      "file": "2026-10-19-the-recall-is-not-ink",
+      "intention_en": "The reading plane can read a kept length back onto the paper. The recall stops before the seam. The paper receives no new ink. A kept length is not a stroke made by remembering.",
+      "intention_zh": "阅读层可以把账上的长度回读到纸上。那道回读停在缝前。纸上没有新的墨。留住的长度不是记忆写成的一笔。",
+      "after_en": "The ledger may keep a length. The recall may reach the seam. The paper did not receive the stroke. Remembering did not write.",
+      "after_zh": "账上可以留一个长度。回读可以走到缝前。纸没有收下那一笔。记得并没有写下。",
+      "interaction_en": "Press the left arrow to place the witness on the paper, or the right arrow to place the witness on the ledger. On the ledger, press Enter to try reading the kept length back onto the paper; only a hollow contour appears, and the ink does not land. On the paper, press Enter only holds the blank and does not write the length as memory. Press Space to release the recall; the length remains in the ledger, and the paper still has no ink.",
+      "interaction_zh": "用左方向键把见证放到纸上，或用右方向键把见证放到账上。在账上按 Enter，试着把留下的长度回读到纸上；纸上只出现一道空的轮廓，墨水不落。在纸上按 Enter，只守住空白，不把长度写成记忆。按 Space，放开这次回读；长度还在账上，纸上仍然没有墨。"
     }
   ]
 }

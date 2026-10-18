@@ -266,7 +266,11 @@ async function streamLiveGif(page, outputPath, entryDir) {
     for (let frame = 0; frame < FRAME_COUNT; frame += 1) {
       if (frame % 8 === 0) console.error(`${date} frame ${frame}/${FRAME_COUNT} at ${Date.now() - frameStart}ms`);
       const phase = frame / FRAME_COUNT * Math.PI * 2;
-      if (!form && !ambient) {
+      if (date === '2026-10-19') {
+        if (frame === 1) await page.keyboard.press('ArrowRight');
+        if (frame === 3) await page.keyboard.press('Enter');
+        if (frame === 16) await page.keyboard.press('Space');
+      } else if (!form && !ambient) {
         if (frame === 0) { await page.mouse.move(anchor.x, anchor.y); await page.mouse.down(); }
         if (date !== '2026-08-30') await page.mouse.move(anchor.x + Math.sin(phase) * 170, anchor.y + Math.sin(phase / 2) * 125);
         if (frame === 14) await page.mouse.up();
@@ -363,7 +367,12 @@ async function captureEntry(browser, entryDir, serverBaseUrl) {
   try {
     const relativeLive = path.relative(ROOT, path.join(entryDir, "live")).split(path.sep).join("/");
     // These works limit their interactions in compact embeds; record the full live work.
-    const query = ['2026-07-06', '2026-08-13', '2026-08-14', '2026-08-15'].includes(path.basename(entryDir)) ? '' : '?embed=calendar';
+    const entryDate = path.basename(entryDir);
+    const query = ['2026-07-06', '2026-08-13', '2026-08-14', '2026-08-15'].includes(entryDate)
+      ? ''
+      : entryDate === '2026-10-19'
+        ? '?embed=calendar&preview=visual'
+        : '?embed=calendar';
     await page.goto(`${serverBaseUrl}/${relativeLive}/${query}`, {
       waitUntil: "load", timeout: 20000,
     });

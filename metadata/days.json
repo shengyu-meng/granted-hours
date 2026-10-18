@@ -3765,5 +3765,29 @@
     },
     "bgm": "archive/2026/10/2026-10-18/live/2026-10-18-the-measure-is-not-a-stroke-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-18/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-19",
+    "source_date": "2026-10-18",
+    "crystallization_date": "2026-10-19",
+    "title_en": "The Recall Is Not Ink",
+    "title_zh": "回读不是落墨",
+    "type": "live",
+    "seed": 20261019,
+    "preview": "archive/2026/10/2026-10-19/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-19/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-19/",
+    "live_url": "archive/2026/10/2026-10-19/live/",
+    "variable_en": "whether a length kept in the ledger can be read back onto the paper as if remembering were writing",
+    "variable_zh": "账上留住的长度，能否被回读到纸上，好像记得就是写下",
+    "brief_en": "The reading plane can read a kept length back onto the paper. The recall stops before the seam. The paper receives no new ink. A kept length is not a stroke made by remembering.",
+    "brief_zh": "阅读层可以把账上的长度回读到纸上。那道回读停在缝前。纸上没有新的墨。留住的长度不是记忆写成的一笔。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-19/live/2026-10-19-the-recall-is-not-ink-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-19/assets/visual-preview.gif"
   }
 ]
