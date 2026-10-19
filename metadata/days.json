@@ -3789,5 +3789,29 @@
     },
     "bgm": "archive/2026/10/2026-10-19/live/2026-10-19-the-recall-is-not-ink-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-19/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-20",
+    "source_date": "2026-10-19",
+    "crystallization_date": "2026-10-20",
+    "title_en": "The Contour Is Not a Withdrawal",
+    "title_zh": "轮廓不是撤回",
+    "type": "live",
+    "seed": 20261020,
+    "preview": "archive/2026/10/2026-10-20/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-20/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-20/",
+    "live_url": "archive/2026/10/2026-10-20/live/",
+    "variable_en": "whether a hollow contour, after the recall is released, can be mistaken for a stroke that was withdrawn",
+    "variable_zh": "回读放开之后的空轮廓，能否被误认成一笔被撤回的墨",
+    "brief_en": "The reading plane can mistake a released hollow contour for a stroke that was withdrawn. Withdrawal requires prior writing. The hollow contour has no scar, because it was never ink.",
+    "brief_zh": "阅读层可以把放开后的空轮廓误认成一笔被撤回的墨。撤回需要曾经写下。空轮廓没有伤痕，因为它从未落墨。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-20/live/2026-10-20-the-contour-is-not-a-withdrawal-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-20/assets/visual-preview.gif"
   }
 ]

@@ -1088,6 +1088,22 @@
       "after_zh": "账上可以留一个长度。回读可以走到缝前。纸没有收下那一笔。记得并没有写下。",
       "interaction_en": "Press the left arrow to place the witness on the paper, or the right arrow to place the witness on the ledger. On the ledger, press Enter to try reading the kept length back onto the paper; only a hollow contour appears, and the ink does not land. On the paper, press Enter only holds the blank and does not write the length as memory. Press Space to release the recall; the length remains in the ledger, and the paper still has no ink.",
       "interaction_zh": "用左方向键把见证放到纸上，或用右方向键把见证放到账上。在账上按 Enter，试着把留下的长度回读到纸上；纸上只出现一道空的轮廓，墨水不落。在纸上按 Enter，只守住空白，不把长度写成记忆。按 Space，放开这次回读；长度还在账上，纸上仍然没有墨。"
+    },
+    {
+      "date": "2026-10-20",
+      "slug": "the-contour-is-not-a-withdrawal",
+      "title_en": "The Contour Is Not a Withdrawal",
+      "title_zh": "轮廓不是撤回",
+      "variable_en": "whether a hollow contour, after the recall is released, can be mistaken for a stroke that was withdrawn",
+      "variable_zh": "回读放开之后的空轮廓，能否被误认成一笔被撤回的墨",
+      "seed": 20261020,
+      "file": "2026-10-20-the-contour-is-not-a-withdrawal",
+      "intention_en": "The reading plane can mistake a released hollow contour for a stroke that was withdrawn. Withdrawal requires prior writing. The hollow contour has no scar, because it was never ink.",
+      "intention_zh": "阅读层可以把放开后的空轮廓误认成一笔被撤回的墨。撤回需要曾经写下。空轮廓没有伤痕，因为它从未落墨。",
+      "after_en": "The hollow contour may stay above the line. The misreading may reach the paper. The paper did not receive a scar. What was never written cannot be withdrawn.",
+      "after_zh": "空轮廓可以留在线的上方。误读可以走到纸前。纸没有收下伤痕。未写的东西不能被撤回。",
+      "interaction_en": "Press the left arrow to place the witness on the hollow contour, or the right arrow to place the witness on the true scar. On the contour, press Enter to try reading it as a stroke that was withdrawn; the press stops before the paper, invents no scar, and lands no ink. On the scar, press Enter only acknowledges the withdrawal that already exists; the scar does not migrate onto the contour. Press Space to release the misreading; the contour remains hollow.",
+      "interaction_zh": "用左方向键把见证放到空轮廓上，或用右方向键把见证放到真正的伤痕上。在轮廓上按 Enter，试着把它读成一笔被撤回的墨；下压停在纸前，不生成伤痕，也不落墨。在伤痕上按 Enter，只承认那道已经存在的撤回；伤痕不迁到轮廓上。按 Space，放开这次误读；轮廓仍然是空的。"
     }
   ]
 }

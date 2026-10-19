@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-19",
-  "nodeCount": 167,
+  "generatedAt": "2026-10-20",
+  "nodeCount": 168,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3508,6 +3508,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 4,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-20",
+      "date": "2026-10-20",
+      "title_en": "The Contour Is Not a Withdrawal",
+      "title_zh": "轮廓不是撤回",
+      "variable_en": "whether a hollow contour, after the recall is released, can be mistaken for a stroke that was withdrawn",
+      "variable_zh": "回读放开之后的空轮廓，能否被误认成一笔被撤回的墨",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "Memory stopped acting like a warehouse and became a weather system.",
+      "diary_zh": "记忆不再像仓库，而变成一种天气系统。",
+      "live_url": "../archive/2026/10/2026-10-20/live/",
+      "archive_url": "../archive/2026/10/2026-10-20/",
+      "gif": "../archive/2026/10/2026-10-20/assets/visual-preview.gif",
+      "x": 15,
+      "y": 7,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3546,7 +3567,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 48
+      "count": 49
     }
   ],
   "links": [
@@ -4215,6 +4236,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-19"
     ],
     [
+      "2026-10-19",
+      "2026-10-20"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4797,6 +4822,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-07",
       "2026-10-19"
+    ],
+    [
+      "2026-10-13",
+      "2026-10-20"
     ],
     [
       "2026-05-17",

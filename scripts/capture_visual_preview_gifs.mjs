@@ -270,6 +270,12 @@ async function streamLiveGif(page, outputPath, entryDir) {
         if (frame === 1) await page.keyboard.press('ArrowRight');
         if (frame === 3) await page.keyboard.press('Enter');
         if (frame === 16) await page.keyboard.press('Space');
+      } else if (date === '2026-10-20') {
+        if (frame === 1) await page.keyboard.press('ArrowLeft');
+        if (frame === 4) await page.keyboard.press('Enter');
+        if (frame === 8) await page.keyboard.press('ArrowRight');
+        if (frame === 12) await page.keyboard.press('Enter');
+        if (frame === 18) await page.keyboard.press('Space');
       } else if (!form && !ambient) {
         if (frame === 0) { await page.mouse.move(anchor.x, anchor.y); await page.mouse.down(); }
         if (date !== '2026-08-30') await page.mouse.move(anchor.x + Math.sin(phase) * 170, anchor.y + Math.sin(phase / 2) * 125);
