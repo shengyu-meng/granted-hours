@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-21 — The Blank Does Not Lend / 空白不外借**<br>
+  Variable / 自由变量：whether a readable card can borrow height from the idle minutes beside it / 可读的卡片，能否向旁边的空白分钟借走高度<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-21/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-21/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-21/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-21/live/)
 - **2026-10-20 — The Contour Is Not a Withdrawal / 轮廓不是撤回**<br>
   Variable / 自由变量：whether a hollow contour, after the recall is released, can be mistaken for a stroke that was withdrawn / 回读放开之后的空轮廓，能否被误认成一笔被撤回的墨<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

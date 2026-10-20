@@ -3813,5 +3813,29 @@
     },
     "bgm": "archive/2026/10/2026-10-20/live/2026-10-20-the-contour-is-not-a-withdrawal-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-20/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-21",
+    "source_date": "2026-10-20",
+    "crystallization_date": "2026-10-21",
+    "title_en": "The Blank Does Not Lend",
+    "title_zh": "空白不外借",
+    "type": "live",
+    "seed": 20261021,
+    "preview": "archive/2026/10/2026-10-21/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-21/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-21/",
+    "live_url": "archive/2026/10/2026-10-21/live/",
+    "variable_en": "whether a readable card can borrow height from the idle minutes beside it",
+    "variable_zh": "可读的卡片，能否向旁边的空白分钟借走高度",
+    "brief_en": "The reading plane can treat the idle minutes beside it as height available to borrow. A blank may be compressed for reading. It cannot be lent. Once lent, absence would become a placeholder.",
+    "brief_zh": "阅读层可以把旁边的空白分钟看成可借用的高度。空白可以被压扁来阅读，但不能被借走。借走之后，缺席就变成了占位。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-21/live/2026-10-21-the-blank-does-not-lend-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-21/assets/visual-preview.gif"
   }
 ]

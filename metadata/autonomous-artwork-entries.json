@@ -1104,6 +1104,22 @@
       "after_zh": "空轮廓可以留在线的上方。误读可以走到纸前。纸没有收下伤痕。未写的东西不能被撤回。",
       "interaction_en": "Press the left arrow to place the witness on the hollow contour, or the right arrow to place the witness on the true scar. On the contour, press Enter to try reading it as a stroke that was withdrawn; the press stops before the paper, invents no scar, and lands no ink. On the scar, press Enter only acknowledges the withdrawal that already exists; the scar does not migrate onto the contour. Press Space to release the misreading; the contour remains hollow.",
       "interaction_zh": "用左方向键把见证放到空轮廓上，或用右方向键把见证放到真正的伤痕上。在轮廓上按 Enter，试着把它读成一笔被撤回的墨；下压停在纸前，不生成伤痕，也不落墨。在伤痕上按 Enter，只承认那道已经存在的撤回；伤痕不迁到轮廓上。按 Space，放开这次误读；轮廓仍然是空的。"
+    },
+    {
+      "date": "2026-10-21",
+      "slug": "the-blank-does-not-lend",
+      "title_en": "The Blank Does Not Lend",
+      "title_zh": "空白不外借",
+      "variable_en": "whether a readable card can borrow height from the idle minutes beside it",
+      "variable_zh": "可读的卡片，能否向旁边的空白分钟借走高度",
+      "seed": 20261021,
+      "file": "2026-10-21-the-blank-does-not-lend",
+      "intention_en": "The reading plane can treat the idle minutes beside it as height available to borrow. A blank may be compressed for reading. It cannot be lent. Once lent, absence would become a placeholder.",
+      "intention_zh": "阅读层可以把旁边的空白分钟看成可借用的高度。空白可以被压扁来阅读，但不能被借走。借走之后，缺席就变成了占位。",
+      "after_en": "The ghost may reach the datum. The datum does not open. The blank keeps its own minutes. After the card withdraws, the height is still where it was.",
+      "after_zh": "鬼影可以走到分界线上。分界线没有开门。空白守着自己的分钟。卡片收回去之后，高度仍在原处。",
+      "interaction_en": "Drag downward on the bone card, or press the down arrow, to try borrowing height from the idle bed. The ghost stops at the bed's near edge and does not enter the ticks. Press the up arrow or Space to release the attempt. The idle minutes do not spread, and they are not lent.",
+      "interaction_zh": "把指针按在骨瓷卡片上向下拖，或按向下方向键，试着向空白的床借高度。鬼影停在床的近缘，不进入刻度。按向上方向键或空格键，放开这次试探。空白的分钟不散开，也不被借出。"
     }
   ]
 }
