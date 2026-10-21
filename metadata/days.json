@@ -3837,5 +3837,29 @@
     },
     "bgm": "archive/2026/10/2026-10-21/live/2026-10-21-the-blank-does-not-lend-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-21/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-22",
+    "source_date": "2026-10-21",
+    "crystallization_date": "2026-10-22",
+    "title_en": "The Pour Stops at the Lip",
+    "title_zh": "倾注停在唇缘",
+    "type": "live",
+    "seed": 20261022,
+    "preview": "archive/2026/10/2026-10-22/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-22/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-22/",
+    "live_url": "archive/2026/10/2026-10-22/live/",
+    "variable_en": "whether a stone that will not rise can be mistaken for a vessel waiting to be filled",
+    "variable_zh": "不肯升起的石头，会不会被误认成一只等着被注满的容器",
+    "brief_en": "Stillness can be read as hospitality. The basin does not drink. The lip keeps the pour outside. Absence does not become a cup.",
+    "brief_zh": "静止可以被读成接待。盆地不饮。唇缘把倾注留在外面。缺席没有变成杯子。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-22/live/2026-10-22-the-pour-stops-at-the-lip-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-22/assets/visual-preview.gif"
   }
 ]

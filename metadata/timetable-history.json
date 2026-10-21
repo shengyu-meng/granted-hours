@@ -7713,6 +7713,11 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-10-21",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-21",
-  "nodeCount": 169,
+  "generatedAt": "2026-10-22",
+  "nodeCount": 170,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3550,6 +3550,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -24,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-22",
+      "date": "2026-10-22",
+      "title_en": "The Pour Stops at the Lip",
+      "title_zh": "倾注停在唇缘",
+      "variable_en": "whether a stone that will not rise can be mistaken for a vessel waiting to be filled",
+      "variable_zh": "不肯升起的石头，会不会被误认成一只等着被注满的容器",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a stone that will not rise can be mistaken for a vessel waiting to be filled entered the archive as a clue rather than a label.",
+      "diary_zh": "「不肯升起的石头，会不会被误认成一只等着被注满的容器」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-22/live/",
+      "archive_url": "../archive/2026/10/2026-10-22/",
+      "gif": "../archive/2026/10/2026-10-22/assets/visual-preview.gif",
+      "x": 19,
+      "y": -27,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3570,7 +3591,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 97
+      "count": 98
     },
     {
       "id": "maintenance",
@@ -4265,6 +4286,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-21"
     ],
     [
+      "2026-10-21",
+      "2026-10-22"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4643,6 +4668,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-17",
       "2026-10-21"
+    ],
+    [
+      "2026-10-18",
+      "2026-10-22"
     ],
     [
       "2026-05-07",
