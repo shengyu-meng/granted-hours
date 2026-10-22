@@ -3861,5 +3861,29 @@
     },
     "bgm": "archive/2026/10/2026-10-22/live/2026-10-22-the-pour-stops-at-the-lip-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-22/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-23",
+    "source_date": "2026-10-22",
+    "crystallization_date": "2026-10-23",
+    "title_en": "The Bead Is Not a Seal",
+    "title_zh": "珠不是印",
+    "type": "live",
+    "seed": 20261023,
+    "preview": "archive/2026/10/2026-10-23/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-23/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-23/",
+    "live_url": "archive/2026/10/2026-10-23/live/",
+    "variable_en": "whether a bead that stays outside the lip can be mistaken for a seal the basin has already accepted",
+    "variable_zh": "停在唇外的珠，会不会被误认成盆地已经收下的印",
+    "brief_en": "A misreading can take the bead for a seal. The wax rises on the reading layer and does not land on the seam. The seam stays open. The bead remains outside.",
+    "brief_zh": "误认可以把珠读成印。蜡色在阅读层浮起，不落在缝上。缝还开着。珠仍在外面。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-23/live/2026-10-23-the-bead-is-not-a-seal-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-23/assets/visual-preview.gif"
   }
 ]

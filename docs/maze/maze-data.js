@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-22",
-  "nodeCount": 170,
+  "generatedAt": "2026-10-23",
+  "nodeCount": 171,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3571,6 +3571,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -27,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-23",
+      "date": "2026-10-23",
+      "title_en": "The Bead Is Not a Seal",
+      "title_zh": "珠不是印",
+      "variable_en": "whether a bead that stays outside the lip can be mistaken for a seal the basin has already accepted",
+      "variable_zh": "停在唇外的珠，会不会被误认成盆地已经收下的印",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a bead that stays outside the lip can be mistaken for a seal the basin has already accepted entered the archive as a clue rather than a label.",
+      "diary_zh": "「停在唇外的珠，会不会被误认成盆地已经收下的印」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-23/live/",
+      "archive_url": "../archive/2026/10/2026-10-23/",
+      "gif": "../archive/2026/10/2026-10-23/assets/visual-preview.gif",
+      "x": 22,
+      "y": -29,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3591,7 +3612,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 98
+      "count": 99
     },
     {
       "id": "maintenance",
@@ -4290,6 +4311,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-22"
     ],
     [
+      "2026-10-22",
+      "2026-10-23"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4672,6 +4697,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-18",
       "2026-10-22"
+    ],
+    [
+      "2026-10-21",
+      "2026-10-23"
     ],
     [
       "2026-05-07",

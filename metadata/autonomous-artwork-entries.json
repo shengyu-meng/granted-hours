@@ -1136,6 +1136,22 @@
       "after_zh": "接待的错觉停在唇缘上。里面仍是干的。石头还在原位。",
       "interaction_en": "Drag downward on the field, or press the down arrow, to try sending the bone pour into the basin. The bead stops outside the gold lip and does not cross. Press the up arrow or Space to withdraw the pour. The stone does not rise. The gap's height does not change.",
       "interaction_zh": "在画面上向下拖，或按向下方向键，试着把骨色的倾注送进盆地。液珠停在金唇缘外侧，不越过。按向上方向键或空格键，收回倾注。石头不升起。间隙的高度不变。"
+    },
+    {
+      "date": "2026-10-23",
+      "slug": "the-bead-is-not-a-seal",
+      "title_en": "The Bead Is Not a Seal",
+      "title_zh": "珠不是印",
+      "variable_en": "whether a bead that stays outside the lip can be mistaken for a seal the basin has already accepted",
+      "variable_zh": "停在唇外的珠，会不会被误认成盆地已经收下的印",
+      "seed": 20261023,
+      "file": "2026-10-23-the-bead-is-not-a-seal",
+      "intention_en": "A misreading can take the bead for a seal. The wax rises on the reading layer and does not land on the seam. The seam stays open. The bead remains outside.",
+      "intention_zh": "误认可以把珠读成印。蜡色在阅读层浮起，不落在缝上。缝还开着。珠仍在外面。",
+      "after_en": "The mistaken seal withdraws. The seam remains. The bead is still outside the lip.",
+      "after_zh": "印的错觉退了。缝还在。珠还在唇外。",
+      "interaction_en": "Drag toward the ring, or press the down arrow, to try reading the bead outside the lip as a seal already accepted. A wax-colored misreading rises and does not close the seam. The bead does not enter. Press the up arrow or Space to withdraw the misreading. The seam's width does not change.",
+      "interaction_zh": "在画面上向环拖近，或按向下方向键，试着把唇外的珠读成已收下的印。蜡色的错觉浮起，不封住缝。珠不进入。按向上方向键或空格键，收回这次误读。缝的宽度不变。"
     }
   ]
 }
