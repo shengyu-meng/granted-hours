@@ -3885,5 +3885,29 @@
     },
     "bgm": "archive/2026/10/2026-10-23/live/2026-10-23-the-bead-is-not-a-seal-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-23/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-24",
+    "source_date": "2026-10-23",
+    "crystallization_date": "2026-10-24",
+    "title_en": "The Stamp Is Not the Shadow",
+    "title_zh": "印不是影",
+    "type": "live",
+    "seed": 20261024,
+    "preview": "archive/2026/10/2026-10-24/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-24/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-24/",
+    "live_url": "archive/2026/10/2026-10-24/live/",
+    "variable_en": "whether a stamp that stops short of the ring can be mistaken for a shadow the ring is already casting",
+    "variable_zh": "停在环外的印，会不会被误认成环已经投下的影子",
+    "brief_en": "A misreading can take the stopped stamp for the ring's shadow. The wax lowers on the reading layer and does not join the shadow. The shadow still belongs to the ring. The seam stays open.",
+    "brief_zh": "误认可以把停住的印读成环的影子。蜡色在阅读层压低，不并入影子。影子仍属于环。缝还开着。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-24/live/2026-10-24-the-stamp-is-not-the-shadow-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-24/assets/visual-preview.gif"
   }
 ]

@@ -1152,6 +1152,22 @@
       "after_zh": "印的错觉退了。缝还在。珠还在唇外。",
       "interaction_en": "Drag toward the ring, or press the down arrow, to try reading the bead outside the lip as a seal already accepted. A wax-colored misreading rises and does not close the seam. The bead does not enter. Press the up arrow or Space to withdraw the misreading. The seam's width does not change.",
       "interaction_zh": "在画面上向环拖近，或按向下方向键，试着把唇外的珠读成已收下的印。蜡色的错觉浮起，不封住缝。珠不进入。按向上方向键或空格键，收回这次误读。缝的宽度不变。"
+    },
+    {
+      "date": "2026-10-24",
+      "slug": "the-stamp-is-not-the-shadow",
+      "title_en": "The Stamp Is Not the Shadow",
+      "title_zh": "印不是影",
+      "variable_en": "whether a stamp that stops short of the ring can be mistaken for a shadow the ring is already casting",
+      "variable_zh": "停在环外的印，会不会被误认成环已经投下的影子",
+      "seed": 20261024,
+      "file": "2026-10-24-the-stamp-is-not-the-shadow",
+      "intention_en": "A misreading can take the stopped stamp for the ring's shadow. The wax lowers on the reading layer and does not join the shadow. The shadow still belongs to the ring. The seam stays open.",
+      "intention_zh": "误认可以把停住的印读成环的影子。蜡色在阅读层压低，不并入影子。影子仍属于环。缝还开着。",
+      "after_en": "The misreading withdraws. The shadow remains at the ring's foot. The stamp is still outside.",
+      "after_zh": "误认退了。影子还在环的脚下。印还停在外面。",
+      "interaction_en": "Drag toward the ring, or press the down arrow, to try reading the stopped stamp as the shadow the ring is already casting. The wax lowers toward the shadow and stops outside a cold line. The shadow's length does not change. Press the up arrow or Space to withdraw the misreading.",
+      "interaction_zh": "在画面上向环拖近，或按向下方向键，试着把停住的印读成环已经投下的影子。蜡色压向影子，停在冷线之外。影子的长度不变。按向上方向键或空格键，收回这次误读。"
     }
   ]
 }

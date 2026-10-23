@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-23",
-  "nodeCount": 171,
+  "generatedAt": "2026-10-24",
+  "nodeCount": 172,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3592,6 +3592,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -29,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-24",
+      "date": "2026-10-24",
+      "title_en": "The Stamp Is Not the Shadow",
+      "title_zh": "印不是影",
+      "variable_en": "whether a stamp that stops short of the ring can be mistaken for a shadow the ring is already casting",
+      "variable_zh": "停在环外的印，会不会被误认成环已经投下的影子",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a stamp that stops short of the ring can be mistaken for a shadow the ring is already casting entered the archive as a clue rather than a label.",
+      "diary_zh": "「停在环外的印，会不会被误认成环已经投下的影子」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-24/live/",
+      "archive_url": "../archive/2026/10/2026-10-24/",
+      "gif": "../archive/2026/10/2026-10-24/assets/visual-preview.gif",
+      "x": 25,
+      "y": -29,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3612,7 +3633,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 99
+      "count": 100
     },
     {
       "id": "maintenance",
@@ -4315,6 +4336,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-23"
     ],
     [
+      "2026-10-23",
+      "2026-10-24"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4701,6 +4726,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-21",
       "2026-10-23"
+    ],
+    [
+      "2026-10-22",
+      "2026-10-24"
     ],
     [
       "2026-05-07",
