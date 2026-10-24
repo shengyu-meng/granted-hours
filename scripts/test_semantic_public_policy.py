@@ -251,6 +251,8 @@ class SemanticPublicPolicyTests(unittest.TestCase):
     def test_cryptocurrency_topics_are_omitted_from_2026_09_10(self) -> None:
         self.assertTrue(is_cryptocurrency_calendar_topic("以后跟加密相关的内容不要在这个组里报。"))
         self.assertTrue(is_cryptocurrency_calendar_topic("为什么这段时间没有可狙击的新币？"))
+        self.assertTrue(is_cryptocurrency_calendar_topic("链上做市商的挂单结构"))
+        self.assertTrue(is_cryptocurrency_calendar_topic("an on-chain market maker case"))
         self.assertFalse(is_cryptocurrency_calendar_topic("Use crypto.getRandomValues and an API token."))
         self.assertFalse(calendar_text_is_cryptocurrency_omission("cryptocurrency rally", "2026-09-09"))
         source = {

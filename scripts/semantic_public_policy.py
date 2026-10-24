@@ -167,6 +167,7 @@ _CRYPTOCURRENCY_TOPIC_RE = re.compile(
     r"Token经济|代币经济|代币发行|"
     r"\bTGE\b|token\s*launch|"
     r"\bDeFi\b|"
+    r"链上做市|on-chain market[- ]makers?|"
     r"\bBitcoin\b|\bEthereum\b|\bSolana\b|"
     r"cryptocurrency|\bcrypto\s+rally\b|(?<![\w.])crypto(?!getRandomValues)"
 )

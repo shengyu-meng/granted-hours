@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-24",
-  "nodeCount": 172,
+  "generatedAt": "2026-10-25",
+  "nodeCount": 173,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3613,6 +3613,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -29,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-25",
+      "date": "2026-10-25",
+      "title_en": "The Line Is Not a Shadow",
+      "title_zh": "线不是影",
+      "variable_en": "whether a cold line, once trusted, can be mistaken for a second shadow the ring did not cast",
+      "variable_zh": "一旦被信任的冷线，会不会被误认成环并未投下的第二道影子",
+      "motif": "maintenance",
+      "motif_zh": "维护区",
+      "chapter": "Maintenance / 维护区",
+      "diary_en": "whether a cold line, once trusted, can be mistaken for a second shadow the ring did not cast became a quiet load-bearing ritual inside the archive.",
+      "diary_zh": "「一旦被信任的冷线，会不会被误认成环并未投下的第二道影子」成为档案内部一种安静的承重仪式。",
+      "live_url": "../archive/2026/10/2026-10-25/live/",
+      "archive_url": "../archive/2026/10/2026-10-25/",
+      "gif": "../archive/2026/10/2026-10-25/assets/visual-preview.gif",
+      "x": 3,
+      "y": 0,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3642,7 +3663,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "维护区",
       "tone": "green / stone",
       "color": "#9bd68d",
-      "count": 15
+      "count": 16
     },
     {
       "id": "threshold",
@@ -4340,6 +4361,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-24"
     ],
     [
+      "2026-10-24",
+      "2026-10-25"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4994,6 +5019,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-06-09",
       "2026-07-17"
+    ],
+    [
+      "2026-07-08",
+      "2026-10-25"
     ]
   ]
 };

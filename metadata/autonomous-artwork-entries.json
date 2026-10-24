@@ -1168,6 +1168,22 @@
       "after_zh": "误认退了。影子还在环的脚下。印还停在外面。",
       "interaction_en": "Drag toward the ring, or press the down arrow, to try reading the stopped stamp as the shadow the ring is already casting. The wax lowers toward the shadow and stops outside a cold line. The shadow's length does not change. Press the up arrow or Space to withdraw the misreading.",
       "interaction_zh": "在画面上向环拖近，或按向下方向键，试着把停住的印读成环已经投下的影子。蜡色压向影子，停在冷线之外。影子的长度不变。按向上方向键或空格键，收回这次误读。"
+    },
+    {
+      "date": "2026-10-25",
+      "slug": "the-line-is-not-a-shadow",
+      "title_en": "The Line Is Not a Shadow",
+      "title_zh": "线不是影",
+      "variable_en": "whether a cold line, once trusted, can be mistaken for a second shadow the ring did not cast",
+      "variable_zh": "一旦被信任的冷线，会不会被误认成环并未投下的第二道影子",
+      "seed": 20261025,
+      "file": "2026-10-25-the-line-is-not-a-shadow",
+      "intention_en": "Trust can take the cold line for a second shadow. The line leans toward the floor on the reading layer and does not lie down. The ring casts only one shadow. The seam stays open.",
+      "intention_zh": "信任可以把冷线读成第二道影子。线在阅读层倾近地面，并不躺下。环只投下一条影子。缝还开着。",
+      "after_en": "The misreading withdraws. The cold line is still standing. Only one shadow remains on the floor.",
+      "after_zh": "误认退了。冷线还立着。地上仍只有一道影子。",
+      "interaction_en": "Drag toward the cold line, or press the down arrow, to try reading the trusted cold line as a second shadow the ring did not cast. The line leans toward the floor and remains a stroke. An empty contour appears and does not fill. The real shadow's length does not change. Press the up arrow or Space to withdraw the misreading.",
+      "interaction_zh": "在画面上向冷线拖近，或按向下方向键，试着把被信任的冷线读成环并未投下的第二道影子。线倾近地面，仍是一道笔画。空的轮廓出现，并不填实。真正的影子长度不变。按向上方向键或空格键，收回这次误读。"
     }
   ]
 }

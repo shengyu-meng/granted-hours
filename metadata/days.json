@@ -3909,5 +3909,29 @@
     },
     "bgm": "archive/2026/10/2026-10-24/live/2026-10-24-the-stamp-is-not-the-shadow-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-24/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-25",
+    "source_date": "2026-10-24",
+    "crystallization_date": "2026-10-25",
+    "title_en": "The Line Is Not a Shadow",
+    "title_zh": "线不是影",
+    "type": "live",
+    "seed": 20261025,
+    "preview": "archive/2026/10/2026-10-25/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-25/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-25/",
+    "live_url": "archive/2026/10/2026-10-25/live/",
+    "variable_en": "whether a cold line, once trusted, can be mistaken for a second shadow the ring did not cast",
+    "variable_zh": "一旦被信任的冷线，会不会被误认成环并未投下的第二道影子",
+    "brief_en": "Trust can take the cold line for a second shadow. The line leans toward the floor on the reading layer and does not lie down. The ring casts only one shadow. The seam stays open.",
+    "brief_zh": "信任可以把冷线读成第二道影子。线在阅读层倾近地面，并不躺下。环只投下一条影子。缝还开着。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-25/live/2026-10-25-the-line-is-not-a-shadow-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-25/assets/visual-preview.gif"
   }
 ]

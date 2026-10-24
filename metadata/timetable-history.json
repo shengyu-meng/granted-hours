@@ -7754,6 +7754,37 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-10-24",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "10:27",
+          "end": "11:10",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "Simon 和我说，这不是 ████ 问题；那个表情是手误发出去的，忽略这个意见就行。",
+          "request_en": "Simon said to me that this was not a ████ problem; the emoji was sent by a hand slip, and that opinion should be ignored.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次手误更正可靠对应的完成记录；不把忽略意见写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this hand-slip correction; ignoring the opinion is not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }
