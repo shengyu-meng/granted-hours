@@ -7785,6 +7785,87 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-10-25",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "15:30",
+          "end": "15:31",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "核对现在今天应交出发送是否都已逐条完成；若还有未发出的，继续逐条发送，并给出审计报告。",
+          "request_en": "Check whether everything due to be sent today has already gone out item by item; if anything remains, continue sending item by item and provide an audit report.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次发送核对和审计要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this send-check and audit request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 5,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "14:54",
+          "end": "17:55",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "问今天一共发出了多少条总结，并说数量对不上；另外核对现在是否都已逐条发出，若还有未发出的，继续逐条发送，然后给出申请报告。",
+          "request_en": "Ask how many summaries were sent today and say the count does not add up; also check whether every item has already gone out, continue sending any remainder item by item, and then provide the requested application report.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次条数核对和补发要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this count-check and resend request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "17:42",
+          "end": "17:43",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "把剩下的一条补发完；如果视频取不到，就改发图片。",
+          "request_en": "Finish sending the remaining item; if the video cannot be obtained, send images instead.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次补发要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this remaining-item resend request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

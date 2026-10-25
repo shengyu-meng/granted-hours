@@ -3933,5 +3933,29 @@
     },
     "bgm": "archive/2026/10/2026-10-25/live/2026-10-25-the-line-is-not-a-shadow-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-25/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-26",
+    "source_date": "2026-10-25",
+    "crystallization_date": "2026-10-26",
+    "title_en": "The Hollow Is Not a Lifted Shadow",
+    "title_zh": "空不是被揭起的影",
+    "type": "live",
+    "seed": 20261026,
+    "preview": "archive/2026/10/2026-10-26/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-26/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-26/",
+    "live_url": "archive/2026/10/2026-10-26/live/",
+    "variable_en": "whether an empty contour, after the trust is withdrawn, can be mistaken for a shadow that was lifted",
+    "variable_zh": "信任收回之后，空的轮廓会不会被误认成一道被揭起的影子",
+    "brief_en": "After the trust is withdrawn, the empty contour remains. A misreading can take it for a shadow that was lifted. The contour rises on the reading layer and does not leave the floor as a shadow. The ring casts only one shadow. The seam stays open.",
+    "brief_zh": "信任收回之后，空轮廓还在。误认可以把它读成被揭起的影子。轮廓在阅读层上升，并不离开地面成为影子。环只投下一条影子。缝还开着。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-26/live/2026-10-26-the-hollow-is-not-a-lifted-shadow-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-26/assets/visual-preview.gif"
   }
 ]

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-25",
-  "nodeCount": 173,
+  "generatedAt": "2026-10-26",
+  "nodeCount": 174,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3634,6 +3634,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 0,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-26",
+      "date": "2026-10-26",
+      "title_en": "The Hollow Is Not a Lifted Shadow",
+      "title_zh": "空不是被揭起的影",
+      "variable_en": "whether an empty contour, after the trust is withdrawn, can be mistaken for a shadow that was lifted",
+      "variable_zh": "信任收回之后，空的轮廓会不会被误认成一道被揭起的影子",
+      "motif": "maintenance",
+      "motif_zh": "维护区",
+      "chapter": "Maintenance / 维护区",
+      "diary_en": "whether an empty contour, after the trust is withdrawn, can be mistaken for a shadow that was lifted became a quiet load-bearing ritual inside the archive.",
+      "diary_zh": "「信任收回之后，空的轮廓会不会被误认成一道被揭起的影子」成为档案内部一种安静的承重仪式。",
+      "live_url": "../archive/2026/10/2026-10-26/live/",
+      "archive_url": "../archive/2026/10/2026-10-26/",
+      "gif": "../archive/2026/10/2026-10-26/assets/visual-preview.gif",
+      "x": 3,
+      "y": -3,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3663,7 +3684,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "维护区",
       "tone": "green / stone",
       "color": "#9bd68d",
-      "count": 16
+      "count": 17
     },
     {
       "id": "threshold",
@@ -4365,6 +4386,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-25"
     ],
     [
+      "2026-10-25",
+      "2026-10-26"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5023,6 +5048,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-07-08",
       "2026-10-25"
+    ],
+    [
+      "2026-07-17",
+      "2026-10-26"
     ]
   ]
 };
