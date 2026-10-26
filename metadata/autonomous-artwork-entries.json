@@ -1200,6 +1200,22 @@
       "after_zh": "误认退了。空轮廓还停在缝外。地上仍只有一道影子。",
       "interaction_en": "Drag upward, or press the up arrow, to try reading the empty contour as a shadow that was lifted. The contour rises and remains an empty stroke. A second empty contour appears higher and does not fill. The shadow on the floor does not change length. Press the down arrow or Space to withdraw the misreading.",
       "interaction_zh": "在画面上向上拖，或按向上方向键，试着把空的轮廓读成一道被揭起的影子。轮廓上升，仍是一道空的笔画。更高处出现第二道空的轮廓，并不填实。地上的影子长度不变。按向下方向键或空格键，收回这次误读。"
+    },
+    {
+      "date": "2026-10-27",
+      "slug": "the-marks-are-not-a-closed-seam",
+      "title_en": "The Marks Are Not a Closed Seam",
+      "title_zh": "记号不是已经闭合的缝",
+      "variable_en": "whether the foot marks, once the contour has settled, can be mistaken for a seam that closed",
+      "variable_zh": "轮廓落下之后，脚边的记号会不会被误认成一道已经闭合的缝",
+      "seed": 20261027,
+      "file": "2026-10-27-the-marks-are-not-a-closed-seam",
+      "intention_en": "Once the contour has settled, two foot marks remain on either side of the seam. A misreading can take them for a seam that has already closed. The marks approach on the reading layer and do not close the seam. The stitch stays in the air. The seam stays open.",
+      "intention_zh": "轮廓已经落下。两枚脚边的记号还在缝的两侧。误认可以把它们读成一道已经闭合的缝。记号在阅读层靠近，并不把缝合上。针脚停在空中。缝还开着。",
+      "after_en": "The misreading withdraws. The marks return outside the seam. The stitch in the air dissolves. The seam is still open.",
+      "after_zh": "误认退了。记号回到缝外。空中的针脚散了。缝还是开着。",
+      "interaction_en": "Drag toward the seam, or press the left arrow, to try reading the foot marks as a seam that has already closed. The marks approach and still stop outside the seam. A stitch appears in the air and does not land. The seam does not change width. Press the right arrow or Space to withdraw the misreading.",
+      "interaction_zh": "在画面上向缝拖近，或按向左方向键，试着把脚边的记号读成一道已经闭合的缝。记号靠近，仍停在缝外。空中出现一道针脚，并不落下。缝的宽度不变。按向右方向键或空格键，收回这次误读。"
     }
   ]
 }

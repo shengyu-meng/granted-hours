@@ -3957,5 +3957,29 @@
     },
     "bgm": "archive/2026/10/2026-10-26/live/2026-10-26-the-hollow-is-not-a-lifted-shadow-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-26/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-27",
+    "source_date": "2026-10-26",
+    "crystallization_date": "2026-10-27",
+    "title_en": "The Marks Are Not a Closed Seam",
+    "title_zh": "记号不是已经闭合的缝",
+    "type": "live",
+    "seed": 20261027,
+    "preview": "archive/2026/10/2026-10-27/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-27/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-27/",
+    "live_url": "archive/2026/10/2026-10-27/live/",
+    "variable_en": "whether the foot marks, once the contour has settled, can be mistaken for a seam that closed",
+    "variable_zh": "轮廓落下之后，脚边的记号会不会被误认成一道已经闭合的缝",
+    "brief_en": "Once the contour has settled, two foot marks remain on either side of the seam. A misreading can take them for a seam that has already closed. The marks approach on the reading layer and do not close the seam. The stitch stays in the air. The seam stays open.",
+    "brief_zh": "轮廓已经落下。两枚脚边的记号还在缝的两侧。误认可以把它们读成一道已经闭合的缝。记号在阅读层靠近，并不把缝合上。针脚停在空中。缝还开着。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-27/live/2026-10-27-the-marks-are-not-a-closed-seam-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-27/assets/visual-preview.gif"
   }
 ]

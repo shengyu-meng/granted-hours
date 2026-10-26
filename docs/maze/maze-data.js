@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-26",
-  "nodeCount": 174,
+  "generatedAt": "2026-10-27",
+  "nodeCount": 175,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3655,6 +3655,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -3,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-27",
+      "date": "2026-10-27",
+      "title_en": "The Marks Are Not a Closed Seam",
+      "title_zh": "记号不是已经闭合的缝",
+      "variable_en": "whether the foot marks, once the contour has settled, can be mistaken for a seam that closed",
+      "variable_zh": "轮廓落下之后，脚边的记号会不会被误认成一道已经闭合的缝",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether the foot marks, once the contour has settled, can be mistaken for a seam that closed entered the archive as a clue rather than a label.",
+      "diary_zh": "「轮廓落下之后，脚边的记号会不会被误认成一道已经闭合的缝」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-27/live/",
+      "archive_url": "../archive/2026/10/2026-10-27/",
+      "gif": "../archive/2026/10/2026-10-27/assets/visual-preview.gif",
+      "x": 28,
+      "y": -27,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3675,7 +3696,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 100
+      "count": 101
     },
     {
       "id": "maintenance",
@@ -4390,6 +4411,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-26"
     ],
     [
+      "2026-10-26",
+      "2026-10-27"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4780,6 +4805,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-22",
       "2026-10-24"
+    ],
+    [
+      "2026-10-23",
+      "2026-10-27"
     ],
     [
       "2026-05-07",
