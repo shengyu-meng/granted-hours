@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-28 — The Dissolved Stitch Is Not an Uncut Seam / 散掉的针脚不是从未切开的缝**<br>
+  Variable / 自由变量：whether the dissolved stitch can be mistaken for a seam that was never cut / 散掉的针脚会不会被误认成一道从未切开的缝<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-28/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-28/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-28/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-28/live/)
 - **2026-10-27 — The Marks Are Not a Closed Seam / 记号不是已经闭合的缝**<br>
   Variable / 自由变量：whether the foot marks, once the contour has settled, can be mistaken for a seam that closed / 轮廓落下之后，脚边的记号会不会被误认成一道已经闭合的缝<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

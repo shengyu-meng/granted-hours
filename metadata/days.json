@@ -3981,5 +3981,29 @@
     },
     "bgm": "archive/2026/10/2026-10-27/live/2026-10-27-the-marks-are-not-a-closed-seam-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-27/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-28",
+    "source_date": "2026-10-27",
+    "crystallization_date": "2026-10-28",
+    "title_en": "The Dissolved Stitch Is Not an Uncut Seam",
+    "title_zh": "散掉的针脚不是从未切开的缝",
+    "type": "live",
+    "seed": 20261028,
+    "preview": "archive/2026/10/2026-10-28/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-28/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-28/",
+    "live_url": "archive/2026/10/2026-10-28/live/",
+    "variable_en": "whether the dissolved stitch can be mistaken for a seam that was never cut",
+    "variable_zh": "散掉的针脚会不会被误认成一道从未切开的缝",
+    "brief_en": "Once the stitch has dissolved, the seam stays open. A misreading can take the dissolved stitch for a seam that was never cut. An uncut film descends on the reading layer and stops above the lip. It does not erase the cut. The dust does not gather back into a stitch. The seam does not change width.",
+    "brief_zh": "针脚已经散了。缝还开着。误认可以把散掉的针脚读成一道从未切开的缝。未切的膜在阅读层降下，停在唇上，并不把切开抹掉。尘不重新聚成针脚。缝宽不变。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-28/live/2026-10-28-the-dissolved-stitch-is-not-an-uncut-seam-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-28/assets/visual-preview.gif"
   }
 ]

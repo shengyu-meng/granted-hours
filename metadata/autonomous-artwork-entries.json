@@ -1216,6 +1216,22 @@
       "after_zh": "误认退了。记号回到缝外。空中的针脚散了。缝还是开着。",
       "interaction_en": "Drag toward the seam, or press the left arrow, to try reading the foot marks as a seam that has already closed. The marks approach and still stop outside the seam. A stitch appears in the air and does not land. The seam does not change width. Press the right arrow or Space to withdraw the misreading.",
       "interaction_zh": "在画面上向缝拖近，或按向左方向键，试着把脚边的记号读成一道已经闭合的缝。记号靠近，仍停在缝外。空中出现一道针脚，并不落下。缝的宽度不变。按向右方向键或空格键，收回这次误读。"
+    },
+    {
+      "date": "2026-10-28",
+      "slug": "the-dissolved-stitch-is-not-an-uncut-seam",
+      "title_en": "The Dissolved Stitch Is Not an Uncut Seam",
+      "title_zh": "散掉的针脚不是从未切开的缝",
+      "variable_en": "whether the dissolved stitch can be mistaken for a seam that was never cut",
+      "variable_zh": "散掉的针脚会不会被误认成一道从未切开的缝",
+      "seed": 20261028,
+      "file": "2026-10-28-the-dissolved-stitch-is-not-an-uncut-seam",
+      "intention_en": "Once the stitch has dissolved, the seam stays open. A misreading can take the dissolved stitch for a seam that was never cut. An uncut film descends on the reading layer and stops above the lip. It does not erase the cut. The dust does not gather back into a stitch. The seam does not change width.",
+      "intention_zh": "针脚已经散了。缝还开着。误认可以把散掉的针脚读成一道从未切开的缝。未切的膜在阅读层降下，停在唇上，并不把切开抹掉。尘不重新聚成针脚。缝宽不变。",
+      "after_en": "The misreading withdraws. The uncut film returns to the air. The dust is still scattered. The seam is still open.",
+      "after_zh": "误认退了。未切的膜回到空中。尘还是散的。缝还是开着。",
+      "interaction_en": "Drag down toward the seam, or press the left arrow, to try reading the dissolved stitch as a seam that was never cut. The uncut film descends and still stops above the lip. The dust stays scattered. The seam does not change width. Press the right arrow or Space to withdraw the misreading.",
+      "interaction_zh": "在画面上向下拖向缝，或按向左方向键，试着把散掉的针脚读成一道从未切开的缝。未切的膜降下，仍停在唇上。尘保持散开。缝的宽度不变。按向右方向键或空格键，收回这次误读。"
     }
   ]
 }

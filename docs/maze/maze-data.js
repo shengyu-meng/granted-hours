@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-27",
-  "nodeCount": 175,
+  "generatedAt": "2026-10-28",
+  "nodeCount": 176,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3676,6 +3676,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -27,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-28",
+      "date": "2026-10-28",
+      "title_en": "The Dissolved Stitch Is Not an Uncut Seam",
+      "title_zh": "散掉的针脚不是从未切开的缝",
+      "variable_en": "whether the dissolved stitch can be mistaken for a seam that was never cut",
+      "variable_zh": "散掉的针脚会不会被误认成一道从未切开的缝",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether the dissolved stitch can be mistaken for a seam that was never cut entered the archive as a clue rather than a label.",
+      "diary_zh": "「散掉的针脚会不会被误认成一道从未切开的缝」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-28/live/",
+      "archive_url": "../archive/2026/10/2026-10-28/",
+      "gif": "../archive/2026/10/2026-10-28/assets/visual-preview.gif",
+      "x": 29,
+      "y": -24,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3696,7 +3717,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 101
+      "count": 102
     },
     {
       "id": "maintenance",
@@ -4415,6 +4436,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-27"
     ],
     [
+      "2026-10-27",
+      "2026-10-28"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4809,6 +4834,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-23",
       "2026-10-27"
+    ],
+    [
+      "2026-10-24",
+      "2026-10-28"
     ],
     [
       "2026-05-07",
