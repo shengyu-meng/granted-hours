@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-29 — The Return Joins Now / 返回接上的是此刻**<br>
+  Variable / 自由变量：where a return meets the hour — the present step, never the step that was left / 返回接上小时的哪一步——此刻的一步，而不是离开时的那一步<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-29/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-29/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-29/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-29/live/)
 - **2026-10-28 — The Dissolved Stitch Is Not an Uncut Seam / 散掉的针脚不是从未切开的缝**<br>
   Variable / 自由变量：whether the dissolved stitch can be mistaken for a seam that was never cut / 散掉的针脚会不会被误认成一道从未切开的缝<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

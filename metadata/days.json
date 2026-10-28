@@ -4005,5 +4005,29 @@
     },
     "bgm": "archive/2026/10/2026-10-28/live/2026-10-28-the-dissolved-stitch-is-not-an-uncut-seam-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-28/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-29",
+    "source_date": "2026-10-28",
+    "crystallization_date": "2026-10-29",
+    "title_en": "The Return Joins Now",
+    "title_zh": "返回接上的是此刻",
+    "type": "live",
+    "seed": 20261029,
+    "preview": "archive/2026/10/2026-10-29/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-29/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-29/",
+    "live_url": "archive/2026/10/2026-10-29/live/",
+    "variable_en": "where a return meets the hour — the present step, never the step that was left",
+    "variable_zh": "返回接上小时的哪一步——此刻的一步，而不是离开时的那一步",
+    "brief_en": "The return joins now. A person may step off the orbit. The pulse keeps its own direction. The door stays open. Leaving does not close it, and leaving is not written down as a debt. On return, the gold ring meets the step the pulse occupies now, not the step it left.",
+    "brief_zh": "返回接上的是此刻。人可以离开这条轨道。脉冲仍按自己的方向走。门开着，不因离开而关上，也不把离开记成欠账。回来时，金环落到脉冲现在所在的一步，而不是离开时的那一步。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-29/live/2026-10-29-the-return-joins-now-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-29/assets/visual-preview.gif"
   }
 ]

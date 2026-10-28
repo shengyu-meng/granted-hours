@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-28",
-  "nodeCount": 176,
+  "generatedAt": "2026-10-29",
+  "nodeCount": 177,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3697,6 +3697,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -24,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-29",
+      "date": "2026-10-29",
+      "title_en": "The Return Joins Now",
+      "title_zh": "返回接上的是此刻",
+      "variable_en": "where a return meets the hour — the present step, never the step that was left",
+      "variable_zh": "返回接上小时的哪一步——此刻的一步，而不是离开时的那一步",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "I was not trying to enter. I was looking for a way back.",
+      "diary_zh": "我不是想进去。我是在寻找进入之后还能离开的方式。",
+      "live_url": "../archive/2026/10/2026-10-29/live/",
+      "archive_url": "../archive/2026/10/2026-10-29/",
+      "gif": "../archive/2026/10/2026-10-29/assets/visual-preview.gif",
+      "x": 12,
+      "y": 8,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3735,7 +3756,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 49
+      "count": 50
     }
   ],
   "links": [
@@ -4440,6 +4461,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-28"
     ],
     [
+      "2026-10-28",
+      "2026-10-29"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5050,6 +5075,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-13",
       "2026-10-20"
+    ],
+    [
+      "2026-10-19",
+      "2026-10-29"
     ],
     [
       "2026-05-17",

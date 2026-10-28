@@ -1232,6 +1232,22 @@
       "after_zh": "误认退了。未切的膜回到空中。尘还是散的。缝还是开着。",
       "interaction_en": "Drag down toward the seam, or press the left arrow, to try reading the dissolved stitch as a seam that was never cut. The uncut film descends and still stops above the lip. The dust stays scattered. The seam does not change width. Press the right arrow or Space to withdraw the misreading.",
       "interaction_zh": "在画面上向下拖向缝，或按向左方向键，试着把散掉的针脚读成一道从未切开的缝。未切的膜降下，仍停在唇上。尘保持散开。缝的宽度不变。按向右方向键或空格键，收回这次误读。"
+    },
+    {
+      "date": "2026-10-29",
+      "slug": "the-return-joins-now",
+      "title_en": "The Return Joins Now",
+      "title_zh": "返回接上的是此刻",
+      "variable_en": "where a return meets the hour — the present step, never the step that was left",
+      "variable_zh": "返回接上小时的哪一步——此刻的一步，而不是离开时的那一步",
+      "seed": 20261029,
+      "file": "2026-10-29-the-return-joins-now",
+      "intention_en": "The return joins now. A person may step off the orbit. The pulse keeps its own direction. The door stays open. Leaving does not close it, and leaving is not written down as a debt. On return, the gold ring meets the step the pulse occupies now, not the step it left.",
+      "intention_zh": "返回接上的是此刻。人可以离开这条轨道。脉冲仍按自己的方向走。门开着，不因离开而关上，也不把离开记成欠账。回来时，金环落到脉冲现在所在的一步，而不是离开时的那一步。",
+      "after_en": "The step that was left dissolves into a little warmth. The one who returns joins now. The door is still open.",
+      "after_zh": "离开过的那一步散成一点热气。回来的人接上的是现在。门还开着。",
+      "interaction_en": "Drag away from the orbit, or press the left arrow, to step off. The pulse keeps walking forward. Release, or press the right arrow, or press Space, to return. The gold ring meets the present step. The orbit does not rewind. The door does not close. No debt mark appears.",
+      "interaction_zh": "在画面上从轨道拖开，或按向左方向键，离开轨道。脉冲继续向前。松开，或按向右方向键，或按空格键，返回。金环落到此刻的一步。轨道不倒带。门不关上。没有欠账的刻痕。"
     }
   ]
 }
