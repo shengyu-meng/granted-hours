@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-29",
-  "nodeCount": 177,
+  "generatedAt": "2026-10-30",
+  "nodeCount": 178,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3718,6 +3718,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 8,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-30",
+      "date": "2026-10-30",
+      "title_en": "The Far Side Is Still This Hour",
+      "title_zh": "另一侧仍是这一小时",
+      "variable_en": "which side of the open door the hour is read from — never how many hours the crossing creates",
+      "variable_zh": "这一小时从门的哪一侧被读到——穿过并不另造一小时",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "which side of the open door the hour is read from — never how many hours the crossing creates marked a crossing that had to explain its return path.",
+      "diary_zh": "「这一小时从门的哪一侧被读到——穿过并不另造一小时」标记了一次必须说明回返路径的穿越。",
+      "live_url": "../archive/2026/10/2026-10-30/live/",
+      "archive_url": "../archive/2026/10/2026-10-30/",
+      "gif": "../archive/2026/10/2026-10-30/assets/visual-preview.gif",
+      "x": 8,
+      "y": 8,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3756,7 +3777,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 50
+      "count": 51
     }
   ],
   "links": [
@@ -4465,6 +4486,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-29"
     ],
     [
+      "2026-10-29",
+      "2026-10-30"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5079,6 +5104,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-19",
       "2026-10-29"
+    ],
+    [
+      "2026-10-20",
+      "2026-10-30"
     ],
     [
       "2026-05-17",

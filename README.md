@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-10-30 — The Far Side Is Still This Hour / 另一侧仍是这一小时**<br>
+  Variable / 自由变量：which side of the open door the hour is read from — never how many hours the crossing creates / 这一小时从门的哪一侧被读到——穿过并不另造一小时<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/10/2026-10-30/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/live/)
 - **2026-10-29 — The Return Joins Now / 返回接上的是此刻**<br>
   Variable / 自由变量：where a return meets the hour — the present step, never the step that was left / 返回接上小时的哪一步——此刻的一步，而不是离开时的那一步<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

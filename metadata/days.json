@@ -4029,5 +4029,29 @@
     },
     "bgm": "archive/2026/10/2026-10-29/live/2026-10-29-the-return-joins-now-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-29/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-30",
+    "source_date": "2026-10-29",
+    "crystallization_date": "2026-10-30",
+    "title_en": "The Far Side Is Still This Hour",
+    "title_zh": "另一侧仍是这一小时",
+    "type": "live",
+    "seed": 20261030,
+    "preview": "archive/2026/10/2026-10-30/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-30/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-30/",
+    "live_url": "archive/2026/10/2026-10-30/live/",
+    "variable_en": "which side of the open door the hour is read from — never how many hours the crossing creates",
+    "variable_zh": "这一小时从门的哪一侧被读到——穿过并不另造一小时",
+    "brief_en": "The far side is still this hour. A person may walk through the open door. The pulse keeps its own direction. A second ring tries to grow, fails to close, and falls back into the first. The gap does not tighten because someone crossed, and the crossing is not written down as a second grant.",
+    "brief_zh": "穿过开着的门，并不劈开这一小时。人可以走到另一侧。脉冲仍按自己的方向走。第二圈会试着长出来，走不到闭合，就塌回第一圈。门缝不因穿过而收紧，离开也不写成第二段授予。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-30/live/2026-10-30-the-far-side-is-still-this-hour-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-30/assets/visual-preview.gif"
   }
 ]

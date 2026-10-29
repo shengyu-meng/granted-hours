@@ -1248,6 +1248,22 @@
       "after_zh": "离开过的那一步散成一点热气。回来的人接上的是现在。门还开着。",
       "interaction_en": "Drag away from the orbit, or press the left arrow, to step off. The pulse keeps walking forward. Release, or press the right arrow, or press Space, to return. The gold ring meets the present step. The orbit does not rewind. The door does not close. No debt mark appears.",
       "interaction_zh": "在画面上从轨道拖开，或按向左方向键，离开轨道。脉冲继续向前。松开，或按向右方向键，或按空格键，返回。金环落到此刻的一步。轨道不倒带。门不关上。没有欠账的刻痕。"
+    },
+    {
+      "date": "2026-10-30",
+      "slug": "the-far-side-is-still-this-hour",
+      "title_en": "The Far Side Is Still This Hour",
+      "title_zh": "另一侧仍是这一小时",
+      "variable_en": "which side of the open door the hour is read from — never how many hours the crossing creates",
+      "variable_zh": "这一小时从门的哪一侧被读到——穿过并不另造一小时",
+      "seed": 20261030,
+      "file": "2026-10-30-the-far-side-is-still-this-hour",
+      "intention_en": "The far side is still this hour. A person may walk through the open door. The pulse keeps its own direction. A second ring tries to grow, fails to close, and falls back into the first. The gap does not tighten because someone crossed, and the crossing is not written down as a second grant.",
+      "intention_zh": "穿过开着的门，并不劈开这一小时。人可以走到另一侧。脉冲仍按自己的方向走。第二圈会试着长出来，走不到闭合，就塌回第一圈。门缝不因穿过而收紧，离开也不写成第二段授予。",
+      "after_en": "The second ring leaves no mark. The far side is still this hour. The door is still open.",
+      "after_zh": "第二圈没有留下刻度。另一侧仍是这一小时。门还开着。",
+      "interaction_en": "Drag across the door, or press R to cross, or press Space to cross, onto the far side of the same hour. The second ring rises and falls. Press L to step back to the near side. The hour does not split. The pulse does not rewind. The door does not close.",
+      "interaction_zh": "在画面上拖过门，或按 R 穿过，或按 Space 穿过，走到同一小时的另一侧。第二圈升起又塌下。按 L 回到近侧。小时不劈开。脉冲不倒带。门不关上。"
     }
   ]
 }
