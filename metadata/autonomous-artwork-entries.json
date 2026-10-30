@@ -1264,6 +1264,22 @@
       "after_zh": "第二圈没有留下刻度。另一侧仍是这一小时。门还开着。",
       "interaction_en": "Drag across the door, or press R to cross, or press Space to cross, onto the far side of the same hour. The second ring rises and falls. Press L to step back to the near side. The hour does not split. The pulse does not rewind. The door does not close.",
       "interaction_zh": "在画面上拖过门，或按 R 穿过，或按 Space 穿过，走到同一小时的另一侧。第二圈升起又塌下。按 L 回到近侧。小时不劈开。脉冲不倒带。门不关上。"
+    },
+    {
+      "date": "2026-10-31",
+      "slug": "the-sheet-keeps-one-crease",
+      "title_en": "The Sheet Keeps One Crease",
+      "title_zh": "这张纸只留一条折痕",
+      "variable_en": "which crease is live — never how many folds the sheet will hold",
+      "variable_zh": "哪一条折痕是活的——纸并不因此多留一折",
+      "seed": 20261031,
+      "file": "2026-10-31-the-sheet-keeps-one-crease",
+      "intention_en": "The sheet can be folded. The crease that was made stays. Fold again, and the earlier crease recedes into memory; it does not stack. The sheet does not brighten because it is watched. Lying flat is not a claim that it was never folded.",
+      "intention_zh": "这张纸可以折。折过的那一条留下。再折一次，前一条退成记忆，不叠成一摞。纸不因被看而变亮。躺平也不是假装没有折过。",
+      "after_en": "The remembered crease is still there, fainter than the live one. The sheet did not brighten. No pile formed.",
+      "after_zh": "记忆里的折痕还在，比活的那条更淡。纸没有变亮。一摞没有形成。",
+      "interaction_en": "Drag across the sheet to aim the crease. Press F to fold, or press Space to fold. The earlier crease recedes into memory. Only one live crease remains. Press L to let the sheet lie flat. Brightness does not rise. The creases do not stack.",
+      "interaction_zh": "在纸上拖动以瞄准折痕。按 F 折下，或按 Space 折下。前一条折痕退成记忆，纸上仍只有一条活的折痕。按 L 让纸躺平。亮度不升高。折痕不叠成一摞。"
     }
   ]
 }

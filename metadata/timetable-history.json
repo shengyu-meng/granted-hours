@@ -7912,6 +7912,11 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-10-30",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

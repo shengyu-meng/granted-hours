@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-31",
+  "mode": "live-canvas",
+  "width": 400,
+  "height": 225,
+  "frames": 24,
+  "duration": 3.01,
+  "bytes": 64939,
+  "changedFrames": 23,
+  "averageYavg": 0.510750195652174,
+  "maximumYavg": 0.862967,
+  "captureMs": 9560,
+  "timing": "browser-clock-8fps",
+  "compositing": "browser-native-raf",
+  "schema": "live-artwork-capture-v1",
+  "sourceSha256": "f50b0128cc3f270c308360f0b383ef553235d5f7c64951de9ee39779e3185afa",
+  "gifSha256": "3b7d056f1a001db86f9106f02cc6a9ed798d9398763fa10cfa565a9ac575aec3"
+}

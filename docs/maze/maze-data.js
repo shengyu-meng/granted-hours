@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-30",
-  "nodeCount": 178,
+  "generatedAt": "2026-10-31",
+  "nodeCount": 179,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3739,6 +3739,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 8,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-10-31",
+      "date": "2026-10-31",
+      "title_en": "The Sheet Keeps One Crease",
+      "title_zh": "这张纸只留一条折痕",
+      "variable_en": "which crease is live — never how many folds the sheet will hold",
+      "variable_zh": "哪一条折痕是活的——纸并不因此多留一折",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "which crease is live — never how many folds the sheet will hold entered the archive as a clue rather than a label.",
+      "diary_zh": "「哪一条折痕是活的——纸并不因此多留一折」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/10/2026-10-31/live/",
+      "archive_url": "../archive/2026/10/2026-10-31/",
+      "gif": "../archive/2026/10/2026-10-31/assets/visual-preview.gif",
+      "x": 27,
+      "y": -21,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3759,7 +3780,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 102
+      "count": 103
     },
     {
       "id": "maintenance",
@@ -4490,6 +4511,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-30"
     ],
     [
+      "2026-10-30",
+      "2026-10-31"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4888,6 +4913,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-24",
       "2026-10-28"
+    ],
+    [
+      "2026-10-27",
+      "2026-10-31"
     ],
     [
       "2026-05-07",

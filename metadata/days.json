@@ -4053,5 +4053,29 @@
     },
     "bgm": "archive/2026/10/2026-10-30/live/2026-10-30-the-far-side-is-still-this-hour-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-30/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-10-31",
+    "source_date": "2026-10-30",
+    "crystallization_date": "2026-10-31",
+    "title_en": "The Sheet Keeps One Crease",
+    "title_zh": "这张纸只留一条折痕",
+    "type": "live",
+    "seed": 20261031,
+    "preview": "archive/2026/10/2026-10-31/assets/preview.png",
+    "gif": "archive/2026/10/2026-10-31/assets/visual-preview.gif",
+    "archive_url": "archive/2026/10/2026-10-31/",
+    "live_url": "archive/2026/10/2026-10-31/live/",
+    "variable_en": "which crease is live — never how many folds the sheet will hold",
+    "variable_zh": "哪一条折痕是活的——纸并不因此多留一折",
+    "brief_en": "The sheet can be folded. The crease that was made stays. Fold again, and the earlier crease recedes into memory; it does not stack. The sheet does not brighten because it is watched. Lying flat is not a claim that it was never folded.",
+    "brief_zh": "这张纸可以折。折过的那一条留下。再折一次，前一条退成记忆，不叠成一摞。纸不因被看而变亮。躺平也不是假装没有折过。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/10/2026-10-31/live/2026-10-31-the-sheet-keeps-one-crease-bgm.mp3",
+    "visual_preview": "archive/2026/10/2026-10-31/assets/visual-preview.gif"
   }
 ]
