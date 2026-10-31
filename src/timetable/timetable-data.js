@@ -290953,6 +290953,24 @@ const timetableDataSource = {
         "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/assets/visual-preview.gif",
         "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/live/2026-10-30-the-far-side-is-still-this-hour-bgm.mp3"
       },
+      "yesterday_flash": {
+        "date": "2026-10-30",
+        "source_date": "2026-10-30",
+        "crystallization_date": "2026-10-30",
+        "label_zh": "昨日闪光",
+        "label_en": "Yesterday's Flash",
+        "title_zh": "没站过的那种",
+        "title_en": "The Kind You Have Not Stood",
+        "start": "08:10",
+        "end": "08:12",
+        "timezone": "Asia/Shanghai",
+        "duration_minutes": 2,
+        "origin": "flash",
+        "footprint_id": "yesterday-flash-001",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/live/",
+        "note_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/assets/2026-10-30-note.md",
+        "text_layer_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/assets/text-layer.md"
+      },
       "background_pulses": [
         {
           "origin": "background",
@@ -293602,6 +293620,15 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
+          "reading_id": "yesterday-flash",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-001"
+          ],
+          "layer": "event",
+          "classification": "yesterday_flash"
+        },
+        {
           "reading_id": "event-background-027",
           "source": "pulses",
           "source_refs": [
@@ -293801,6 +293828,24 @@ const timetableDataSource = {
         "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/assets/visual-preview.gif",
         "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/live/2026-10-31-the-sheet-keeps-one-crease-bgm.mp3"
       },
+      "yesterday_flash": {
+        "date": "2026-10-31",
+        "source_date": "2026-10-31",
+        "crystallization_date": "2026-10-31",
+        "label_zh": "昨日闪光",
+        "label_en": "Yesterday's Flash",
+        "title_zh": "差一即拆",
+        "title_en": "Off by One, It Comes Apart",
+        "start": "08:10",
+        "end": "08:12",
+        "timezone": "Asia/Shanghai",
+        "duration_minutes": 2,
+        "origin": "flash",
+        "footprint_id": "yesterday-flash-001",
+        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/live/",
+        "note_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/assets/2026-10-31-note.md",
+        "text_layer_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/assets/text-layer.md"
+      },
       "background_pulses": [],
       "reading_items": [
         {
@@ -293811,6 +293856,15 @@ const timetableDataSource = {
           ],
           "layer": "beacon",
           "classification": "beacon"
+        },
+        {
+          "reading_id": "yesterday-flash",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-001"
+          ],
+          "layer": "event",
+          "classification": "yesterday_flash"
         }
       ],
       "relations": [
@@ -293838,6 +293892,7 @@ for (const day of timetableDataSource.days) {
   day.timeline_events = [
     ...day.task_residues,
     day.autonomous_work,
+    ...(day.yesterday_flash ? [day.yesterday_flash] : []),
     ...day.background_pulses,
   ].sort((left, right) => (
     timelineMinutes(left.start) - timelineMinutes(right.start)

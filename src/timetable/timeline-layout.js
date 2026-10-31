@@ -256,12 +256,23 @@ export function layoutTimelineReadingCards(items, options) {
   const edgePadding = Math.max(0, Number(options.edgePadding) || 0);
   const columnWidth = (canvasWidth - columnGap * (columnCount - 1)) / columnCount;
   const placed = [];
+  const followers = new Map(items.filter((item) => item.afterKey).map((item) => [item.afterKey, item]));
+  if (followers.size !== items.filter((item) => item.afterKey).length) {
+    throw new Error("A protected reading card may have only one following work");
+  }
+  for (const item of items.filter((candidate) => candidate.afterKey)) {
+    if (!items.some((parent) => parent.key === item.afterKey && !parent.afterKey)) {
+      throw new Error("A following work requires a primary reading card");
+    }
+  }
 
-  for (const item of items) {
+  for (const item of items.filter((candidate) => !candidate.afterKey)) {
     const columnSpan = Math.max(1, Math.min(columnCount, Number(item.columnSpan) || 1));
     const maximumColumn = columnCount - columnSpan;
     const preferredColumn = Math.max(0, Math.min(maximumColumn, Number(item.preferredColumn) || 0));
-    const height = Math.max(1, Number(item.height) || 1);
+    const primaryHeight = Math.max(1, Number(item.height) || 1);
+    const follower = followers.get(item.key);
+    const height = primaryHeight + (follower ? rowGap + follower.height : 0);
     const anchorMinute = Number.isFinite(Number(item.anchorMinute))
       ? Number(item.anchorMinute)
       : Number(item.startMinute);
@@ -271,7 +282,7 @@ export function layoutTimelineReadingCards(items, options) {
       : anchorMinute * minuteHeight;
     const desiredTop = Math.max(
       edgePadding,
-      Math.min(anchorPosition - height * anchorRatio, canvasHeight - height - edgePadding),
+      Math.min(anchorPosition - primaryHeight * anchorRatio, canvasHeight - height - edgePadding),
     );
     let best = null;
 
@@ -352,8 +363,31 @@ export function layoutTimelineReadingCards(items, options) {
     placed.push(result);
   }
 
+  const cards = placed.flatMap((placement) => {
+    const follower = followers.get(placement.key);
+    if (!follower) return [placement];
+    const primaryHeight = placement.height - rowGap - follower.height;
+    const top = placement.top + primaryHeight + rowGap;
+    const anchorPosition = follower.anchorPosition ?? follower.anchorMinute * minuteHeight;
+    const desiredTop = anchorPosition - follower.height * (follower.anchorRatio || 0);
+    return [
+      { ...placement, height: primaryHeight, bottom: placement.top + primaryHeight },
+      {
+        ...follower,
+        column: placement.column,
+        columnSpan: placement.columnSpan,
+        left: placement.left,
+        width: placement.width,
+        top,
+        bottom: top + follower.height,
+        anchorPosition,
+        desiredTop,
+        displacement: Math.abs(top - desiredTop),
+      },
+    ];
+  });
   return {
-    cards: placed,
+    cards,
     requiredHeight: placed.reduce((maximum, item) => Math.max(maximum, item.bottom + edgePadding), 0),
     maximumDisplacement: placed.reduce((maximum, item) => Math.max(maximum, item.displacement), 0),
   };

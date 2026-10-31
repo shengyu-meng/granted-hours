@@ -1,0 +1,17 @@
+{
+  "schema": "granted-hours-inspiration-residue-work-v1",
+  "display_name_zh": "昨日闪光",
+  "display_name_en": "Yesterday's Flash",
+  "source_date": "2026-10-30",
+  "crystallization_day": "2026-10-30",
+  "picked_title": "没站过的那种",
+  "text_layer_kept": 3,
+  "embedded_work": "index.html",
+  "text_layer": "text-layer.md",
+  "note": "2026-10-30-note.md",
+  "lane": "inspiration-residue",
+  "not_free_roam": true,
+  "local_complete": true,
+  "public_sealed": false,
+  "seal": "next-06:35"
+}

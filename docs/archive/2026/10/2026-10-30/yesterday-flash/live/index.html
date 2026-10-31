@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --bone-deep: #d4c7b2;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(28, 36, 34, 0.14);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background:
+        radial-gradient(1200px 700px at 70% 40%, rgba(184, 146, 74, 0.07), transparent 60%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage { width: min(1120px, calc(100% - 108px)); margin: 0 72px 0 28px; }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer {
+      padding: 10px 0 12px;
+      max-width: 46rem;
+    }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en {
+      color: rgba(230, 220, 203, 0.72);
+      font-size: 13.5px;
+    }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(200px, 0.52fr);
+      gap: 16px;
+      align-items: stretch;
+      flex: 1;
+      min-height: 0;
+      height: auto;
+      padding-bottom: 16px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet {
+      position: relative;
+      height: 100%;
+      min-height: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.35), transparent 28%),
+        repeating-linear-gradient(180deg, transparent 0 27px, var(--hair) 28px),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      overflow: hidden;
+      touch-action: none;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title {
+      position: relative;
+      z-index: 2;
+      padding: 22px 28px 0;
+      pointer-events: none;
+    }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      min-height: 1.2em;
+    }
+    .sheet-title strong.is-shared { color: #6d5424; }
+    .ticks { display: flex; gap: 8px; min-height: 8px; margin-top: 8px; }
+    .ticks i {
+      width: 36px; height: 2px;
+      background: var(--gold);
+      display: block;
+    }
+    canvas#ink {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .stand {
+      position: absolute;
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      margin: -22px 0 0 -22px;
+      border-radius: 50%;
+      border: 1px solid rgba(184, 146, 74, 0.85);
+      background: radial-gradient(circle at 50% 45%, #f4efe4 0 7px, rgba(184, 146, 74, 0.55) 8px 13px, transparent 14px);
+      color: var(--ink);
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+    .stand.is-armed { box-shadow: 0 0 0 6px rgba(127, 158, 166, 0.35); }
+    .stand span {
+      position: absolute;
+      left: 50%;
+      top: 48px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .stand:focus-visible, .ghost-foot:focus-visible, .sheet-actions button:focus-visible, .note-btn:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .stand[aria-disabled="true"] { opacity: 0.45; cursor: default; }
+    .sheet-hint {
+      position: absolute;
+      z-index: 2;
+      left: 22px;
+      right: 22px;
+      bottom: 14px;
+      margin: 0;
+      font-size: 13px;
+      color: rgba(26, 33, 31, 0.62);
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(239, 230, 214, 0), var(--paper) 28%);
+      padding-top: 10px;
+    }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 26px;
+      letter-spacing: 0.08em;
+      color: #d9d3df;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    .ghost-foot {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px dashed rgba(141, 135, 150, 0.85);
+      background: transparent;
+      color: var(--violet);
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+    .ghost-foot span {
+      position: absolute;
+      left: 50%;
+      top: 48px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    #refused {
+      list-style: none;
+      margin: 18px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #refused li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(217, 211, 223, 0.78);
+      font-size: 13px;
+    }
+    #refused i {
+      width: 42px;
+      height: 10px;
+      border-bottom: 1.5px solid var(--violet);
+      position: relative;
+      flex: none;
+    }
+    #refused i::after {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: -3px;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--violet);
+      border-radius: 50%;
+    }
+    #refused i::before {
+      content: "";
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      width: 8px;
+      height: 1px;
+      background: var(--violet);
+      transform: rotate(-32deg);
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(230, 220, 203, 0.28);
+      background: transparent;
+      color: var(--bone);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .note-close {
+      min-height: 44px;
+      border: 1px solid rgba(230, 220, 203, 0.28);
+      background: transparent;
+      color: var(--bone);
+      font: inherit;
+      padding: 0 14px;
+      cursor: pointer;
+    }
+    @media (max-width: 800px) {
+      body { height: auto; overflow: auto; }
+      .colophon, .text-layer, .stage { width: min(1120px, calc(100% - 36px)); margin: 0 18px; }
+      .stage { display: grid; grid-template-columns: 1fr; height: auto; flex: none; min-height: 0; }
+      .sheet, .margin { height: 520px; min-height: 520px; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 12px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 380px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。没站过的那种：活法说到一半，若必须再去一处没站过的点，就离开这张纸，不能跟说得圆的几种共用标题。后写的那一挪：画面已经能给人看了才补上的位置，是旁注，不是方法。合上才算：合上之后还能说完的三句才算数；有一句得打开才说得完，就还在架子上。</p>
+    <p class="en">Three glints are still lit; only one can be entered. The kind you have not stood: a way of living that must walk to a point never occupied leaves the sheet and cannot share the title with the ones that can be spoken round. The move written after: a position added once the picture is already readable is a caption, not a method. It counts only when closed: three sentences that can still be finished after the file is shut count; a sentence that needs the file open stays on the shelf.</p>
+  </section>
+
+  <main class="stage">
+    <section class="sheet" id="sheet" aria-label="没站过的那种">
+      <div class="sheet-title">
+        <span class="k">共用标题</span>
+        <strong id="shared-title">标题还空着</strong>
+        <div class="ticks" id="ticks"></div>
+      </div>
+      <canvas id="ink"></canvas>
+      <button class="stand" id="stand-a" data-stand="a" style="left:32%; top:58%" type="button"><span>此一站</span></button>
+      <button class="stand" id="stand-b" data-stand="b" style="left:64%; top:34%" type="button"><span>彼一站</span></button>
+      <p class="sheet-hint" id="hint">从一处脚拖到另一处。落到别处，标题不收。</p>
+    </section>
+    <aside class="margin">
+      <h2>没站过的那种</h2>
+      <p class="sub">The Kind You Have Not Stood</p>
+      <button class="ghost-foot" id="third-foot" type="button"><span>没站过的点</span></button>
+      <ol id="refused"></ol>
+      <div class="sheet-actions">
+        <button id="another" type="button">另一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>没站过的那种<br>The Kind You Have Not Stood</h2>
+      <p class="label">Brief / 作品简述</p>
+      <p>纸上只有两处已经站过的脚。活法若能从这一处说到那一处，就可以写进同一个标题。活法若必须落到一处没站过的点，这一笔离开纸，标题不收。</p>
+      <p>Only two feet have already stood on the sheet. A way of living that can be spoken from one to the other may enter the shared title. A way that must land on a point never occupied leaves the sheet. The title does not take it.</p>
+      <p class="label">How to interact / 操作说明</p>
+      <p>从一处已站的脚按住，拖到另一处已站的脚，松开。这一笔留在纸上，可以共用标题。若松开时不在另一处脚上，或直接点旁边那处没站过的点，这一笔进入「没站过的那种」，标题不收。三次之后，这张纸留下。可以换另一张纸。</p>
+      <p>Press one stood foot and drag to the other, then release. The stroke stays on the sheet and may share the title. If the release is not on the other foot, or if the unstood point at the side is pressed, the stroke enters “the kind you have not stood” and the title refuses it. After three strokes, the sheet remains. Another sheet may be taken.</p>
+      <p class="label">Sound / 声音</p>
+      <p>这件作品不发声。拒绝是账页，不是气氛。</p>
+      <p>This piece is silent. Refusal is a ledger, not an atmosphere.</p>
+      <button class="note-close" id="note-close" type="button">合上</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      const sheet = document.getElementById("sheet");
+      const canvas = document.getElementById("ink");
+      const ctx = canvas.getContext("2d");
+      const title = document.getElementById("shared-title");
+      const ticks = document.getElementById("ticks");
+      const hint = document.getElementById("hint");
+      const refused = document.getElementById("refused");
+      const third = document.getElementById("third-foot");
+      const another = document.getElementById("another");
+      const stands = {
+        a: document.getElementById("stand-a"),
+        b: document.getElementById("stand-b")
+      };
+      const STAND = { a: { x: 0.32, y: 0.58 }, b: { x: 0.64, y: 0.34 } };
+      const MAX = 3;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let attempts = 0;
+      let accepted = 0;
+      let drawing = null;
+      let origin = null;
+      let armed = null;
+      let potential = null;
+      let ignoreClick = false;
+      const strokes = [];
+
+      function other(id) { return id === "a" ? "b" : "a"; }
+      function norm(clientX, clientY) {
+        const r = sheet.getBoundingClientRect();
+        return {
+          x: Math.min(1, Math.max(0, (clientX - r.left) / r.width)),
+          y: Math.min(1, Math.max(0, (clientY - r.top) / r.height))
+        };
+      }
+      function standAt(id) { return { x: STAND[id].x, y: STAND[id].y }; }
+      function resize() {
+        const r = sheet.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(1, Math.floor(r.width * dpr));
+        canvas.height = Math.max(1, Math.floor(r.height * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw();
+      }
+      function draw() {
+        const r = sheet.getBoundingClientRect();
+        ctx.clearRect(0, 0, r.width, r.height);
+        strokes.forEach(function (s) { paint(s.points, s.kind); });
+        if (drawing) paint(drawing, "live");
+      }
+      function paint(points, kind) {
+        if (!points || points.length < 2) return;
+        const r = sheet.getBoundingClientRect();
+        ctx.beginPath();
+        const x0 = points[0].x * r.width;
+        const y0 = points[0].y * r.height;
+        ctx.moveTo(x0, y0);
+        if (points.length === 3) {
+          ctx.quadraticCurveTo(points[1].x * r.width, points[1].y * r.height, points[2].x * r.width, points[2].y * r.height);
+        } else {
+          for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x * r.width, points[i].y * r.height);
+        }
+        ctx.lineWidth = kind === "shared" ? 2.4 : 1.5;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = kind === "shared" ? "rgba(109, 84, 36, 0.88)" : "rgba(90, 122, 130, 0.9)";
+        ctx.stroke();
+      }
+      function locked() { return attempts >= MAX; }
+      function setLocked(on) {
+        Object.keys(stands).forEach(function (id) {
+          stands[id].setAttribute("aria-disabled", on ? "true" : "false");
+        });
+        third.disabled = on;
+      }
+      function refreshTitle() {
+        if (accepted > 0) {
+          title.textContent = "说得圆的";
+          title.classList.add("is-shared");
+        } else {
+          title.textContent = "标题还空着";
+          title.classList.remove("is-shared");
+        }
+        ticks.replaceChildren();
+        for (let i = 0; i < accepted; i++) {
+          const mark = document.createElement("i");
+          ticks.appendChild(mark);
+        }
+        hint.textContent = locked()
+          ? "这张纸留下了。"
+          : "从一处脚拖到另一处。落到别处，标题不收。";
+      }
+      function addRefusal() {
+        const li = document.createElement("li");
+        li.innerHTML = "<i></i><span>不能共用标题</span>";
+        refused.appendChild(li);
+      }
+      function finish(kind, fromId) {
+        attempts += 1;
+        if (kind === "shared" && fromId) {
+          accepted += 1;
+          const a = standAt(fromId);
+          const b = standAt(other(fromId));
+          const mid = { x: (a.x + b.x) / 2, y: Math.min(a.y, b.y) - 0.08 };
+          strokes.push({ kind: "shared", points: [a, mid, b] });
+        } else {
+          addRefusal();
+        }
+        drawing = null;
+        origin = null;
+        clearArmed();
+        setLocked(locked());
+        refreshTitle();
+        draw();
+      }
+      function cancelDraw() {
+        drawing = null;
+        origin = null;
+        armed = null;
+        draw();
+      }
+      function markArmed(id) {
+        armed = id;
+        Object.keys(stands).forEach(function (key) {
+          stands[key].classList.toggle("is-armed", key === id);
+        });
+      }
+      function clearArmed() {
+        armed = null;
+        Object.keys(stands).forEach(function (key) {
+          stands[key].classList.remove("is-armed");
+        });
+      }
+      function begin(id, point) {
+        if (locked()) return;
+        origin = point;
+        drawing = [point];
+        draw();
+      }
+      function nearStand(clientX, clientY) {
+        let found = null;
+        Object.keys(stands).forEach(function (id) {
+          const r = stands[id].getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          if (Math.hypot(clientX - cx, clientY - cy) < 36) found = id;
+        });
+        return found;
+      }
+      function tapStand(id) {
+        if (locked()) return;
+        if (!armed) {
+          markArmed(id);
+          return;
+        }
+        if (armed !== id) finish("shared", armed);
+        else clearArmed();
+      }
+      function resolveDrag(clientX, clientY) {
+        const el = document.elementFromPoint(clientX, clientY);
+        const onThird = el && el.closest ? el.closest("#third-foot") : null;
+        const targetStand = nearStand(clientX, clientY);
+        if (onThird || !targetStand || targetStand === potential.id) finish("refused");
+        else finish("shared", potential.id);
+      }
+      sheet.addEventListener("pointerdown", function (event) {
+        if (locked()) return;
+        const stand = event.target.closest("[data-stand]");
+        if (!stand) return;
+        event.preventDefault();
+        potential = { id: stand.dataset.stand, moved: false };
+        sheet.setPointerCapture(event.pointerId);
+      });
+      sheet.addEventListener("pointermove", function (event) {
+        if (!potential) return;
+        const point = norm(event.clientX, event.clientY);
+        const start = standAt(potential.id);
+        if (Math.hypot(point.x - start.x, point.y - start.y) > 0.02) {
+          potential.moved = true;
+          if (!drawing) begin(potential.id, start);
+          drawing.push(point);
+          draw();
+        }
+      });
+      sheet.addEventListener("pointerup", function (event) {
+        if (!potential) return;
+        if (potential.moved) {
+          ignoreClick = true;
+          setTimeout(function () { ignoreClick = false; }, 80);
+          resolveDrag(event.clientX, event.clientY);
+        } else {
+          tapStand(potential.id);
+        }
+        potential = null;
+      });
+      sheet.addEventListener("pointercancel", function () {
+        potential = null;
+        cancelDraw();
+      });
+
+      Object.keys(stands).forEach(function (id) {
+        stands[id].addEventListener("click", function (event) {
+          if (ignoreClick || locked() || event.detail !== 0) return;
+          tapStand(id);
+        });
+      });
+      third.addEventListener("click", function () {
+        if (locked()) return;
+        finish("refused");
+      });
+      another.addEventListener("click", function () {
+        attempts = 0;
+        accepted = 0;
+        strokes.length = 0;
+        refused.replaceChildren();
+        cancelDraw();
+        setLocked(false);
+        refreshTitle();
+      });
+
+      const note = document.getElementById("note");
+      const toggle = document.getElementById("note-toggle");
+      function closeNote() {
+        note.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      }
+      toggle.addEventListener("click", function () {
+        const open = note.hidden;
+        note.hidden = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) document.getElementById("note-close").focus();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      window.addEventListener("resize", resize);
+      refreshTitle();
+      resize();
+      if (reduce) document.documentElement.style.scrollBehavior = "auto";
+    }());
+  </script>
+</body>
+</html>

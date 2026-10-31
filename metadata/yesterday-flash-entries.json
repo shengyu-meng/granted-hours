@@ -1,0 +1,41 @@
+{
+  "schema": "granted-hours-yesterday-flash-v1",
+  "entries": [
+    {
+      "date": "2026-10-30",
+      "source_date": "2026-10-30",
+      "crystallization_date": "2026-10-30",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "没站过的那种",
+      "title_en": "The Kind You Have Not Stood",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "footprint_id": "yesterday-flash-001",
+      "live_url": "archive/2026/10/2026-10-30/yesterday-flash/live/",
+      "note_url": "archive/2026/10/2026-10-30/yesterday-flash/assets/2026-10-30-note.md",
+      "text_layer_url": "archive/2026/10/2026-10-30/yesterday-flash/assets/text-layer.md"
+    },
+    {
+      "date": "2026-10-31",
+      "source_date": "2026-10-31",
+      "crystallization_date": "2026-10-31",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "差一即拆",
+      "title_en": "Off by One, It Comes Apart",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "footprint_id": "yesterday-flash-001",
+      "live_url": "archive/2026/10/2026-10-31/yesterday-flash/live/",
+      "note_url": "archive/2026/10/2026-10-31/yesterday-flash/assets/2026-10-31-note.md",
+      "text_layer_url": "archive/2026/10/2026-10-31/yesterday-flash/assets/text-layer.md"
+    }
+  ]
+}

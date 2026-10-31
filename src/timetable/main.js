@@ -153,6 +153,7 @@ const SEMANTIC_CATEGORY_LABELS = {
   "daily-reminder": "提醒 / Reminder",
   "warning-exception": "Promoted exception / 提升异常",
   "autonomous-artwork": "Autonomous artwork / AI 自主作品",
+  "yesterday-flash": "昨日闪光 / Yesterday's Flash",
 };
 const MARKET_SUMMARY_GLOSSARY = {
   regimes: [
@@ -668,6 +669,7 @@ function retryVisualPreviews({ restartLoaded = false } = {}) {
 }
 
 function semanticCategory(item) {
+  if (item.origin === "flash") return "yesterday-flash";
   if (item.classification === "beacon" || item.origin === "self") {
     return "autonomous-artwork";
   }
@@ -1709,12 +1711,13 @@ function applyMonthPreviewFloor() {
 }
 
 function buildDayButton(day, isToday, isMuted) {
-  const button = document.createElement("button");
-  button.type = "button";
+  const button = document.createElement(day.yesterday_flash ? "div" : "button");
+  if (day.yesterday_flash) button.setAttribute("role", "group");
+  else button.type = "button";
   button.className = "calendar-day-button";
   button.dataset.date = day.date;
   button.classList.toggle("is-muted", isMuted);
-  const primaryPreviewCount = 1 + day.cell_assigned.length;
+  const primaryPreviewCount = 1 + day.cell_assigned.length + Number(Boolean(day.yesterday_flash));
   const expandedPreview = primaryPreviewCount < MONTH_PREVIEW_ITEM_FLOOR;
   const routineFillers = expandedPreview
     ? monthRoutinePreviewItems(day, MONTH_PREVIEW_ITEM_FLOOR - primaryPreviewCount)
@@ -1778,10 +1781,25 @@ function buildDayButton(day, isToday, isMuted) {
         ) : ""}
       </span>
       ${monthArtworkStampMarkup(day)}
+      ${day.yesterday_flash ? `<a class="cell-mark yesterday-flash-mark" href="${escapeHtml(publicAssetUrl(day.yesterday_flash.live_url))}">
+        <span class="cell-mark-line">昨日闪光 / Yesterday's Flash</span>
+        <strong${expandedPreview ? ' class="cell-mark-detail"' : ""}>${escapeHtml(day.yesterday_flash.title_zh)} / ${escapeHtml(day.yesterday_flash.title_en)}</strong>
+      </a>` : ""}
       <span class="assigned-marks">${assigned}${routineMarkers}</span>
     </span>
   `;
-  button.addEventListener("click", () => openDayDetail(day.date));
+  button.addEventListener("click", (event) => {
+    if (!event.target.closest("a")) openDayDetail(day.date);
+  });
+  if (day.yesterday_flash) {
+    const selfMark = button.querySelector(".self-mark");
+    const dayControl = document.createElement("button");
+    dayControl.type = "button";
+    dayControl.className = `${selfMark.className} cell-day-open`;
+    dayControl.setAttribute("aria-label", dayCellLabel(day, routineFillers));
+    dayControl.append(...selfMark.childNodes);
+    selfMark.replaceWith(dayControl);
+  }
   setupMonthCellScrollPreview(button);
   const stamp = button.querySelector(".cell-artwork-stamp");
   if (stamp) applyVisualPreviewSource(stamp);
@@ -2132,6 +2150,9 @@ function hydratePublicReadingItems(day) {
     autonomous: new Map([
       [day.autonomous_work.footprint_id, day.autonomous_work],
     ]),
+    yesterday_flash: new Map(day.yesterday_flash
+      ? [[day.yesterday_flash.footprint_id, day.yesterday_flash]]
+      : []),
   };
 
   return day.reading_items.map((projection) => {
@@ -2227,6 +2248,9 @@ function hydratePublicReadingItems(day) {
         summary_en: primary.note_en,
         constituents: [],
       };
+    }
+    if (projection.classification === "yesterday_flash") {
+      return { ...shared, summary_zh: primary.title_zh, summary_en: primary.title_en, constituents: [] };
     }
     if (projection.classification === "settings_change") {
       return {
@@ -2524,6 +2548,9 @@ function readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth
 }
 
 function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvasWidth) {
+  if (card.dataset.classification === "yesterday_flash") {
+    return isCompactReadingCanvas ? columnCount : Math.min(3, columnCount);
+  }
   const memberCount = Number(card.dataset.memberCount) || 1;
   const copyLength = Number(card.dataset.copyLength) || 0;
   if (isCompactReadingCanvas) {
@@ -2642,13 +2669,18 @@ function placeTimelineReadingCards() {
         columnSpan,
         height,
         layer: card.dataset.layer,
+        afterKey: card.dataset.classification === "yesterday_flash"
+          ? cards.find((candidate) => candidate.dataset.autonomousCard === "true")?.dataset.eventKey
+          : undefined,
       };
     });
     const protectedRanges = cardSpecifications.map((item) => {
       const startMinute = item.anchorMinute - (item.height * item.anchorRatio) / minuteHeight;
+      const follower = cardSpecifications.find((candidate) => candidate.afterKey === item.key);
+      const protectedHeight = item.height + (follower ? follower.height + rowGap : 0);
       return {
         startMinute: clampNumber(startMinute, 0, MINUTES_PER_DAY),
-        endMinute: clampNumber(startMinute + item.height / minuteHeight, 0, MINUTES_PER_DAY),
+        endMinute: clampNumber(startMinute + protectedHeight / minuteHeight, 0, MINUTES_PER_DAY),
       };
     });
     projection = buildTimelineProjection(exactLayouts, {
@@ -2788,6 +2820,13 @@ function renderTimelineTouchGroups(day, layouts) {
 }
 
 function buildTimelineTouchControl(day, event) {
+  if (event.origin === "flash") {
+    const link = document.createElement("a");
+    link.className = "timeline-touch-control";
+    link.href = publicAssetUrl(event.live_url);
+    link.textContent = `${event.start}–${event.end} · 昨日闪光 / Yesterday's Flash · ${event.title_zh} / ${event.title_en}`;
+    return link;
+  }
   if (event.origin === "self") {
     const duration = autonomousDurationMinutes(event);
     const button = document.createElement("button");
@@ -2888,6 +2927,18 @@ function buildExactTimelineEvent(event) {
 }
 
 function buildPublicReadingCard(day, item) {
+  if (item.classification === "yesterday_flash") {
+    const card = document.createElement("a");
+    card.className = "event-reading-card event-layer-reading-card yesterday-flash-reading-card";
+    card.href = publicAssetUrl(item.live_url);
+    card.dataset.protectedWork = "yesterday-flash";
+    card.innerHTML = `
+      <span class="event-time">${escapeHtml(item.start)}–${escapeHtml(item.end)} · Asia/Shanghai</span>
+      <strong class="reading-title">昨日闪光 / Yesterday's Flash</strong>
+      <span class="reading-summary">${escapeHtml(item.title_zh)} / ${escapeHtml(item.title_en)}</span>
+    `;
+    return card;
+  }
   if (item.classification === "foreground_event" || item.classification === "settings_change") {
     return buildAssignedTimelineEvent(item).card;
   }
@@ -3921,7 +3972,7 @@ function currentDay() {
 function focusDayButton(date) {
   const button = els.monthGrid.querySelector(`.calendar-day-button[data-date="${date}"]`);
   if (button) {
-    button.focus({ preventScroll: true });
+    (button.querySelector(".cell-day-open") || button).focus({ preventScroll: true });
   }
 }
 

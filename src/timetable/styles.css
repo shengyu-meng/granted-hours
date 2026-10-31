@@ -590,6 +590,45 @@ h1 {
   line-height: 1.2;
 }
 
+.cell-day-open {
+  width: 100%;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.yesterday-flash-mark {
+  padding: 4px 0 4px 8px;
+  border-left: 1px solid var(--gold-pale);
+  color: var(--gold-pale);
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.yesterday-flash-mark strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.yesterday-flash-reading-card {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 14px;
+  color: var(--bone);
+  text-decoration: none;
+}
+
+.yesterday-flash-mark:focus-visible,
+.cell-day-open:focus-visible,
+.yesterday-flash-reading-card:focus-visible {
+  outline: 2px solid var(--gold-pale);
+  outline-offset: -2px;
+}
+
 .assigned-mark {
   width: fit-content;
   max-width: 100%;

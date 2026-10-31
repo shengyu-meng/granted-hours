@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 80% 80%, rgba(184, 146, 74, 0.06), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin {
+      height: auto;
+      min-height: 520px;
+    }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 22%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      overflow: visible;
+      padding: 22px 22px 18px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title { position: relative; z-index: 1; margin-bottom: 16px; }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .units { display: flex; flex-direction: column; gap: 8px; }
+    .unit {
+      --pin: 0;
+      position: relative;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--hair);
+    }
+    .unit:last-child { border-bottom: 0; }
+    .unit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .unit-name {
+      font-size: 18px;
+      letter-spacing: 0.08em;
+    }
+    .unit-name em {
+      margin-left: 8px;
+      font-style: normal;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .lock {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: #6d5424;
+    }
+    .track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      min-height: 52px;
+      touch-action: none;
+    }
+    .track::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 24px;
+      height: 1px;
+      background: rgba(26, 33, 31, 0.28);
+    }
+    .unit.is-apart .track::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      left: calc((var(--written) + 0.5) * 20% - 9px);
+      width: 18px;
+      background:
+        linear-gradient(90deg, transparent, rgba(141, 135, 150, 0.9), transparent);
+      pointer-events: none;
+    }
+    .notch {
+      position: relative;
+      min-height: 52px;
+      min-width: 44px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+      cursor: pointer;
+    }
+    .notch:disabled { cursor: default; }
+    .notch .tick {
+      position: absolute;
+      left: 50%;
+      top: 16px;
+      width: 1px;
+      height: 16px;
+      background: rgba(26, 33, 31, 0.38);
+      transform: translateX(-50%);
+    }
+    .notch.is-written .tick {
+      top: 10px;
+      width: 2px;
+      height: 28px;
+      background: var(--gold);
+    }
+    .notch .n {
+      position: absolute;
+      left: 50%;
+      top: 36px;
+      transform: translateX(-50%);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.42);
+    }
+    .notch.is-written .n { color: #6d5424; }
+    .pin {
+      position: absolute;
+      left: calc((var(--pin) + 0.5) * 20%);
+      top: 16px;
+      width: 18px;
+      height: 18px;
+      margin-left: -9px;
+      border-radius: 50%;
+      border: 1px solid rgba(127, 158, 166, 0.95);
+      background: radial-gradient(circle at 50% 45%, #f4efe4 0 5px, rgba(184, 146, 74, 0.72) 6px);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .unit.is-apart .pin,
+    .unit.is-held .pin { display: none; }
+    .sentence {
+      margin: 8px 0 0;
+      min-height: 2.6em;
+    }
+    .sentence .zh { display: block; font-size: 16px; letter-spacing: 0.04em; }
+    .sentence .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12.5px;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .sentence.is-unsayable .zh,
+    .sentence.is-unsayable .en { display: none; }
+    .fracture {
+      display: none;
+      height: 22px;
+      align-items: center;
+      gap: 7px;
+    }
+    .sentence.is-unsayable .fracture { display: flex; }
+    .fracture i {
+      display: block;
+      height: 1px;
+      background: #6d5424;
+    }
+    .fracture i:nth-child(1) { width: 18px; transform: translateY(-4px); }
+    .fracture i:nth-child(2) { width: 34px; }
+    .fracture i:nth-child(3) { width: 11px; transform: translateY(5px); }
+    .fracture i:nth-child(4) { width: 26px; transform: translateY(-2px); }
+    .fracture i:nth-child(5) { width: 14px; transform: translateY(3px); }
+    .unit-state {
+      min-height: 1.2em;
+      margin: 4px 0 0;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.62);
+    }
+    .unit.is-apart .unit-state { color: #5c5670; }
+    .unit.is-held .unit-state { color: #6d5424; }
+    .sheet-hint {
+      margin: 8px 0 0;
+      padding: 0;
+      font-size: 13px;
+      color: rgba(26, 33, 31, 0.68);
+    }
+    .sheet-hint .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(230, 220, 203, 0.28);
+      background: transparent;
+      color: var(--bone);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .notch:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      body { height: auto; overflow: auto; }
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; height: auto; flex: none; }
+      .sheet, .margin { height: auto; min-height: 420px; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fracture i { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。差一即拆：一句话若已经落在事先量好的那一档上，把那一档挪开最小的一格，这句话就必须说不下去。还说得通，它就没在场地上过。没有第二份：给人看的那一份，必须是做过选择的那一份；另存出来修顺的，只是纪念品，不进这件作品。对不上的那一缝：接上的边若指不出拉力往哪边、哪一步会把它踩裂，它就还是糊着的，不要在说明里升级成结构。</p>
+    <p class="en">Three glints are still lit; only one can be entered. Off by one, it comes apart: if a sentence has already landed on a measure locked in advance, shifting that measure by its smallest notch must make the sentence unsayable. If it still holds, it never stood on the site. No second copy: the file shown to someone else must be the file that acted. A cleaned export is a souvenir and does not enter the work. The seam that does not meet: an edge called joined, if you cannot point to the pull or the step that would split it, is still paste. Do not promote it in the caption.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 差一即拆</p>
+    <section class="sheet" id="sheet" aria-label="差一即拆">
+      <div class="sheet-title">
+        <span class="k">事先量好的</span>
+        <strong>这块地</strong>
+      </div>
+      <div class="units" id="units"></div>
+      <p class="sheet-hint" id="hint">
+        <span id="hint-zh">从写死的那一档，挪到相邻的一档。</span>
+        <span class="en" id="hint-en">Shift only onto the neighboring notch.</span>
+      </p>
+    </section>
+    <aside class="margin">
+      <h2>差一即拆</h2>
+      <p class="sub">Off by One, It Comes Apart</p>
+      <ol id="ledger"></ol>
+      <p class="after" id="after">
+        <span id="after-zh">话如果还说得通，它就没在场地上过。</span>
+        <span class="en" id="after-en">If the sentence still holds, it never stood on the site.</span>
+      </p>
+      <div class="sheet-actions">
+        <button id="another" type="button">另一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>差一即拆<br>Off by One, It Comes Apart</h2>
+      <p class="label">Brief / 作品简述</p>
+      <p>三把尺子都像是已经把一句话放在写死的那一档上。只能把标记挪开最小的一档。挪开以后说不下去，这句话才在场地上过，尺子留下。还说得通，这一档拆开。</p>
+      <p>Three rulers look as if a sentence already sits on a notch written in advance. The mark may shift only by the smallest notch. If the sentence becomes unsayable, it stood on the site and the ruler remains. If it still holds, that measure comes apart.</p>
+      <p class="label">How to interact / 操作说明</p>
+      <p>从写死的那一档，点相邻的一档，或把标记拖到相邻的一档再松开。只能挪开最小的一档。再远，标记回到原处，不算。挪开以后，这句话若说不下去，尺子留下。若还说得通，这一档拆开。三档都试过以后，这张纸留下。可以换另一张纸。没有分数，没有倒计时。</p>
+      <p>From the notch written in advance, tap the neighboring notch, or drag the mark onto it and release. Only the smallest notch may be shifted. Farther than that, the mark returns and does not count. If the sentence becomes unsayable, the ruler remains. If it still holds, that measure comes apart. After all three measures are tried, the sheet remains. Another sheet may be taken. No score. No countdown.</p>
+      <p class="label">Sound / 声音</p>
+      <p>这件作品不发声。拆开是账页，不是气氛。</p>
+      <p>This piece is silent. Coming apart is a ledger, not an atmosphere.</p>
+      <button class="note-close" id="note-close" type="button">合上</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      const TEMPLATES = [
+        [
+          { key: "height", zh: "高差", en: "Height", written: 2, sentenceZh: "这里是一道坎", sentenceEn: "This is a threshold", bound: true },
+          { key: "lamp", zh: "灯", en: "Lamp", written: 3, sentenceZh: "这里是聚集", sentenceEn: "This is a gathering", bound: false },
+          { key: "door", zh: "门角", en: "Door", written: 1, sentenceZh: "这里是拒绝", sentenceEn: "This is a refusal", bound: false }
+        ],
+        [
+          { key: "height", zh: "高差", en: "Height", written: 1, sentenceZh: "这里是一道坎", sentenceEn: "This is a threshold", bound: false },
+          { key: "lamp", zh: "灯", en: "Lamp", written: 2, sentenceZh: "这里是聚集", sentenceEn: "This is a gathering", bound: true },
+          { key: "door", zh: "门角", en: "Door", written: 4, sentenceZh: "这里是拒绝", sentenceEn: "This is a refusal", bound: false }
+        ],
+        [
+          { key: "height", zh: "高差", en: "Height", written: 3, sentenceZh: "这里是一道坎", sentenceEn: "This is a threshold", bound: false },
+          { key: "lamp", zh: "灯", en: "Lamp", written: 0, sentenceZh: "这里是聚集", sentenceEn: "This is a gathering", bound: false },
+          { key: "door", zh: "门角", en: "Door", written: 2, sentenceZh: "这里是拒绝", sentenceEn: "This is a refusal", bound: true }
+        ]
+      ];
+
+      const unitsRoot = document.getElementById("units");
+      const ledger = document.getElementById("ledger");
+      const hintZh = document.getElementById("hint-zh");
+      const hintEn = document.getElementById("hint-en");
+      const afterZh = document.getElementById("after-zh");
+      const afterEn = document.getElementById("after-en");
+      const another = document.getElementById("another");
+
+      let sheetIndex = 0;
+      let units = [];
+      let entries = [];
+      let drag = null;
+
+      function notchLabel(index) { return index + 1; }
+      function freshSheet(index) {
+        return TEMPLATES[index].map(function (item) {
+          return {
+            key: item.key,
+            zh: item.zh,
+            en: item.en,
+            written: item.written,
+            sentenceZh: item.sentenceZh,
+            sentenceEn: item.sentenceEn,
+            bound: item.bound,
+            current: item.written,
+            status: "open"
+          };
+        });
+      }
+      function testedCount() {
+        return units.filter(function (unit) { return unit.status !== "open"; }).length;
+      }
+      function setHint(zh, en) {
+        hintZh.textContent = zh;
+        hintEn.textContent = en;
+      }
+      function setAfter(zh, en) {
+        afterZh.textContent = zh;
+        afterEn.textContent = en;
+      }
+      function legal(unit, next) {
+        return unit.status === "open" && next >= 0 && next <= 4 && Math.abs(next - unit.written) === 1;
+      }
+      function load(index) {
+        sheetIndex = index % TEMPLATES.length;
+        units = freshSheet(sheetIndex);
+        entries = [];
+        drag = null;
+        setHint("从写死的那一档，挪到相邻的一档。", "Shift only onto the neighboring notch.");
+        setAfter("话如果还说得通，它就没在场地上过。", "If the sentence still holds, it never stood on the site.");
+        render();
+      }
+      function renderLedger() {
+        ledger.replaceChildren();
+        entries.forEach(function (entry) {
+          const li = document.createElement("li");
+          const meta = document.createElement("span");
+          meta.className = "meta";
+          meta.textContent = entry.meta;
+          const line = document.createElement("span");
+          line.textContent = entry.line;
+          const quiet = document.createElement("span");
+          quiet.className = "quiet";
+          quiet.textContent = entry.quiet;
+          li.append(meta, line, quiet);
+          ledger.appendChild(li);
+        });
+      }
+      function render() {
+        unitsRoot.replaceChildren();
+        units.forEach(function (unit, index) {
+          const article = document.createElement("article");
+          article.className = "unit" + (unit.status === "held" ? " is-held" : unit.status === "apart" ? " is-apart" : "");
+          article.dataset.index = String(index);
+          article.style.setProperty("--pin", String(drag && drag.index === index ? drag.preview : unit.current));
+          article.style.setProperty("--written", String(unit.written));
+          article.setAttribute("role", "group");
+          article.setAttribute("aria-label", unit.zh);
+
+          const head = document.createElement("div");
+          head.className = "unit-head";
+          const name = document.createElement("span");
+          name.className = "unit-name";
+          name.innerHTML = unit.zh + " <em>" + unit.en + "</em>";
+          const lock = document.createElement("span");
+          lock.className = "lock";
+          lock.textContent = "写死 · 第 " + notchLabel(unit.written) + " 档";
+          head.append(name, lock);
+
+          const track = document.createElement("div");
+          track.className = "track";
+          track.dataset.index = String(index);
+          for (let n = 0; n < 5; n += 1) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "notch" + (n === unit.written ? " is-written" : "");
+            button.dataset.notch = String(n);
+            button.dataset.unit = String(index);
+            const enabled = legal(unit, n);
+            button.disabled = unit.status !== "open";
+            if (n === unit.written && unit.status === "open") {
+              button.setAttribute("aria-label", unit.zh + "，写死的第 " + notchLabel(n) + " 档，标记在这里");
+            } else if (enabled) {
+              button.setAttribute("aria-label", "把" + unit.zh + "挪到第 " + notchLabel(n) + " 档");
+            } else {
+              button.setAttribute("aria-label", unit.zh + "第 " + notchLabel(n) + " 档，远于最小的一档");
+            }
+            const tick = document.createElement("span");
+            tick.className = "tick";
+            tick.setAttribute("aria-hidden", "true");
+            const num = document.createElement("span");
+            num.className = "n";
+            num.textContent = String(notchLabel(n));
+            button.append(tick, num);
+            track.appendChild(button);
+          }
+          if (unit.status === "open") {
+            const pin = document.createElement("span");
+            pin.className = "pin";
+            pin.setAttribute("aria-hidden", "true");
+            track.appendChild(pin);
+          }
+
+          const sentence = document.createElement("p");
+          sentence.className = "sentence" + (unit.status === "held" ? " is-unsayable" : "");
+          if (unit.status === "held") {
+            sentence.setAttribute("aria-label", "这句话说不下去");
+            const fracture = document.createElement("span");
+            fracture.className = "fracture";
+            fracture.setAttribute("aria-hidden", "true");
+            for (let i = 0; i < 5; i += 1) fracture.appendChild(document.createElement("i"));
+            sentence.appendChild(fracture);
+          } else {
+            const zh = document.createElement("span");
+            zh.className = "zh";
+            zh.textContent = unit.sentenceZh;
+            const en = document.createElement("span");
+            en.className = "en";
+            en.textContent = unit.sentenceEn;
+            sentence.append(zh, en);
+          }
+
+          const state = document.createElement("p");
+          state.className = "unit-state";
+          if (unit.status === "held") state.textContent = "说不下去";
+          else if (unit.status === "apart") state.textContent = "还说得通";
+
+          article.append(head, track, sentence, state);
+          unitsRoot.appendChild(article);
+        });
+        renderLedger();
+      }
+      function indexFromTrack(track, clientX) {
+        const rect = track.getBoundingClientRect();
+        const x = Math.min(Math.max(clientX - rect.left, 0), Math.max(rect.width - 1, 0));
+        return Math.min(4, Math.max(0, Math.floor((x / rect.width) * 5)));
+      }
+      function commit(unit, next) {
+        if (unit.status !== "open") return;
+        if (next === unit.written) {
+          setHint("标记还在写死的那一档。", "The mark is still on the notch written in advance.");
+          render();
+          return;
+        }
+        if (!legal(unit, next)) {
+          setHint("只能挪开最小的一档。再远，不算。", "Only the smallest notch. Farther than that does not count.");
+          render();
+          return;
+        }
+        unit.current = next;
+        const from = notchLabel(unit.written);
+        const to = notchLabel(next);
+        if (unit.bound) {
+          unit.status = "held";
+          entries.push({
+            meta: unit.zh + " · 第 " + from + " 档 → 第 " + to + " 档",
+            line: unit.sentenceZh,
+            quiet: "挪到第 " + to + " 档以后，这句话说不下去。 / Unsayable after notch " + to + "."
+          });
+          setHint("这句话说不下去了。", "The sentence can no longer be said.");
+          setAfter("挪开以后，这里说不下去。", "After the shift, this place cannot say it.");
+        } else {
+          unit.status = "apart";
+          entries.push({
+            meta: unit.zh + " · 第 " + from + " 档 → 第 " + to + " 档",
+            line: unit.sentenceZh,
+            quiet: "挪开一档以后还说得通。 / It still holds after one notch."
+          });
+          setHint("还说得通。这一档拆开。", "It still holds. This measure comes apart.");
+          setAfter("说得下去的，先别当成这块地已经想清楚了。", "What can still be said has not yet thought the site through.");
+        }
+        if (testedCount() === units.length) {
+          setHint("这张纸留下了。", "The sheet remains.");
+        }
+        render();
+      }
+      function unitFromEvent(event) {
+        const track = event.target.closest ? event.target.closest(".track") : null;
+        if (!track) return null;
+        const index = Number(track.dataset.index);
+        return { track: track, index: index, unit: units[index] };
+      }
+
+      unitsRoot.addEventListener("pointerdown", function (event) {
+        const found = unitFromEvent(event);
+        if (!found || found.unit.status !== "open") return;
+        if (event.button !== 0 && event.pointerType === "mouse") return;
+        const notch = event.target.closest ? event.target.closest(".notch") : null;
+        drag = {
+          index: found.index,
+          track: found.track,
+          startX: event.clientX,
+          startNotch: notch ? Number(notch.dataset.notch) : found.unit.current,
+          moved: false,
+          preview: found.unit.current
+        };
+        try { found.track.setPointerCapture(event.pointerId); } catch (err) {}
+      });
+      unitsRoot.addEventListener("pointermove", function (event) {
+        if (!drag) return;
+        if (Math.abs(event.clientX - drag.startX) > 8) drag.moved = true;
+        if (!drag.moved) return;
+        drag.preview = indexFromTrack(drag.track, event.clientX);
+        const article = drag.track.closest(".unit");
+        if (article) article.style.setProperty("--pin", String(drag.preview));
+      });
+      function endDrag(event) {
+        if (!drag) return;
+        const current = drag;
+        drag = null;
+        if (current.track.hasPointerCapture && current.track.hasPointerCapture(event.pointerId)) {
+          current.track.releasePointerCapture(event.pointerId);
+        }
+        const unit = units[current.index];
+        if (!unit || unit.status !== "open") return;
+        if (!current.moved) {
+          commit(unit, current.startNotch);
+          return;
+        }
+        commit(unit, indexFromTrack(current.track, event.clientX));
+      }
+      unitsRoot.addEventListener("pointerup", endDrag);
+      unitsRoot.addEventListener("pointercancel", function () {
+        drag = null;
+        render();
+      });
+      another.addEventListener("click", function () {
+        load(sheetIndex + 1);
+      });
+
+      const note = document.getElementById("note");
+      const toggle = document.getElementById("note-toggle");
+      function closeNote() {
+        note.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.focus();
+      }
+      toggle.addEventListener("click", function () {
+        const open = note.hidden;
+        note.hidden = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) document.getElementById("note-close").focus();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      load(0);
+    }());
+  </script>
+</body>
+</html>

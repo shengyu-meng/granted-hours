@@ -21,6 +21,7 @@ from reminder_disclosure import (
 )
 from semantic_public_policy import polish_public_excerpt
 from import_free_roam_artifacts import ENTRIES as AUTONOMOUS_ARTWORK_ENTRIES
+from import_yesterday_flash import DEFAULT_METADATA as DEFAULT_YESTERDAY_FLASH, load_entries as load_yesterday_flash
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PUBLIC_DAYS = ROOT / "metadata" / "days.json"
@@ -411,6 +412,7 @@ PUBLIC_NARRATIVE_OUTCOMES = {
     "beacon",
     "absence",
     "settings_change",
+    "yesterday_flash",
 }
 
 CONFIG_CHANGE_RE = re.compile(
@@ -2291,6 +2293,7 @@ def build_public_reading_items(
     tasks: list[dict],
     autonomous_work: dict,
     pulses: list[dict],
+    yesterday_flash: dict | None = None,
 ) -> list[dict]:
     """Build a smaller public reading plane over the complete footprint audit."""
     reading_items = []
@@ -2374,13 +2377,21 @@ def build_public_reading_items(
         }
     )
 
+    if yesterday_flash:
+        reading_items.append({
+            "reading_id": "yesterday-flash",
+            "source": "yesterday_flash",
+            "source_refs": [yesterday_flash["footprint_id"]],
+            "layer": "event",
+            "classification": "yesterday_flash",
+        })
     layer_priority = {"beacon": 0, "event": 1, "absence": 2, "climate": 3}
     reading_items.sort(
         key=lambda item: (
             minutes(
                 next(
                     event["start"]
-                    for event in [*tasks, autonomous_work, *pulses]
+                    for event in [*tasks, autonomous_work, *pulses, *([yesterday_flash] if yesterday_flash else [])]
                     if event["footprint_id"] == item["source_refs"][0]
                 )
             ),
@@ -2388,6 +2399,11 @@ def build_public_reading_items(
             item["reading_id"],
         )
     )
+    if yesterday_flash:
+        flash_item = next(item for item in reading_items if item["source"] == "yesterday_flash")
+        reading_items.remove(flash_item)
+        autonomous_index = next(index for index, item in enumerate(reading_items) if item["source"] == "autonomous")
+        reading_items.insert(autonomous_index + 1, flash_item)
     return reading_items
 
 
@@ -2395,9 +2411,9 @@ def timeline_event_priority(event: dict) -> int:
     return {"self": 0, "assigned": 1, "background": 2}.get(event.get("origin"), 9)
 
 
-def build_timeline_events(tasks: list[dict], autonomous_work: dict, pulses: list[dict]) -> list[dict]:
+def build_timeline_events(tasks: list[dict], autonomous_work: dict, pulses: list[dict], yesterday_flash: dict | None = None) -> list[dict]:
     return sorted(
-        [*tasks, autonomous_work, *pulses],
+        [*tasks, autonomous_work, *pulses, *([yesterday_flash] if yesterday_flash else [])],
         key=lambda event: (minutes(event["start"]), timeline_event_priority(event)),
     )
 
@@ -2784,7 +2800,7 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
     )
     timeline = day.get("timeline_events")
     require(
-        timeline == build_timeline_events(day["task_residues"], self_work, pulses),
+        timeline == build_timeline_events(day["task_residues"], self_work, pulses, day.get("yesterday_flash")),
         f"{day['date']} unified timeline is not chronological",
     )
     footprint_ids = [event.get("footprint_id") for event in timeline]
@@ -2811,6 +2827,9 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
         "autonomous": {
             self_work["footprint_id"]: self_work,
         },
+        "yesterday_flash": {
+            day["yesterday_flash"]["footprint_id"]: day["yesterday_flash"],
+        } if day.get("yesterday_flash") else {},
     }
     projected_ids = []
     reading_ids = set()
@@ -2867,6 +2886,15 @@ def validate_day(day: dict, dates: set[str], corpus_size: int, autonomous: dict)
             )
             label_en, label_zh = sources[0]["task_name_en"], sources[0]["task_name_zh"]
             summary_en, summary_zh = sources[0]["en"], sources[0]["zh"]
+        elif item["classification"] == "yesterday_flash":
+            require(source_collection == "yesterday_flash" and len(sources) == 1, f"{day['date']} Flash needs its own source")
+            flash = sources[0]
+            require(item["layer"] == "event", f"{day['date']} Flash is on the wrong layer")
+            require(flash["crystallization_date"] == day["date"], f"{day['date']} Flash is on the wrong day")
+            require((flash["start"], flash["end"], flash["timezone"]) == ("08:10", "08:12", "Asia/Shanghai"), f"{day['date']} Flash has the wrong slot")
+            require(flash["live_url"] != self_work["live_url"], f"{day['date']} Flash collides with autonomous artwork")
+            label_en, label_zh = flash["label_en"], flash["label_zh"]
+            summary_en, summary_zh = flash["title_en"], flash["title_zh"]
         elif item["classification"] == "beacon":
             require(
                 source_collection == "autonomous" and len(sources) == 1,
@@ -2983,6 +3011,7 @@ def build_data(
     legacy_by_date: dict[str, dict],
     history_by_date: dict[str, dict],
     pulses_by_date: dict[str, list[dict]] | None = None,
+    yesterday_flash_by_date: dict[str, dict] | None = None,
 ) -> dict:
     dates = validate_public_days(public_days)
     validate_config(config)
@@ -2994,6 +3023,8 @@ def build_data(
     pulses_by_date = pulses_by_date or {}
     latest_pulse_date = max(pulses_by_date) if pulses_by_date else ""
     artwork_briefs = autonomous_briefs_by_date()
+    yesterday_flash_by_date = yesterday_flash_by_date or {}
+    require(set(yesterday_flash_by_date).issubset(dates), "Yesterday's Flash requires an existing public calendar date")
 
     for public_entry in public_days:
         day_date = public_entry["date"]
@@ -3068,7 +3099,13 @@ def build_data(
             f"{day_date} is missing real scheduler run evidence",
         )
         background_pulses = build_background_pulses(day_date, pulse_source)
-        reading_items = build_public_reading_items(tasks, autonomous_work, background_pulses)
+        yesterday_flash = yesterday_flash_by_date.get(day_date)
+        if yesterday_flash:
+            yesterday_flash = {
+                **yesterday_flash,
+                **{field: canonical_url(base_url, yesterday_flash[field]) for field in ("live_url", "note_url", "text_layer_url")},
+            }
+        reading_items = build_public_reading_items(tasks, autonomous_work, background_pulses, yesterday_flash)
         relations = build_relations(day_date, public_absolute, dates, public_by_date, legacy_entry)
         forward_artwork_seeds = [
             {
@@ -3120,8 +3157,9 @@ def build_data(
             "forward_artwork_seeds": forward_artwork_seeds,
             "task_residues": tasks,
             "autonomous_work": autonomous_work,
+            **({"yesterday_flash": yesterday_flash} if yesterday_flash else {}),
             "background_pulses": background_pulses,
-            "timeline_events": build_timeline_events(tasks, autonomous_work, background_pulses),
+            "timeline_events": build_timeline_events(tasks, autonomous_work, background_pulses, yesterday_flash),
             "reading_items": reading_items,
             "relations": relations,
         }
@@ -3168,6 +3206,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--history", type=Path, default=DEFAULT_HISTORY)
     parser.add_argument("--pulses", type=Path, default=DEFAULT_PULSES)
+    parser.add_argument("--yesterday-flash", type=Path, default=DEFAULT_YESTERDAY_FLASH)
     parser.add_argument("--legacy-overrides", type=Path, default=DEFAULT_LEGACY_OVERRIDES)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args()
@@ -3203,6 +3242,7 @@ for (const day of timetableDataSource.days) {
   day.timeline_events = [
     ...day.task_residues,
     day.autonomous_work,
+    ...(day.yesterday_flash ? [day.yesterday_flash] : []),
     ...day.background_pulses,
   ].sort((left, right) => (
     timelineMinutes(left.start) - timelineMinutes(right.start)
@@ -3221,7 +3261,8 @@ def main() -> int:
     history_by_date = load_history(args.history)
     pulses_by_date = load_pulses(args.pulses)
     legacy_by_date = load_legacy(args.legacy_overrides)
-    output_data = build_data(public_days, config, legacy_by_date, history_by_date, pulses_by_date)
+    yesterday_flash_by_date = load_yesterday_flash(args.yesterday_flash)
+    output_data = build_data(public_days, config, legacy_by_date, history_by_date, pulses_by_date, yesterday_flash_by_date)
 
     output_path = args.output
     output_path.parent.mkdir(parents=True, exist_ok=True)
