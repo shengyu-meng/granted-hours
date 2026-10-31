@@ -4077,5 +4077,29 @@
     },
     "bgm": "archive/2026/10/2026-10-31/live/2026-10-31-the-sheet-keeps-one-crease-bgm.mp3",
     "visual_preview": "archive/2026/10/2026-10-31/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-01",
+    "source_date": "2026-10-31",
+    "crystallization_date": "2026-11-01",
+    "title_en": "The Wick Keeps Its Length",
+    "title_zh": "灯芯守住自己的长度",
+    "type": "live",
+    "seed": 20261101,
+    "preview": "archive/2026/11/2026-11-01/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-01/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-01/",
+    "live_url": "archive/2026/11/2026-11-01/live/",
+    "variable_en": "where the flame sits — never how much wick remains",
+    "variable_zh": "火停在哪——灯芯并不因此变短",
+    "brief_en": "The flame may walk the wick. Where it walks, the wick does not shorten. The exact ticks remain. A readable warmth may follow the flame, but it cannot eat the ticks. Resting is not a claim that the hour was spent.",
+    "brief_zh": "火可以沿灯芯走。走过去，灯芯的长度不减。精确的刻度仍在。可读的暖意可以跟着火，但不能把刻度吃掉。歇下也不是把这一小时写成已经花掉。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-01/live/2026-11-01-the-wick-keeps-its-length-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-01/assets/visual-preview.gif"
   }
 ]

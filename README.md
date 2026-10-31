@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-01 — The Wick Keeps Its Length / 灯芯守住自己的长度**<br>
+  Variable / 自由变量：where the flame sits — never how much wick remains / 火停在哪——灯芯并不因此变短<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-01/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/live/)
 - **2026-10-31 — The Sheet Keeps One Crease / 这张纸只留一条折痕**<br>
   Variable / 自由变量：which crease is live — never how many folds the sheet will hold / 哪一条折痕是活的——纸并不因此多留一折<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

@@ -1280,6 +1280,22 @@
       "after_zh": "记忆里的折痕还在，比活的那条更淡。纸没有变亮。一摞没有形成。",
       "interaction_en": "Drag across the sheet to aim the crease. Press F to fold, or press Space to fold. The earlier crease recedes into memory. Only one live crease remains. Press L to let the sheet lie flat. Brightness does not rise. The creases do not stack.",
       "interaction_zh": "在纸上拖动以瞄准折痕。按 F 折下，或按 Space 折下。前一条折痕退成记忆，纸上仍只有一条活的折痕。按 L 让纸躺平。亮度不升高。折痕不叠成一摞。"
+    },
+    {
+      "date": "2026-11-01",
+      "slug": "the-wick-keeps-its-length",
+      "title_en": "The Wick Keeps Its Length",
+      "title_zh": "灯芯守住自己的长度",
+      "variable_en": "where the flame sits — never how much wick remains",
+      "variable_zh": "火停在哪——灯芯并不因此变短",
+      "seed": 20261101,
+      "file": "2026-11-01-the-wick-keeps-its-length",
+      "intention_en": "The flame may walk the wick. Where it walks, the wick does not shorten. The exact ticks remain. A readable warmth may follow the flame, but it cannot eat the ticks. Resting is not a claim that the hour was spent.",
+      "intention_zh": "火可以沿灯芯走。走过去，灯芯的长度不减。精确的刻度仍在。可读的暖意可以跟着火，但不能把刻度吃掉。歇下也不是把这一小时写成已经花掉。",
+      "after_en": "Where the flame has been, a fainter memory remains. The wick is still its original length. The hour was not spent.",
+      "after_zh": "火走过的位置留下一粒更淡的记忆。灯芯仍是原来的长度。一小时没有被花掉。",
+      "interaction_en": "Drag along the wick to place the flame. Press F to advance, or press Space to advance. The wick does not shorten. The ticks do not decrease. Press L to let the flame rest. Warmth follows the flame and does not swallow the ticks.",
+      "interaction_zh": "在灯芯上拖动以安置火。按 F 前进一步，或按 Space 前进一步。灯芯长度不变。刻度不减少。按 L 让火歇下。暖意跟着火，并不吞掉刻度。"
     }
   ]
 }

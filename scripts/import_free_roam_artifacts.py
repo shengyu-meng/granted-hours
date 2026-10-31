@@ -3652,7 +3652,10 @@ See [LICENSE.md](LICENSE.md).
 def refresh_all_live_docs():
     """Refresh fold snippets across all existing docs/archive/**/live/index.html files."""
     docs_root = ROOT / 'docs'
-    live_pages = list(docs_root.glob('archive/**/live/index.html'))
+    live_pages = [
+        path for path in docs_root.glob('archive/**/live/index.html')
+        if 'yesterday-flash' not in path.parts
+    ]
     if len(live_pages) != len(ENTRIES):
         raise SystemExit(f'Expected {len(ENTRIES)} live pages, found {len(live_pages)}')
     entries_by_date = {entry['date']: entry for entry in ENTRIES}

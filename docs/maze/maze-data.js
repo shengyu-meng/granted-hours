@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-10-31",
-  "nodeCount": 179,
+  "generatedAt": "2026-11-01",
+  "nodeCount": 180,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3760,6 +3760,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -21,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-01",
+      "date": "2026-11-01",
+      "title_en": "The Wick Keeps Its Length",
+      "title_zh": "灯芯守住自己的长度",
+      "variable_en": "where the flame sits — never how much wick remains",
+      "variable_zh": "火停在哪——灯芯并不因此变短",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "where the flame sits — never how much wick remains entered the archive as a clue rather than a label.",
+      "diary_zh": "「火停在哪——灯芯并不因此变短」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-01/live/",
+      "archive_url": "../archive/2026/11/2026-11-01/",
+      "gif": "../archive/2026/11/2026-11-01/assets/visual-preview.gif",
+      "x": 24,
+      "y": -20,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3780,7 +3801,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 103
+      "count": 104
     },
     {
       "id": "maintenance",
@@ -4515,6 +4536,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-10-31"
     ],
     [
+      "2026-10-31",
+      "2026-11-01"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4917,6 +4942,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-27",
       "2026-10-31"
+    ],
+    [
+      "2026-10-28",
+      "2026-11-01"
     ],
     [
       "2026-05-07",

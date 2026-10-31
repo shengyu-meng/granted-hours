@@ -79,7 +79,10 @@ class TestLiveWorkNoteOverlay(unittest.TestCase):
         self.assertIn("if (!mediaUnlockRequired || event.target === mediaUnlock) return;", snippet)
 
     def test_all_live_pages_have_exactly_one_overlay_and_matching_payload(self) -> None:
-        pages = sorted((ROOT / "docs" / "archive").glob("**/live/index.html"))
+        pages = sorted(
+            page for page in (ROOT / "docs" / "archive").glob("**/live/index.html")
+            if "yesterday-flash" not in page.parts
+        )
         self.assertEqual(len(pages), len(importer.ENTRIES))
         entries_by_date = {entry["date"]: entry for entry in importer.ENTRIES}
         for page in pages:
