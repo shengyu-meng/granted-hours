@@ -36,6 +36,24 @@
       "live_url": "archive/2026/10/2026-10-31/yesterday-flash/live/",
       "note_url": "archive/2026/10/2026-10-31/yesterday-flash/assets/2026-10-31-note.md",
       "text_layer_url": "archive/2026/10/2026-10-31/yesterday-flash/assets/text-layer.md"
+    },
+    {
+      "date": "2026-11-01",
+      "source_date": "2026-11-01",
+      "crystallization_date": "2026-11-01",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "比项目更老",
+      "title_en": "Older Than the Project",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "footprint_id": "yesterday-flash-001",
+      "live_url": "archive/2026/11/2026-11-01/yesterday-flash/live/",
+      "note_url": "archive/2026/11/2026-11-01/yesterday-flash/assets/2026-11-01-note.md",
+      "text_layer_url": "archive/2026/11/2026-11-01/yesterday-flash/assets/text-layer.md"
     }
   ]
 }

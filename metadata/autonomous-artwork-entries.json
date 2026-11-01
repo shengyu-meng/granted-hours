@@ -1296,6 +1296,22 @@
       "after_zh": "火走过的位置留下一粒更淡的记忆。灯芯仍是原来的长度。一小时没有被花掉。",
       "interaction_en": "Drag along the wick to place the flame. Press F to advance, or press Space to advance. The wick does not shorten. The ticks do not decrease. Press L to let the flame rest. Warmth follows the flame and does not swallow the ticks.",
       "interaction_zh": "在灯芯上拖动以安置火。按 F 前进一步，或按 Space 前进一步。灯芯长度不变。刻度不减少。按 L 让火歇下。暖意跟着火，并不吞掉刻度。"
+    },
+    {
+      "date": "2026-11-02",
+      "slug": "the-glass-does-not-press-the-stone",
+      "title_en": "The Glass Does Not Press the Stone",
+      "title_zh": "玻璃不压石头",
+      "variable_en": "where the reflection sits — the stone is not pressed",
+      "variable_zh": "反光停在哪——石头并不被压下",
+      "seed": 20261102,
+      "file": "2026-11-02-the-glass-does-not-press-the-stone",
+      "intention_en": "The glass may come near the stone. Nearness is not pressure. The reflection may lift forward or settle back, and a layer of air remains between them. The stone's mass does not change. Looking may be close without becoming a weight.",
+      "intention_zh": "玻璃可以靠近石头。靠近，不是压下。反光可以向前浮起，也可以退回，但中间始终留着一层空。石头的质量不变。观看可以很近，不必成为压力。",
+      "after_en": "Where the reflection has been, a fainter echo remains. The stone is still where it was. The space between was not filled.",
+      "after_zh": "反光离开的位置留下一层更淡的回声。石头仍在原处。中间的空没有被填上。",
+      "interaction_en": "Drag on the glass to place the reflection. Press F to lift it forward, or press Space to lift it forward. The stone does not move. Press B to set the reflection back. Setting back still does not touch. Pressure stays at zero.",
+      "interaction_zh": "在玻璃上拖动以安置反光。按 F 向前浮起，或按 Space 向前浮起。石头不动。按 B 让反光退回。退回仍不接触。压力保持为零。"
     }
   ]
 }

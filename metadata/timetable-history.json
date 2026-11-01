@@ -7973,6 +7973,37 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-11-01",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 3,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "21:58",
+          "end": "21:59",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "添加以下事件：████。11 月 4 号下午 3 点到 4 点在 ████ 拍摄数字人，并在早上 11 点通过 ████ 提醒我。",
+          "request_en": "Add the following event: ████. From 3:00 to 4:00 on the afternoon of November 4, shoot a digital human at ████, and remind me at 11:00 in the morning through ████.",
+          "outcome_zh": "我没有找到可以安全公开、并与这次 11 月 4 日下午拍摄数字人日程及早上提醒要求可靠对应的完成记录；不把计划或推断写成已完成。",
+          "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this November 4 afternoon digital-human shoot schedule and morning reminder request; plans and inferences are not presented as completed work.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

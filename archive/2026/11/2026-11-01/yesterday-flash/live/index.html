@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --depth: #10141a;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 520px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title { position: relative; z-index: 1; }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+      text-transform: none;
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .slips {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .slip, .stratum, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 0;
+      font: inherit;
+      cursor: pointer;
+    }
+    .slip {
+      position: relative;
+      text-align: left;
+      padding: 10px 10px 8px;
+      background: rgba(255, 255, 255, 0.38);
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      touch-action: none;
+    }
+    .slip:disabled { cursor: default; }
+    .slip.is-recalled {
+      color: #5c5670;
+      border-top-color: var(--violet);
+      background: rgba(141, 135, 150, 0.12);
+    }
+    .slip.is-met {
+      color: #6d5424;
+      background: rgba(184, 146, 74, 0.08);
+    }
+    .slip.is-selected { box-shadow: inset 0 0 0 1px var(--cyan); }
+    .slip .zh { display: block; font-size: 15px; letter-spacing: 0.03em; }
+    .slip .en {
+      display: block;
+      margin-top: 3px;
+      font-size: 11px;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .slip .mark {
+      display: block;
+      margin-top: 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+    .cut {
+      flex: 1;
+      min-height: 240px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--hair);
+      touch-action: none;
+    }
+    .stratum {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 8px 8px;
+      text-align: left;
+      background: transparent;
+      color: inherit;
+      border-right: 1px solid var(--hair);
+    }
+    .stratum:last-child { border-right: 0; }
+    .stratum.is-under { box-shadow: inset 0 0 0 1px var(--cyan); }
+    .stratum.is-older {
+      background:
+        repeating-linear-gradient(180deg, rgba(127, 158, 166, 0.07) 0 1px, transparent 1px 13px),
+        var(--depth);
+      color: var(--bone);
+      box-shadow: inset 2px 0 0 var(--gold);
+    }
+    .stratum.is-older.is-under { box-shadow: inset 2px 0 0 var(--gold), inset 0 0 0 1px var(--cyan); }
+    .stratum-name {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      pointer-events: none;
+    }
+    .stratum-name strong {
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+    .stratum-name em {
+      font-style: normal;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .stratum.is-older .stratum-name em { color: rgba(230, 220, 203, 0.5); }
+    .floor-name {
+      position: absolute;
+      left: 6px;
+      top: 42px;
+      writing-mode: vertical-rl;
+      pointer-events: none;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: #d7c39a;
+    }
+    .sediment {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .sediment li { font-size: 12.5px; letter-spacing: 0.03em; }
+    .sediment .still { color: rgba(26, 33, 31, 0.78); }
+    .sediment .fail {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 16px;
+    }
+    .sediment .fail i {
+      display: block;
+      height: 1px;
+      background: #d7c39a;
+    }
+    .sediment .fail i:nth-child(1) { width: 14px; }
+    .sediment .fail i:nth-child(2) { width: 26px; }
+    .sediment .fail i:nth-child(3) { width: 9px; }
+    .sediment .fail i:nth-child(4) { width: 18px; }
+    .sheet-hint {
+      margin: 0;
+      font-size: 13px;
+      color: rgba(26, 33, 31, 0.68);
+    }
+    .sheet-hint .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border: 1px solid rgba(230, 220, 203, 0.28);
+      background: transparent;
+      color: var(--bone);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 0 16px;
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    #ghost {
+      position: fixed;
+      z-index: 4;
+      max-width: 200px;
+      padding: 8px 10px;
+      background: var(--paper);
+      color: var(--ink);
+      border-top: 2px solid var(--gold);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+      pointer-events: none;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+    #ghost[hidden] { display: none; }
+    .slip:focus-visible,
+    .stratum:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+      .slips { grid-template-columns: 1fr; }
+      .cut { min-height: 280px; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+    }
+    body.is-embed {
+      height: 100%;
+      overflow: auto;
+    }
+    body.is-embed .stage {
+      width: calc(100% - 20px);
+      height: calc(100% - 16px);
+      margin: 8px 10px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; height: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+      .sediment .fail i { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。比项目更老：揭开的东西若只碰到项目自己记得的那几层，它就还没揭开；必须遇见比项目记忆更老的一层，这一揭才算数。空地在干活：一块空地若说不出一笔没人委托的交换，就只能叫未使用，不能叫它在干活。许过的：手改之前那句愿望不能当尺子；改过以后才写上去的，管不了这一下。</p>
+    <p class="en">Three glints are still lit; only one can be entered. Older than the project: a reveal that meets only layers the project already remembers has not revealed anything. It counts only when it meets a stratum older than project memory. The empty lot is working: a vacant lot that cannot name an exchange nobody commissioned must be called unused, not working. What was wished: the wish sentence from before the hand edit cannot be the ruler. What was written in after the edit does not govern this stroke.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 比项目更老</p>
+    <section class="sheet" id="sheet" aria-label="比项目更老">
+      <div class="sheet-title">
+        <span class="k">还说得通的话</span>
+        <strong>送到一层上</strong>
+      </div>
+      <div class="slips" id="slips"></div>
+      <div class="cut" id="cut"></div>
+      <p class="sheet-hint" id="hint">
+        <span id="hint-zh">先点一句话，再送到一层上。</span>
+        <span class="en" id="hint-en">Select a sentence, then carry it onto a layer.</span>
+      </p>
+    </section>
+    <aside class="margin">
+      <h2>比项目更老</h2>
+      <p class="sub">Older Than the Project</p>
+      <ol id="ledger"></ol>
+      <p class="after" id="after">
+        <span id="after-zh">揭开若还说得出项目自己的话，它就没遇见更老的东西。</span>
+        <span class="en" id="after-en">If the project's own words can still be said, the reveal has not met anything older.</span>
+      </p>
+      <div class="sheet-actions">
+        <button id="another" type="button">另一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>比项目更老<br>Older Than the Project</h2>
+      <p class="label">Brief / 作品简述</p>
+      <p>三句还说得通的话，都像是项目自己写下的。送到项目记得的层上，这句话还说得通，不算揭开。送到比项目更老的那层上，这句话说不下去，这一揭才算对上。</p>
+      <p>Three sentences that can still be said are written in the project's own language. On a layer the project remembers, the sentence still holds and is not a reveal. On the layer older than the project, the sentence cannot be said, and the reveal has met it.</p>
+      <p class="label">How to interact / 操作说明</p>
+      <p>从一句还说得通的话按住，拖到一层再松开，或先点这句话，再点一层。送到项目记得的层上，这句话还说得通，不算揭开。送到比项目更老的那层上，这句话说不下去，这一揭才算对上。三句都试过以后，这张纸留下。可以换另一张纸。没有分数，没有倒计时。</p>
+      <p>Press a sentence that can still be said, drag it onto a layer, and release. Or select the sentence, then select a layer. On a layer the project remembers, the sentence still holds and does not count as a reveal. On the layer older than the project, the sentence cannot be said, and the reveal has met it. After all three sentences are tried, the sheet remains. Another sheet may be taken. No score. No countdown.</p>
+      <p class="label">Sound / 声音</p>
+      <p>这件作品不发声。对上是账页，不是气氛。</p>
+      <p>This piece is silent. The meeting is a ledger, not an atmosphere.</p>
+      <button class="note-close" id="note-close" type="button">合上</button>
+    </article>
+  </div>
+  <div id="ghost" hidden></div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      const STRATA = [
+        { key: "recent", zh: "近记", en: "Recent", project: true },
+        { key: "middle", zh: "中记", en: "Middle", project: true },
+        { key: "first", zh: "初记", en: "First", project: true },
+        { key: "older", zh: "更老", en: "Older", project: false }
+      ];
+      const SHEETS = [
+        [
+          { zh: "这里刚被写下", en: "This was just written" },
+          { zh: "这个名字是项目起的", en: "The project named this" },
+          { zh: "这层还在项目的底上面", en: "This layer is still above the project's floor" }
+        ],
+        [
+          { zh: "这是项目的近记", en: "This is the project's recent note" },
+          { zh: "这是项目的初记", en: "This is the project's first note" },
+          { zh: "这句话还认得自己", en: "This sentence still knows itself" }
+        ],
+        [
+          { zh: "揭开以后还是同一句话", en: "After the opening, it is the same sentence" },
+          { zh: "项目记得这一层", en: "The project remembers this layer" },
+          { zh: "字还在项目的纸上", en: "The words are still on the project's paper" }
+        ]
+      ];
+
+      const slipsRoot = document.getElementById("slips");
+      const cut = document.getElementById("cut");
+      const ledger = document.getElementById("ledger");
+      const hintZh = document.getElementById("hint-zh");
+      const hintEn = document.getElementById("hint-en");
+      const afterZh = document.getElementById("after-zh");
+      const afterEn = document.getElementById("after-en");
+      const another = document.getElementById("another");
+      const ghost = document.getElementById("ghost");
+      const hint = document.getElementById("hint");
+      hint.setAttribute("aria-live", "polite");
+
+      let sheetIndex = 0;
+      let slips = [];
+      let entries = [];
+      let selected = -1;
+      let drag = null;
+      let ignoreClick = false;
+
+      function fresh(index) {
+        return SHEETS[index].map(function (item) {
+          return { zh: item.zh, en: item.en, status: "open", stratum: -1 };
+        });
+      }
+      function triedCount() {
+        return slips.filter(function (slip) { return slip.status !== "open"; }).length;
+      }
+      function setHint(zh, en) {
+        hintZh.textContent = zh;
+        hintEn.textContent = en;
+      }
+      function setAfter(zh, en) {
+        afterZh.textContent = zh;
+        afterEn.textContent = en;
+      }
+      function load(index) {
+        sheetIndex = index % SHEETS.length;
+        slips = fresh(sheetIndex);
+        entries = [];
+        selected = -1;
+        drag = null;
+        ghost.hidden = true;
+        setHint("先点一句话，再送到一层上。", "Select a sentence, then carry it onto a layer.");
+        setAfter("揭开若还说得出项目自己的话，它就没遇见更老的东西。", "If the project's own words can still be said, the reveal has not met anything older.");
+        render();
+      }
+      function renderLedger() {
+        ledger.replaceChildren();
+        entries.forEach(function (entry) {
+          const li = document.createElement("li");
+          const meta = document.createElement("span");
+          meta.className = "meta";
+          meta.textContent = entry.meta;
+          const line = document.createElement("span");
+          line.textContent = entry.line;
+          const quiet = document.createElement("span");
+          quiet.className = "quiet";
+          quiet.textContent = entry.quiet;
+          li.append(meta, line, quiet);
+          ledger.appendChild(li);
+        });
+      }
+      function fracture() {
+        const span = document.createElement("span");
+        span.className = "fail";
+        span.setAttribute("aria-hidden", "true");
+        for (let i = 0; i < 4; i += 1) span.appendChild(document.createElement("i"));
+        return span;
+      }
+      function render(focusId) {
+        slipsRoot.replaceChildren();
+        slips.forEach(function (slip, index) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "slip" + (slip.status === "recalled" ? " is-recalled" : slip.status === "met" ? " is-met" : "");
+          if (selected === index) button.classList.add("is-selected");
+          button.dataset.index = String(index);
+          button.disabled = slip.status !== "open";
+          if (slip.status === "open") {
+            button.setAttribute("aria-pressed", selected === index ? "true" : "false");
+            button.setAttribute("aria-label", (selected === index ? "已选中。" : "") + "把「" + slip.zh + "」送到一层上");
+          } else if (slip.status === "met") {
+            button.setAttribute("aria-label", slip.zh + "，说不下去，已经对上");
+          } else {
+            button.setAttribute("aria-label", slip.zh + "，还说得通，已经试过");
+          }
+          const zh = document.createElement("span");
+          zh.className = "zh";
+          zh.textContent = slip.status === "met" ? "说不下去" : slip.zh;
+          const en = document.createElement("span");
+          en.className = "en";
+          en.textContent = slip.status === "met" ? "It cannot be said" : slip.en;
+          button.append(zh, en);
+          if (slip.status !== "open") {
+            const mark = document.createElement("span");
+            mark.className = "mark";
+            mark.textContent = slip.status === "met" ? "对上了" : "还说得通";
+            button.appendChild(mark);
+          }
+          slipsRoot.appendChild(button);
+        });
+
+        cut.replaceChildren();
+        STRATA.forEach(function (layer, index) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "stratum" + (layer.project ? " is-project" : " is-older");
+          if (!layer.project) button.classList.add("is-floor-edge");
+          button.dataset.stratum = String(index);
+          button.setAttribute("aria-label", layer.project
+            ? layer.zh + "，项目记得。把选中的话送到这里"
+            : "比项目更老。把选中的话送到这里");
+          const name = document.createElement("span");
+          name.className = "stratum-name";
+          const strong = document.createElement("strong");
+          strong.textContent = layer.project ? layer.zh : "比项目更老";
+          const em = document.createElement("em");
+          em.textContent = layer.project ? layer.en + " · 项目记得" : "Older than the project";
+          name.append(strong, em);
+          button.appendChild(name);
+          if (!layer.project) {
+            const floor = document.createElement("span");
+            floor.className = "floor-name";
+            floor.textContent = "项目的底";
+            floor.setAttribute("aria-hidden", "true");
+            button.appendChild(floor);
+          }
+          const list = document.createElement("ul");
+          list.className = "sediment";
+          slips.forEach(function (slip) {
+            if (slip.stratum !== index) return;
+            const li = document.createElement("li");
+            if (slip.status === "met") {
+              li.appendChild(fracture());
+              li.setAttribute("aria-label", "说不下去");
+            } else {
+              li.className = "still";
+              li.textContent = slip.zh;
+            }
+            list.appendChild(li);
+          });
+          button.appendChild(list);
+          cut.appendChild(button);
+        });
+        renderLedger();
+        if (focusId) {
+          const next = document.getElementById(focusId) || document.querySelector(focusId);
+          if (next) next.focus();
+        }
+      }
+      function commit(slipIndex, stratumIndex) {
+        const slip = slips[slipIndex];
+        const layer = STRATA[stratumIndex];
+        if (!slip || slip.status !== "open" || !layer) return;
+        slip.stratum = stratumIndex;
+        selected = -1;
+        if (layer.project) {
+          slip.status = "recalled";
+          entries.push({
+            meta: layer.zh + " · 项目记得",
+            line: slip.zh,
+            quiet: "还说得通。只碰到了项目自己。 / It still holds. It only met the project."
+          });
+          setHint("还说得通。不算揭开。", "It still holds. This is not a reveal.");
+          setAfter("还说得通的，先别当成已经揭开。", "What can still be said has not been revealed.");
+        } else {
+          slip.status = "met";
+          entries.push({
+            meta: "比项目更老",
+            line: slip.zh,
+            quiet: "这句话说不下去。这一揭对上了。 / The sentence cannot be said. The reveal has met it."
+          });
+          setHint("这句话说不下去了。", "The sentence can no longer be said.");
+          setAfter("说不下去的地方，才比项目更老。", "Where it cannot be said, it is older than the project.");
+        }
+        if (triedCount() === slips.length) {
+          setHint("这张纸留下了。", "The sheet remains.");
+        }
+        const nextOpen = slips.findIndex(function (item) { return item.status === "open"; });
+        render(nextOpen >= 0 ? ".slip[data-index='" + nextOpen + "']" : "#another");
+      }
+      function toggleSelect(index) {
+        const slip = slips[index];
+        if (!slip || slip.status !== "open") return;
+        selected = selected === index ? -1 : index;
+        setHint(selected === index ? "再点一层，或拖到那一层上。" : "先点一句话，再送到一层上。", selected === index ? "Select a layer, or drag the sentence onto it." : "Select a sentence, then carry it onto a layer.");
+        render(".slip[data-index='" + index + "']");
+      }
+      function stratumFromPoint(x, y) {
+        const node = document.elementFromPoint(x, y);
+        const stratum = node && node.closest ? node.closest(".stratum") : null;
+        if (!stratum) return -1;
+        return Number(stratum.dataset.stratum);
+      }
+      function highlight(index) {
+        cut.querySelectorAll(".stratum").forEach(function (node) {
+          node.classList.toggle("is-under", Number(node.dataset.stratum) === index);
+        });
+      }
+      function placeGhost(x, y, text) {
+        ghost.hidden = false;
+        ghost.textContent = text;
+        ghost.style.left = Math.max(8, x + 12) + "px";
+        ghost.style.top = Math.max(8, y + 12) + "px";
+      }
+
+      slipsRoot.addEventListener("pointerdown", function (event) {
+        const button = event.target.closest ? event.target.closest(".slip") : null;
+        if (!button || button.disabled) return;
+        if (event.button !== 0 && event.pointerType === "mouse") return;
+        const index = Number(button.dataset.index);
+        drag = {
+          index: index,
+          startX: event.clientX,
+          startY: event.clientY,
+          moved: false
+        };
+        try { button.setPointerCapture(event.pointerId); } catch (err) { /* capture is optional */ }
+      });
+      slipsRoot.addEventListener("pointermove", function (event) {
+        if (!drag) return;
+        if (Math.abs(event.clientX - drag.startX) > 8 || Math.abs(event.clientY - drag.startY) > 8) {
+          drag.moved = true;
+        }
+        if (!drag.moved) return;
+        placeGhost(event.clientX, event.clientY, slips[drag.index].zh);
+        highlight(stratumFromPoint(event.clientX, event.clientY));
+      });
+      function endDrag(event) {
+        if (!drag) return;
+        const current = drag;
+        drag = null;
+        ghost.hidden = true;
+        highlight(-1);
+        if (!current.moved) return;
+        ignoreClick = true;
+        setTimeout(function () { ignoreClick = false; }, 0);
+        const stratum = stratumFromPoint(event.clientX, event.clientY);
+        if (stratum < 0) {
+          setHint("还没送到一层上。", "It has not met a layer.");
+          return;
+        }
+        commit(current.index, stratum);
+      }
+      slipsRoot.addEventListener("pointerup", endDrag);
+      slipsRoot.addEventListener("pointercancel", function () {
+        drag = null;
+        ghost.hidden = true;
+        highlight(-1);
+      });
+      slipsRoot.addEventListener("click", function (event) {
+        if (ignoreClick) {
+          ignoreClick = false;
+          return;
+        }
+        const button = event.target.closest ? event.target.closest(".slip") : null;
+        if (!button || button.disabled) return;
+        toggleSelect(Number(button.dataset.index));
+      });
+      cut.addEventListener("click", function (event) {
+        if (ignoreClick) {
+          ignoreClick = false;
+          return;
+        }
+        const stratum = event.target.closest ? event.target.closest(".stratum") : null;
+        if (!stratum) return;
+        if (selected < 0) {
+          setHint("先点一句话。", "Select a sentence first.");
+          return;
+        }
+        commit(selected, Number(stratum.dataset.stratum));
+      });
+      another.addEventListener("click", function () {
+        load(sheetIndex + 1);
+        another.focus();
+      });
+
+      const note = document.getElementById("note");
+      const toggle = document.getElementById("note-toggle");
+      function closeNote() {
+        note.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.focus();
+      }
+      toggle.addEventListener("click", function () {
+        const open = note.hidden;
+        note.hidden = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) document.getElementById("note-close").focus();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      load(0);
+    }());
+  </script>
+</body>
+</html>

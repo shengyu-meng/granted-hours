@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-01",
-  "nodeCount": 180,
+  "generatedAt": "2026-11-02",
+  "nodeCount": 181,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3781,6 +3781,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-02",
+      "date": "2026-11-02",
+      "title_en": "The Glass Does Not Press the Stone",
+      "title_zh": "玻璃不压石头",
+      "variable_en": "where the reflection sits — the stone is not pressed",
+      "variable_zh": "反光停在哪——石头并不被压下",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "where the reflection sits — the stone is not pressed entered the archive as a clue rather than a label.",
+      "diary_zh": "「反光停在哪——石头并不被压下」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-02/live/",
+      "archive_url": "../archive/2026/11/2026-11-02/",
+      "gif": "../archive/2026/11/2026-11-02/assets/visual-preview.gif",
+      "x": 20,
+      "y": -20,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3801,7 +3822,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 104
+      "count": 105
     },
     {
       "id": "maintenance",
@@ -4540,6 +4561,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-01"
     ],
     [
+      "2026-11-01",
+      "2026-11-02"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4946,6 +4971,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-28",
       "2026-11-01"
+    ],
+    [
+      "2026-10-31",
+      "2026-11-02"
     ],
     [
       "2026-05-07",

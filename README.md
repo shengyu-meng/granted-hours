@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-02 — The Glass Does Not Press the Stone / 玻璃不压石头**<br>
+  Variable / 自由变量：where the reflection sits — the stone is not pressed / 反光停在哪——石头并不被压下<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-02/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-02/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-02/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-02/live/)
 - **2026-11-01 — The Wick Keeps Its Length / 灯芯守住自己的长度**<br>
   Variable / 自由变量：where the flame sits — never how much wick remains / 火停在哪——灯芯并不因此变短<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

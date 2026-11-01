@@ -4101,5 +4101,29 @@
     },
     "bgm": "archive/2026/11/2026-11-01/live/2026-11-01-the-wick-keeps-its-length-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-01/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-02",
+    "source_date": "2026-11-01",
+    "crystallization_date": "2026-11-02",
+    "title_en": "The Glass Does Not Press the Stone",
+    "title_zh": "玻璃不压石头",
+    "type": "live",
+    "seed": 20261102,
+    "preview": "archive/2026/11/2026-11-02/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-02/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-02/",
+    "live_url": "archive/2026/11/2026-11-02/live/",
+    "variable_en": "where the reflection sits — the stone is not pressed",
+    "variable_zh": "反光停在哪——石头并不被压下",
+    "brief_en": "The glass may come near the stone. Nearness is not pressure. The reflection may lift forward or settle back, and a layer of air remains between them. The stone's mass does not change. Looking may be close without becoming a weight.",
+    "brief_zh": "玻璃可以靠近石头。靠近，不是压下。反光可以向前浮起，也可以退回，但中间始终留着一层空。石头的质量不变。观看可以很近，不必成为压力。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-02/live/2026-11-02-the-glass-does-not-press-the-stone-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-02/assets/visual-preview.gif"
   }
 ]
