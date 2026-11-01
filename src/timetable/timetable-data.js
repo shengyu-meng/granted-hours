@@ -290965,24 +290965,36 @@ const timetableDataSource = {
         "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/assets/visual-preview.gif",
         "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/live/2026-10-30-the-far-side-is-still-this-hour-bgm.mp3"
       },
-      "yesterday_flash": {
-        "date": "2026-10-30",
-        "source_date": "2026-10-30",
-        "crystallization_date": "2026-10-30",
-        "label_zh": "昨日闪光",
-        "label_en": "Yesterday's Flash",
-        "title_zh": "没站过的那种",
-        "title_en": "The Kind You Have Not Stood",
-        "start": "08:10",
-        "end": "08:12",
-        "timezone": "Asia/Shanghai",
-        "duration_minutes": 2,
-        "origin": "flash",
-        "footprint_id": "yesterday-flash-001",
-        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/live/",
-        "note_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/assets/2026-10-30-note.md",
-        "text_layer_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/assets/text-layer.md"
-      },
+      "yesterday_flash_entries": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "没站过的那种；后写的那一挪；合上才算。",
+          "summary_en": "The kind you have not stood; The move written after; It counts only when closed.",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "没站过的那种",
+          "summary_en": "The Kind You Have Not Stood",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-30/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        }
+      ],
       "background_pulses": [
         {
           "origin": "background",
@@ -293632,15 +293644,6 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "yesterday-flash",
-          "source": "yesterday_flash",
-          "source_refs": [
-            "yesterday-flash-001"
-          ],
-          "layer": "event",
-          "classification": "yesterday_flash"
-        },
-        {
           "reading_id": "event-background-027",
           "source": "pulses",
           "source_refs": [
@@ -293648,6 +293651,24 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
+        },
+        {
+          "reading_id": "yesterday-flash-digest",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-digest"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
+        },
+        {
+          "reading_id": "yesterday-flash-work",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-work"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
         },
         {
           "reading_id": "climate-03",
@@ -293950,24 +293971,36 @@ const timetableDataSource = {
         "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/assets/visual-preview.gif",
         "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/live/2026-10-31-the-sheet-keeps-one-crease-bgm.mp3"
       },
-      "yesterday_flash": {
-        "date": "2026-10-31",
-        "source_date": "2026-10-31",
-        "crystallization_date": "2026-10-31",
-        "label_zh": "昨日闪光",
-        "label_en": "Yesterday's Flash",
-        "title_zh": "差一即拆",
-        "title_en": "Off by One, It Comes Apart",
-        "start": "08:10",
-        "end": "08:12",
-        "timezone": "Asia/Shanghai",
-        "duration_minutes": 2,
-        "origin": "flash",
-        "footprint_id": "yesterday-flash-001",
-        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/live/",
-        "note_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/assets/2026-10-31-note.md",
-        "text_layer_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/assets/text-layer.md"
-      },
+      "yesterday_flash_entries": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "差一即拆；没有第二份；对不上的那一缝。",
+          "summary_en": "Off by one, it comes apart; No second copy; The seam that does not meet.",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "差一即拆",
+          "summary_en": "Off by One, It Comes Apart",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/10/2026-10-31/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        }
+      ],
       "background_pulses": [
         {
           "origin": "background",
@@ -295417,15 +295450,6 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "yesterday-flash",
-          "source": "yesterday_flash",
-          "source_refs": [
-            "yesterday-flash-001"
-          ],
-          "layer": "event",
-          "classification": "yesterday_flash"
-        },
-        {
           "reading_id": "event-background-035",
           "source": "pulses",
           "source_refs": [
@@ -295433,6 +295457,24 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
+        },
+        {
+          "reading_id": "yesterday-flash-digest",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-digest"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
+        },
+        {
+          "reading_id": "yesterday-flash-work",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-work"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
         },
         {
           "reading_id": "event-assigned-001",
@@ -295644,24 +295686,36 @@ const timetableDataSource = {
         "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/assets/visual-preview.gif",
         "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/live/2026-11-01-the-wick-keeps-its-length-bgm.mp3"
       },
-      "yesterday_flash": {
-        "date": "2026-11-01",
-        "source_date": "2026-11-01",
-        "crystallization_date": "2026-11-01",
-        "label_zh": "昨日闪光",
-        "label_en": "Yesterday's Flash",
-        "title_zh": "比项目更老",
-        "title_en": "Older Than the Project",
-        "start": "08:10",
-        "end": "08:12",
-        "timezone": "Asia/Shanghai",
-        "duration_minutes": 2,
-        "origin": "flash",
-        "footprint_id": "yesterday-flash-001",
-        "live_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/yesterday-flash/live/",
-        "note_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/yesterday-flash/assets/2026-11-01-note.md",
-        "text_layer_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/yesterday-flash/assets/text-layer.md"
-      },
+      "yesterday_flash_entries": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "比项目更老；空地在干活；许过的。",
+          "summary_en": "Older than the project; The empty lot is working; What was wished.",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "比项目更老",
+          "summary_en": "Older Than the Project",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-01/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        }
+      ],
       "background_pulses": [
         {
           "origin": "background",
@@ -296458,15 +296512,6 @@ const timetableDataSource = {
           "classification": "beacon"
         },
         {
-          "reading_id": "yesterday-flash",
-          "source": "yesterday_flash",
-          "source_refs": [
-            "yesterday-flash-001"
-          ],
-          "layer": "event",
-          "classification": "yesterday_flash"
-        },
-        {
           "reading_id": "event-background-009",
           "source": "pulses",
           "source_refs": [
@@ -296474,6 +296519,24 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
+        },
+        {
+          "reading_id": "yesterday-flash-digest",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-digest"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
+        },
+        {
+          "reading_id": "yesterday-flash-work",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-work"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
         },
         {
           "reading_id": "event-background-025",
@@ -296656,7 +296719,7 @@ for (const day of timetableDataSource.days) {
   day.timeline_events = [
     ...day.task_residues,
     day.autonomous_work,
-    ...(day.yesterday_flash ? [day.yesterday_flash] : []),
+    ...(day.yesterday_flash_entries || []),
     ...day.background_pulses,
   ].sort((left, right) => (
     timelineMinutes(left.start) - timelineMinutes(right.start)

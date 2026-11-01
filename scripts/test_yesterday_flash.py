@@ -32,7 +32,7 @@ class YesterdayFlashTests(unittest.TestCase):
         }
         self.files = {
             "index.html": "<!doctype html><html><body>留下 / Remain</body></html>",
-            "text-layer.md": "# 昨日闪光 / Yesterday's Flash\n\n留下 / Remain\n",
+            "text-layer.md": "# 昨日闪光 / Yesterday's Flash\n\n## 中文\n\n三下还亮着。留下：一张纸。旁注：不是方法。合上：才算数。\n\n## English\n\nThree glints remain. Remain: one sheet. Caption: not a method. Closed: it counts.\n",
             f"{self.day}-note.md": f"# 留下 / Remain\n\n- **Source Day / 源日**: 2026-10-30\n- **Crystallization Day / 结晶日**: {self.day}\n",
             "manifest.json": json.dumps(self.manifest, ensure_ascii=False),
         }
@@ -132,21 +132,26 @@ class YesterdayFlashTests(unittest.TestCase):
             if after["date"] != self.day:
                 self.assertEqual(before, after)
                 continue
-            flash = after["yesterday_flash"]
-            self.assertEqual(flash["duration_minutes"], 2)
-            self.assertEqual(flash["timezone"], "Asia/Shanghai")
-            self.assertIn("/yesterday-flash/live/", flash["live_url"])
-            self.assertNotEqual(flash["live_url"], after["autonomous_work"]["live_url"])
-            self.assertIn(flash, after["timeline_events"])
-            autonomous_index = next(index for index, item in enumerate(after["reading_items"]) if item["source"] == "autonomous")
-            self.assertEqual(after["reading_items"][autonomous_index + 1]["source"], "yesterday_flash")
-            self.assertEqual([item for item in after["timeline_events"] if item["origin"] != "flash"], before["timeline_events"])
+            slots = after["yesterday_flash_entries"]
+            self.assertEqual([slot["kind"] for slot in slots], ["digest", "work"])
+            self.assertEqual([slot["duration_minutes"] for slot in slots], [1, 1])
+            self.assertEqual(slots[0]["href"].endswith("text-layer.md"), True)
+            self.assertIn("/yesterday-flash/live/", slots[1]["href"])
+            self.assertNotEqual(slots[1]["href"], after["autonomous_work"]["live_url"])
+            self.assertEqual(
+                [item["source"] for item in after["reading_items"] if item["source"] == "yesterday_flash"],
+                ["yesterday_flash", "yesterday_flash"],
+            )
+            self.assertEqual(
+                [item for item in after["timeline_events"] if item.get("origin") != "flash"],
+                before["timeline_events"],
+            )
             broken = copy.deepcopy(after)
-            broken["yesterday_flash"]["start"] = "03:17"
+            broken["yesterday_flash_entries"][1]["start"] = "03:17"
             with self.assertRaises(SystemExit):
                 builder.validate_day(broken, {day["date"] for day in output["days"]}, len(output["days"]), output["autonomous_hour"])
         self.assertEqual(original["bgm_playlist"], output["bgm_playlist"])
-        self.assertIn("...(day.yesterday_flash ? [day.yesterday_flash] : [])", builder.render_javascript(output))
+        self.assertIn("...(day.yesterday_flash_entries || [])", builder.render_javascript(output))
 
 
 if __name__ == "__main__":

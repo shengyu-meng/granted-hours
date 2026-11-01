@@ -59,6 +59,27 @@ def scan_public_text(text: str) -> None:
             raise ValueError(f"Public source rejected: {category}")
 
 
+def titled_glints(text_layer: str) -> tuple[list[str], list[str]]:
+    sections = {
+        "中文": re.search(r"## 中文\s+(.+?)(?:\n## |\Z)", text_layer, re.S),
+        "English": re.search(r"## English\s+(.+?)(?:\n## |\Z)", text_layer, re.S),
+    }
+    if not sections["中文"] or not sections["English"]:
+        raise ValueError("Text layer needs Chinese and English glints")
+    found = {}
+    for language, match in sections.items():
+        separator = "：" if language == "中文" else ":"
+        titles = [
+            title.strip(" ；;.")
+            for title in re.findall(rf"([^。.;\n]{{2,48}}){separator}", match.group(1))
+        ]
+        titles = [title for title in titles if not title.startswith("三下") and not title.startswith("Three glints")]
+        if len(titles) < 3:
+            raise ValueError("Text layer must name three public glints")
+        found[language] = titles[:3]
+    return found["中文"], found["English"]
+
+
 def flash_paths(day: str) -> dict[str, str]:
     checked_date(day)
     base = f"archive/{day[:4]}/{day[5:7]}/{day}/yesterday-flash"
@@ -81,7 +102,6 @@ def validate_entry(entry: dict) -> None:
         "timezone": "Asia/Shanghai",
         "duration_minutes": 2,
         "origin": "flash",
-        "footprint_id": "yesterday-flash-001",
         **flash_paths(day),
     }
     if any(entry.get(key) != value for key, value in required.items()):
@@ -89,6 +109,21 @@ def validate_entry(entry: dict) -> None:
     for field in ("title_zh", "title_en"):
         if not isinstance(entry.get(field), str) or not entry[field].strip():
             raise ValueError("Yesterday's Flash requires a bilingual picked title")
+    slots = entry.get("slots")
+    expected_slots = (
+        ("digest", "三条闪光", "Three glints", "08:10", "08:11", "yesterday-flash-digest", entry["text_layer_url"]),
+        ("work", "抽出的一件", "Entered piece", "08:11", "08:12", "yesterday-flash-work", entry["live_url"]),
+    )
+    if not isinstance(slots, list) or len(slots) != 2:
+        raise ValueError("Yesterday's Flash needs a digest card and a work card")
+    for slot, expected in zip(slots, expected_slots):
+        kind, label_zh, label_en, start, end, footprint_id, href = expected
+        if (slot.get("kind"), slot.get("label_zh"), slot.get("label_en")) != (kind, label_zh, label_en):
+            raise ValueError("Yesterday's Flash card labels drifted")
+        if (slot.get("start"), slot.get("end"), slot.get("duration_minutes"), slot.get("footprint_id"), slot.get("href")) != (start, end, 1, footprint_id, href):
+            raise ValueError("Yesterday's Flash card slot drifted")
+        if not str(slot.get("summary_zh", "")).strip() or not str(slot.get("summary_en", "")).strip():
+            raise ValueError("Yesterday's Flash card needs a short bilingual summary")
     scan_public_text(json.dumps(entry, ensure_ascii=False))
 
 
@@ -149,6 +184,8 @@ def import_work(day: str, source: Path, root: Path = ROOT) -> dict:
     for label, expected in (("Source Day / 源日", manifest.get("source_date")), ("Crystallization Day / 结晶日", day)):
         if f"**{label}**: {expected}" not in note:
             raise ValueError("Public note and manifest dates disagree")
+    zh_glints, en_glints = titled_glints(contents["text-layer.md"].decode("utf-8"))
+    paths = flash_paths(day)
     entry = {
         "date": day,
         "source_date": checked_date(manifest.get("source_date")),
@@ -162,8 +199,33 @@ def import_work(day: str, source: Path, root: Path = ROOT) -> dict:
         "timezone": "Asia/Shanghai",
         "duration_minutes": 2,
         "origin": "flash",
-        "footprint_id": "yesterday-flash-001",
-        **flash_paths(day),
+        **paths,
+        "slots": [
+            {
+                "kind": "digest",
+                "label_zh": "三条闪光",
+                "label_en": "Three glints",
+                "summary_zh": "；".join(zh_glints) + "。",
+                "summary_en": "; ".join(en_glints) + ".",
+                "href": paths["text_layer_url"],
+                "start": "08:10",
+                "end": "08:11",
+                "duration_minutes": 1,
+                "footprint_id": "yesterday-flash-digest",
+            },
+            {
+                "kind": "work",
+                "label_zh": "抽出的一件",
+                "label_en": "Entered piece",
+                "summary_zh": title[1].strip(),
+                "summary_en": title[2].strip(),
+                "href": paths["live_url"],
+                "start": "08:11",
+                "end": "08:12",
+                "duration_minutes": 1,
+                "footprint_id": "yesterday-flash-work",
+            },
+        ],
     }
     validate_entry(entry)
     metadata = root / "metadata" / "yesterday-flash-entries.json"

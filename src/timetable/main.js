@@ -1711,13 +1711,14 @@ function applyMonthPreviewFloor() {
 }
 
 function buildDayButton(day, isToday, isMuted) {
-  const button = document.createElement(day.yesterday_flash ? "div" : "button");
-  if (day.yesterday_flash) button.setAttribute("role", "group");
+  const button = document.createElement(day.yesterday_flash_entries ? "div" : "button");
+  if (day.yesterday_flash_entries) button.setAttribute("role", "group");
   else button.type = "button";
   button.className = "calendar-day-button";
   button.dataset.date = day.date;
   button.classList.toggle("is-muted", isMuted);
-  const primaryPreviewCount = 1 + day.cell_assigned.length + Number(Boolean(day.yesterday_flash));
+  const flashEntries = day.yesterday_flash_entries || [];
+  const primaryPreviewCount = 1 + day.cell_assigned.length + flashEntries.length;
   const expandedPreview = primaryPreviewCount < MONTH_PREVIEW_ITEM_FLOOR;
   const routineFillers = expandedPreview
     ? monthRoutinePreviewItems(day, MONTH_PREVIEW_ITEM_FLOOR - primaryPreviewCount)
@@ -1781,17 +1782,16 @@ function buildDayButton(day, isToday, isMuted) {
         ) : ""}
       </span>
       ${monthArtworkStampMarkup(day)}
-      ${day.yesterday_flash ? `<a class="cell-mark yesterday-flash-mark" href="${escapeHtml(publicAssetUrl(day.yesterday_flash.live_url))}">
-        <span class="cell-mark-line">昨日闪光 / Yesterday's Flash</span>
-        <strong${expandedPreview ? ' class="cell-mark-detail"' : ""}>${escapeHtml(day.yesterday_flash.title_zh)} / ${escapeHtml(day.yesterday_flash.title_en)}</strong>
-      </a>` : ""}
+      ${flashEntries.map((entry) => `<a class="cell-mark assigned-mark" href="${escapeHtml(publicAssetUrl(entry.href))}">
+        <span class="cell-mark-line"><span class="marker-zh">${escapeHtml(entry.label_zh)}</span><span class="marker-divider"> / </span><span class="marker-en">${escapeHtml(entry.label_en)}</span></span>
+      </a>`).join("")}
       <span class="assigned-marks">${assigned}${routineMarkers}</span>
     </span>
   `;
   button.addEventListener("click", (event) => {
     if (!event.target.closest("a")) openDayDetail(day.date);
   });
-  if (day.yesterday_flash) {
+  if (flashEntries.length) {
     const selfMark = button.querySelector(".self-mark");
     const dayControl = document.createElement("button");
     dayControl.type = "button";
@@ -2150,9 +2150,7 @@ function hydratePublicReadingItems(day) {
     autonomous: new Map([
       [day.autonomous_work.footprint_id, day.autonomous_work],
     ]),
-    yesterday_flash: new Map(day.yesterday_flash
-      ? [[day.yesterday_flash.footprint_id, day.yesterday_flash]]
-      : []),
+    yesterday_flash: new Map((day.yesterday_flash_entries || []).map((source) => [source.footprint_id, source])),
   };
 
   return day.reading_items.map((projection) => {
@@ -2249,8 +2247,16 @@ function hydratePublicReadingItems(day) {
         constituents: [],
       };
     }
-    if (projection.classification === "yesterday_flash") {
-      return { ...shared, summary_zh: primary.title_zh, summary_en: primary.title_en, constituents: [] };
+    if (projection.classification === "flash_slot") {
+      return {
+        ...shared,
+        label_zh: primary.label_zh,
+        label_en: primary.label_en,
+        summary_zh: primary.summary_zh,
+        summary_en: primary.summary_en,
+        href: primary.href,
+        constituents: [],
+      };
     }
     if (projection.classification === "settings_change") {
       return {
@@ -2548,9 +2554,6 @@ function readingCardHeight(card, minuteHeight, isCompactReadingCanvas, cardWidth
 }
 
 function readingCardColumnSpan(card, columnCount, isCompactReadingCanvas, canvasWidth) {
-  if (card.dataset.classification === "yesterday_flash") {
-    return isCompactReadingCanvas ? columnCount : Math.min(3, columnCount);
-  }
   const memberCount = Number(card.dataset.memberCount) || 1;
   const copyLength = Number(card.dataset.copyLength) || 0;
   if (isCompactReadingCanvas) {
@@ -2669,9 +2672,6 @@ function placeTimelineReadingCards() {
         columnSpan,
         height,
         layer: card.dataset.layer,
-        afterKey: card.dataset.classification === "yesterday_flash"
-          ? cards.find((candidate) => candidate.dataset.autonomousCard === "true")?.dataset.eventKey
-          : undefined,
       };
     });
     const protectedRanges = cardSpecifications.map((item) => {
@@ -2823,8 +2823,8 @@ function buildTimelineTouchControl(day, event) {
   if (event.origin === "flash") {
     const link = document.createElement("a");
     link.className = "timeline-touch-control";
-    link.href = publicAssetUrl(event.live_url);
-    link.textContent = `${event.start}–${event.end} · 昨日闪光 / Yesterday's Flash · ${event.title_zh} / ${event.title_en}`;
+    link.href = publicAssetUrl(event.href);
+    link.textContent = `${event.start}–${event.end} · ${event.label_zh} / ${event.label_en}`;
     return link;
   }
   if (event.origin === "self") {
@@ -2927,15 +2927,18 @@ function buildExactTimelineEvent(event) {
 }
 
 function buildPublicReadingCard(day, item) {
-  if (item.classification === "yesterday_flash") {
+  if (item.classification === "flash_slot") {
     const card = document.createElement("a");
-    card.className = "event-reading-card event-layer-reading-card yesterday-flash-reading-card";
-    card.href = publicAssetUrl(item.live_url);
-    card.dataset.protectedWork = "yesterday-flash";
+    card.className = "assigned-item event-reading-card assigned-reading-card event-layer-reading-card";
+    card.href = publicAssetUrl(item.href);
+    card.dataset.classification = "flash_slot";
+    card.dataset.layer = "event";
+    card.dataset.durationMinutes = String(item.duration_minutes);
+    card.setAttribute("aria-label", `${item.start}-${item.end}, ${item.label_en} / ${item.label_zh}: ${item.summary_en} / ${item.summary_zh}`);
     card.innerHTML = `
-      <span class="event-time">${escapeHtml(item.start)}–${escapeHtml(item.end)} · Asia/Shanghai</span>
-      <strong class="reading-title">昨日闪光 / Yesterday's Flash</strong>
-      <span class="reading-summary">${escapeHtml(item.title_zh)} / ${escapeHtml(item.title_en)}</span>
+      <span class="assigned-time"><span>${escapeHtml(item.start)}-${escapeHtml(item.end)}</span><small>${item.duration_minutes} min</small></span>
+      <span class="assigned-type"><strong class="assigned-work-type reading-title">${escapeHtml(item.label_zh)} / ${escapeHtml(item.label_en)}</strong></span>
+      <span class="assigned-copy reading-summary"><span class="copy-zh">${escapeHtml(item.summary_zh)}</span><span class="copy-divider"> / </span><span class="copy-en">${escapeHtml(item.summary_en)}</span></span>
     `;
     return card;
   }
