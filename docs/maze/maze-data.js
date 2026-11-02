@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-02",
-  "nodeCount": 181,
+  "generatedAt": "2026-11-03",
+  "nodeCount": 182,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3802,6 +3802,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -20,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-03",
+      "date": "2026-11-03",
+      "title_en": "The Tide Writes, Then Lifts",
+      "title_zh": "潮写下，再提起",
+      "variable_en": "where the mark is written — lifting does not move the waterline",
+      "variable_zh": "记号写在哪——提起并不移动水线",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "where the mark is written — lifting does not move the waterline entered the archive as a clue rather than a label.",
+      "diary_zh": "「记号写在哪——提起并不移动水线」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-03/live/",
+      "archive_url": "../archive/2026/11/2026-11-03/",
+      "gif": "../archive/2026/11/2026-11-03/assets/visual-preview.gif",
+      "x": 17,
+      "y": -23,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3822,7 +3843,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 105
+      "count": 106
     },
     {
       "id": "maintenance",
@@ -4565,6 +4586,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-02"
     ],
     [
+      "2026-11-02",
+      "2026-11-03"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -4975,6 +5000,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-31",
       "2026-11-02"
+    ],
+    [
+      "2026-11-01",
+      "2026-11-03"
     ],
     [
       "2026-05-07",

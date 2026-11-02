@@ -129,6 +129,49 @@
           "footprint_id": "yesterday-flash-work"
         }
       ]
+    },
+    {
+      "date": "2026-11-02",
+      "source_date": "2026-11-02",
+      "crystallization_date": "2026-11-02",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "不转头就没有风",
+      "title_en": "No Wind Without a Turn of the Neck",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "live_url": "archive/2026/11/2026-11-02/yesterday-flash/live/",
+      "note_url": "archive/2026/11/2026-11-02/yesterday-flash/assets/2026-11-02-note.md",
+      "text_layer_url": "archive/2026/11/2026-11-02/yesterday-flash/assets/text-layer.md",
+      "slots": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "不转头就没有风；能坐镜头的谎；没掉的把握。",
+          "summary_en": "No wind without a turn of the neck; The lie that can sit for the camera; Confidence that did not drop.",
+          "href": "archive/2026/11/2026-11-02/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "不转头就没有风",
+          "summary_en": "No Wind Without a Turn of the Neck",
+          "href": "archive/2026/11/2026-11-02/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work"
+        }
+      ]
     }
   ]
 }

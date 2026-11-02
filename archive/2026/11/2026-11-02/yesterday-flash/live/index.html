@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 520px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title { position: relative; z-index: 1; }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .field {
+      position: relative;
+      min-height: 250px;
+      border-top: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(127, 158, 166, 0.08), transparent 42%),
+        #e7decd;
+      overflow: hidden;
+    }
+    .land { position: relative; height: 250px; }
+    .hill {
+      position: absolute;
+      height: 56px;
+      border-radius: 50% 50% 0 0;
+      background: rgba(26, 33, 31, 0.06);
+      border-top: 1px solid rgba(26, 33, 31, 0.28);
+    }
+    .grass {
+      position: absolute;
+      left: 0;
+      right: 18%;
+      bottom: 28px;
+      height: 36px;
+      transform-origin: 50% 100%;
+    }
+    .blade {
+      position: absolute;
+      bottom: 0;
+      width: 1px;
+      background: rgba(26, 33, 31, 0.55);
+    }
+    .grass.is-bent-left { transform: skewX(7deg) translateX(-4px); }
+    .grass.is-bent-right { transform: skewX(-7deg) translateX(4px); }
+    .filament {
+      position: absolute;
+      left: 7%;
+      width: 54%;
+      height: 1px;
+      background: #b8924a;
+      opacity: 0;
+    }
+    .filament.is-shown { opacity: 0.72; }
+    .place {
+      position: absolute;
+      left: 28px;
+      bottom: 14px;
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      color: rgba(26, 33, 31, 0.72);
+    }
+    .ring {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      width: 148px;
+      height: 148px;
+    }
+    .ring svg { width: 148px; height: 148px; }
+    .ring-line { fill: none; stroke: rgba(141, 135, 150, 0.7); stroke-width: 1; }
+    .ring-tick { stroke: rgba(127, 158, 166, 0.8); stroke-width: 1; }
+    .ring-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.46);
+      pointer-events: none;
+    }
+    #bead {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      transform: translate(-50%, -50%);
+      touch-action: none;
+      cursor: grab;
+    }
+    #bead::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bone);
+      box-shadow: 0 0 0 1px rgba(141, 135, 150, 0.9), 0 6px 14px rgba(0, 0, 0, 0.18);
+    }
+    #bead.is-orbiting::after { background: #d7c39a; }
+    .neck {
+      position: relative;
+      height: 86px;
+      touch-action: none;
+    }
+    .neck svg { width: 100%; height: 86px; display: block; }
+    .neck-arc { fill: none; stroke: rgba(26, 33, 31, 0.28); stroke-width: 1; }
+    .neck-tick { stroke: #b8924a; stroke-width: 1.4; }
+    .neck-caption {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: rgba(26, 33, 31, 0.46);
+      pointer-events: none;
+    }
+    #neck-mark {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      transform: translate(-50%, -50%);
+      touch-action: none;
+      cursor: grab;
+    }
+    #neck-mark .face {
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      width: 16px;
+      height: 20px;
+      border: 1px solid rgba(26, 33, 31, 0.7);
+      border-radius: 8px 8px 6px 6px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+    #neck-mark .face::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: -7px;
+      width: 1px;
+      height: 8px;
+      background: var(--ink);
+      transform-origin: 50% 100%;
+    }
+    #neck-mark.is-left .face::before { transform: rotate(-28deg); }
+    #neck-mark.is-right .face::before { transform: rotate(28deg); }
+    #neck-mark.is-wind .face { border-color: #6d5424; background: rgba(184, 146, 74, 0.16); }
+    .readout, .sheet-hint {
+      margin: 0;
+      font-size: 13px;
+      color: rgba(26, 33, 31, 0.68);
+    }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+    .gestures button:disabled { opacity: 0.45; cursor: default; }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .gestures button:focus-visible,
+    #bead:focus-visible,
+    #neck-mark:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 20px);
+      height: calc(100% - 16px);
+      margin: 8px 10px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; height: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+      .grass, .filament { transition: none; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .grass, .filament { transition: transform 680ms ease, opacity 680ms ease; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。不转头就没有风：在软地里绕着看，草不会动；风只在脖子转开的那一下过来。绕视不是转头。能坐镜头的谎：一段从没接上的细节，只要能在镜头前坐住，就会被写成勘察。坐得住不是接上了。没掉的把握：写完以后把握还纹丝不动，这张纸条就是借来的。自己写下的，把握会动一下。</p>
+    <p class="en">Three glints are still lit; only one can be entered. No wind without a turn of the neck: circling a soft ground does not move the grass. Wind comes only when the neck turns. An orbit is not a turn. The lie that can sit for the camera: a detail never joined, once it can hold still before the lens, is written up as a survey. Holding still is not being joined. Confidence that did not drop: if certainty is unmoved after the note, the note was borrowed. A note from the hand moves that certainty.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 不转头就没有风</p>
+    <section class="sheet" id="sheet" aria-label="不转头就没有风">
+      <div class="sheet-title">
+        <span class="k" id="ground-k">软坡</span>
+        <strong>绕，或转</strong>
+      </div>
+      <div class="field" id="field">
+        <div class="land" id="land" role="img" aria-labelledby="ground-k">
+          <div id="hills"></div>
+          <div id="grass"></div>
+          <div id="filaments"></div>
+          <p class="place" id="place"></p>
+        </div>
+        <div class="ring" id="ring">
+          <svg viewBox="0 0 148 148" aria-hidden="true">
+            <circle class="ring-line" cx="74" cy="74" r="54"></circle>
+            <line class="ring-tick" x1="74" y1="14" x2="74" y2="22"></line>
+            <line class="ring-tick" x1="134" y1="74" x2="126" y2="74"></line>
+            <line class="ring-tick" x1="74" y1="134" x2="74" y2="126"></line>
+            <line class="ring-tick" x1="14" y1="74" x2="22" y2="74"></line>
+          </svg>
+          <span class="ring-label">绕视</span>
+          <button id="bead" type="button" aria-label="绕视的点。按住，沿圈同一方向拖满一圈再松开"></button>
+        </div>
+      </div>
+      <div class="neck" id="neck">
+        <svg viewBox="0 0 640 86" aria-hidden="true">
+          <path class="neck-arc" d="M70 62 Q320 8 570 62"></path>
+          <line class="neck-tick" x1="206" y1="32" x2="206" y2="50"></line>
+          <line class="neck-tick" x1="434" y1="32" x2="434" y2="50"></line>
+        </svg>
+        <button id="neck-mark" type="button" aria-label="脖子。按住转向左边或右边，过了刻度再松开">
+          <span class="face"></span>
+        </button>
+        <span class="neck-caption">转头 · 到不了一圈</span>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">
+        <span id="readout-zh">草没动</span>
+        <span class="en" id="readout-en">The grass has not moved</span>
+      </p>
+      <div class="gestures">
+        <button id="orbit-btn" type="button">绕一圈</button>
+        <button id="turn-left" type="button">向左转</button>
+        <button id="turn-right" type="button">向右转</button>
+      </div>
+      <p class="sheet-hint" id="hint">
+        <span id="hint-zh">绕一圈，草不会动。转过脖子上的刻度，风才来。</span>
+        <span class="en" id="hint-en">Circle once: the grass stays. Wind comes only past the mark on the neck.</span>
+      </p>
+    </section>
+    <aside class="margin">
+      <h2>不转头就没有风</h2>
+      <p class="sub">No Wind Without a Turn of the Neck</p>
+      <ol id="ledger"></ol>
+      <p class="after" id="after">
+        <span id="after-zh">绕着看，软地不会起风。风只认转头。</span>
+        <span class="en" id="after-en">Circling the soft ground raises no wind. Wind answers only a turn of the neck.</span>
+      </p>
+      <div class="sheet-actions">
+        <button id="another" type="button">另一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>不转头就没有风<br>No Wind Without a Turn of the Neck</h2>
+      <p class="label">Brief / 作品简述</p>
+      <p>在软地里绕完一圈，草还是直的，就没有风。脖子转过刻度再松开，草才弯。绕视不是转头。</p>
+      <p>A full circle around the soft ground leaves the grass straight, so there is no wind. The grass bends only when the neck passes the mark and is released. An orbit is not a turn.</p>
+      <p class="label">How to interact / 操作说明</p>
+      <p>按住绕视的点，沿圈同一方向拖满一圈再松开；或点「绕一圈」。草不会因此弯。按住脖子上的标记，转向左边或右边，过了刻度再松开；或点「向左转」「向右转」。没过刻度就松开，标记回到正前，没有风。脖子到不了一圈。两种都试过以后，这张纸留下。可以换另一张纸。没有分数，没有倒计时。</p>
+      <p>Press the orbit point, drag it a full circle in one direction, and release. Or press the circle control. The grass does not bend from this. Press the mark on the neck, turn it left or right, and release past the mark. Or press the left-turn or right-turn control. Releasing before the mark returns the facing forward, and there is no wind. The neck cannot complete a circle. After both gestures are tried, the sheet remains. Another sheet may be taken. No score. No countdown.</p>
+      <p class="label">Sound / 声音</p>
+      <p>这件作品不发声。风是弯过的草，不是气氛。</p>
+      <p>This piece is silent. The wind is bent grass, not an atmosphere.</p>
+      <button class="note-close" id="note-close" type="button">合上</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const GROUNDS = [
+        { zh: "软坡", en: "Soft slope", hills: [[40, 190, 220, 150, 400, 188], [280, 198, 470, 142, 620, 196]] },
+        { zh: "浅草", en: "Thin grass", hills: [[20, 176, 200, 164, 390, 178], [300, 182, 500, 158, 640, 180]] },
+        { zh: "低处", en: "Low ground", hills: [[0, 168, 180, 132, 360, 170], [240, 174, 460, 124, 660, 172]] }
+      ];
+
+      const hills = document.getElementById("hills");
+      const grass = document.getElementById("grass");
+      const filaments = document.getElementById("filaments");
+      const place = document.getElementById("place");
+      const groundK = document.getElementById("ground-k");
+      const ring = document.getElementById("ring");
+      const bead = document.getElementById("bead");
+      const neck = document.getElementById("neck");
+      const neckMark = document.getElementById("neck-mark");
+      const ledger = document.getElementById("ledger");
+      const hintZh = document.getElementById("hint-zh");
+      const hintEn = document.getElementById("hint-en");
+      const afterZh = document.getElementById("after-zh");
+      const afterEn = document.getElementById("after-en");
+      const readoutZh = document.getElementById("readout-zh");
+      const readoutEn = document.getElementById("readout-en");
+      const another = document.getElementById("another");
+      const orbitBtn = document.getElementById("orbit-btn");
+      const turnLeft = document.getElementById("turn-left");
+      const turnRight = document.getElementById("turn-right");
+      const hint = document.getElementById("hint");
+      hint.setAttribute("aria-live", "polite");
+
+      let sheetIndex = 0;
+      let entries = [];
+      let orbited = false;
+      let turned = false;
+      let bent = 0;
+      let beadAngle = 0;
+      let neckAngle = 0;
+      let orbitDrag = null;
+      let neckDrag = null;
+      let ignoreClick = false;
+      let spinning = false;
+      let spinFrame = 0;
+
+      function setHint(zh, en) {
+        hintZh.textContent = zh;
+        hintEn.textContent = en;
+      }
+      function setAfter(zh, en) {
+        afterZh.textContent = zh;
+        afterEn.textContent = en;
+      }
+      function setReadout(zh, en) {
+        readoutZh.textContent = zh;
+        readoutEn.textContent = en;
+      }
+      function bothTried() {
+        return orbited && turned;
+      }
+      function remainIfDone() {
+        if (!bothTried()) return;
+        setHint("这张纸留下了。", "The sheet remains.");
+        setAfter("绕完的不记成风。弯过的草只认转头。", "A completed circle is not wind. Bent grass answers only the turn.");
+      }
+
+      function drawGround(index) {
+        const ground = GROUNDS[index];
+        groundK.textContent = ground.zh;
+        place.textContent = ground.zh;
+        hills.replaceChildren();
+        const specs = [
+          [{ left: "6%", width: "46%", bottom: "48px", height: "58px" }, { left: "40%", width: "42%", bottom: "42px", height: "70px" }],
+          [{ left: "4%", width: "44%", bottom: "62px", height: "28px" }, { left: "38%", width: "40%", bottom: "66px", height: "24px" }],
+          [{ left: "0%", width: "50%", bottom: "70px", height: "42px" }, { left: "34%", width: "48%", bottom: "64px", height: "50px" }]
+        ][index];
+        specs.forEach(function (spec) {
+          const hill = document.createElement("div");
+          hill.className = "hill";
+          Object.assign(hill.style, spec);
+          hills.appendChild(hill);
+        });
+        grass.replaceChildren();
+        grass.className = "grass";
+        const count = index === 1 ? 28 : index === 2 ? 22 : 16;
+        const tall = index === 1 ? 12 : index === 2 ? 18 : 28;
+        for (let i = 0; i < count; i += 1) {
+          const blade = document.createElement("span");
+          blade.className = "blade";
+          blade.style.left = (6 + (i * 82) / count) + "%";
+          blade.style.height = (tall - (i % 3) * 4) + "px";
+          grass.appendChild(blade);
+        }
+        filaments.replaceChildren();
+        for (let i = 0; i < 5; i += 1) {
+          const line = document.createElement("span");
+          line.className = "filament";
+          line.style.top = (26 + i * 9) + "%";
+          filaments.appendChild(line);
+        }
+      }
+
+      function placeBead(angle) {
+        const size = ring.clientWidth || 148;
+        const radius = size * 0.365;
+        const rad = (angle - 90) * Math.PI / 180;
+        bead.style.left = (size / 2 + Math.cos(rad) * radius) + "px";
+        bead.style.top = (size / 2 + Math.sin(rad) * radius) + "px";
+      }
+      function neckPoint(angle) {
+        const t = (Math.max(-70, Math.min(70, angle)) + 70) / 140;
+        const x = (1 - t) * (1 - t) * 70 + 2 * (1 - t) * t * 320 + t * t * 570;
+        const y = (1 - t) * (1 - t) * 62 + 2 * (1 - t) * t * 8 + t * t * 62;
+        const width = neck.clientWidth || 640;
+        return { left: (x / 640) * width, top: (y / 86) * 86 };
+      }
+      function placeNeck(angle) {
+        neckAngle = Math.max(-70, Math.min(70, angle));
+        const point = neckPoint(neckAngle);
+        neckMark.style.left = point.left + "px";
+        neckMark.style.top = point.top + "px";
+        neckMark.classList.toggle("is-left", neckAngle <= -32);
+        neckMark.classList.toggle("is-right", neckAngle >= 32);
+        neckMark.classList.toggle("is-wind", bent !== 0 && Math.abs(neckAngle) >= 32);
+      }
+      function renderLedger() {
+        ledger.replaceChildren();
+        entries.forEach(function (entry) {
+          const li = document.createElement("li");
+          const meta = document.createElement("span");
+          meta.className = "meta";
+          meta.textContent = entry.meta;
+          const line = document.createElement("span");
+          line.textContent = entry.line;
+          const quiet = document.createElement("span");
+          quiet.className = "quiet";
+          quiet.textContent = entry.quiet;
+          li.append(meta, line, quiet);
+          ledger.appendChild(li);
+        });
+      }
+      function paintBend() {
+        grass.classList.toggle("is-bent-left", bent < 0);
+        grass.classList.toggle("is-bent-right", bent > 0);
+        filaments.querySelectorAll(".filament").forEach(function (line) {
+          line.classList.toggle("is-shown", bent !== 0);
+        });
+        if (bent === 0) setReadout("草没动", "The grass has not moved");
+        else if (bent < 0) setReadout("草向左弯了", "The grass bent left");
+        else setReadout("草向右弯了", "The grass bent right");
+      }
+      function load(index) {
+        if (spinFrame) cancelAnimationFrame(spinFrame);
+        spinning = false;
+        orbitBtn.disabled = false;
+        sheetIndex = index % GROUNDS.length;
+        entries = [];
+        orbited = false;
+        turned = false;
+        bent = 0;
+        beadAngle = 0;
+        orbitDrag = null;
+        neckDrag = null;
+        drawGround(sheetIndex);
+        placeBead(0);
+        placeNeck(0);
+        paintBend();
+        setHint("绕一圈，草不会动。转过脖子上的刻度，风才来。", "Circle once: the grass stays. Wind comes only past the mark on the neck.");
+        setAfter("绕着看，软地不会起风。风只认转头。", "Circling the soft ground raises no wind. Wind answers only a turn of the neck.");
+        renderLedger();
+      }
+
+      function commitOrbit() {
+        orbited = true;
+        beadAngle = 0;
+        placeBead(0);
+        bead.classList.remove("is-orbiting");
+        const circledBefore = entries.some(function (entry) { return entry.meta === "绕视"; });
+        entries.push({
+          meta: "绕视",
+          line: circledBefore ? "又绕完一圈" : "绕完一圈",
+          quiet: bent === 0
+            ? "草没动。没有风。 / The grass did not move. There is no wind."
+            : "草不是被绕动的。 / The orbit did not move the grass."
+        });
+        setHint(bent === 0 ? "绕完了。没有风。" : "绕完了。草不是被绕弯的。", bent === 0 ? "The circle is complete. There is no wind." : "The circle is complete. The orbit did not bend the grass.");
+        setAfter("绕完的，不记成风。", "A completed circle is not recorded as wind.");
+        renderLedger();
+        remainIfDone();
+      }
+      function commitTurn(dir) {
+        if (dir !== -1 && dir !== 1) return;
+        turned = true;
+        bent = dir;
+        placeNeck(dir * 48);
+        paintBend();
+        entries.push({
+          meta: "转头",
+          line: dir < 0 ? "脖子转向左边" : "脖子转向右边",
+          quiet: "过了刻度。风过来了。 / Past the mark. The wind came."
+        });
+        setHint("过了刻度。草弯了。", "Past the mark. The grass bent.");
+        setAfter("弯过的草只认转头。", "Bent grass answers only the turn.");
+        renderLedger();
+        remainIfDone();
+      }
+      function releaseNeckShort() {
+        placeNeck(0);
+        setHint("还没过刻度。没有风。", "Not past the mark. There is no wind.");
+      }
+
+      function ringAngle(x, y) {
+        const rect = ring.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        return Math.atan2(y - cy, x - cx) * 180 / Math.PI + 90;
+      }
+      function signedDelta(from, to) {
+        let d = to - from;
+        while (d > 180) d -= 360;
+        while (d < -180) d += 360;
+        return d;
+      }
+      function neckAngleFromX(x) {
+        const rect = neck.getBoundingClientRect();
+        const local = ((x - rect.left) / rect.width) * 640;
+        const clamped = Math.max(70, Math.min(570, local));
+        let low = 0;
+        let high = 1;
+        for (let i = 0; i < 16; i += 1) {
+          const mid = (low + high) / 2;
+          const px = (1 - mid) * (1 - mid) * 70 + 2 * (1 - mid) * mid * 320 + mid * mid * 570;
+          if (px < clamped) low = mid;
+          else high = mid;
+        }
+        return ((low + high) / 2) * 140 - 70;
+      }
+
+      function runOrbit() {
+        if (spinning) return;
+        spinning = true;
+        orbitBtn.disabled = true;
+        bead.classList.add("is-orbiting");
+        if (reduced) {
+          spinning = false;
+          orbitBtn.disabled = false;
+          commitOrbit();
+          return;
+        }
+        const start = performance.now();
+        function frame(now) {
+          const t = Math.min(1, (now - start) / 1100);
+          beadAngle = t * 360;
+          placeBead(beadAngle);
+          if (t < 1) spinFrame = requestAnimationFrame(frame);
+          else {
+            spinning = false;
+            orbitBtn.disabled = false;
+            spinFrame = 0;
+            commitOrbit();
+          }
+        }
+        spinFrame = requestAnimationFrame(frame);
+      }
+
+      bead.addEventListener("pointerdown", function (event) {
+        if (spinning) return;
+        if (event.button !== 0 && event.pointerType === "mouse") return;
+        orbitDrag = { last: ringAngle(event.clientX, event.clientY), travel: 0, moved: false };
+        bead.classList.add("is-orbiting");
+        try { bead.setPointerCapture(event.pointerId); } catch (err) { /* optional */ }
+      });
+      bead.addEventListener("pointermove", function (event) {
+        if (!orbitDrag || spinning) return;
+        const next = ringAngle(event.clientX, event.clientY);
+        const d = signedDelta(orbitDrag.last, next);
+        if (Math.abs(d) > 0.4) orbitDrag.moved = true;
+        if (orbitDrag.travel !== 0 && Math.sign(d) !== Math.sign(orbitDrag.travel) && Math.abs(d) > 12) {
+          orbitDrag.travel = d;
+        } else {
+          orbitDrag.travel += d;
+        }
+        orbitDrag.last = next;
+        beadAngle = (beadAngle + d + 360) % 360;
+        placeBead(beadAngle);
+      });
+      function endOrbitDrag(event) {
+        if (!orbitDrag) return;
+        const current = orbitDrag;
+        orbitDrag = null;
+        if (!current.moved) return;
+        ignoreClick = true;
+        setTimeout(function () { ignoreClick = false; }, 0);
+        if (Math.abs(current.travel) >= 350) commitOrbit();
+        else {
+          bead.classList.remove("is-orbiting");
+          setHint("还没绕完。也不算转头。", "The circle is not complete. This is not a turn either.");
+        }
+      }
+      bead.addEventListener("pointerup", endOrbitDrag);
+      bead.addEventListener("pointercancel", function () {
+        orbitDrag = null;
+        bead.classList.remove("is-orbiting");
+      });
+
+      neckMark.addEventListener("pointerdown", function (event) {
+        if (event.button !== 0 && event.pointerType === "mouse") return;
+        neckDrag = { moved: false, hitEnd: false };
+        try { neckMark.setPointerCapture(event.pointerId); } catch (err) { /* optional */ }
+      });
+      neckMark.addEventListener("pointermove", function (event) {
+        if (!neckDrag) return;
+        neckDrag.moved = true;
+        const rect = neck.getBoundingClientRect();
+        const local = ((event.clientX - rect.left) / rect.width) * 640;
+        if (local < 68 || local > 572) {
+          neckDrag.hitEnd = true;
+          setHint("到边了。脖子转不到一圈。", "The neck has reached its end. It cannot complete a circle.");
+        }
+        placeNeck(neckAngleFromX(event.clientX));
+      });
+      function endNeckDrag() {
+        if (!neckDrag) return;
+        const moved = neckDrag.moved;
+        neckDrag = null;
+        if (!moved) return;
+        ignoreClick = true;
+        setTimeout(function () { ignoreClick = false; }, 0);
+        if (neckAngle <= -32) commitTurn(-1);
+        else if (neckAngle >= 32) commitTurn(1);
+        else releaseNeckShort();
+      }
+      neckMark.addEventListener("pointerup", endNeckDrag);
+      neckMark.addEventListener("pointercancel", function () {
+        neckDrag = null;
+        if (Math.abs(neckAngle) < 32) placeNeck(bent * 48);
+      });
+
+      orbitBtn.addEventListener("click", runOrbit);
+      turnLeft.addEventListener("click", function () { commitTurn(-1); });
+      turnRight.addEventListener("click", function () { commitTurn(1); });
+      another.addEventListener("click", function () {
+        load(sheetIndex + 1);
+        another.focus();
+      });
+      window.addEventListener("resize", function () {
+        placeBead(beadAngle);
+        placeNeck(neckAngle);
+      });
+
+      const note = document.getElementById("note");
+      const toggle = document.getElementById("note-toggle");
+      function closeNote() {
+        note.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.focus();
+      }
+      toggle.addEventListener("click", function () {
+        const open = note.hidden;
+        note.hidden = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) document.getElementById("note-close").focus();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      load(0);
+    }());
+  </script>
+</body>
+</html>

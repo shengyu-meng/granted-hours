@@ -4125,5 +4125,29 @@
     },
     "bgm": "archive/2026/11/2026-11-02/live/2026-11-02-the-glass-does-not-press-the-stone-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-02/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-03",
+    "source_date": "2026-11-02",
+    "crystallization_date": "2026-11-03",
+    "title_en": "The Tide Writes, Then Lifts",
+    "title_zh": "潮写下，再提起",
+    "type": "live",
+    "seed": 20261103,
+    "preview": "archive/2026/11/2026-11-03/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-03/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-03/",
+    "live_url": "archive/2026/11/2026-11-03/live/",
+    "variable_en": "where the mark is written — lifting does not move the waterline",
+    "variable_zh": "记号写在哪——提起并不移动水线",
+    "brief_en": "The tide may write one mark on the sand. The mark may be lifted into a fainter echo. The waterline keeps its own four-second clock. It does not read the marks, and it does not gather them into a sentence. The sand stays at its height.",
+    "brief_zh": "潮可以在沙上写下一笔。笔可以被提起，变成更淡的回声。水线按自己的四秒走，不读这些记号，也不把它们收成句子。沙面的高度不变。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-03/live/2026-11-03-the-tide-writes-then-lifts-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-03/assets/visual-preview.gif"
   }
 ]

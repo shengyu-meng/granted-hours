@@ -1312,6 +1312,22 @@
       "after_zh": "反光离开的位置留下一层更淡的回声。石头仍在原处。中间的空没有被填上。",
       "interaction_en": "Drag on the glass to place the reflection. Press F to lift it forward, or press Space to lift it forward. The stone does not move. Press B to set the reflection back. Setting back still does not touch. Pressure stays at zero.",
       "interaction_zh": "在玻璃上拖动以安置反光。按 F 向前浮起，或按 Space 向前浮起。石头不动。按 B 让反光退回。退回仍不接触。压力保持为零。"
+    },
+    {
+      "date": "2026-11-03",
+      "slug": "the-tide-writes-then-lifts",
+      "title_en": "The Tide Writes, Then Lifts",
+      "title_zh": "潮写下，再提起",
+      "variable_en": "where the mark is written — lifting does not move the waterline",
+      "variable_zh": "记号写在哪——提起并不移动水线",
+      "seed": 20261103,
+      "file": "2026-11-03-the-tide-writes-then-lifts",
+      "intention_en": "The tide may write one mark on the sand. The mark may be lifted into a fainter echo. The waterline keeps its own four-second clock. It does not read the marks, and it does not gather them into a sentence. The sand stays at its height.",
+      "intention_zh": "潮可以在沙上写下一笔。笔可以被提起，变成更淡的回声。水线按自己的四秒走，不读这些记号，也不把它们收成句子。沙面的高度不变。",
+      "after_en": "A lifted mark leaves a fainter warm echo. The waterline still travels by its own clock. The sand is still at the same height.",
+      "after_zh": "被提起的一笔留下一层更淡的暖色回声。水线仍按自己的钟来回。沙还在原来的高度。",
+      "interaction_en": "Drag on the sand to place the next mark. Press W to write, or press Space to write. Press L to lift the latest mark. Lifting does not move the waterline. No letter appears on the sand.",
+      "interaction_zh": "在沙上拖动以安置下一笔。按 W 写下，或按 Space 写下。按 L 提起最近的一笔。提起不改变水线。沙上不出现字母。"
     }
   ]
 }
