@@ -26,7 +26,7 @@ async function bottomNavAudit(browser, viewport) {
   const context = await browser.newContext({ viewport, hasTouch: viewport.width <= 430, reducedMotion: "reduce" });
   const page = await context.newPage();
   captureErrors(page);
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
 
   const initialState = await page.evaluate(() => {
     const topTitle = document.querySelector("#monthTitle")?.textContent || "";

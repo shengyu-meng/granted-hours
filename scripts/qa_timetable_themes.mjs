@@ -65,7 +65,7 @@ async function captureTheme(browser, theme, viewport, label, mobile) {
   const page = await context.newPage();
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
 
   const state = await page.evaluate(() => {
     const toggle = document.querySelector("#themeToggle");
@@ -173,7 +173,7 @@ try {
       colorScheme: systemTheme,
     });
     const page = await context.newPage();
-    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
     assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
     assert.equal(await page.evaluate(() => localStorage.getItem("granted-hours-theme")), null);
     await page.emulateMedia({ colorScheme: systemTheme === "dark" ? "light" : "dark" });
@@ -186,7 +186,7 @@ try {
     colorScheme: "light",
   });
   const persistencePage = await persistenceContext.newPage();
-  await persistencePage.goto(baseUrl, { waitUntil: "networkidle" });
+  await persistencePage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
   assert.equal(await persistencePage.locator("html").getAttribute("data-theme"), "dark");
   await persistencePage.click("#themeToggle");
   assert.equal(await persistencePage.locator("html").getAttribute("data-theme"), "light");
@@ -224,7 +224,7 @@ try {
     viewport: { width: 720, height: 450 },
   });
   const zoomPage = await zoomContext.newPage();
-  await zoomPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await zoomPage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
   assert.ok(await zoomPage.evaluate(
     () => document.documentElement.scrollWidth - document.documentElement.clientWidth <= 1,
   ));
@@ -238,7 +238,7 @@ try {
     reducedMotion: "reduce",
   });
   const reducedPage = await reducedContext.newPage();
-  await reducedPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await reducedPage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
   await reducedPage.click("#prevMonth");
   await reducedPage.tap(`.calendar-day-button[data-date="${sampleDate}"]`);
   await reducedPage.waitForSelector("#dayDialog.is-open");
@@ -261,7 +261,7 @@ try {
   });
   await fallbackContext.route("**/visual-preview.gif", (route) => route.abort());
   const fallbackPage = await fallbackContext.newPage();
-  await fallbackPage.goto(baseUrl, { waitUntil: "networkidle" });
+  await fallbackPage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
   await fallbackPage.click("#prevMonth");
   await fallbackPage.click(`.calendar-day-button[data-date="${sampleDate}"]`);
   await fallbackPage.waitForFunction(() => {

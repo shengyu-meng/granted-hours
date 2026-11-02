@@ -19,7 +19,7 @@ function captureErrors(page) {
 }
 
 async function openMonth(page) {
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
   await page.locator(`.calendar-day-button[data-date="${sampleDate}"]`).waitFor();
   await page.waitForFunction(() => document.querySelector("#monthGrid")?.dataset.previewItemFloor === "3");
 }

@@ -954,7 +954,7 @@ try {
       if (message.type() === "error") diagnostics.consoleErrors.push(message.text());
     });
     page.on("requestfailed", (request) => diagnostics.requestFailures.push(request.url()));
-    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
     await page.click("#prevMonth");
     await page.waitForSelector(`.calendar-day-button[data-date="${sampleDate}"]`);
     assert.equal(await page.locator("html").getAttribute("data-theme"), configuration.theme);

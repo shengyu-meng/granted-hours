@@ -47,7 +47,7 @@ const browser = await chromium.launch({ headless: true });
 try {
   const desktop = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await desktop.newPage();
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
 
   await page.click(`.calendar-day-button[data-date="${interactionDay.date}"]`);
   await page.waitForSelector("#dayDialog.is-open");

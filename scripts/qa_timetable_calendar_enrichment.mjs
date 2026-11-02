@@ -405,7 +405,7 @@ try {
     });
     try {
       const narrowPage = await narrowContext.newPage();
-      await narrowPage.goto(baseUrl, { waitUntil: "networkidle" });
+      await narrowPage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
       const result = await narrowPage.evaluate(() => ({
         columns: getComputedStyle(document.querySelector("#monthGrid")).gridTemplateColumns.split(" ").length,
         overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,

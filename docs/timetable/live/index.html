@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Latest calendar / 最新月历</title>
+  <link rel="canonical" href="../?view=latest">
+  <script>
+    const target = new URL("../", location.href);
+    target.searchParams.set("view", "latest");
+    location.replace(target.href);
+  </script>
+</head>
+<body>
+  <p><a href="../?view=latest">最新月历 / Latest calendar</a></p>
+</body>
+</html>

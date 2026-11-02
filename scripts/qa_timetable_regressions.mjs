@@ -60,7 +60,7 @@ try {
     deviceScaleFactor: 2.75,
   });
   const page = await context.newPage();
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
   if (await page.locator("#dayDialog.is-open").count()) {
     await page.locator("#closeDetail").click();
   }

@@ -227,7 +227,7 @@ try {
     const page = await context.newPage();
     const pageErrors = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
-    await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
+    await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "domcontentloaded" });
     await page.click("#prevMonth");
     await page.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
     await page.waitForSelector("#dayDialog.is-open");
@@ -536,7 +536,7 @@ try {
     hasTouch: true,
   });
   const hybridPage = await hybridContext.newPage();
-  await hybridPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await hybridPage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "domcontentloaded" });
   await hybridPage.click("#prevMonth");
   assert.equal(
     await hybridPage.evaluate(() => matchMedia("(any-pointer: coarse)").matches),
@@ -564,7 +564,7 @@ try {
     reducedMotion: "reduce",
   });
   const reducedPage = await reducedContext.newPage();
-  await reducedPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await reducedPage.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "domcontentloaded" });
   await reducedPage.click("#prevMonth");
   await reducedPage.locator(`.calendar-day-button[data-date="${sampleDate}"]`).click();
   await reducedPage.waitForSelector("#dayDialog.is-open");

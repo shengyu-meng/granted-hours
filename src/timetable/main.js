@@ -1565,6 +1565,22 @@ function setupPianoSound() {
   setupPianoTimelineEvents();
 }
 
+function wantsLatestCalendar() {
+  const url = new URL(window.location.href);
+  if (url.searchParams.get("view") === "latest") return true;
+  return /\/live\/?$/.test(url.pathname);
+}
+
+function exhibitionMonth() {
+  if (publicMonths.has("2026-06")) return "2026-06";
+  return [...publicMonths].find((key) => key.endsWith("-06")) || monthKey(daysDescending[0].date);
+}
+
+function latestPublicMonth() {
+  const todayMonth = monthKey(shanghaiNow().date);
+  return publicMonths.has(todayMonth) ? todayMonth : monthKey(daysDescending[0].date);
+}
+
 function setInitialMonth() {
   const directDate = selectedDateFromUrl();
   if (directDate) {
@@ -1572,11 +1588,11 @@ function setInitialMonth() {
     state.selectedDate = directDate;
     return;
   }
-  const today = shanghaiNow().date;
-  const todayMonth = monthKey(today);
-  const initialMonth = publicMonths.has(todayMonth) ? todayMonth : monthKey(daysDescending[0].date);
+  const latest = wantsLatestCalendar();
+  const initialMonth = latest ? latestPublicMonth() : exhibitionMonth();
   setVisibleMonth(initialMonth);
-  state.selectedDate = dayByDate.has(today)
+  const today = shanghaiNow().date;
+  state.selectedDate = latest && dayByDate.has(today)
     ? today
     : latestDateInMonth(initialMonth) || daysDescending[0].date;
 }

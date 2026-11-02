@@ -257,7 +257,7 @@ async function audioAudit(browser) {
   }, { bgmKey, pianoKey });
   const page = await context.newPage();
   captureErrors(page);
-  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  await page.goto(new URL("?view=latest", baseUrl).href, { waitUntil: "networkidle" });
 
   const migrated = await page.evaluate(({ audioVersionKey, bgmKey, pianoKey }) => {
     const bgm = document.querySelector("#calendarBgmToggle");
