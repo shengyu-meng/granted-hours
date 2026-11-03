@@ -4149,5 +4149,29 @@
     },
     "bgm": "archive/2026/11/2026-11-03/live/2026-11-03-the-tide-writes-then-lifts-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-03/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-04",
+    "source_date": "2026-11-03",
+    "crystallization_date": "2026-11-04",
+    "title_en": "The Stair Leaves One Step",
+    "title_zh": "台阶留出一级",
+    "type": "live",
+    "seed": 20261104,
+    "preview": "archive/2026/11/2026-11-04/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-04/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-04/",
+    "live_url": "archive/2026/11/2026-11-04/live/",
+    "variable_en": "which step is left — a visit does not close the gap",
+    "variable_zh": "哪一级被留下——到访并不合上缺口",
+    "brief_en": "The stair may leave one step. Light walks the others on its own four-second clock and lifts its foot at the gap. Moss grows only on the step that was left. One visit pauses the moss, but the remembered path still has a gap. The number of steps does not change.",
+    "brief_zh": "台阶可以让出一级。光按自己的四秒走过其余的级，在缺口处抬脚。青苔只长在被留下的那一级。到访一次会让青苔停一停，但记得的路径仍有一个缺口。台阶的数目不变。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-04/live/2026-11-04-the-stair-leaves-one-step-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-04/assets/visual-preview.gif"
   }
 ]

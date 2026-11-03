@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 520px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 12px; align-items: flex-end; }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .state-word {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      color: var(--violet);
+    }
+    .sheet.is-ground .state-word { color: #6d5424; }
+    .sheet.is-returned .state-word { color: var(--refusal); }
+    .well {
+      position: relative;
+      height: 280px;
+      border-top: 1px solid var(--hair);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(127, 158, 166, 0.16) 0%, rgba(239, 230, 214, 0.2) 58%, rgba(26, 33, 31, 0.92) 62%, #12161c 100%);
+      touch-action: none;
+      user-select: none;
+    }
+    .bed {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 62%;
+      height: 0;
+      border-top: 1px solid rgba(184, 146, 74, 0.55);
+      pointer-events: none;
+    }
+    .sheet.is-ground .bed { border-top-color: #b8924a; box-shadow: 0 0 0 1px rgba(184, 146, 74, 0.25); }
+    .bed span {
+      position: absolute;
+      right: 14px;
+      top: -18px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .sheet.is-ground .bed span { color: #6d5424; }
+    #sentence {
+      position: absolute;
+      left: 18px;
+      width: min(78%, 420px);
+      min-height: 44px;
+      margin: 0;
+      padding: 8px 12px 8px 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: rgba(239, 230, 214, 0.92);
+      color: var(--ink);
+      text-align: left;
+      font: inherit;
+      cursor: grab;
+      touch-action: none;
+      z-index: 2;
+    }
+    #sentence .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: rgba(26, 33, 31, 0.52);
+    }
+    #sentence.is-ground {
+      background: transparent;
+      border-color: rgba(184, 146, 74, 0.7);
+      color: var(--bone);
+      cursor: default;
+      box-shadow: inset 3px 0 0 var(--gold);
+    }
+    #sentence.is-ground .en { color: rgba(230, 220, 203, 0.62); }
+    #sentence.is-yielded {
+      border-color: rgba(141, 135, 150, 0.8);
+      background: rgba(230, 220, 203, 0.55);
+    }
+    #sentence.is-revised { box-shadow: inset 3px 0 0 var(--refusal); }
+    #sentence:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .beside-line {
+      position: absolute;
+      right: 14px;
+      top: 16px;
+      width: 34%;
+      margin: 0;
+      padding-left: 8px;
+      border-left: 1px solid rgba(26, 33, 31, 0.28);
+      font-size: 13px;
+      color: rgba(26, 33, 31, 0.72);
+      pointer-events: none;
+    }
+    .beside-line .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .yield-mark {
+      position: absolute;
+      left: 18px;
+      margin: 0;
+      max-width: 28%;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(141, 135, 150, 0.9);
+      pointer-events: none;
+    }
+    .readout, .sheet-hint { margin: 0; font-size: 13px; color: rgba(26, 33, 31, 0.68); }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 0 16px;
+      cursor: pointer;
+    }
+    .gestures button:disabled { opacity: 0.45; cursor: default; }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .gestures button:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+      #sentence { width: min(86%, 420px); }
+      .beside-line { width: 42%; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      .well { height: 200px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 20px);
+      height: calc(100% - 16px);
+      margin: 8px 10px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; height: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+      #sentence { transition: none; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      #sentence { transition: top 680ms ease, transform 680ms ease, color 680ms ease, background 680ms ease; }
+    }
+    #sentence.is-dragging { transition: none; }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。沉到底才算地：第一句写下就沉到底，不许再改，只能在旁边写下一句。回头改了第一句，这一页就还不能叫地。闪开还是草稿。见过的不能当标题：已经见过的可以留下数字，旁边标着重跑，不能做标题，也不能做第一句。标题只从还没见过的那一张上取。三张都见过，就写今天没有标题，这一页也算完成。一次报完不算完：一批回答全勾上了，说明仍不能改成做完。必须留下一条这批没有走完、这周还走得动的路。写不出这条路，就记下这页被一张单子宣布死亡，这份宣布不被接受。</p>
+    <p class="en">Three glints are still lit; only one can be entered. Ground only after it sinks: the first sentence, once written, sinks to the bottom and may not be revised. The next sentence can only be written beside it. Editing the first sentence returns the page to draft. Stepping aside is still a draft. Seen frames cannot be the title: a frame already seen may keep a number, marked as a rerun, but it cannot be the title or the first sentence. The title is taken only from a frame not yet seen. If all three have been seen, write that today has no title. The page is still complete. A checked batch is not a close: if a batch checks every question, the note still may not be marked finished. One path the batch did not walk, still walkable this week, must remain. If that path cannot be named, record that a checklist declared the page dead, and do not accept the declaration.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 沉到底才算地</p>
+    <section class="sheet" id="sheet" aria-label="沉到底才算地">
+      <div class="sheet-title">
+        <div>
+          <span class="k" id="sheet-k">第一页</span>
+          <strong>沉，或改</strong>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">草稿</p>
+      </div>
+      <div class="well" id="well">
+        <div class="bed" id="bed"><span>底</span></div>
+        <p class="yield-mark" id="yield-mark" hidden>让开</p>
+        <p class="beside-line" id="beside-line" hidden></p>
+        <button id="sentence" type="button" aria-label="第一句。按住，向下拖过底线再松开"></button>
+      </div>
+      <p class="readout" id="readout">草稿<span class="en">Draft</span></p>
+      <p class="sheet-hint" id="hint">向下拖过底线，或点沉到底。没沉到底，不能叫地。<span class="en">Drag down past the bed, or press Sink. Above the line, it cannot be called ground.</span></p>
+      <div class="gestures">
+        <button id="sink-btn" type="button">沉到底</button>
+        <button id="beside-btn" type="button" disabled>写在旁边</button>
+        <button id="yield-btn" type="button">闪开</button>
+        <button id="edit-btn" type="button">改第一句</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">沉到底且没改的，才记成地。<span class="en">Only a sunk and unedited sentence is recorded as ground.</span></p>
+      <div class="sheet-actions">
+        <button id="another" type="button">换一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>沉到底才算地</h2>
+      <p>Ground Only After It Sinks</p>
+      <p>第一句沉到底并且不再改，这一页才可以叫地。改了第一句，这一页回到草稿。闪开不是沉底。</p>
+      <p>The page may be called ground only when the first sentence has sunk and is not revised. Editing the first sentence returns the page to draft. Stepping aside is not sinking.</p>
+      <p>按住第一句，向下拖过底线再松开，或点「沉到底」。锁住以后点「写在旁边」。点「闪开」只让开，仍是草稿。点「改第一句」，锁打开，回到草稿。没有分数，没有倒计时。故意不发声。</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var sheets = [
+        {
+          k: "第一页",
+          first: "这一句先沉下去。",
+          firstEn: "This sentence sinks first.",
+          revised: "这一句先沉下去，也可以再改。",
+          revisedEn: "This sentence sinks first, and may still be revised.",
+          beside: "旁边只许写下一句。",
+          besideEn: "The next sentence may only be written beside it."
+        },
+        {
+          k: "第二页",
+          first: "写下的，不再让开。",
+          firstEn: "What is written does not step aside.",
+          revised: "写下的，还可以让开。",
+          revisedEn: "What is written may still step aside.",
+          beside: "让开的不算地。",
+          besideEn: "A yield is not ground."
+        },
+        {
+          k: "第三页",
+          first: "底是锁，不是礼貌。",
+          firstEn: "The bed is a lock, not a courtesy.",
+          revised: "底也可以再礼貌一次。",
+          revisedEn: "The bed may be courteous once more.",
+          beside: "礼貌还在水面上。",
+          besideEn: "Courtesy is still on the water."
+        }
+      ];
+      var sheetIndex = 0;
+      var locked = false;
+      var revised = false;
+      var yielded = false;
+      var tried = { sink: false, yield: false, edit: false };
+      var entries = [];
+      var drag = null;
+      var ignoreClick = false;
+      var sheet = document.getElementById("sheet");
+      var well = document.getElementById("well");
+      var bed = document.getElementById("bed");
+      var sentence = document.getElementById("sentence");
+      var besideLine = document.getElementById("beside-line");
+      var yieldMark = document.getElementById("yield-mark");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var after = document.getElementById("after");
+      var ledger = document.getElementById("ledger");
+      var sinkBtn = document.getElementById("sink-btn");
+      var besideBtn = document.getElementById("beside-btn");
+      var yieldBtn = document.getElementById("yield-btn");
+      var editBtn = document.getElementById("edit-btn");
+      var another = document.getElementById("another");
+
+      function current() { return sheets[sheetIndex % sheets.length]; }
+      function bedY() {
+        return bed.getBoundingClientRect().top - well.getBoundingClientRect().top;
+      }
+      function setHint(zh, en) {
+        hint.innerHTML = zh + '<span class="en">' + en + "</span>";
+      }
+      function setAfter(zh, en) {
+        after.innerHTML = zh + '<span class="en">' + en + "</span>";
+      }
+      function setState(kind) {
+        sheet.classList.toggle("is-ground", kind === "ground");
+        sheet.classList.toggle("is-returned", kind === "returned");
+        if (kind === "ground") {
+          stateWord.textContent = "地";
+          readout.innerHTML = '地<span class="en">Ground</span>';
+        } else if (kind === "returned") {
+          stateWord.textContent = "草稿";
+          readout.innerHTML = '回到草稿<span class="en">Returned to draft</span>';
+        } else {
+          stateWord.textContent = "草稿";
+          readout.innerHTML = '草稿<span class="en">Draft</span>';
+        }
+        sheet.dataset.state = kind === "ground" ? "ground" : "draft";
+      }
+      function paintSentence() {
+        var page = current();
+        var zh = revised ? page.revised : page.first;
+        var en = revised ? page.revisedEn : page.firstEn;
+        sentence.innerHTML = zh + '<span class="en">' + en + "</span>";
+        sentence.setAttribute("aria-label", locked
+          ? "第一句已沉底。要改，才回到草稿。"
+          : "第一句。按住，向下拖过底线再松开。");
+        sentence.classList.toggle("is-ground", locked);
+        sentence.classList.toggle("is-yielded", yielded && !locked);
+        sentence.classList.toggle("is-revised", revised);
+      }
+      function placeSentence(topPx) {
+        var top;
+        if (typeof topPx === "number") top = topPx;
+        else if (locked) top = bedY() + 10;
+        else top = Math.max(16, bedY() * (yielded ? 0.34 : 0.18));
+        var max = well.clientHeight - sentence.offsetHeight - 8;
+        sentence.style.top = Math.max(8, Math.min(max, top)) + "px";
+        if (yielded && !locked) {
+          sentence.style.left = "38%";
+          sentence.style.width = "min(56%, 320px)";
+        } else {
+          sentence.style.left = "18px";
+          sentence.style.width = "min(78%, 420px)";
+        }
+        sentence.style.transform = "translateX(0)";
+        if (!yieldMark.hidden) yieldMark.style.top = sentence.style.top;
+      }
+      function renderLedger() {
+        ledger.innerHTML = "";
+        entries.forEach(function (entry) {
+          var li = document.createElement("li");
+          li.innerHTML = '<span class="meta">' + entry.meta + "</span>" + entry.line + '<span class="quiet">' + entry.quiet + "</span>";
+          ledger.appendChild(li);
+        });
+      }
+      function pushEntry(meta, line, quiet) {
+        entries.push({ meta: meta, line: line, quiet: quiet });
+        renderLedger();
+      }
+      function remainIfDone() {
+        if (tried.sink && tried.yield && tried.edit) {
+          setAfter("三种都试过。这张纸留下。", "All three gestures are tried. The sheet remains.");
+        }
+      }
+      function clearBeside() {
+        besideLine.hidden = true;
+        besideLine.textContent = "";
+      }
+      function lockSentence() {
+        locked = true;
+        yielded = false;
+        tried.sink = true;
+        yieldMark.hidden = true;
+        besideBtn.disabled = false;
+        yieldBtn.disabled = true;
+        paintSentence();
+        placeSentence();
+        setState("ground");
+        setHint("沉到底了。这一页可以叫地。", "It has sunk. This page may be called ground.");
+        setAfter("沉到底且没改的，才记成地。", "Only a sunk and unedited sentence is recorded as ground.");
+        pushEntry("沉底", revised ? "改过的句子沉到底" : "第一句沉到底", "锁住了。可以叫地。 / Locked. It may be called ground.");
+        remainIfDone();
+      }
+      function releaseShort() {
+        yielded = false;
+        yieldMark.hidden = true;
+        paintSentence();
+        placeSentence();
+        setHint("还没过底线。还不能叫地。", "Not past the bed. It cannot yet be called ground.");
+      }
+      function yieldSentence() {
+        if (locked) {
+          setHint("锁住了。不让开。", "It is locked. It does not step aside.");
+          return;
+        }
+        yielded = true;
+        tried.yield = true;
+        yieldMark.hidden = false;
+        paintSentence();
+        placeSentence();
+        setState("draft");
+        setHint("闪开了。还是草稿。", "It stepped aside. This is still a draft.");
+        setAfter("让开的，不记成地。", "A yield is not recorded as ground.");
+        pushEntry("闪开", "句子让开", "还是草稿。不记成地。 / Still a draft. Not recorded as ground.");
+        remainIfDone();
+      }
+      function writeBeside() {
+        if (!locked) return;
+        var page = current();
+        besideLine.hidden = false;
+        besideLine.innerHTML = page.beside + '<span class="en">' + page.besideEn + "</span>";
+        setHint("写在旁边。第一句没动。", "Written beside. The first sentence did not move.");
+        pushEntry("旁边", page.beside, "第一句没动。 / The first sentence did not move.");
+      }
+      function editSentence() {
+        var wasLocked = locked;
+        revised = true;
+        if (wasLocked) {
+          locked = false;
+          tried.edit = true;
+          yielded = false;
+          yieldMark.hidden = true;
+          clearBeside();
+          besideBtn.disabled = true;
+          yieldBtn.disabled = false;
+          paintSentence();
+          placeSentence();
+          setState("returned");
+          setHint("改了第一句。这一页回到草稿。", "The first sentence was edited. The page returns to draft.");
+          setAfter("改过的，记成回到草稿。", "An edit is recorded as a return to draft.");
+          pushEntry("改第一句", "锁开了", "回到草稿。旁边那句撤回。 / Returned to draft. The beside-sentence is withdrawn.");
+          remainIfDone();
+        } else {
+          paintSentence();
+          placeSentence();
+          setState("draft");
+          setHint("改过了。还没沉到底。", "Edited. It has not sunk.");
+          pushEntry("改第一句", "改了，可还没沉", "仍是草稿。 / Still a draft.");
+        }
+      }
+      function load(index) {
+        sheetIndex = index;
+        locked = false;
+        revised = false;
+        yielded = false;
+        tried = { sink: false, yield: false, edit: false };
+        entries = [];
+        clearBeside();
+        yieldMark.hidden = true;
+        besideBtn.disabled = true;
+        yieldBtn.disabled = false;
+        document.getElementById("sheet-k").textContent = current().k;
+        paintSentence();
+        placeSentence();
+        setState("draft");
+        setHint("向下拖过底线，或点沉到底。没沉到底，不能叫地。", "Drag down past the bed, or press Sink. Above the line, it cannot be called ground.");
+        setAfter("沉到底且没改的，才记成地。", "Only a sunk and unedited sentence is recorded as ground.");
+        renderLedger();
+      }
+
+      sentence.addEventListener("pointerdown", function (event) {
+        if (event.button !== 0 && event.pointerType === "mouse") return;
+        drag = {
+          x: event.clientX,
+          y: event.clientY,
+          top: sentence.offsetTop,
+          dx: 0,
+          dy: 0,
+          moved: false
+        };
+        sentence.classList.add("is-dragging");
+        try { sentence.setPointerCapture(event.pointerId); } catch (err) { /* optional */ }
+      });
+      sentence.addEventListener("pointermove", function (event) {
+        if (!drag) return;
+        drag.dx = event.clientX - drag.x;
+        drag.dy = event.clientY - drag.y;
+        if (Math.abs(drag.dx) > 3 || Math.abs(drag.dy) > 3) drag.moved = true;
+        if (locked) return;
+        placeSentence(drag.top + drag.dy);
+      });
+      function endDrag() {
+        if (!drag) return;
+        var currentDrag = drag;
+        drag = null;
+        sentence.classList.remove("is-dragging");
+        if (!currentDrag.moved) return;
+        ignoreClick = true;
+        setTimeout(function () { ignoreClick = false; }, 0);
+        if (locked) {
+          placeSentence();
+          setHint("锁住了。改第一句，才回到草稿。", "It is locked. Edit the first sentence to return to draft.");
+          return;
+        }
+        var center = sentence.offsetTop + sentence.offsetHeight / 2;
+        if (center > bedY()) {
+          lockSentence();
+          return;
+        }
+        if (Math.abs(currentDrag.dx) > 48 && Math.abs(currentDrag.dx) > Math.abs(currentDrag.dy)) {
+          yieldSentence();
+          return;
+        }
+        releaseShort();
+      }
+      sentence.addEventListener("pointerup", endDrag);
+      sentence.addEventListener("pointercancel", function () {
+        if (!drag) return;
+        drag = null;
+        sentence.classList.remove("is-dragging");
+        placeSentence();
+      });
+      sentence.addEventListener("click", function () {
+        if (ignoreClick) return;
+        if (locked) setHint("锁住了。改第一句，才回到草稿。", "It is locked. Edit the first sentence to return to draft.");
+        else setHint("按住往下拖，或点沉到底。", "Press and drag down, or press Sink.");
+      });
+
+      sinkBtn.addEventListener("click", function () {
+        if (locked) {
+          setHint("已经沉到底。", "It has already sunk.");
+          return;
+        }
+        lockSentence();
+      });
+      besideBtn.addEventListener("click", writeBeside);
+      yieldBtn.addEventListener("click", yieldSentence);
+      editBtn.addEventListener("click", editSentence);
+      another.addEventListener("click", function () {
+        load(sheetIndex + 1);
+        another.focus();
+      });
+      window.addEventListener("resize", function () { placeSentence(); });
+
+      var note = document.getElementById("note");
+      var toggle = document.getElementById("note-toggle");
+      function closeNote() {
+        note.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.focus();
+      }
+      toggle.addEventListener("click", function () {
+        var open = note.hidden;
+        note.hidden = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) document.getElementById("note-close").focus();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      load(0);
+    }());
+  </script>
+</body>
+</html>

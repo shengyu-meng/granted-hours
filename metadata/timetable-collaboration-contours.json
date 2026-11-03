@@ -3250,6 +3250,26 @@
       "outcome_en": "No public-safe completion evidence was found for the calendar-entrance request in the 10:05–10:06 window.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "73fbd90508a9d5c0724da56eca67600ef4daee4694bc0febcab4be69e55413f4": {
+      "date": "2026-11-03",
+      "category": "redacted_private",
+      "request_zh": "今天要总结的材料已经交齐，逐条总结发回，并在全部完成后确认。",
+      "request_en": "The material to summarize today has all been handed over; return the summaries one by one, and confirm once every one is done.",
+      "outcome_zh": "09:21–11:11 这组逐条总结并在全部完成后确认的要求，没有留下可公开且可靠对应的完成证据。",
+      "outcome_en": "No public-safe completion evidence was retained for the request, in the 09:21–11:11 window, to return summaries one by one and confirm when all were done.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "baf444c9c3f2735277fe638c26622df7fea6f5eabbf773d6eaa1d8c3ce2298e3": {
+      "date": "2026-11-03",
+      "category": "redacted_private",
+      "request_zh": "从最近一次发帖请求之后，统计已要求总结的条目大概有多少；这些仍是待筛选候选，之后会再挑，并补开头介绍。",
+      "request_en": "Count roughly how many summaries were requested after the most recent posting request; they remain candidates to be screened, then given an opening introduction.",
+      "outcome_zh": "12:41–12:42 这组候选条目计数要求，没有留下可公开且可靠对应的完成证据。",
+      "outcome_en": "No public-safe completion evidence was retained for the candidate-count request in the 12:41–12:42 window.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

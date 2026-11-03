@@ -1328,6 +1328,22 @@
       "after_zh": "被提起的一笔留下一层更淡的暖色回声。水线仍按自己的钟来回。沙还在原来的高度。",
       "interaction_en": "Drag on the sand to place the next mark. Press W to write, or press Space to write. Press L to lift the latest mark. Lifting does not move the waterline. No letter appears on the sand.",
       "interaction_zh": "在沙上拖动以安置下一笔。按 W 写下，或按 Space 写下。按 L 提起最近的一笔。提起不改变水线。沙上不出现字母。"
+    },
+    {
+      "date": "2026-11-04",
+      "slug": "the-stair-leaves-one-step",
+      "title_en": "The Stair Leaves One Step",
+      "title_zh": "台阶留出一级",
+      "variable_en": "which step is left — a visit does not close the gap",
+      "variable_zh": "哪一级被留下——到访并不合上缺口",
+      "seed": 20261104,
+      "file": "2026-11-04-the-stair-leaves-one-step",
+      "intention_en": "The stair may leave one step. Light walks the others on its own four-second clock and lifts its foot at the gap. Moss grows only on the step that was left. One visit pauses the moss, but the remembered path still has a gap. The number of steps does not change.",
+      "intention_zh": "台阶可以让出一级。光按自己的四秒走过其余的级，在缺口处抬脚。青苔只长在被留下的那一级。到访一次会让青苔停一停，但记得的路径仍有一个缺口。台阶的数目不变。",
+      "after_en": "A visited step leaves a fainter warm trace. The gap is still in the path. The moss still knows its place.",
+      "after_zh": "被到访的一级留下一层更淡的暖色。缺口仍在路径里。青苔还知道自己的位置。",
+      "interaction_en": "Drag or tap a step to leave it. Press T to visit, or press Space to visit. Press G to let the gap be remembered again. A visit does not close the gap. No letter appears on the steps.",
+      "interaction_zh": "拖动或点选一级，把它留下。按 T 到访，或按 Space 到访。按 G 让缺口重新被记得。到访不合上缺口。台阶上不出现字母。"
     }
   ]
 }

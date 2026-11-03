@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-04 — The Stair Leaves One Step / 台阶留出一级**<br>
+  Variable / 自由变量：which step is left — a visit does not close the gap / 哪一级被留下——到访并不合上缺口<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-04/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-04/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-04/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-04/live/)
 - **2026-11-03 — The Tide Writes, Then Lifts / 潮写下，再提起**<br>
   Variable / 自由变量：where the mark is written — lifting does not move the waterline / 记号写在哪——提起并不移动水线<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
