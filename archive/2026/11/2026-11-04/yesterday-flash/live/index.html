@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 520px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .state-word {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      color: var(--violet);
+    }
+    .sheet.is-named .state-word { color: #6d5424; }
+    .sheet.is-unnamed .state-word { color: var(--refusal); }
+    .well {
+      position: relative;
+      height: 300px;
+      border-top: 1px solid var(--hair);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 28%),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26, 33, 31, 0.045) 28px),
+        var(--paper);
+      user-select: none;
+    }
+    .well svg { width: 100%; height: 100%; display: block; }
+    #route { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; }
+    .sheet.is-unnamed #route { stroke: var(--refusal); }
+    .sheet.is-named #route { stroke: #6d5424; }
+    #ticks line { stroke: rgba(26, 33, 31, 0.55); stroke-width: 1.2; }
+    .sheet.is-unnamed #ticks line { stroke: rgba(141, 92, 86, 0.75); }
+    .sheet.is-named #ticks line { stroke: rgba(109, 84, 36, 0.8); }
+    .lift-line { stroke: rgba(184, 146, 74, 0.7); stroke-width: 1; stroke-dasharray: 3 5; }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      fill: rgba(26, 33, 31, 0.5);
+    }
+    .end-mark { fill: var(--ink); }
+    .sheet.is-unnamed .end-mark { fill: var(--refusal); }
+    .sheet.is-named .end-mark { fill: #6d5424; }
+    #line-count {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      fill: rgba(26, 33, 31, 0.72);
+    }
+    .sheet.is-unnamed #line-count { fill: var(--refusal); }
+    .sheet.is-named #line-count { fill: #6d5424; }
+    #loop {
+      position: absolute;
+      z-index: 2;
+      min-width: 72px;
+      min-height: 72px;
+      border-radius: 50%;
+      border: 1px solid rgba(26, 33, 31, 0.45);
+      background: rgba(239, 230, 214, 0.94);
+      color: var(--ink);
+      font: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 8px;
+      cursor: grab;
+      touch-action: none;
+      transform: translate(-50%, -50%);
+    }
+    #loop .loop-k { font-size: 13px; letter-spacing: 0.12em; line-height: 1.1; }
+    #loop .loop-n {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .sheet.is-unnamed #loop {
+      border-color: var(--violet);
+      color: #5c5668;
+      cursor: default;
+    }
+    .sheet.is-named #loop {
+      border-color: var(--gold);
+      box-shadow: inset 0 0 0 1px rgba(184, 146, 74, 0.55);
+      cursor: default;
+    }
+    #loop.is-ready { border-color: var(--gold); background: rgba(184, 146, 74, 0.16); }
+    #loop.is-dragging { cursor: grabbing; }
+    #loop:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .gap {
+      position: absolute;
+      z-index: 1;
+      min-width: 96px;
+      min-height: 44px;
+      padding: 6px 10px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed rgba(141, 92, 86, 0.75);
+      background: rgba(239, 230, 214, 0.78);
+      color: var(--refusal);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-align: center;
+      pointer-events: none;
+    }
+    .sheet.is-named .gap {
+      border-style: solid;
+      border-color: rgba(184, 146, 74, 0.85);
+      color: #6d5424;
+    }
+    .gap[hidden] { display: none; }
+    .readout, .sheet-hint { margin: 0; font-size: 13px; color: rgba(26, 33, 31, 0.68); }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en, .name-slips .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures, .name-slips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .name-slips button, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+    .name-slips button { touch-action: none; text-align: left; }
+    .name-slips button:disabled, .gestures button:disabled { opacity: 0.45; cursor: default; }
+    .name-slips button[aria-pressed="true"] {
+      border-color: var(--gold);
+      box-shadow: inset 3px 0 0 var(--gold);
+    }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .ghost {
+      position: fixed;
+      z-index: 7;
+      min-height: 44px;
+      padding: 8px 14px;
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--gold);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      letter-spacing: 0.06em;
+    }
+    .ghost[hidden] { display: none; }
+    .gestures button:focus-visible,
+    .name-slips button:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      .well { height: 200px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      min-height: calc(100% - 12px);
+      height: auto;
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .well { height: 168px; }
+    body.is-embed .sheet-title strong,
+    body.is-embed .state-word { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      #loop { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。省下的是转圈：把圈从路上剪开，线会看起来更短；没给这个圈起名，路就没有变短。近的先哑：深的那一句要落下来，近处那句必须先把声音放低；近处不哑，这一页就空着。步少了，钟要重写：步数少了，钟不能只裁掉多余的格；钟要按少了的步重写，否则这份缩短作废。</p>
+    <p class="en">Three glints are still lit; only one can be entered. What Was Saved Is the Circle: cutting the circle off the path makes the line look shorter; until that circle is named, the path is not shorter. The Near One Goes Quiet First: a deep sentence can land only after the recent claim lowers its volume; if the near claim stays loud, the page stays empty. Fewer Steps, Rewrite the Clock: fewer steps do not license a cropped clock; the clock must be rewritten to the shorter walk, or the shortening is void.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 省下的是转圈</p>
+    <section class="sheet" id="sheet" aria-label="省下的是转圈">
+      <div class="sheet-title">
+        <div>
+          <span class="k" id="sheet-k">第一页</span>
+          <strong id="sheet-head">剪，或名</strong>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">整路</p>
+      </div>
+      <div class="well" id="well">
+        <svg id="field" viewBox="0 0 640 320" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <line class="lift-line" x1="36" y1="88" x2="604" y2="88"></line>
+          <text class="svg-label" x="40" y="78">抬起</text>
+          <path id="route" d="M 36 214 H 604"></path>
+          <g id="ticks"></g>
+          <circle class="end-mark" cx="36" cy="214" r="3.5"></circle>
+          <circle class="end-mark" cx="604" cy="214" r="3.5"></circle>
+          <text class="svg-label" x="28" y="236">起</text>
+          <text class="svg-label" x="596" y="236">止</text>
+          <text id="line-count" x="520" y="198">线 16</text>
+        </svg>
+        <button id="loop" type="button" aria-label="转圈。按住，向上拖过抬起线再松开">
+          <span class="loop-k" id="loop-k">转圈</span>
+          <span class="loop-n" id="loop-n">8</span>
+        </button>
+        <div class="gap" id="gap" hidden>未名</div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">整路 16。转圈还在路上。</p>
+      <p class="sheet-hint" id="hint">向上拖过抬起线，或点剪开。没起名，路没有变短。</p>
+      <div class="gestures">
+        <button id="cut-btn" type="button">剪开</button>
+      </div>
+      <div class="name-slips" id="slips" aria-label="给圈起名"></div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">只剪开的，不记成省下。</p>
+      <div class="sheet-actions">
+        <button id="another" type="button">换一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>省下的是转圈</h2>
+      <p>What Was Saved Is the Circle</p>
+      <p>省下只在圈被起名以后才算数。只把圈剪开，线可以看起来更短，路没有变短。</p>
+      <p>The saving counts only after the circle is named. Cutting the circle may make the line look shorter. The path is not shorter.</p>
+      <p>按住转圈，向上拖过抬起线再松开，或点「剪开」。把一个名字拖进缺口，或点那个名字。没有分数，没有倒计时。故意不发声。</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+  <div class="ghost" id="ghost" hidden></div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+      var sheets = [
+        {
+          k: "第一页",
+          head: "剪，或名",
+          total: 16,
+          circle: 8,
+          names: [
+            ["回头八步", "eight steps back"],
+            ["空转一圈", "one idle circle"],
+            ["多走的弯", "the extra bend"]
+          ]
+        },
+        {
+          k: "第二页",
+          head: "短，或不算",
+          total: 14,
+          circle: 6,
+          names: [
+            ["绕回来的", "the way back around"],
+            ["原地的圆", "the circle in place"],
+            ["重复的步", "the repeated steps"]
+          ]
+        },
+        {
+          k: "第三页",
+          head: "圈，不是线",
+          total: 18,
+          circle: 10,
+          names: [
+            ["弯出去的", "the bend taken out"],
+            ["未走完的", "the unfinished round"],
+            ["被拿下的", "what was taken off"]
+          ]
+        }
+      ];
+      var sheetIndex = 0;
+      var cut = false;
+      var named = false;
+      var given = "";
+      var givenEn = "";
+      var tried = { cut: false, name: false };
+      var missLogged = false;
+      var suppressClick = false;
+      var drag = null;
+      var sheet = document.getElementById("sheet");
+      var well = document.getElementById("well");
+      var field = document.getElementById("field");
+      var route = document.getElementById("route");
+      var ticks = document.getElementById("ticks");
+      var lineCount = document.getElementById("line-count");
+      var loop = document.getElementById("loop");
+      var loopK = document.getElementById("loop-k");
+      var loopN = document.getElementById("loop-n");
+      var gap = document.getElementById("gap");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var after = document.getElementById("after");
+      var ledger = document.getElementById("ledger");
+      var slips = document.getElementById("slips");
+      var cutBtn = document.getElementById("cut-btn");
+      var another = document.getElementById("another");
+      var sheetK = document.getElementById("sheet-k");
+      var sheetHead = document.getElementById("sheet-head");
+      var ghost = document.getElementById("ghost");
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+
+      function current() { return sheets[sheetIndex % sheets.length]; }
+      function lineSteps() { return current().total - current().circle; }
+      function bilingual(el, zh, en) {
+        el.textContent = "";
+        el.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        el.appendChild(span);
+      }
+      function metrics() {
+        var box = field.getBoundingClientRect();
+        var wellBox = well.getBoundingClientRect();
+        var scale = Math.min(box.width / 640, box.height / 320);
+        return {
+          scale: scale,
+          ox: box.left + (box.width - 640 * scale) / 2,
+          oy: box.top + (box.height - 320 * scale) / 2,
+          well: wellBox
+        };
+      }
+      function toLocal(vx, vy, m) {
+        return {
+          x: m.ox + vx * m.scale - m.well.left,
+          y: m.oy + vy * m.scale - m.well.top
+        };
+      }
+      function toView(clientX, clientY, m) {
+        if (!m.scale) return { x: 0, y: 999 };
+        return { x: (clientX - m.ox) / m.scale, y: (clientY - m.oy) / m.scale };
+      }
+      function drawTicks() {
+        var line = lineSteps();
+        var left = Math.ceil(line / 2);
+        var right = line - left;
+        var marks = [];
+        var i;
+        for (i = 0; i < left; i++) marks.push(78 + i * (150 / Math.max(left - 1, 1)));
+        for (i = 0; i < right; i++) marks.push(430 + i * (140 / Math.max(right - 1, 1)));
+        ticks.textContent = "";
+        marks.forEach(function (x) {
+          var mark = document.createElementNS(ticks.namespaceURI, "line");
+          mark.setAttribute("x1", x);
+          mark.setAttribute("x2", x);
+          mark.setAttribute("y1", 206);
+          mark.setAttribute("y2", 222);
+          ticks.appendChild(mark);
+        });
+      }
+      function placeAnchors() {
+        if (drag && drag.kind === "loop") return;
+        var m = metrics();
+        if (!m.scale) return;
+        var spot = cut ? { x: 320, y: 58 } : { x: 320, y: 168 };
+        var p = toLocal(spot.x, spot.y, m);
+        loop.style.left = p.x + "px";
+        loop.style.top = p.y + "px";
+        loop.style.width = "auto";
+        loop.style.height = "auto";
+        var size = Math.max(72, 104 * m.scale, loop.offsetWidth, loop.offsetHeight);
+        loop.style.width = size + "px";
+        loop.style.height = size + "px";
+        var g = toLocal(320, 214, m);
+        gap.style.left = g.x + "px";
+        gap.style.top = g.y + "px";
+      }
+      function addLedger(meta, zh, en) {
+        var li = document.createElement("li");
+        var label = document.createElement("span");
+        label.className = "meta";
+        label.textContent = meta;
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(label);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(quiet);
+        ledger.appendChild(li);
+      }
+      function renderNames() {
+        slips.textContent = "";
+        current().names.forEach(function (pair) {
+          var button = document.createElement("button");
+          button.type = "button";
+          button.disabled = !cut || named;
+          button.setAttribute("aria-pressed", named && given === pair[0] ? "true" : "false");
+          button.appendChild(document.createTextNode(pair[0]));
+          var en = document.createElement("span");
+          en.className = "en";
+          en.textContent = pair[1];
+          button.appendChild(en);
+          button.addEventListener("click", function () {
+            if (suppressClick) { suppressClick = false; return; }
+            giveName(pair);
+          });
+          button.addEventListener("pointerdown", function (event) { startNameDrag(event, pair, button); });
+          slips.appendChild(button);
+        });
+      }
+      function render() {
+        var page = current();
+        var shown = cut ? lineSteps() : page.total;
+        var ledgerCount = named ? lineSteps() : page.total;
+        sheetK.textContent = page.k;
+        sheetHead.textContent = page.head;
+        sheet.classList.toggle("is-unnamed", cut && !named);
+        sheet.classList.toggle("is-named", named);
+        loopN.textContent = String(page.circle);
+        cutBtn.disabled = cut;
+        gap.hidden = !cut;
+        if (!cut) {
+          stateWord.textContent = "整路";
+          loopK.textContent = "转圈";
+          loop.setAttribute("aria-label", "转圈。按住，向上拖过抬起线再松开");
+          route.setAttribute("d", "M 36 214 H 604");
+          lineCount.textContent = "线 " + page.total;
+          bilingual(readout, "整路 " + page.total + "。转圈还在路上。", "Whole path " + page.total + ". The circle is still on the path.");
+          bilingual(hint, "向上拖过抬起线，或点剪开。没起名，路没有变短。", "Drag up past the lift line, or press Cut. Unnamed, the path is not shorter.");
+        } else if (!named) {
+          stateWord.textContent = "未名";
+          loopK.textContent = "未名";
+          loop.setAttribute("aria-label", "未名的圈。把一个名字放进缺口");
+          route.setAttribute("d", "M 36 214 H 236 M 404 214 H 604");
+          lineCount.textContent = "线 " + lineSteps();
+          gap.textContent = "未名";
+          bilingual(readout, "线 " + lineSteps() + "。账 " + ledgerCount + "。圈未名。路没有变短。", "Line " + lineSteps() + ". Ledger " + ledgerCount + ". The circle is unnamed. The path is not shorter.");
+          bilingual(hint, "线短了。把一个名字拖进缺口，或点那个名字。", "The line is shorter. Drag a name into the gap, or press that name.");
+        } else {
+          stateWord.textContent = "记下";
+          loopK.textContent = given;
+          loop.setAttribute("aria-label", "已起名的圈。" + given);
+          route.setAttribute("d", "M 36 214 H 236 M 404 214 H 604");
+          lineCount.textContent = "线 " + lineSteps();
+          gap.textContent = given;
+          bilingual(readout, "线 " + lineSteps() + "。账 " + ledgerCount + "。圈叫「" + given + "」。省下的是这一圈。", "Line " + lineSteps() + ". Ledger " + ledgerCount + ". The circle is named " + givenEn + ". What was saved is this circle.");
+          bilingual(hint, "这张纸留下。圈留在旁边，带着那个名字。", "This sheet remains. The circle stays beside the path, carrying that name.");
+        }
+        if (tried.cut && tried.name) {
+          bilingual(after, "这张纸留下。只剪开的不记成省下。起了名的，才记成这一圈。", "This sheet remains. A cut alone is not recorded as a saving. A named circle is.");
+        } else {
+          bilingual(after, "只剪开的，不记成省下。起了名的，才记成这一圈。", "A cut alone is not recorded as a saving. A named circle is.");
+        }
+        drawTicks();
+        renderNames();
+        placeAnchors();
+      }
+      function cutCircle() {
+        if (cut) return;
+        cut = true;
+        tried.cut = true;
+        addLedger(current().k + " · 剪开", "未名。路上 " + lineSteps() + "，账上 " + current().total + "。路没有变短。", "Unnamed. The path is not shorter.");
+        render();
+      }
+      function giveName(pair) {
+        if (!cut || named) return;
+        named = true;
+        given = pair[0];
+        givenEn = pair[1];
+        tried.name = true;
+        addLedger(current().k + " · 起名", "圈叫「" + pair[0] + "」。账上 " + lineSteps() + "。省下的是这一圈。", "The circle is named " + pair[1] + ". What was saved is this circle.");
+        render();
+      }
+      function missName() {
+        if (!cut || named || missLogged) return;
+        missLogged = true;
+        addLedger(current().k + " · 没放进", "名字没放进缺口。圈仍未名。路没有变短。", "The name missed the gap. The path is not shorter.");
+        bilingual(hint, "名字没放进缺口。圈仍未名。路没有变短。", "The name missed the gap. The circle stays unnamed. The path is not shorter.");
+      }
+      function startNameDrag(event, pair, button) {
+        if (button.disabled || drag) return;
+        suppressClick = false;
+        drag = { kind: "name", pair: pair, x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId };
+        button.setPointerCapture(event.pointerId);
+      }
+      loop.addEventListener("pointerdown", function (event) {
+        if (drag || cut) return;
+        suppressClick = false;
+        drag = { kind: "loop", x: event.clientX, y: event.clientY, moved: false, pointer: event.pointerId };
+        loop.classList.add("is-dragging");
+        loop.setPointerCapture(event.pointerId);
+      });
+      document.addEventListener("pointermove", function (event) {
+        if (!drag || drag.pointer !== event.pointerId) return;
+        var dx = event.clientX - drag.x;
+        var dy = event.clientY - drag.y;
+        if (!drag.moved && Math.hypot(dx, dy) < 8) return;
+        drag.moved = true;
+        if (drag.kind === "loop") {
+          var m = metrics();
+          var view = toView(event.clientX, event.clientY, m);
+          var local = toLocal(320, Math.max(36, Math.min(220, view.y)), m);
+          loop.style.left = local.x + "px";
+          loop.style.top = local.y + "px";
+          loop.classList.toggle("is-ready", view.y < 88);
+        } else {
+          ghost.hidden = false;
+          ghost.textContent = drag.pair[0];
+          ghost.style.left = event.clientX + "px";
+          ghost.style.top = event.clientY + "px";
+        }
+      });
+      document.addEventListener("pointerup", function (event) {
+        if (!drag || drag.pointer !== event.pointerId) return;
+        var moved = drag.moved;
+        var kind = drag.kind;
+        var pair = drag.pair;
+        var view = toView(event.clientX, event.clientY, metrics());
+        drag = null;
+        ghost.hidden = true;
+        loop.classList.remove("is-dragging", "is-ready");
+        if (moved) suppressClick = true;
+        if (kind === "loop") {
+          if (moved && view.y < 88) cutCircle();
+          else {
+            placeAnchors();
+            if (moved) bilingual(hint, "没过抬起线。圈回到路上。路没有变短。", "Released below the line. The circle returns to the path. The path is not shorter.");
+          }
+          return;
+        }
+        if (!moved) return;
+        var rect = gap.getBoundingClientRect();
+        var hit = !gap.hidden && event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+        if (hit) giveName(pair);
+        else missName();
+      });
+      document.addEventListener("pointercancel", function (event) {
+        if (!drag || drag.pointer !== event.pointerId) return;
+        drag = null;
+        ghost.hidden = true;
+        loop.classList.remove("is-dragging", "is-ready");
+        placeAnchors();
+      });
+      loop.addEventListener("click", function () {
+        if (suppressClick) { suppressClick = false; return; }
+        cutCircle();
+      });
+      cutBtn.addEventListener("click", cutCircle);
+      another.addEventListener("click", function () {
+        sheetIndex = (sheetIndex + 1) % sheets.length;
+        cut = false;
+        named = false;
+        given = "";
+        givenEn = "";
+        tried = { cut: false, name: false };
+        missLogged = false;
+        render();
+        loop.focus();
+      });
+      function setNote(open) {
+        note.hidden = !open;
+        noteBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) noteClose.focus();
+        else noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", function () { setNote(note.hidden); });
+      noteClose.addEventListener("click", function () { setNote(false); });
+      note.addEventListener("click", function (event) { if (event.target === note) setNote(false); });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) setNote(false);
+      });
+      window.addEventListener("resize", placeAnchors);
+      render();
+      window.requestAnimationFrame(placeAnchors);
+    })();
+  </script>
+</body>
+</html>
