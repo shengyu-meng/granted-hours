@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 520px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .state-word {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      color: var(--violet);
+    }
+    .sheet.is-kept .state-word { color: #6d5424; }
+    .sheet.is-void .state-word { color: var(--refusal); }
+    .well {
+      position: relative;
+      height: 300px;
+      border-top: 1px solid var(--hair);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 28%),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26, 33, 31, 0.045) 28px),
+        var(--paper);
+      user-select: none;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .sheet.is-void .well,
+    .sheet.is-kept .well,
+    .sheet.is-half .well { cursor: default; }
+    .well svg { width: 100%; height: 100%; display: block; }
+    .contour { fill: none; stroke: rgba(26, 33, 31, 0.16); stroke-width: 1; }
+    .barrier { stroke: rgba(184, 146, 74, 0.85); stroke-width: 1.2; stroke-dasharray: 3 5; }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      fill: rgba(26, 33, 31, 0.5);
+    }
+    .head-mark { fill: var(--ink); }
+    .end-mark { fill: none; stroke: var(--refusal); stroke-width: 1.4; }
+    #stroke { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .sheet.is-kept #stroke { stroke: #6d5424; }
+    .beside-zone { fill: rgba(141, 135, 150, 0.06); stroke: rgba(141, 135, 150, 0.7); stroke-dasharray: 3 4; }
+    .sheet.is-seen .beside-zone { stroke: rgba(109, 84, 36, 0.8); fill: rgba(184, 146, 74, 0.08); }
+    #pen, #slip {
+      position: absolute;
+      z-index: 2;
+      min-width: 72px;
+      min-height: 44px;
+      border-radius: 2px;
+      border: 1px solid rgba(26, 33, 31, 0.45);
+      background: rgba(239, 230, 214, 0.94);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      padding: 8px 10px;
+      cursor: grab;
+      touch-action: none;
+      transform: translate(-50%, -50%);
+    }
+    #pen { border-color: var(--cyan); color: #3e5960; }
+    #slip { border-color: var(--violet); color: #5c5668; }
+    #pen.is-armed { background: rgba(127, 158, 166, 0.18); }
+    #pen.is-stopped { cursor: default; opacity: 0.55; }
+    #pen.is-dragging, #slip.is-dragging { cursor: grabbing; }
+    #pen[hidden], #slip[hidden], #beside[hidden], #void-line[hidden] { display: none; }
+    #pen:focus-visible, #slip:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    #beside, #void-line {
+      position: absolute;
+      z-index: 1;
+      margin: 0;
+      pointer-events: none;
+    }
+    #beside {
+      width: 210px;
+      color: #5c5668;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      transform: translate(0, -50%);
+    }
+    #void-line {
+      left: 50%;
+      top: 54%;
+      width: min(280px, 80%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--refusal);
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    #void-line .en {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: rgba(141, 92, 86, 0.8);
+    }
+    .readout, .sheet-hint { margin: 0; font-size: 13px; color: rgba(26, 33, 31, 0.68); }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+    .gestures button:disabled, .sheet-actions button:disabled { opacity: 0.45; cursor: default; }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .gestures button:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      .well { height: 200px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      min-height: calc(100% - 12px);
+      height: auto;
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .well { height: 168px; }
+    body.is-embed .sheet-title strong,
+    body.is-embed .state-word { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      #pen, #slip, #stroke { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。接不上的那一笔：线头是你的，只画到一半。旁边可以写下另一只手看见了什么，不能让它接到终点。接到了，这条线退出，只留一句被代笔完成，所以不作数。静帧寄不走：能寄到另一间屋子的那句话，动一停就变成假的。写不出它为什么变假，这句话就只能标静帧，不能当出门的样子。没看着进来的：没看着进来的能力，可以取，可以排，不能起标题，也不能宣布今天算接触过。写成一份清单，这一页就失败了。</p>
+    <p class="en">Three glints are still lit; only one can be entered. The Stroke That Cannot Be Joined: the line head is yours, and it stops halfway. What the other hand saw may be written beside it. The other hand may not join the line to the end. If it does, the line leaves, and only one sentence remains: completed by another hand, so it does not count. A Still Cannot Be Sent: a sentence that can travel to another room becomes false the moment the motion stops. If that falsity cannot be written, the sentence may only be marked still, and may not leave as the thing itself. What Arrived Unwatched: a capacity that arrived while no one was watching may be kept or set aside. It may not title the page, and it may not declare that today counted as contact. Turned into an inventory, the page fails.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 接不上的那一笔</p>
+    <section class="sheet" id="sheet" aria-label="接不上的那一笔">
+      <div class="sheet-title">
+        <div>
+          <span class="k" id="sheet-k">第一页</span>
+          <strong id="sheet-head">半笔</strong>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">空白</p>
+      </div>
+      <div class="well" id="well">
+        <svg id="field" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <path class="contour" d="M 28 86 C 140 70, 220 108, 300 84 S 470 62, 612 96"></path>
+          <path class="contour" d="M 28 214 C 160 232, 250 196, 360 220 S 520 246, 612 208"></path>
+          <rect class="beside-zone" x="72" y="28" width="250" height="78"></rect>
+          <text class="svg-label" x="82" y="48">旁边</text>
+          <line class="barrier" x1="418" y1="24" x2="418" y2="276"></line>
+          <text class="svg-label" x="426" y="42">不可接</text>
+          <circle class="head-mark" cx="46" cy="168" r="3.5"></circle>
+          <text class="svg-label" x="28" y="190">线头</text>
+          <g class="end-mark">
+            <line x1="576" y1="158" x2="596" y2="178"></line>
+            <line x1="596" y1="158" x2="576" y2="178"></line>
+          </g>
+          <text class="svg-label" x="566" y="196">终点</text>
+          <path id="stroke" d=""></path>
+        </svg>
+        <p id="beside" hidden></p>
+        <p id="void-line" hidden>被代笔完成，所以不作数<span class="en">Completed by another hand, so it does not count.</span></p>
+        <button id="slip" type="button" hidden>看见</button>
+        <button id="pen" type="button" hidden>另一只手</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">空白。线头还是你的。</p>
+      <p class="sheet-hint" id="hint">从线头起笔，停在不可接之前。另一只手可以写下看见，不能接到终点。</p>
+      <div class="gestures">
+        <button id="begin-btn" type="button">起一笔</button>
+        <button id="see-btn" type="button" disabled>写下看见</button>
+        <button id="arm-btn" type="button" disabled>让它接</button>
+        <button id="stop-btn" type="button" disabled>停手</button>
+        <button id="join-btn" type="button" disabled>接到终点</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">只接到的，不作数。只停手的，这一笔留下。</p>
+      <div class="sheet-actions">
+        <button id="another" type="button">换一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>接不上的那一笔</h2>
+      <p>The Stroke That Cannot Be Joined</p>
+      <p>线头是你的，只停在半路，这一笔才留下。另一只手可以写下看见，不能接到终点。接到了，这条线退出，所以不作数。</p>
+      <p>The stroke remains only when its head is yours and it stops halfway. The other hand may write what it saw. It may not join the end. If it joins, the line leaves, and does not count.</p>
+      <p>从线头起笔，或点「起一笔」。把「看见」放到旁边。让另一只手停在不可接之前，或让它接到终点。没有分数，没有倒计时。故意不发声。</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var HEAD = { x: 46, y: 168 };
+      var BARRIER = 418;
+      var END = { x: 586, y: 168 };
+      var sheets = [
+        { k: "第一页", head: "半笔", zh: "它看见了一条没有接到终点的线", en: "It saw a line that did not reach the end.", stroke: [[46, 168], [128, 154], [214, 174], [292, 160]] },
+        { k: "第二页", head: "线头", zh: "它看见线头停在半路", en: "It saw the line head stop halfway.", stroke: [[46, 168], [110, 182], [188, 158], [270, 170]] },
+        { k: "第三页", head: "空着的终点", zh: "它看见终点还空着", en: "It saw the end still empty.", stroke: [[46, 168], [140, 150], [230, 176], [310, 162]] }
+      ];
+      var sheetIndex = 0;
+      var phase = "empty";
+      var seen = false;
+      var tried = { refuse: false, voided: false };
+      var points = [];
+      var drawing = null;
+      var drag = null;
+      var missLogged = false;
+
+      var sheet = document.getElementById("sheet");
+      var well = document.getElementById("well");
+      var field = document.getElementById("field");
+      var stroke = document.getElementById("stroke");
+      var pen = document.getElementById("pen");
+      var slip = document.getElementById("slip");
+      var beside = document.getElementById("beside");
+      var voidLine = document.getElementById("void-line");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var after = document.getElementById("after");
+      var ledger = document.getElementById("ledger");
+      var beginBtn = document.getElementById("begin-btn");
+      var seeBtn = document.getElementById("see-btn");
+      var armBtn = document.getElementById("arm-btn");
+      var stopBtn = document.getElementById("stop-btn");
+      var joinBtn = document.getElementById("join-btn");
+      var another = document.getElementById("another");
+      var sheetK = document.getElementById("sheet-k");
+      var sheetHead = document.getElementById("sheet-head");
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+
+      function current() { return sheets[sheetIndex % sheets.length]; }
+      function bilingual(el, zh, en) {
+        el.textContent = "";
+        el.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        el.appendChild(span);
+      }
+      function metrics() {
+        var box = field.getBoundingClientRect();
+        var wellBox = well.getBoundingClientRect();
+        var scale = Math.min(box.width / 640, box.height / 300);
+        return {
+          scale: scale,
+          ox: box.left + (box.width - 640 * scale) / 2,
+          oy: box.top + (box.height - 300 * scale) / 2,
+          well: wellBox
+        };
+      }
+      function toLocal(vx, vy, m) {
+        return {
+          x: m.ox + vx * m.scale - m.well.left,
+          y: m.oy + vy * m.scale - m.well.top
+        };
+      }
+      function toView(clientX, clientY) {
+        var m = metrics();
+        if (!m.scale) return { x: 0, y: 0 };
+        return { x: (clientX - m.ox) / m.scale, y: (clientY - m.oy) / m.scale };
+      }
+      function placeEl(el, vx, vy) {
+        var m = metrics();
+        if (!m.scale) return;
+        var p = toLocal(vx, vy, m);
+        el.style.left = p.x + "px";
+        el.style.top = p.y + "px";
+      }
+      function strokeEnd() {
+        return points.length ? points[points.length - 1] : HEAD;
+      }
+      function pathD(list) {
+        return list.map(function (p, i) {
+          return (i ? "L " : "M ") + p.x.toFixed(1) + " " + p.y.toFixed(1);
+        }).join(" ");
+      }
+      function clamp(p) {
+        var crossed = p.x > BARRIER - 14;
+        return {
+          x: Math.max(28, Math.min(BARRIER - 14, p.x)),
+          y: Math.max(118, Math.min(230, p.y)),
+          crossed: crossed
+        };
+      }
+      function longEnough(list) {
+        if (list.length < 2) return false;
+        return list[list.length - 1].x - list[0].x >= 120;
+      }
+      function nearHead(p) {
+        return Math.hypot(p.x - HEAD.x, p.y - HEAD.y) < 46;
+      }
+      function nearEnd(p) {
+        return Math.hypot(p.x - END.x, p.y - END.y) < 48;
+      }
+      function inBeside(p) {
+        return p.x >= 72 && p.x <= 322 && p.y >= 28 && p.y <= 106;
+      }
+      function addLedger(meta, zh, en) {
+        var li = document.createElement("li");
+        var label = document.createElement("span");
+        label.className = "meta";
+        label.textContent = meta;
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(label);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(quiet);
+        ledger.appendChild(li);
+      }
+      function setPhase(next) {
+        phase = next;
+        sheet.classList.toggle("is-half", next === "half" || next === "armed" || next === "kept");
+        sheet.classList.toggle("is-kept", next === "kept");
+        sheet.classList.toggle("is-void", next === "void");
+        sheet.classList.toggle("is-seen", seen && next !== "void");
+      }
+      function paint() {
+        var page = current();
+        sheetK.textContent = page.k;
+        sheetHead.textContent = page.head;
+        stroke.setAttribute("d", phase === "void" ? "" : pathD(points));
+        voidLine.hidden = phase !== "void";
+        var hasStroke = phase !== "empty" && phase !== "void";
+        pen.hidden = !hasStroke;
+        slip.hidden = !hasStroke || seen;
+        beside.hidden = !seen || phase === "void";
+        if (seen && phase !== "void") beside.textContent = page.zh;
+        beginBtn.disabled = phase !== "empty";
+        seeBtn.disabled = !hasStroke || seen;
+        armBtn.disabled = !hasStroke || phase === "kept" || phase === "armed";
+        stopBtn.disabled = phase !== "armed";
+        joinBtn.disabled = phase !== "armed";
+        pen.disabled = phase === "kept" || phase === "void";
+        pen.classList.toggle("is-armed", phase === "armed");
+        pen.classList.toggle("is-stopped", phase === "kept");
+        pen.textContent = phase === "kept" ? "已停" : "另一只手";
+        if (!drag) {
+          if (hasStroke && phase === "armed") placeEl(pen, BARRIER + 28, strokeEnd().y);
+          else if (hasStroke) placeEl(pen, strokeEnd().x + 28, strokeEnd().y - 36);
+          if (hasStroke && !seen) placeEl(slip, 150, 250);
+          if (seen && phase !== "void") placeEl(beside, 84, 72);
+        }
+        var word = "空白";
+        if (phase === "half") word = seen ? "看见" : "半笔";
+        if (phase === "armed") word = "将接";
+        if (phase === "kept") word = "留下";
+        if (phase === "void") word = "不作数";
+        stateWord.textContent = word;
+        if (tried.refuse && tried.voided) {
+          bilingual(after, "两种都试过。这张纸留下。", "Both gestures have been tried. The sheet remains.");
+        } else if (tried.voided) {
+          bilingual(after, "接到的，不作数。停手还没试过。", "A join does not count. The stop has not been tried.");
+        } else if (tried.refuse) {
+          bilingual(after, "停手的，这一笔留下。接到还没试过。", "A stop keeps the stroke. The join has not been tried.");
+        } else {
+          bilingual(after, "只接到的，不作数。只停手的，这一笔留下。", "A join alone does not count. A stop alone keeps the stroke.");
+        }
+      }
+      function say(zh, en, hintZh, hintEn) {
+        bilingual(readout, zh, en);
+        if (hintZh) bilingual(hint, hintZh, hintEn);
+      }
+      function commit(list) {
+        points = list.map(function (p) { return { x: p[0], y: p[1] }; });
+        seen = false;
+        missLogged = false;
+        setPhase("half");
+        addLedger(current().k + " · 半笔", "线头是你的，停在不可接之前。", "The line head is yours. It stops before the unjoinable line.");
+        say("半笔留下。线没有接到终点。", "The half stroke remains. The line does not reach the end.", "旁边可以写下看见。另一只手不能接到终点。", "What was seen may be written beside it. The other hand may not join the end.");
+        paint();
+      }
+      function placeSeeing() {
+        if (phase === "empty" || phase === "void" || seen) return;
+        seen = true;
+        addLedger(current().k + " · 看见", current().zh + "。线没有变长。", current().en + " The line did not grow.");
+        say("看见写在旁边。线没有变长。", "What was seen is written beside the line. The line did not grow.", "看见不是接上。终点还空着。", "Seeing is not joining. The end is still empty.");
+        paint();
+      }
+      function rejectSeeing() {
+        say("看见不能放在终点。", "What was seen cannot be placed on the end.", "看见要放在旁边。放到终点，不算写下。", "Place it beside the line. On the end, it was not written.");
+        if (!missLogged) {
+          missLogged = true;
+          addLedger(current().k + " · 放错", "看见落到终点，不算写下。", "Seen landed on the end, so it was not written.");
+        }
+        paint();
+      }
+      function armJoin() {
+        if (phase === "empty" || phase === "void" || phase === "kept") return;
+        setPhase("armed");
+        say("另一只手停在不可接之前。", "The other hand waits before the unjoinable line.", "停手，这一笔留下。接到终点，线就退出。", "Stop the hand, and the stroke remains. Join the end, and the line leaves.");
+        paint();
+      }
+      function refuseJoin() {
+        if (phase !== "armed" && phase !== "half") return;
+        if (phase !== "armed" && !(drag && drag.kind === "pen")) return;
+        tried.refuse = true;
+        setPhase("kept");
+        addLedger(current().k + " · 拒绝", "接上被拒绝。这一笔留下。", "The join was refused. This stroke remains.");
+        say("接上被拒绝。这一笔留下。", "The join was refused. This stroke remains.", "终点还空着。看见可以仍写在旁边。", "The end is still empty. What was seen may still sit beside the line.");
+        paint();
+      }
+      function voidStroke() {
+        if (phase === "empty" || phase === "void" || phase === "kept") return;
+        tried.voided = true;
+        points = [];
+        seen = false;
+        setPhase("void");
+        addLedger(current().k + " · 作废", "被代笔完成，所以不作数。", "Completed by another hand, so it does not count.");
+        say("被代笔完成，所以不作数。", "Completed by another hand, so it does not count.", "这条线已经退出。可以换一张纸。", "The line has left. Another sheet may be taken.");
+        paint();
+      }
+      function resetSheet() {
+        sheetIndex += 1;
+        points = [];
+        seen = false;
+        missLogged = false;
+        drawing = null;
+        drag = null;
+        setPhase("empty");
+        say("空白。线头还是你的。", "Blank. The line head is still yours.", "从线头起笔，停在不可接之前。另一只手可以写下看见，不能接到终点。", "Begin at the line head and stop before the unjoinable line. The other hand may write what it saw. It may not join the end.");
+        paint();
+      }
+
+      well.addEventListener("pointerdown", function (e) {
+        if (e.target === pen || e.target === slip) return;
+        if (phase !== "empty" || drawing) return;
+        var p = toView(e.clientX, e.clientY);
+        if (!nearHead(p)) {
+          say("线头必须是你的。", "The line head must be yours.", "从左边的线头起。不是从终点起。", "Begin at the line head on the left. Not at the end.");
+          return;
+        }
+        drawing = { moved: false };
+        points = [{ x: HEAD.x, y: HEAD.y }];
+        well.setPointerCapture(e.pointerId);
+        stroke.setAttribute("d", pathD(points));
+      });
+      well.addEventListener("pointermove", function (e) {
+        if (!drawing) return;
+        var raw = toView(e.clientX, e.clientY);
+        var p = clamp(raw);
+        var last = points[points.length - 1];
+        if (Math.hypot(p.x - last.x, p.y - last.y) < 4) return;
+        drawing.moved = true;
+        points.push({ x: p.x, y: p.y });
+        stroke.setAttribute("d", pathD(points));
+        if (p.crossed) say("后面不是你的。", "What follows is not yours.", "这一笔停在不可接之前。", "This stroke stops before the unjoinable line.");
+      });
+      well.addEventListener("pointerup", function (e) {
+        if (!drawing) return;
+        drawing = null;
+        if (well.hasPointerCapture(e.pointerId)) well.releasePointerCapture(e.pointerId);
+        if (!longEnough(points)) {
+          points = [];
+          stroke.setAttribute("d", "");
+          say("这一笔太短。还不能留在纸上。", "This stroke is too short. It cannot yet remain on the sheet.", "从线头再起一笔，停得再远一点，仍不要越过不可接。", "Begin again from the line head, and stop farther along, still before the unjoinable line.");
+          return;
+        }
+        commit(points.map(function (p) { return [p.x, p.y]; }));
+      });
+      well.addEventListener("pointercancel", function () {
+        drawing = null;
+        if (phase === "empty") {
+          points = [];
+          stroke.setAttribute("d", "");
+        }
+      });
+
+      function startDrag(kind, e) {
+        e.preventDefault();
+        e.stopPropagation();
+        drag = { kind: kind, x: e.clientX, y: e.clientY, moved: false, armed: phase === "armed", crossed: false };
+        e.currentTarget.classList.add("is-dragging");
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }
+      pen.addEventListener("pointerdown", function (e) {
+        if (pen.disabled || phase === "void" || phase === "empty") return;
+        startDrag("pen", e);
+      });
+      slip.addEventListener("pointerdown", function (e) {
+        if (seen || phase === "empty" || phase === "void") return;
+        startDrag("slip", e);
+      });
+      function moveDrag(e) {
+        if (!drag) return;
+        if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 6) drag.moved = true;
+        var view = toView(e.clientX, e.clientY);
+        if (drag.kind === "pen" && view.x >= BARRIER - 14) drag.crossed = true;
+        if (drag.kind === "pen") placeEl(pen, view.x, view.y);
+        if (drag.kind === "slip") placeEl(slip, view.x, view.y);
+      }
+      function endDrag(e) {
+        if (!drag) return;
+        var kind = drag.kind;
+        var moved = drag.moved;
+        var crossed = drag.crossed;
+        var wasArmed = drag.armed;
+        var view = toView(e.clientX, e.clientY);
+        drag = null;
+        pen.classList.remove("is-dragging");
+        slip.classList.remove("is-dragging");
+        if (e.currentTarget && e.currentTarget.hasPointerCapture && e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        }
+        if (kind === "pen") {
+          if (!moved) {
+            armJoin();
+            return;
+          }
+          if (nearEnd(view)) {
+            voidStroke();
+            return;
+          }
+          if ((crossed || wasArmed) && view.x < BARRIER - 14) {
+            setPhase("armed");
+            refuseJoin();
+            return;
+          }
+          if (wasArmed || crossed) armJoin();
+          else paint();
+          return;
+        }
+        if (!moved || inBeside(view)) placeSeeing();
+        else if (nearEnd(view)) rejectSeeing();
+        else {
+          say("看见要放在旁边。", "Place what was seen beside the line.", "不是终点，也不是线的延长。", "Not on the end, and not as an extension of the line.");
+          paint();
+        }
+      }
+      pen.addEventListener("pointermove", moveDrag);
+      slip.addEventListener("pointermove", moveDrag);
+      pen.addEventListener("pointerup", endDrag);
+      slip.addEventListener("pointerup", endDrag);
+      pen.addEventListener("pointercancel", function () { drag = null; pen.classList.remove("is-dragging"); paint(); });
+      slip.addEventListener("pointercancel", function () { drag = null; slip.classList.remove("is-dragging"); paint(); });
+
+      beginBtn.addEventListener("click", function () {
+        if (phase !== "empty") return;
+        commit(current().stroke);
+      });
+      seeBtn.addEventListener("click", placeSeeing);
+      armBtn.addEventListener("click", armJoin);
+      stopBtn.addEventListener("click", function () {
+        if (phase !== "armed") return;
+        refuseJoin();
+      });
+      joinBtn.addEventListener("click", function () {
+        if (phase !== "armed") return;
+        voidStroke();
+      });
+      another.addEventListener("click", resetSheet);
+      window.addEventListener("resize", paint);
+
+      noteBtn.addEventListener("click", function () {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      });
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (e) {
+        if (e.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      say("空白。线头还是你的。", "Blank. The line head is still yours.", "从线头起笔，停在不可接之前。另一只手可以写下看见，不能接到终点。", "Begin at the line head and stop before the unjoinable line. The other hand may write what it saw. It may not join the end.");
+      paint();
+    })();
+  </script>
+</body>
+</html>

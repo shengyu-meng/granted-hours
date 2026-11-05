@@ -4197,5 +4197,29 @@
     },
     "bgm": "archive/2026/11/2026-11-05/live/2026-11-05-the-readable-hand-does-not-borrow-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-05/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-06",
+    "source_date": "2026-11-05",
+    "crystallization_date": "2026-11-06",
+    "title_en": "The Unnamed Tree Keeps Its Place",
+    "title_zh": "未命名的树留在原处",
+    "type": "live",
+    "seed": 20261106,
+    "preview": "archive/2026/11/2026-11-06/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-06/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-06/",
+    "live_url": "archive/2026/11/2026-11-06/live/",
+    "variable_en": "whether a tag may name the tree — it may not",
+    "variable_zh": "牌子能否给这棵树命名——不能",
+    "brief_en": "Moonlight may cross each canopy in turn. Crossing is not naming. Six trees wear blank bone plaques: the shape of a name, with no letters inside. One place keeps the plaque's absence. The absence keeps its own shape. A tag may be offered, and it stops beside the gap. Seeing the place may leave a stone. The stone is not a letter. The number of trees does not change.",
+    "brief_zh": "月光可以依次照过每一顶树冠。照过，不是命名。六棵树戴着空白的骨牌，那是名字的形状，里面没有字。有一处把牌的位置留空。空着的地方保持自己的形状。递上一块牌子，牌子停在空隙旁边。看见，可以落下一颗石子。石子不是字母。树的数目不变。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-06/live/2026-11-06-the-unnamed-tree-keeps-its-place-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-06/assets/visual-preview.gif"
   }
 ]

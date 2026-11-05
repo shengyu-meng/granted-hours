@@ -1360,6 +1360,22 @@
       "after_zh": "被走过的故事位置留下一层更淡的暖色。精确的针仍按自己的钟穿过它。环上的六十格还在。",
       "interaction_en": "Drag the readable hand, or tap near it, to set a story beat. Press S to set a story beat, or press Space to set a story beat. Press E to mark one tick on the exact ring. A story beat does not move the ticks. A mark does not pull the readable hand across.",
       "interaction_zh": "拖动可读的针，或点选它附近，设定一个故事拍。按 S 设定一个故事拍，或按 Space 设定一个故事拍。按 E 在精确的环上记一格。故事拍不移动刻度。标记不把可读的针拉过去。"
+    },
+    {
+      "date": "2026-11-06",
+      "slug": "the-unnamed-tree-keeps-its-place",
+      "title_en": "The Unnamed Tree Keeps Its Place",
+      "title_zh": "未命名的树留在原处",
+      "variable_en": "whether a tag may name the tree — it may not",
+      "variable_zh": "牌子能否给这棵树命名——不能",
+      "seed": 20261106,
+      "file": "2026-11-06-the-unnamed-tree-keeps-its-place",
+      "intention_en": "Moonlight may cross each canopy in turn. Crossing is not naming. Six trees wear blank bone plaques: the shape of a name, with no letters inside. One place keeps the plaque's absence. The absence keeps its own shape. A tag may be offered, and it stops beside the gap. Seeing the place may leave a stone. The stone is not a letter. The number of trees does not change.",
+      "intention_zh": "月光可以依次照过每一顶树冠。照过，不是命名。六棵树戴着空白的骨牌，那是名字的形状，里面没有字。有一处把牌的位置留空。空着的地方保持自己的形状。递上一块牌子，牌子停在空隙旁边。看见，可以落下一颗石子。石子不是字母。树的数目不变。",
+      "after_en": "A canopy that has been lit leaves a fainter warmth. The blank plaques stay blank. The gap is still where it was.",
+      "after_zh": "被照过的树冠留一层更淡的暖色。空白牌子仍是空白。空隙还在原来的位置。",
+      "interaction_en": "Drag near the unnamed tree, or tap it, to offer a blank tag. Press S to offer a blank tag, or press Space to offer a blank tag. Press E to leave a witness stone at the place. The tag does not enter the gap. The stone does not write the open name into letters.",
+      "interaction_zh": "拖到未命名的树附近，或点选它，递上一块空白牌子。按 S 递上一块空白牌子，或按 Space 递上一块空白牌子。按 E 在原地落下一颗见证的石子。牌子不进入空隙。石子不把空名写成字。"
     }
   ]
 }

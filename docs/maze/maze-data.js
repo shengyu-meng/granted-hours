@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-05",
-  "nodeCount": 184,
+  "generatedAt": "2026-11-06",
+  "nodeCount": 185,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3865,6 +3865,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -26,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-06",
+      "date": "2026-11-06",
+      "title_en": "The Unnamed Tree Keeps Its Place",
+      "title_zh": "未命名的树留在原处",
+      "variable_en": "whether a tag may name the tree — it may not",
+      "variable_zh": "牌子能否给这棵树命名——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a tag may name the tree — it may not entered the archive as a clue rather than a label.",
+      "diary_zh": "「牌子能否给这棵树命名——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-06/live/",
+      "archive_url": "../archive/2026/11/2026-11-06/",
+      "gif": "../archive/2026/11/2026-11-06/assets/visual-preview.gif",
+      "x": 20,
+      "y": -30,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3885,7 +3906,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 107
+      "count": 108
     },
     {
       "id": "maintenance",
@@ -4640,6 +4661,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-05"
     ],
     [
+      "2026-11-05",
+      "2026-11-06"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5058,6 +5083,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-02",
       "2026-11-05"
+    ],
+    [
+      "2026-11-03",
+      "2026-11-06"
     ],
     [
       "2026-05-07",
