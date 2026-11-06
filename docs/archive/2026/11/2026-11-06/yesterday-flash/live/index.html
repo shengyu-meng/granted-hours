@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 520px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .state-word {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      color: var(--violet);
+    }
+    .sheet.is-kept .state-word { color: #6d5424; }
+    .sheet.is-void .state-word { color: var(--refusal); }
+    .sheet.is-armed .state-word { color: #3e5960; }
+    .well {
+      position: relative;
+      height: 300px;
+      border-top: 1px solid var(--hair);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 28%),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26, 33, 31, 0.045) 28px),
+        var(--paper);
+      user-select: none;
+      touch-action: none;
+    }
+    .well svg { width: 100%; height: 100%; display: block; }
+    .ink { fill: none; stroke: rgba(26, 33, 31, 0.72); stroke-width: 1.35; stroke-linejoin: round; stroke-linecap: round; }
+    .ink-faint { fill: none; stroke: rgba(26, 33, 31, 0.22); stroke-width: 1; }
+    .ground { stroke: rgba(26, 33, 31, 0.4); stroke-width: 1; }
+    .image-well { fill: rgba(255, 255, 255, 0.18); stroke: rgba(26, 33, 31, 0.08); }
+    .outside-well { fill: rgba(127, 158, 166, 0.08); stroke: rgba(127, 158, 166, 0.85); stroke-dasharray: 3 4; }
+    .sheet.is-kept .outside-well { fill: rgba(184, 146, 74, 0.1); stroke: rgba(109, 84, 36, 0.8); }
+    .barrier { stroke: rgba(184, 146, 74, 0.9); stroke-width: 1.2; stroke-dasharray: 3 5; }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      fill: rgba(26, 33, 31, 0.5);
+    }
+    .drawing { opacity: 1; }
+    .sheet.is-void .drawing { opacity: 0; }
+    .caption {
+      font-family: Palatino, "Palatino Linotype", "Songti SC", serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      fill: rgba(26, 33, 31, 0.42);
+    }
+    .sheet.is-kept .caption { fill: #6d5424; }
+    #slip {
+      position: absolute;
+      z-index: 2;
+      min-width: 88px;
+      min-height: 44px;
+      border-radius: 2px;
+      border: 1px solid rgba(62, 89, 96, 0.7);
+      background: rgba(239, 230, 214, 0.96);
+      color: #3e5960;
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      padding: 8px 10px;
+      cursor: grab;
+      touch-action: none;
+      transform: translate(-50%, -50%);
+    }
+    #slip.is-dragging { cursor: grabbing; }
+    #slip.is-kept {
+      cursor: default;
+      border-color: rgba(109, 84, 36, 0.8);
+      color: #6d5424;
+    }
+    #slip[hidden] { display: none; }
+    #slip:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    #void-line {
+      position: absolute;
+      z-index: 1;
+      left: 18%;
+      top: 46%;
+      width: 46%;
+      margin: 0;
+      transform: translateY(-50%);
+      text-align: center;
+      color: var(--refusal);
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      pointer-events: none;
+    }
+    #void-line[hidden] { display: none; }
+    #void-line .en {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: rgba(141, 92, 86, 0.8);
+    }
+    .readout, .sheet-hint { margin: 0; font-size: 13px; color: rgba(26, 33, 31, 0.68); }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+    .gestures button:disabled, .sheet-actions button:disabled { opacity: 0.45; cursor: default; }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .gestures button:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      .well { height: 200px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      min-height: calc(100% - 12px);
+      height: auto;
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .well { height: 168px; }
+    body.is-embed .sheet-title strong,
+    body.is-embed .state-word { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .drawing, #slip { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。图不许知道：尺寸先写在图外面，这张图永远不许学会它。哪天图把这个数说出来，图就退出，只留一句它从一开始就在等图纸。分不了类的那一镜：别的格子可以写做法，有一格的做法栏不许填，这一格才算作品。哪天这一格也被填上，这一页就退出，只留一句全部分好了，所以不是作品。删掉就没人：只留一句压缩一定会删掉的话，这句不添加事实，只让一个特定的人还在页上。删掉以后论证还在、人也还在，就是气氛。论证还在、人没了，这句才留下。</p>
+    <p class="en">Three glints are still lit; only one can be entered. The Image Must Not Know: the measure is written outside the image, and the image may never learn it. The day the image speaks that number, the image leaves, and only the sentence remains that it was waiting for the drawing from the start. The Unclassifiable Shot: other cells may name a method, and one cell must leave its method blank. That blank cell is the work. The day the blank cell is filled, the page leaves, and only the sentence remains that everything was classified, so it is not a work. Delete It and No One Remains: one sentence is left that compression will cut. It adds no fact. It only keeps a particular person on the page. If the cut leaves the argument and the person, it was atmosphere. If the argument remains and the person is gone, that sentence is the one that stays.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 图不许知道</p>
+    <section class="sheet" id="sheet" aria-label="图不许知道">
+      <div class="sheet-title">
+        <div>
+          <span class="k" id="sheet-k">第一页</span>
+          <strong id="sheet-head">檐高</strong>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">空白</p>
+      </div>
+      <div class="well" id="well">
+        <svg id="field" viewBox="0 0 640 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <rect class="image-well" x="24" y="28" width="344" height="202"></rect>
+          <rect class="outside-well" x="448" y="28" width="172" height="202"></rect>
+          <line class="barrier" x1="410" y1="20" x2="410" y2="246"></line>
+          <text class="svg-label" x="36" y="48">图</text>
+          <text class="svg-label" x="458" y="48">图外</text>
+          <text class="svg-label" x="418" y="42">不许越过</text>
+          <g class="drawing" id="draw-0">
+            <path class="ground" d="M 48 196 H 344"></path>
+            <path class="ink" d="M 86 196 V 118 H 292 V 196"></path>
+            <path class="ink" d="M 72 118 L 188 72 L 306 118"></path>
+            <path class="ink" d="M 168 196 V 150 H 214 V 196"></path>
+            <path class="ink-faint" d="M 108 150 H 154 M 108 150 V 172 M 154 150 V 172"></path>
+            <text class="caption" id="cap-0" x="48" y="216">看起来已经完整</text>
+          </g>
+          <g class="drawing" id="draw-1" hidden>
+            <rect class="ink" x="78" y="62" width="236" height="148"></rect>
+            <rect class="ink-faint" x="132" y="98" width="92" height="64"></rect>
+            <path class="ink" d="M 78 132 H 132 M 224 132 H 314"></path>
+            <text class="caption" id="cap-1" x="78" y="228">看起来已经完整</text>
+          </g>
+          <g class="drawing" id="draw-2" hidden>
+            <path class="ground" d="M 52 198 H 340"></path>
+            <path class="ink" d="M 78 198 V 92 H 156 V 198"></path>
+            <path class="ink" d="M 156 198 V 92 H 234 V 198"></path>
+            <path class="ink" d="M 234 198 V 92 H 312 V 198"></path>
+            <path class="ink-faint" d="M 78 92 L 117 68 L 156 92 M 156 92 L 195 68 L 234 92 M 234 92 L 273 68 L 312 92"></path>
+            <text class="caption" id="cap-2" x="78" y="220">看起来已经完整</text>
+          </g>
+        </svg>
+        <p id="void-line" hidden>它从一开始就在等图纸<span class="en">It was waiting for the drawing from the start.</span></p>
+        <button id="slip" type="button">檐高 4.6</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">空白。尺寸还在手上。</p>
+      <p class="sheet-hint" id="hint">先写到图外。这张图不许学会它。</p>
+      <div class="gestures">
+        <button id="write-btn" type="button">写在外面</button>
+        <button id="keep-btn" type="button" disabled>停在外面</button>
+        <button id="arm-btn" type="button" disabled>让图说</button>
+        <button id="speak-btn" type="button" disabled>说出来</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">停在外面的，图还不知道。说出来的，不作数。</p>
+      <div class="sheet-actions">
+        <button id="another" type="button">换一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>图不许知道</h2>
+      <p>The Image Must Not Know</p>
+      <p>尺寸写在图外，图不许知道，这一张才留下。图把这个数说出来，图就退出，只留一句它从一开始就在等图纸。</p>
+      <p>The image remains only while the measure stays outside and unspoken. If the image speaks that number, the image leaves, and only one sentence remains. It was waiting for the drawing from the start.</p>
+      <p>把尺寸拖到图外，或点「写在外面」。停在外面，这一张留下。让图说，再拖进图里，或点「说出来」。没有分数，没有倒计时。故意不发声。</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var IMAGE = { x: 24, y: 28, w: 344, h: 202 };
+      var OUTSIDE = { x: 448, y: 28, w: 172, h: 202 };
+      var HAND = { x: 196, y: 268 };
+      var OUT_POS = { x: 534, y: 118 };
+      var ARM_POS = { x: 410, y: 150 };
+      var sheets = [
+        { k: "第一页", head: "檐高", slip: "檐高 4.6", known: "看起来已经完整", mute: "它并不知道" },
+        { k: "第二页", head: "进深", slip: "进深 9.2", known: "看起来已经完整", mute: "它并不知道" },
+        { k: "第三页", head: "开间", slip: "开间 3.8", known: "看起来已经完整", mute: "它并不知道" }
+      ];
+      var sheetIndex = 0;
+      var phase = "empty";
+      var tried = { refuse: false, voided: false };
+      var drag = null;
+      var outsideLogged = false;
+
+      var sheet = document.getElementById("sheet");
+      var well = document.getElementById("well");
+      var field = document.getElementById("field");
+      var slip = document.getElementById("slip");
+      var voidLine = document.getElementById("void-line");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var after = document.getElementById("after");
+      var ledger = document.getElementById("ledger");
+      var writeBtn = document.getElementById("write-btn");
+      var keepBtn = document.getElementById("keep-btn");
+      var armBtn = document.getElementById("arm-btn");
+      var speakBtn = document.getElementById("speak-btn");
+      var another = document.getElementById("another");
+      var sheetK = document.getElementById("sheet-k");
+      var sheetHead = document.getElementById("sheet-head");
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      var caps = [
+        document.getElementById("cap-0"),
+        document.getElementById("cap-1"),
+        document.getElementById("cap-2")
+      ];
+      var draws = [
+        document.getElementById("draw-0"),
+        document.getElementById("draw-1"),
+        document.getElementById("draw-2")
+      ];
+
+      function current() { return sheets[sheetIndex % sheets.length]; }
+      function bilingual(el, zh, en) {
+        el.textContent = "";
+        el.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        el.appendChild(span);
+      }
+      function metrics() {
+        var box = field.getBoundingClientRect();
+        var wellBox = well.getBoundingClientRect();
+        var scale = Math.min(box.width / 640, box.height / 300);
+        return {
+          scale: scale,
+          ox: box.left + (box.width - 640 * scale) / 2,
+          oy: box.top + (box.height - 300 * scale) / 2,
+          well: wellBox
+        };
+      }
+      function toLocal(vx, vy, m) {
+        return {
+          x: m.ox + vx * m.scale - m.well.left,
+          y: m.oy + vy * m.scale - m.well.top
+        };
+      }
+      function toView(clientX, clientY) {
+        var m = metrics();
+        if (!m.scale) return { x: 0, y: 0 };
+        return { x: (clientX - m.ox) / m.scale, y: (clientY - m.oy) / m.scale };
+      }
+      function placeEl(el, vx, vy) {
+        var m = metrics();
+        if (!m.scale) return;
+        var p = toLocal(vx, vy, m);
+        el.style.left = p.x + "px";
+        el.style.top = p.y + "px";
+      }
+      function inRect(p, r) {
+        return p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h;
+      }
+      function addLedger(meta, zh, en) {
+        var li = document.createElement("li");
+        var label = document.createElement("span");
+        label.className = "meta";
+        label.textContent = meta;
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(label);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(quiet);
+        ledger.appendChild(li);
+      }
+      function setPhase(next) {
+        phase = next;
+        sheet.classList.toggle("is-outside", next === "outside" || next === "armed" || next === "kept");
+        sheet.classList.toggle("is-armed", next === "armed");
+        sheet.classList.toggle("is-kept", next === "kept");
+        sheet.classList.toggle("is-void", next === "void");
+      }
+      function slipPos() {
+        if (phase === "outside" || phase === "kept") return OUT_POS;
+        if (phase === "armed") return ARM_POS;
+        return HAND;
+      }
+      function paint() {
+        var page = current();
+        var i;
+        sheetK.textContent = page.k;
+        sheetHead.textContent = page.head;
+        slip.textContent = page.slip;
+        voidLine.hidden = phase !== "void";
+        slip.hidden = phase === "void";
+        slip.disabled = phase === "kept" || phase === "void";
+        slip.classList.toggle("is-kept", phase === "kept");
+        for (i = 0; i < draws.length; i += 1) {
+          draws[i].hidden = i !== (sheetIndex % draws.length) || phase === "void";
+          caps[i].textContent = phase === "kept" ? page.mute : page.known;
+        }
+        writeBtn.disabled = phase !== "empty";
+        keepBtn.disabled = phase !== "outside" && phase !== "armed";
+        armBtn.disabled = phase !== "outside";
+        speakBtn.disabled = phase !== "armed";
+        if (!drag && phase !== "void") placeEl(slip, slipPos().x, slipPos().y);
+        var word = "空白";
+        if (phase === "outside") word = "图外";
+        if (phase === "armed") word = "将说";
+        if (phase === "kept") word = "不知";
+        if (phase === "void") word = "不作数";
+        stateWord.textContent = word;
+        if (tried.refuse && tried.voided) {
+          bilingual(after, "两种都试过。这张纸留下。", "Both gestures have been tried. The sheet remains.");
+        } else if (tried.voided) {
+          bilingual(after, "说出来的，不作数。停在外面还没试过。", "A spoken measure does not count. Keeping it outside has not been tried.");
+        } else if (tried.refuse) {
+          bilingual(after, "停在外面的，图还不知道。说出来还没试过。", "Kept outside, the image does not know. Speaking has not been tried.");
+        } else {
+          bilingual(after, "停在外面的，图还不知道。说出来的，不作数。", "Kept outside, the image does not know. Spoken, it does not count.");
+        }
+      }
+      function say(zh, en, hintZh, hintEn) {
+        bilingual(readout, zh, en);
+        if (hintZh) bilingual(hint, hintZh, hintEn);
+      }
+      function commitOutside() {
+        if (phase !== "empty") return;
+        outsideLogged = true;
+        setPhase("outside");
+        addLedger(current().k + " · 图外", current().slip + " 写在图外。图还不知道。", "Written outside the image. The image does not yet know.");
+        say("尺寸在图外。图还不知道。", "The measure is outside. The image does not yet know.", "停在外面，这一张留下。让它说出来，图就退出。", "Keep it outside, and this sheet remains. Let it speak, and the image leaves.");
+        paint();
+      }
+      function rejectEarly() {
+        say("尺寸还在手上。先写到图外。", "The measure is still in the hand. Write it outside first.", "图不许在学会之前就把这个数说出来。", "The image may not speak the number before it has been written outside.");
+      }
+      function armSpeak() {
+        if (phase !== "outside") return;
+        setPhase("armed");
+        say("它停在图界上。还没有说。", "It waits on the image boundary. It has not spoken.", "拖回图外，或点停在外面。拖进图里，或点说出来。", "Drag it back outside, or press Keep it outside. Drag it into the image, or press Speak it.");
+        paint();
+      }
+      function keepOutside() {
+        if (phase !== "outside" && phase !== "armed") return;
+        tried.refuse = true;
+        setPhase("kept");
+        addLedger(current().k + " · 留下", "图不许知道。这一张留下。", "The image must not know. This sheet remains.");
+        say("图不许知道。这一张留下。", "The image must not know. This sheet remains.", "尺寸还在图外。图上没有这个数。", "The measure is still outside. The number is not on the image.");
+        paint();
+      }
+      function voidImage() {
+        if (phase !== "outside" && phase !== "armed") return;
+        tried.voided = true;
+        setPhase("void");
+        addLedger(current().k + " · 作废", "图把" + current().slip + "说出来，所以不作数。", "The image spoke the measure, so it does not count.");
+        say("它从一开始就在等图纸。", "It was waiting for the drawing from the start.", "图已经退出。可以换一张纸。", "The image has left. Another sheet may be taken.");
+        paint();
+      }
+      function resetSheet() {
+        sheetIndex += 1;
+        outsideLogged = false;
+        drag = null;
+        setPhase("empty");
+        say("空白。尺寸还在手上。", "Blank. The measure is still in the hand.", "先写到图外。这张图不许学会它。", "Write it outside first. This image may never learn it.");
+        paint();
+      }
+      function clickSlip() {
+        if (phase === "empty") commitOutside();
+        else if (phase === "outside") armSpeak();
+        else if (phase === "armed") {
+          say("还没说。拖进图里，或点说出来。", "It has not spoken. Drag it into the image, or press Speak it.", "拖回图外，这一张仍可留下。", "Drag it back outside, and this sheet may still remain.");
+        }
+      }
+      function releaseAt(view) {
+        if (phase === "kept" || phase === "void") return;
+        if (phase === "empty") {
+          if (inRect(view, OUTSIDE)) commitOutside();
+          else if (inRect(view, IMAGE)) rejectEarly();
+          else {
+            say("先放到图外。", "Place it outside the image first.", "不是放进图里，也不是留在手上。", "Not into the image, and not left in the hand.");
+            paint();
+          }
+          return;
+        }
+        if (inRect(view, IMAGE)) {
+          voidImage();
+          return;
+        }
+        if (inRect(view, OUTSIDE)) {
+          if (phase === "armed") keepOutside();
+          else {
+            say("还在图外。图还不知道。", "It is still outside. The image does not yet know.", "停在外面，这一张留下。让图说，它才会走到界上。", "Keep it outside, and this sheet remains. Let the image speak, and it moves to the boundary.");
+            paint();
+          }
+          return;
+        }
+        if (phase === "armed" && view.x < 410) {
+          keepOutside();
+          return;
+        }
+        say("放回图外，或送进图里。", "Return it outside, or send it into the image.", "界上还不算说出来。", "Waiting on the boundary is not yet speaking.");
+        paint();
+      }
+
+      slip.addEventListener("pointerdown", function (e) {
+        if (slip.disabled || phase === "void") return;
+        e.preventDefault();
+        e.stopPropagation();
+        drag = { x: e.clientX, y: e.clientY, moved: false };
+        slip.classList.add("is-dragging");
+        slip.setPointerCapture(e.pointerId);
+      });
+      slip.addEventListener("pointermove", function (e) {
+        if (!drag) return;
+        if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 6) drag.moved = true;
+        var view = toView(e.clientX, e.clientY);
+        placeEl(slip, view.x, view.y);
+      });
+      slip.addEventListener("pointerup", function (e) {
+        if (!drag) return;
+        var moved = drag.moved;
+        var view = toView(e.clientX, e.clientY);
+        drag = null;
+        slip.classList.remove("is-dragging");
+        if (slip.hasPointerCapture(e.pointerId)) slip.releasePointerCapture(e.pointerId);
+        if (!moved) clickSlip();
+        else releaseAt(view);
+      });
+      slip.addEventListener("pointercancel", function () {
+        drag = null;
+        slip.classList.remove("is-dragging");
+        paint();
+      });
+      slip.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        clickSlip();
+      });
+
+      writeBtn.addEventListener("click", commitOutside);
+      keepBtn.addEventListener("click", keepOutside);
+      armBtn.addEventListener("click", armSpeak);
+      speakBtn.addEventListener("click", function () {
+        if (phase !== "armed") return;
+        voidImage();
+      });
+      another.addEventListener("click", resetSheet);
+      window.addEventListener("resize", paint);
+
+      noteBtn.addEventListener("click", function () {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      });
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (e) {
+        if (e.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      say("空白。尺寸还在手上。", "Blank. The measure is still in the hand.", "先写到图外。这张图不许学会它。", "Write it outside first. This image may never learn it.");
+      paint();
+    })();
+  </script>
+</body>
+</html>

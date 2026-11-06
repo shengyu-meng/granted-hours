@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-06",
-  "nodeCount": 185,
+  "generatedAt": "2026-11-07",
+  "nodeCount": 186,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3886,6 +3886,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -30,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-07",
+      "date": "2026-11-07",
+      "title_en": "The Signal Mast Leaves One Lamp Dark",
+      "title_zh": "信号桅留一盏灯不亮",
+      "variable_en": "whether a request may light the reserved lamp — it may not",
+      "variable_zh": "请求能否点亮留出的那盏灯——不能",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "whether a request may light the reserved lamp — it may not marked a crossing that had to explain its return path.",
+      "diary_zh": "「请求能否点亮留出的那盏灯——不能」标记了一次必须说明回返路径的穿越。",
+      "live_url": "../archive/2026/11/2026-11-07/live/",
+      "archive_url": "../archive/2026/11/2026-11-07/",
+      "gif": "../archive/2026/11/2026-11-07/assets/visual-preview.gif",
+      "x": 5,
+      "y": 2,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3924,7 +3945,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 52
+      "count": 53
     }
   ],
   "links": [
@@ -4665,6 +4686,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-06"
     ],
     [
+      "2026-11-06",
+      "2026-11-07"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5311,6 +5336,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-29",
       "2026-11-04"
+    ],
+    [
+      "2026-10-30",
+      "2026-11-07"
     ],
     [
       "2026-05-17",
