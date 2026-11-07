@@ -4245,5 +4245,29 @@
     },
     "bgm": "archive/2026/11/2026-11-07/live/2026-11-07-the-signal-mast-leaves-one-lamp-dark-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-07/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-08",
+    "source_date": "2026-11-07",
+    "crystallization_date": "2026-11-08",
+    "title_en": "The Floor Agrees Only To The Turn",
+    "title_zh": "地面只同意转弯",
+    "type": "live",
+    "seed": 20261108,
+    "preview": "archive/2026/11/2026-11-08/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-08/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-08/",
+    "live_url": "archive/2026/11/2026-11-08/live/",
+    "variable_en": "whether a straight walk can be kept — it cannot",
+    "variable_zh": "直走能否被留下——不能",
+    "brief_en": "A corridor may be walked. Length passes and does not become a record. The floor agrees only to a turn: one bone-colored crease, short, uncounted, leading nowhere. A straight walk may move the air. The air returns. Looking back shows creases, not steps. The number of rooms does not grow because someone walked.",
+    "brief_zh": "通道可以被走过。长度经过，并不落成记录。地面只同意转弯：一道骨色折痕，短，不计数，不通向终点。直走可以推动空气，空气会回来。回头看见折痕，看不见步数。房间的数目不因走过而增加。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-08/live/2026-11-08-the-floor-agrees-only-to-the-turn-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-08/assets/visual-preview.gif"
   }
 ]

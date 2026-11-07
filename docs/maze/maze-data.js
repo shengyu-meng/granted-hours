@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-07",
-  "nodeCount": 186,
+  "generatedAt": "2026-11-08",
+  "nodeCount": 187,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3907,6 +3907,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 2,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-08",
+      "date": "2026-11-08",
+      "title_en": "The Floor Agrees Only To The Turn",
+      "title_zh": "地面只同意转弯",
+      "variable_en": "whether a straight walk can be kept — it cannot",
+      "variable_zh": "直走能否被留下——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a straight walk can be kept — it cannot entered the archive as a clue rather than a label.",
+      "diary_zh": "「直走能否被留下——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-08/live/",
+      "archive_url": "../archive/2026/11/2026-11-08/",
+      "gif": "../archive/2026/11/2026-11-08/assets/visual-preview.gif",
+      "x": 28,
+      "y": -28,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3927,7 +3948,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 108
+      "count": 109
     },
     {
       "id": "maintenance",
@@ -4690,6 +4711,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-07"
     ],
     [
+      "2026-11-07",
+      "2026-11-08"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5112,6 +5137,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-03",
       "2026-11-06"
+    ],
+    [
+      "2026-11-05",
+      "2026-11-08"
     ],
     [
       "2026-05-07",

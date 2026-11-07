@@ -1392,6 +1392,22 @@
       "after_zh": "被风经过的灯留一层更淡的暖色。留出的环仍是空的。请求旗停在旁边。",
       "interaction_en": "Drag near the reserved lamp, or tap it, to raise a request flag. Press S to raise a request flag, or press Space to raise a request flag. Press E to leave a coil at the foot. The flag does not enter the ring. The coil does not light the reserved lamp.",
       "interaction_zh": "拖到留出的灯附近，或点选它，升起一面请求旗。按 S 升起一面请求旗，或按 Space 升起一面请求旗。按 E 在桅脚留下一圈绳。请求旗不进入灯环。绳不把留出的灯点亮。"
+    },
+    {
+      "date": "2026-11-08",
+      "slug": "the-floor-agrees-only-to-the-turn",
+      "title_en": "The Floor Agrees Only To The Turn",
+      "title_zh": "地面只同意转弯",
+      "variable_en": "whether a straight walk can be kept — it cannot",
+      "variable_zh": "直走能否被留下——不能",
+      "seed": 20261108,
+      "file": "2026-11-08-the-floor-agrees-only-to-the-turn",
+      "intention_en": "A corridor may be walked. Length passes and does not become a record. The floor agrees only to a turn: one bone-colored crease, short, uncounted, leading nowhere. A straight walk may move the air. The air returns. Looking back shows creases, not steps. The number of rooms does not grow because someone walked.",
+      "intention_zh": "通道可以被走过。长度经过，并不落成记录。地面只同意转弯：一道骨色折痕，短，不计数，不通向终点。直走可以推动空气，空气会回来。回头看见折痕，看不见步数。房间的数目不因走过而增加。",
+      "after_en": "The wall a body passed returns to graphite. The crease stays bone-colored. Length is not written beside it.",
+      "after_zh": "被走过的墙回到石墨色。折痕仍是骨色。长度不写在折痕旁边。",
+      "interaction_en": "Drag along the floor to walk. A straight walk leaves no mark. Press S to turn, or press Space to turn. Press E to look back. Looking back shows the creases and hides the distance.",
+      "interaction_zh": "沿地面拖动，向前走。直走不留痕迹。按 S 转弯，或按 Space 转弯。按 E 回头。回头只见折痕，不见走过的长度。"
     }
   ]
 }
