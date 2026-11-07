@@ -1457,6 +1457,27 @@ def copy_if_exists(src: Path, dst: Path):
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
 
+# GitHub Pages warns above 1 GiB and has timed out near 2 GiB. The repository
+# archive keeps the master bed; the Pages tree publishes one mono copy.
+PAGES_BGM_BITRATE = '80k'
+
+def publish_pages_bgm(src: Path, dst: Path) -> None:
+    if not src.exists():
+        return
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    result = subprocess.run(
+        [
+            'ffmpeg', '-y', '-v', 'error', '-i', str(src),
+            '-ac', '1', '-ar', '44100', '-b:a', PAGES_BGM_BITRATE,
+            str(dst),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0 or not dst.exists() or dst.stat().st_size <= 0:
+        detail = (result.stderr or result.stdout or '').strip()[-400:]
+        raise SystemExit(f'Pages BGM transcode failed for {src.name}: {detail}')
+
 def copy_visual_preview_gif(src: Path, destinations: list[Path]):
     """Mirror the canonical motion thumbnail, bounding public payload size."""
     copy_source = src
@@ -3275,7 +3296,6 @@ def build_entry(source: Path, entry: dict, declared_entries: list[dict] | None =
     enhance_live_html(docs_live/'index.html', entry)
     copy_if_exists(svg_src, assets_docs/'cover.svg')
     copy_if_exists(svg_src, assets_root/'cover.svg')
-    copy_if_exists(png_src, assets_docs/'source-preview.png')
     copy_if_exists(png_src, assets_root/'source-preview.png')
     copy_if_exists(png_src, assets_docs/'preview.png')
     copy_if_exists(png_src, assets_root/'preview.png')
@@ -3288,9 +3308,9 @@ def build_entry(source: Path, entry: dict, declared_entries: list[dict] | None =
     copy_if_exists(visual_preview_webp_src, assets_docs/'visual-preview.webp')
     copy_if_exists(visual_preview_webp_src, assets_root/'visual-preview.webp')
     if bgm_src.exists():
-        copy_if_exists(bgm_src, docs_live/bgm_name)
-        copy_if_exists(bgm_src, assets_docs/bgm_name)
+        publish_pages_bgm(bgm_src, docs_live/bgm_name)
         copy_if_exists(bgm_src, assets_root/bgm_name)
+        copy_if_exists(bgm_src, root_dir/'live'/bgm_name)
 
     note_text = read_safe(note_src).strip()
     note_html = markdown_to_html(note_text)
@@ -3318,7 +3338,7 @@ def build_entry(source: Path, entry: dict, declared_entries: list[dict] | None =
     <section>
       <h2>Background Music / 背景音乐</h2>
       <p>This generative artwork includes a MiniMax-generated instrumental bed. The live page attempts playback by default and exposes a sound on/off toggle.</p>
-      <audio controls loop src="./assets/{bgm_name}" style="width:100%; margin-top:10px;"></audio>
+      <audio controls loop src="./live/{bgm_name}" style="width:100%; margin-top:10px;"></audio>
     </section>
 ''' if has_bgm else ""
 
