@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-09 — The Shade Does Not Become A Path / 影子并不成为路**<br>
+  Variable / 自由变量：whether a passing shade can be walked — it cannot / 经过的影子能否被走过——不能<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-09/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-09/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-09/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-09/live/)
 - **2026-11-08 — The Floor Agrees Only To The Turn / 地面只同意转弯**<br>
   Variable / 自由变量：whether a straight walk can be kept — it cannot / 直走能否被留下——不能<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

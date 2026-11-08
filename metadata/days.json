@@ -4269,5 +4269,29 @@
     },
     "bgm": "archive/2026/11/2026-11-08/live/2026-11-08-the-floor-agrees-only-to-the-turn-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-08/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-09",
+    "source_date": "2026-11-08",
+    "crystallization_date": "2026-11-09",
+    "title_en": "The Shade Does Not Become A Path",
+    "title_zh": "影子并不成为路",
+    "type": "live",
+    "seed": 20261109,
+    "preview": "archive/2026/11/2026-11-09/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-09/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-09/",
+    "live_url": "archive/2026/11/2026-11-09/live/",
+    "variable_en": "whether a passing shade can be walked — it cannot",
+    "variable_zh": "经过的影子能否被走过——不能",
+    "brief_en": "A shade crosses the ground on its own time. It is visible. It is not an invitation. A step toward it stops outside the standing stone and does not enter the shade. Watching makes the edge clearer. Clarity is not consent. The stone does not move.",
+    "brief_zh": "影子按自己的时间经过地面。它可见。它不是邀请。朝它迈步，脚印停在立石外侧，不进入影子。观看让边缘更清楚。清楚不是同意。立石不因此移动。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-09/live/2026-11-09-the-shade-does-not-become-a-path-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-09/assets/visual-preview.gif"
   }
 ]

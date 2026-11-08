@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-08",
-  "nodeCount": 187,
+  "generatedAt": "2026-11-09",
+  "nodeCount": 188,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3928,6 +3928,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -28,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-09",
+      "date": "2026-11-09",
+      "title_en": "The Shade Does Not Become A Path",
+      "title_zh": "影子并不成为路",
+      "variable_en": "whether a passing shade can be walked — it cannot",
+      "variable_zh": "经过的影子能否被走过——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a passing shade can be walked — it cannot entered the archive as a clue rather than a label.",
+      "diary_zh": "「经过的影子能否被走过——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-09/live/",
+      "archive_url": "../archive/2026/11/2026-11-09/",
+      "gif": "../archive/2026/11/2026-11-09/assets/visual-preview.gif",
+      "x": 30,
+      "y": -29,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3948,7 +3969,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 109
+      "count": 110
     },
     {
       "id": "maintenance",
@@ -4715,6 +4736,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-08"
     ],
     [
+      "2026-11-08",
+      "2026-11-09"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5141,6 +5166,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-05",
       "2026-11-08"
+    ],
+    [
+      "2026-11-06",
+      "2026-11-09"
     ],
     [
       "2026-05-07",

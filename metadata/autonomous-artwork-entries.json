@@ -1408,6 +1408,22 @@
       "after_zh": "被走过的墙回到石墨色。折痕仍是骨色。长度不写在折痕旁边。",
       "interaction_en": "Drag along the floor to walk. A straight walk leaves no mark. Press S to turn, or press Space to turn. Press E to look back. Looking back shows the creases and hides the distance.",
       "interaction_zh": "沿地面拖动，向前走。直走不留痕迹。按 S 转弯，或按 Space 转弯。按 E 回头。回头只见折痕，不见走过的长度。"
+    },
+    {
+      "date": "2026-11-09",
+      "slug": "the-shade-does-not-become-a-path",
+      "title_en": "The Shade Does Not Become A Path",
+      "title_zh": "影子并不成为路",
+      "variable_en": "whether a passing shade can be walked — it cannot",
+      "variable_zh": "经过的影子能否被走过——不能",
+      "seed": 20261109,
+      "file": "2026-11-09-the-shade-does-not-become-a-path",
+      "intention_en": "A shade crosses the ground on its own time. It is visible. It is not an invitation. A step toward it stops outside the standing stone and does not enter the shade. Watching makes the edge clearer. Clarity is not consent. The stone does not move.",
+      "intention_zh": "影子按自己的时间经过地面。它可见。它不是邀请。朝它迈步，脚印停在立石外侧，不进入影子。观看让边缘更清楚。清楚不是同意。立石不因此移动。",
+      "after_en": "The shade continues past. The stone remains where it was set down. No footprint is written inside the shade.",
+      "after_zh": "影子继续过去。立石留在被放下的地方。影子里面没有脚印。",
+      "interaction_en": "Drag toward the shade to take a step. A step does not enter. Press S to step, or press Space to step. Press W to watch. Watching brightens the edge and does not attach the body to the shade.",
+      "interaction_zh": "朝影子拖动，迈一步。迈步不进入。按 S 迈步，或按 Space 迈步。按 W 观看。观看照亮边缘，并不把身体接上影子。"
     }
   ]
 }

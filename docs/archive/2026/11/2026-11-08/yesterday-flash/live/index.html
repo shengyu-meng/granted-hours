@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .state-word {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      color: var(--violet);
+    }
+    .sheet.is-before .state-word,
+    .sheet.is-yield .state-word,
+    .sheet.is-exchanged .state-word { color: #3e5960; }
+    .sheet.is-held .state-word,
+    .sheet.is-passed .state-word { color: #6d5424; }
+    .sheet.is-shrunk .state-word,
+    .sheet.is-declared .state-word { color: var(--refusal); }
+    .pair {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: rgba(26, 33, 31, 0.72);
+    }
+    .pair .drop { color: var(--refusal); }
+    .pair .hold { color: #6d5424; }
+    .pair .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .well {
+      position: relative;
+      height: 300px;
+      border-top: 1px solid var(--hair);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 28%),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26, 33, 31, 0.045) 28px),
+        var(--paper);
+      display: flex;
+      flex-direction: column;
+    }
+    .well svg { width: 100%; height: 100%; min-height: 0; flex: 1; display: block; }
+    .ink { fill: rgba(26, 33, 31, 0.04); stroke: rgba(26, 33, 31, 0.72); stroke-width: 1.35; stroke-linejoin: round; }
+    .ink-side { fill: rgba(26, 33, 31, 0.015); stroke: rgba(26, 33, 31, 0.45); }
+    .ink-top { fill: rgba(255, 255, 255, 0.2); stroke: rgba(26, 33, 31, 0.55); }
+    .sheet.is-held .ink,
+    .sheet.is-passed .ink { stroke: rgba(109, 84, 36, 0.85); }
+    .sheet.is-shrunk .ink,
+    .sheet.is-declared .ink { stroke: rgba(141, 92, 86, 0.9); fill: rgba(141, 92, 86, 0.06); }
+    .gap-ink { fill: none; stroke: rgba(26, 33, 31, 0.55); stroke-width: 1.4; }
+    .ground { stroke: rgba(26, 33, 31, 0.35); stroke-width: 1; }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      fill: rgba(26, 33, 31, 0.5);
+    }
+    .vol {
+      font-family: Palatino, "Palatino Linotype", "Songti SC", serif;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+      fill: rgba(26, 33, 31, 0.28);
+    }
+    .sheet.is-before .vol,
+    .sheet.is-yield .vol,
+    .sheet.is-exchanged .vol { fill: rgba(26, 33, 31, 0.78); }
+    .sheet.is-held .vol,
+    .sheet.is-passed .vol { fill: #6d5424; }
+    .sheet.is-shrunk .vol,
+    .sheet.is-declared .vol { fill: var(--refusal); }
+    .walker { fill: none; stroke: rgba(26, 33, 31, 0.55); stroke-width: 1.3; stroke-linecap: round; }
+    .sheet.is-passed .walker { stroke: #6d5424; }
+    .sheet.is-shrunk .walker,
+    .sheet.is-declared .walker { stroke: rgba(141, 92, 86, 0.7); }
+    .axes {
+      display: flex;
+      gap: 8px;
+      padding: 8px 10px 10px;
+      border-top: 1px solid var(--hair);
+    }
+    .axes button {
+      min-width: 44px;
+      min-height: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+    .axes button.is-facing { border-color: rgba(184, 146, 74, 0.9); }
+    .axes button.is-yield { background: rgba(184, 146, 74, 0.16); }
+    .axes button.is-receive { background: rgba(127, 158, 166, 0.18); }
+    .axes button:disabled { opacity: 0.4; cursor: default; }
+    .axes button:disabled.is-yield,
+    .axes button:disabled.is-receive,
+    .axes button:disabled.is-facing { opacity: 1; }
+    #path-line, #shrink-line {
+      position: absolute;
+      z-index: 1;
+      left: 8%;
+      width: 54%;
+      margin: 0;
+      pointer-events: none;
+      letter-spacing: 0.06em;
+    }
+    #path-line {
+      top: 64%;
+      left: 46%;
+      width: 36%;
+      color: #6d5424;
+      font-size: 16px;
+    }
+    #shrink-line {
+      top: 22%;
+      left: 8%;
+      width: 42%;
+      color: var(--refusal);
+      font-size: 18px;
+      letter-spacing: 0.16em;
+    }
+    #path-line[hidden], #shrink-line[hidden] { display: none; }
+    #path-line .en, #shrink-line .en {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    #shrink-line .en { color: rgba(141, 92, 86, 0.8); }
+    .readout, .sheet-hint { margin: 0; font-size: 13px; color: rgba(26, 33, 31, 0.68); }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .sheet-actions button, .note-btn, .note-close, .axes button {
+      touch-action: manipulation;
+    }
+    .gestures button, .sheet-actions button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+    .gestures button:disabled, .sheet-actions button:disabled { opacity: 0.45; cursor: default; }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .axes button:focus-visible,
+    .gestures button:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      .well { height: 220px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      min-height: calc(100% - 12px);
+      height: auto;
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .well { height: 210px; }
+    body.is-embed .sheet-title strong,
+    body.is-embed .state-word { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .walker, #block { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。体积不许减：过之前写一个体积，过之后再写一个，两个数必须一样。变的只能是厚度从哪条轴让出来、又被哪条轴接住。这句话要用走路的人碰得到的话说。体积要是小了，这一页还是缩小声明，不许叫通过。皮肤的年份：只挑一块砖，写下地的年份和皮的年份。地是测绘发生的那一年，皮是这套画法属于的十年，两个数不许相同。再写一句只有站在其中一年才说得通、走路的人会用的话。两个年份怎么写都一样，这张图还是借了地的钟的贴图，还没变成场地。算在自己身上：只准用这块地自己的颗粒量一次。失败也写在卡上，失败就是这一次的结果。另一间房里更细的那次划掉，旁边注明另一间房，不许用它来证明这块地算成了。</p>
+    <p class="en">Three glints are still lit; only one can be entered. Volume Must Not Shrink: before the passage, write a volume. After it, write another. The two numbers must be the same. Only the thickness may change, and only by naming which axis yielded it and which axis received it. Say that in words a walking person would bump into. If the volume got smaller, the page is still a shrinking statement, and it may not be called a passage. The Year of the Skin: pick one tile. Write the year of the ground and the year of the skin. The ground's year is when the survey happened. The skin's year is the decade the drawing method belongs to. The two numbers must not match. Then write one sentence that makes sense only when standing in one of those years, a sentence a walking person would use. If the years always come out the same, the image is still a texture that borrowed the ground's clock. It is not yet a site. Reckoned on Its Own Body: measure once, only at this site's own grain. Write the failure on the card. The failure is the result. Cross out the finer measurement from the other room, mark it as the other room, and do not use it to prove that this site computed.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 体积不许减</p>
+    <section class="sheet" id="sheet" aria-label="体积不许减">
+      <div class="sheet-title">
+        <div>
+          <span class="k" id="sheet-k">第一页</span>
+          <strong id="sheet-head">门洞</strong>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">空白</p>
+      </div>
+      <p class="pair" id="pair">过前 — · 过后 —</p>
+      <div class="well" id="well">
+        <svg id="field" viewBox="0 0 640 250" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <line class="ground" x1="28" y1="206" x2="612" y2="206"></line>
+          <g id="gap"></g>
+          <g id="block">
+            <path id="face-top" class="ink-top"></path>
+            <path id="face-side" class="ink-side"></path>
+            <path id="face-front" class="ink"></path>
+          </g>
+          <g id="walker">
+            <circle class="walker" cx="0" cy="-28" r="4.5"></circle>
+            <path class="walker" d="M 0 -23 V -8 M 0 -16 L -8 -8 M 0 -16 L 8 -6 M 0 -8 L -7 6 M 0 -8 L 7 6"></path>
+          </g>
+          <text class="vol" id="vol-figure" x="36" y="42">—</text>
+          <text class="svg-label" id="eq" x="36" y="62"></text>
+          <text class="svg-label" id="gap-label" x="430" y="36"></text>
+        </svg>
+        <p id="path-line" hidden></p>
+        <p id="shrink-line" hidden>缩小声明<span class="en">Shrinking statement</span></p>
+        <div class="axes" role="group" aria-label="三条轴">
+          <button id="axis-w" type="button">宽</button>
+          <button id="axis-d" type="button">深</button>
+          <button id="axis-h" type="button">高</button>
+        </div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">空白。体积还没写。</p>
+      <p class="sheet-hint" id="hint">先写下过前的体积。缝还对着一条过不去的轴。</p>
+      <div class="gestures">
+        <button id="write-before" type="button">写下过前的体积</button>
+        <button id="shrink" type="button" disabled>缩小</button>
+        <button id="write-after" type="button" disabled>再写一个体积</button>
+        <button id="walk" type="button" disabled>写成碰到的句子</button>
+        <button id="name-pass" type="button" disabled>叫通过</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">体积小了，不许叫通过。数一样，才写成碰到的句子。</p>
+      <div class="sheet-actions">
+        <button id="another" type="button">换一张纸</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>体积不许减</h2>
+      <p>Volume Must Not Shrink</p>
+      <p>过之前写一个体积，过之后再写一个。两个数必须一样。变的只能是厚度从哪条轴让出来、又被哪条轴接住。体积小了，不许叫通过。</p>
+      <p>Write a volume before the passage, and another after. The two numbers must match. Only the thickness may change axis. If the volume gets smaller, it may not be called a passage.</p>
+      <p>写下过前的体积。点对着缝的轴让出，再点另一条轴接住，或点缩小。再写一个体积。数一样，才写成碰到的句子。没有分数，没有倒计时。故意不发声。</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var AX = { w: "宽", d: "深", h: "高" };
+      var AXEN = { w: "width", d: "depth", h: "height" };
+      var WALKS = {
+        "w-h": ["肩侧让出，头顶接住。", "The shoulder yields, and the crown receives it."],
+        "w-d": ["正面让出，侧面接住。", "The front yields, and the side receives it."],
+        "h-w": ["头顶让出，肩侧接住。", "The crown yields, and the shoulder receives it."],
+        "h-d": ["头顶让出，墙侧接住。", "The crown yields, and the wall side receives it."]
+      };
+      var sheets = [
+        { k: "第一页", head: "门洞", facing: "w", gap: 4, w: 6, d: 2, h: 4 },
+        { k: "第二页", head: "低梁", facing: "h", gap: 3, w: 4, d: 2, h: 6 },
+        { k: "第三页", head: "窄缝", facing: "w", gap: 4, w: 8, d: 3, h: 4 }
+      ];
+
+      var sheetIndex = 0;
+      var phase = "empty";
+      var yieldAxis = null;
+      var receiveAxis = null;
+      var live = null;
+      var writtenBefore = null;
+      var writtenAfter = null;
+      var tried = { passed: false, declared: false };
+
+      var sheet = document.getElementById("sheet");
+      var sheetK = document.getElementById("sheet-k");
+      var sheetHead = document.getElementById("sheet-head");
+      var stateWord = document.getElementById("state-word");
+      var pair = document.getElementById("pair");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var after = document.getElementById("after");
+      var ledger = document.getElementById("ledger");
+      var volFigure = document.getElementById("vol-figure");
+      var eq = document.getElementById("eq");
+      var gapLabel = document.getElementById("gap-label");
+      var gap = document.getElementById("gap");
+      var faceFront = document.getElementById("face-front");
+      var faceSide = document.getElementById("face-side");
+      var faceTop = document.getElementById("face-top");
+      var block = document.getElementById("block");
+      var walker = document.getElementById("walker");
+      var pathLine = document.getElementById("path-line");
+      var shrinkLine = document.getElementById("shrink-line");
+      var axisBtns = {
+        w: document.getElementById("axis-w"),
+        d: document.getElementById("axis-d"),
+        h: document.getElementById("axis-h")
+      };
+      var writeBefore = document.getElementById("write-before");
+      var shrinkBtn = document.getElementById("shrink");
+      var writeAfter = document.getElementById("write-after");
+      var walkBtn = document.getElementById("walk");
+      var namePass = document.getElementById("name-pass");
+      var another = document.getElementById("another");
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+
+      function current() { return sheets[sheetIndex % sheets.length]; }
+      function baseDims(item) { return { w: item.w, d: item.d, h: item.h }; }
+      function product(dim) { return dim.w * dim.d * dim.h; }
+      function say(el, zh, en) {
+        el.textContent = "";
+        el.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        el.appendChild(span);
+      }
+      function whole(n) { return n === Math.round(n); }
+      function exchange(item, receive) {
+        var next = baseDims(item);
+        var yielded = next[item.facing];
+        next[item.facing] = item.gap;
+        next[receive] = next[receive] * yielded / item.gap;
+        if (!whole(next.w) || !whole(next.d) || !whole(next.h)) return null;
+        if (product(next) !== product(baseDims(item))) return null;
+        return next;
+      }
+      function shrinkDims(item) {
+        var next = baseDims(item);
+        next[item.facing] = item.gap;
+        return next;
+      }
+      function addLedger(meta, zh, en) {
+        var li = document.createElement("li");
+        var label = document.createElement("span");
+        label.className = "meta";
+        label.textContent = meta;
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(label);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(quiet);
+        ledger.appendChild(li);
+      }
+      function point(dim, x, y, z) {
+        var px = 86 + x * dim.w * 16 + z * dim.d * 11 * 0.7;
+        var py = 206 - y * dim.h * 14 + z * dim.d * 11 * 0.36;
+        return px.toFixed(1) + " " + py.toFixed(1);
+      }
+      function face(dim, corners) {
+        return "M " + corners.map(function (c) { return point(dim, c[0], c[1], c[2]); }).join(" L ") + " Z";
+      }
+      function drawGap(item) {
+        gap.textContent = "";
+        var ns = gap.namespaceURI;
+        function line(x1, y1, x2, y2) {
+          var el = document.createElementNS(ns, "line");
+          el.setAttribute("class", "gap-ink");
+          el.setAttribute("x1", x1);
+          el.setAttribute("y1", y1);
+          el.setAttribute("x2", x2);
+          el.setAttribute("y2", y2);
+          gap.appendChild(el);
+        }
+        if (item.facing === "w") {
+          var open = item.gap * 16;
+          line(468, 206, 468, 92);
+          line(468 + open, 206, 468 + open, 92);
+          line(468, 92, 468 + open, 92);
+        } else {
+          var lintel = 206 - item.gap * 14;
+          line(468, 206, 468, lintel);
+          line(548, 206, 548, lintel);
+          line(456, lintel, 560, lintel);
+          line(456, lintel - 7, 560, lintel - 7);
+        }
+      }
+      function setPhase(next) {
+        phase = next;
+        ["empty", "before", "yield", "exchanged", "shrunk", "held", "declared", "passed"].forEach(function (name) {
+          sheet.classList.toggle("is-" + name, next === name);
+        });
+      }
+      function render() {
+        var item = current();
+        var dims = live || baseDims(item);
+        var beforeVol = product(baseDims(item));
+        var nowVol = product(dims);
+        sheetK.textContent = item.k;
+        sheetHead.textContent = item.head;
+        var words = {
+          empty: "空白",
+          before: "过前",
+          yield: "让出",
+          exchanged: "换轴",
+          shrunk: "缩小",
+          held: "还在",
+          declared: "不许",
+          passed: "通过"
+        };
+        stateWord.textContent = words[phase] || "空白";
+        volFigure.textContent = writtenBefore == null ? "—" : String(writtenAfter == null ? writtenBefore : writtenAfter);
+        eq.textContent = "宽 " + dims.w + " · 深 " + dims.d + " · 高 " + dims.h + " · 现在 " + nowVol;
+        gapLabel.textContent = (item.facing === "h" ? "梁 " : "缝 ") + item.gap + " · 对着" + AX[item.facing];
+        faceFront.setAttribute("d", face(dims, [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]]));
+        faceSide.setAttribute("d", face(dims, [[1, 0, 0], [1, 0, 1], [1, 1, 1], [1, 1, 0]]));
+        faceTop.setAttribute("d", face(dims, [[0, 1, 0], [1, 1, 0], [1, 1, 1], [0, 1, 1]]));
+        drawGap(item);
+        var frontRight = 86 + dims.w * 16;
+        var shift = phase === "passed" ? Math.max(40, 468 - frontRight) : 0;
+        block.setAttribute("transform", "translate(" + shift + ",0)");
+        walker.setAttribute("transform", "translate(" + (phase === "passed" ? 492 : 360) + ",206)");
+        pathLine.hidden = phase !== "passed";
+        shrinkLine.hidden = phase !== "shrunk" && phase !== "declared";
+        if (phase === "passed" && yieldAxis && receiveAxis) {
+          var walk = WALKS[yieldAxis + "-" + receiveAxis];
+          say(pathLine, walk[0], walk[1]);
+        }
+        ["w", "d", "h"].forEach(function (axis) {
+          var btn = axisBtns[axis];
+          var label = AX[axis];
+          btn.classList.toggle("is-facing", axis === item.facing);
+          btn.classList.toggle("is-yield", axis === yieldAxis);
+          btn.classList.toggle("is-receive", axis === receiveAxis);
+          if (axis === item.facing) label += " · 缝";
+          if (axis === yieldAxis) label = AX[axis] + " · 让出";
+          if (axis === receiveAxis) label = AX[axis] + " · 接住";
+          btn.textContent = label;
+          btn.disabled = phase === "empty" || phase === "exchanged" || phase === "shrunk" || phase === "held" || phase === "declared" || phase === "passed";
+        });
+        writeBefore.disabled = phase !== "empty";
+        shrinkBtn.disabled = phase !== "before" && phase !== "yield";
+        writeAfter.disabled = phase !== "exchanged" && phase !== "shrunk";
+        walkBtn.disabled = phase !== "held";
+        namePass.disabled = phase !== "held" && phase !== "declared";
+        var beforeText = writtenBefore == null ? "—" : String(writtenBefore);
+        var afterText = writtenAfter == null ? "—" : String(writtenAfter);
+        pair.textContent = "";
+        pair.appendChild(document.createTextNode("过前 " + beforeText + " · 过后 "));
+        var afterSpan = document.createElement("span");
+        afterSpan.textContent = afterText;
+        if (writtenAfter != null && writtenBefore != null && writtenAfter < writtenBefore) afterSpan.className = "drop";
+        if (writtenAfter != null && writtenAfter === writtenBefore) afterSpan.className = "hold";
+        pair.appendChild(afterSpan);
+        var en = document.createElement("span");
+        en.className = "en";
+        en.textContent = "before " + beforeText + " / after " + afterText + " / now " + nowVol;
+        pair.appendChild(en);
+        var facing = AX[item.facing];
+        if (phase === "empty") {
+          say(readout, "空白。体积还没写。现在 " + nowVol + "，还不算写下。", "Blank. The volume is not yet written. The present " + nowVol + " is not yet written down.");
+          say(hint, "先写下过前的体积。缝对着" + facing + "。", "Write the volume before. The gap faces " + AXEN[item.facing] + ".");
+        } else if (phase === "before") {
+          say(readout, "过前 " + writtenBefore + "。缝对着" + facing + "，这一面过不去。", "Before " + writtenBefore + ". The gap faces " + AXEN[item.facing] + ", and that face does not pass.");
+          say(hint, "点" + facing + "让出，再点另一条轴接住。或点缩小。", "Press " + AXEN[item.facing] + " to yield, then another axis to receive it. Or press Shrink.");
+        } else if (phase === "yield") {
+          say(readout, facing + "让出。还没人接住。体积仍是 " + writtenBefore + "。", AXEN[item.facing] + " yields. Nothing has received it. The volume is still " + writtenBefore + ".");
+          say(hint, "点另一条轴接住。同一条轴接不住自己。", "Press another axis to receive it. The same axis cannot receive itself.");
+        } else if (phase === "exchanged") {
+          say(readout, AX[yieldAxis] + "让给" + AX[receiveAxis] + "。现在仍是 " + nowVol + "。再写下这个数。", AXEN[yieldAxis] + " yielded to " + AXEN[receiveAxis] + ". It is still " + nowVol + ". Write that number.");
+          say(hint, "再写一个体积。数一样，才有资格写成碰到的句子。", "Write the volume after. Only a matching number may become a sentence one would bump into.");
+        } else if (phase === "shrunk") {
+          say(readout, facing + "小了。现在 " + nowVol + "，比过前 " + writtenBefore + " 小。这是缩小，不是通过。", AXEN[item.facing] + " got smaller. Now " + nowVol + ", smaller than " + writtenBefore + ". This is shrinking, not passage.");
+          say(hint, "再写一个体积。小了的数不许叫通过。", "Write the volume after. A smaller number may not be called a passage.");
+        } else if (phase === "held") {
+          say(readout, "两个数都是 " + writtenBefore + "。还没写成碰到的句子。", "Both numbers are " + writtenBefore + ". The sentence one would bump into is not yet written.");
+          say(hint, "写成碰到的句子，才算通过。直接叫通过不算。", "It is passage only when written as a sentence one would bump into. Naming it so does not count.");
+        } else if (phase === "declared") {
+          say(readout, "过后 " + writtenAfter + "。这一页是缩小声明。", "After " + writtenAfter + ". This page is a shrinking statement.");
+          say(hint, "叫通过也不算。可以换一张纸。", "Naming it a passage does not count. Another sheet may be taken.");
+        } else if (phase === "passed") {
+          var line = WALKS[yieldAxis + "-" + receiveAxis];
+          say(readout, "通过。" + line[0], "Passage. " + line[1]);
+          say(hint, "这张纸留下。可以换另一张。", "This sheet remains. Another may be taken.");
+        }
+        if (tried.passed && tried.declared) {
+          say(after, "两种都试过。缩小的留下为声明，换轴的留下为通过。", "Both have been tried. What shrank remains a statement. What changed axis remains passage.");
+        }
+        void beforeVol;
+      }
+
+      function onAxis(axis) {
+        var item = current();
+        if (phase !== "before" && phase !== "yield") return;
+        if (phase === "before") {
+          if (axis !== item.facing) {
+            say(readout, "让出的不是对着缝的那条轴。体积还在，人还是过不去。", "The yielded axis is not the one facing the gap. The volume remains, and a person still cannot pass.");
+            say(hint, "缝对着" + AX[item.facing] + "。点那一条让出。", "The gap faces " + AXEN[item.facing] + ". Press that one to yield.");
+            return;
+          }
+          yieldAxis = axis;
+          setPhase("yield");
+          render();
+          return;
+        }
+        if (axis === yieldAxis) {
+          say(readout, "同一条轴接不住自己让出的厚度。", "The same axis cannot receive the thickness it yielded.");
+          return;
+        }
+        var next = exchange(item, axis);
+        if (!next) {
+          say(readout, "这条轴接不住一个整数的厚度。换一条。", "That axis cannot receive the thickness as a whole measure. Choose another.");
+          return;
+        }
+        receiveAxis = axis;
+        live = next;
+        setPhase("exchanged");
+        render();
+      }
+
+      writeBefore.addEventListener("click", function () {
+        if (phase !== "empty") return;
+        writtenBefore = product(baseDims(current()));
+        setPhase("before");
+        addLedger(current().k + " · 过前", "过前 " + writtenBefore, "Before " + writtenBefore);
+        render();
+      });
+      axisBtns.w.addEventListener("click", function () { onAxis("w"); });
+      axisBtns.d.addEventListener("click", function () { onAxis("d"); });
+      axisBtns.h.addEventListener("click", function () { onAxis("h"); });
+      shrinkBtn.addEventListener("click", function () {
+        if (phase !== "before" && phase !== "yield") return;
+        var item = current();
+        yieldAxis = null;
+        receiveAxis = null;
+        live = shrinkDims(item);
+        setPhase("shrunk");
+        addLedger(item.k + " · 缩小", AX[item.facing] + "小了，现在 " + product(live), AXEN[item.facing] + " shrank. Now " + product(live));
+        render();
+      });
+      writeAfter.addEventListener("click", function () {
+        if (phase !== "exchanged" && phase !== "shrunk") return;
+        var item = current();
+        writtenAfter = product(live);
+        if (phase === "exchanged" && writtenAfter === writtenBefore) {
+          setPhase("held");
+          addLedger(item.k + " · 过后", "过后 " + writtenAfter + "，" + AX[yieldAxis] + "让给" + AX[receiveAxis], "After " + writtenAfter + ", " + AXEN[yieldAxis] + " yielded to " + AXEN[receiveAxis]);
+        } else {
+          setPhase("declared");
+          tried.declared = true;
+          addLedger(item.k + " · 声明", "缩小声明。过后 " + writtenAfter + "，不许叫通过。", "Shrinking statement. After " + writtenAfter + ". It may not be called a passage.");
+        }
+        render();
+      });
+      walkBtn.addEventListener("click", function () {
+        if (phase !== "held" || !yieldAxis || !receiveAxis) return;
+        var line = WALKS[yieldAxis + "-" + receiveAxis];
+        if (!line) return;
+        setPhase("passed");
+        tried.passed = true;
+        addLedger(current().k + " · 碰到", line[0], line[1]);
+        render();
+      });
+      namePass.addEventListener("click", function () {
+        if (phase === "declared") {
+          say(readout, "不许叫通过。体积小了，这一页还是缩小声明。", "It may not be called a passage. The volume got smaller, so the page remains a shrinking statement.");
+          say(hint, "叫通过不算。账页不记通过。", "Naming it a passage does not count. The ledger does not record a passage.");
+          return;
+        }
+        if (phase === "held") {
+          say(readout, "还没写成碰到的句子，不许叫通过。", "The sentence one would bump into is not yet written, so it may not be called a passage.");
+          return;
+        }
+      });
+      another.addEventListener("click", function () {
+        sheetIndex += 1;
+        phase = "empty";
+        yieldAxis = null;
+        receiveAxis = null;
+        live = null;
+        writtenBefore = null;
+        writtenAfter = null;
+        setPhase("empty");
+        render();
+      });
+
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", function () {
+        if (note.hidden) openNote();
+        else closeNote();
+      });
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      setPhase("empty");
+      render();
+    })();
+  </script>
+</body>
+</html>
