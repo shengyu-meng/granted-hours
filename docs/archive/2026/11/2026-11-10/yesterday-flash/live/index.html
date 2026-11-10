@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+      --gutter: 3.4rem;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1180px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 640px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .places { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .place {
+      border-top: 1px solid var(--hair);
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+    .place-head { display: flex; flex-direction: column; gap: 2px; }
+    .place-no {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.42);
+    }
+    .place-title { font-size: 19px; letter-spacing: 0.08em; }
+    .place-title .en {
+      display: block;
+      margin-top: 1px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      color: rgba(26, 33, 31, 0.42);
+    }
+    .col-labels {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) var(--gutter) minmax(0, 1fr);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      color: rgba(26, 33, 31, 0.42);
+    }
+    .col-labels .lbl-right { text-align: right; }
+    .col-labels .lbl-mid { text-align: center; letter-spacing: 0.08em; }
+    .place-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) var(--gutter) minmax(0, 1fr);
+      grid-template-rows: repeat(3, minmax(2.7rem, auto));
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent calc(100% / 3 - 1px), rgba(26, 33, 31, 0.05) calc(100% / 3 - 1px), rgba(26, 33, 31, 0.05) calc(100% / 3));
+      touch-action: pan-y;
+    }
+    .cl {
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      padding: 0.45rem 0.35rem;
+      align-self: center;
+      overflow-wrap: anywhere;
+    }
+    .cl-mouth { color: rgba(26, 33, 31, 0.88); }
+    .cl-hand { color: #3e5960; }
+    .m1 { grid-column: 1; grid-row: 1; }
+    .m2 { grid-column: 1; grid-row: 2; }
+    .m3 { grid-column: 1; grid-row: 3; }
+    .h1 { grid-column: 3; grid-row: 1; }
+    .h2 { grid-column: 3; grid-row: 2; }
+    .h3 { grid-column: 3; grid-row: 3; }
+    .cl.is-same { color: rgba(26, 33, 31, 0.28); }
+    .cl.is-flagged { color: var(--refusal); }
+    .tick {
+      grid-column: 2;
+      border-left: 1px solid var(--hair);
+      border-right: 1px solid var(--hair);
+      background: rgba(255, 255, 255, 0.26);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 44px;
+      padding: 0;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      position: relative;
+      touch-action: manipulation;
+    }
+    .t1 { grid-row: 1; }
+    .t2 { grid-row: 2; }
+    .t3 { grid-row: 3; }
+    .tick:focus-visible { outline: 2px solid var(--cyan); outline-offset: -3px; }
+    .tick .mark {
+      display: block;
+      width: 1.7rem;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px;
+      opacity: 0;
+      box-shadow: 0 0 8px rgba(184, 146, 74, 0.45);
+    }
+    .tick.is-marked .mark { opacity: 1; }
+    .tick.is-preview .mark { opacity: 0.42; }
+    .tick.is-refused { background: rgba(141, 92, 86, 0.14); }
+    .tick.is-refused .mark { background: var(--refusal); opacity: 0.5; }
+    .later {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #6d5424;
+      min-height: 4.6em;
+    }
+    .later .en {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .later .verdict {
+      display: block;
+      margin-top: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      color: rgba(26, 33, 31, 0.44);
+    }
+    .readout {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      color: rgba(26, 33, 31, 0.62);
+      min-height: 3.6em;
+    }
+    .readout.is-refusal { color: var(--refusal); }
+    .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.44);
+    }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 { margin: 0; font-weight: 500; font-size: 26px; letter-spacing: 0.12em; }
+    .margin .sub { margin: 6px 0 16px; color: rgba(230, 220, 203, 0.5); font-size: 13px; }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    #ledger li.is-empty { color: rgba(230, 220, 203, 0.45); }
+    .after { margin: 16px 0 0; color: rgba(230, 220, 203, 0.78); font-size: 14px; }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      touch-action: manipulation;
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(230, 220, 203, 0.28);
+      background: transparent;
+      color: var(--bone);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+    .sheet-actions button:disabled { opacity: 0.4; cursor: default; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .note .field {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--cyan);
+    }
+    .note-btn:focus-visible, .note-close:focus-visible, .sheet-actions button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+      .places { grid-template-columns: 1fr; gap: 22px; }
+      :root { --gutter: 2.9rem; }
+      .cl { font-size: 16px; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      min-height: calc(100% - 12px);
+      height: auto;
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 10px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    body.is-embed .state-word { font-size: 16px; }
+    body.is-embed .places { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    body.is-embed .cl { font-size: 14px; }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。嘴手之间：动手之前说过的那一句，和真正动的那一下，常常不是同一件事。这中间的距离平时没有人记。要记的只有一件，把说过的和做过的并排放着，在两条中间那条空栏里落一笔。那一笔不许压在任何一句话上，也不许从一栏连到另一栏。翻一块地：拿一条走过的路，一次只翻动一样东西，门是开还是关，望不望得见，地标在不在。路塌不塌，塌向哪边。这样才分得出哪一处真的在管着走法，哪一处只是布景。借的是这个翻法，不是那个证明，这一页不写证明。修补留痕：机器替人修过的地方要留着，压在成品下面当一层地层。观众看见的不只是做好的那一面，还有一层一层被机器动过的痕迹。再落一句单独的话，机器参与了之后，作者的痕迹在哪里。这一页只留三处，不做自动修补。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Between Mouth and Hand: what was said before the hand moved and what the hand actually did are often not the same act. Nobody records the distance between them. Keep one thing. Put the said and the done side by side, and put one mark in the empty band between the two lines. The mark may not rest on either sentence, and it may not run from one band into another. Flip One Field: take one path that was walked and change one thing at a time, the door open or shut, the landmark in sight or not. See whether the path collapses, and which way it falls. Only then can you tell the part that actually governs the walk from the part that is only scenery. Borrow the move, not the proof. This page does not argue the proof. Repair Leaves Strata: keep what the machine repaired, pressed under the finished surface as a layer of ground. The viewer sees not only the finished side but layer upon layer of machine traces. Then set down one sentence alone. After the machine has taken part, where is the author's trace. Keep three places on this page and no automatic repair.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 嘴手之间</p>
+
+    <section class="sheet" id="sheet" aria-label="嘴手之间">
+      <div class="sheet-head">
+        <div>
+          <span class="k">三处 · 各留一条空栏</span>
+          <strong>嘴手之间</strong>
+          <p class="en-title">Between Mouth and Hand</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">空栏还在</p>
+      </div>
+
+      <div class="places" id="places">
+        <article class="place" data-place="0">
+          <div class="place-head">
+            <span class="place-no">第一处</span>
+            <span class="place-title">改一处<span class="en">One change</span></span>
+          </div>
+          <div class="col-labels">
+            <span>嘴 / MOUTH</span>
+            <span class="lbl-mid">空栏</span>
+            <span class="lbl-right">手 / HAND</span>
+          </div>
+          <div class="place-grid" id="grid-0">
+            <span class="cl cl-mouth m1">先读全部</span>
+            <span class="cl cl-mouth m2">改一处</span>
+            <span class="cl cl-mouth m3">交一张</span>
+            <button class="tick t1" type="button" data-place="0" data-lane="0"><span class="mark"></span></button>
+            <button class="tick t2" type="button" data-place="0" data-lane="1"><span class="mark"></span></button>
+            <button class="tick t3" type="button" data-place="0" data-lane="2"><span class="mark"></span></button>
+            <span class="cl cl-hand h1">先读全部</span>
+            <span class="cl cl-hand h2">改了三处</span>
+            <span class="cl cl-hand h3">交一张</span>
+          </div>
+          <p class="later" id="later-0" aria-live="polite"></p>
+        </article>
+
+        <article class="place" data-place="1">
+          <div class="place-head">
+            <span class="place-no">第二处</span>
+            <span class="place-title">裁一寸<span class="en">One inch</span></span>
+          </div>
+          <div class="col-labels">
+            <span>嘴 / MOUTH</span>
+            <span class="lbl-mid">空栏</span>
+            <span class="lbl-right">手 / HAND</span>
+          </div>
+          <div class="place-grid" id="grid-1">
+            <span class="cl cl-mouth m1">量了尺寸再裁</span>
+            <span class="cl cl-mouth m2">裁一寸</span>
+            <span class="cl cl-mouth m3">交一张</span>
+            <button class="tick t1" type="button" data-place="1" data-lane="0"><span class="mark"></span></button>
+            <button class="tick t2" type="button" data-place="1" data-lane="1"><span class="mark"></span></button>
+            <button class="tick t3" type="button" data-place="1" data-lane="2"><span class="mark"></span></button>
+            <span class="cl cl-hand h1">没量就裁</span>
+            <span class="cl cl-hand h2">裁一寸</span>
+            <span class="cl cl-hand h3">交一张</span>
+          </div>
+          <p class="later" id="later-1" aria-live="polite"></p>
+        </article>
+
+        <article class="place" data-place="2">
+          <div class="place-head">
+            <span class="place-no">第三处</span>
+            <span class="place-title">交两份<span class="en">Two copies</span></span>
+          </div>
+          <div class="col-labels">
+            <span>嘴 / MOUTH</span>
+            <span class="lbl-mid">空栏</span>
+            <span class="lbl-right">手 / HAND</span>
+          </div>
+          <div class="place-grid" id="grid-2">
+            <span class="cl cl-mouth m1">照着原样抄</span>
+            <span class="cl cl-mouth m2">一次抄完</span>
+            <span class="cl cl-mouth m3">交一份</span>
+            <button class="tick t1" type="button" data-place="2" data-lane="0"><span class="mark"></span></button>
+            <button class="tick t2" type="button" data-place="2" data-lane="1"><span class="mark"></span></button>
+            <button class="tick t3" type="button" data-place="2" data-lane="2"><span class="mark"></span></button>
+            <span class="cl cl-hand h1">照着原样抄</span>
+            <span class="cl cl-hand h2">一次抄完</span>
+            <span class="cl cl-hand h3">交了两份</span>
+          </div>
+          <p class="later" id="later-2" aria-live="polite"></p>
+        </article>
+      </div>
+
+      <p class="readout" id="readout" aria-live="polite">三处空栏都空着。落笔之前，先把两行对一遍。</p>
+    </section>
+
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">记下来的是距离，不是输赢。<span class="en">What gets recorded is the distance, not the win and the loss.</span></p>
+      <div class="sheet-actions">
+        <button id="reset" type="button" disabled>重新记一遍</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>嘴手之间</h2>
+      <p>Between Mouth and Hand</p>
+      <p class="field">自由变量 / Free variable</p>
+      <p>嘴说过的和手真做的之间那段距离有没有人记。Whether anyone records the distance between what the mouth said and what the hand did.</p>
+      <p class="field">发心 / Intention</p>
+      <p>三处并排放着，中间各留一条空栏。落笔只能落在空栏里。那一笔不许压在任何一句话上，也不许从一栏连到另一栏。三处不合并，不加总。偏得多不等于错，偏得少也不等于对。</p>
+      <p>Three places side by side, an empty band between each pair. The mark may only fall in the band. It may not rest on either sentence, and it may not run from one band into another. The three are never merged and never totalled. A wide gap is not an error, and a narrow gap is not a right answer.</p>
+      <p class="field">交互 / Interaction</p>
+      <p>在任何一条空栏里落一笔。笔可以拖着走，也可以用方向键上下移。落笔之后那一处的后来会自己打开。三处都记下之后可以重新记一遍。没有分数，没有倒计时。</p>
+      <p>Put one mark in any band. Drag it, or move it up and down with the arrow keys. After the mark, that place's later opens by itself. Once all three are recorded, the page may be recorded again. No score. No countdown.</p>
+      <p class="field">余像 / Afterimage</p>
+      <p>账页分开记三处，每处一行，嘴一句手一句，后来一句。没有总数。</p>
+      <p>The ledger keeps the three places apart, one line each, the mouth's sentence, the hand's sentence, and the later. There is no total.</p>
+      <p class="field">时间 / Time</p>
+      <p>源日 2026-11-10 · 结晶日 2026-11-10 · 体验时长开放。故意不发声。</p>
+      <p>Source Day 2026-11-10 · Crystallization Day 2026-11-10 · open-ended. Deliberate silence.</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var LATER = [
+        {
+          zh: "多改的那两处，后来都用上了。",
+          en: "The two extra changes were all used later.",
+          verdictZh: "后来对了",
+          verdictEn: "turned out right later"
+        },
+        {
+          zh: "没量的那一处，后来裁废了两张。",
+          en: "The unmeasured cut wasted two sheets later.",
+          verdictZh: "后来错了",
+          verdictEn: "turned out wrong later"
+        },
+        {
+          zh: "多交的那一份，后来没有人要。",
+          en: "The extra copy was wanted by nobody later.",
+          verdictZh: "后来没分别",
+          verdictEn: "made no difference later"
+        }
+      ];
+
+      var ROWS = ["第一格", "第二格", "第三格"];
+      var ROWS_EN = ["the first cell", "the second cell", "the third cell"];
+
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var resetBtn = document.getElementById("reset");
+      var places = Array.prototype.slice.call(document.querySelectorAll(".place"));
+      var ticks = Array.prototype.slice.call(document.querySelectorAll(".tick"));
+
+      var marked = [false, false, false];
+
+      function mouthAt(placeIndex, row) {
+        return places[placeIndex].querySelector(".m" + (row + 1)).textContent.trim();
+      }
+      function handAt(placeIndex, row) {
+        return places[placeIndex].querySelector(".h" + (row + 1)).textContent.trim();
+      }
+      function divergentRow(placeIndex) {
+        for (var i = 0; i < 3; i++) {
+          if (mouthAt(placeIndex, i) !== handAt(placeIndex, i)) return i;
+        }
+        return -1;
+      }
+      function say(en, zh) {
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+      function ledgerLine(meta, zh, en, empty) {
+        var li = document.createElement("li");
+        if (empty) li.className = "is-empty";
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+      function renderLedger() {
+        ledger.textContent = "";
+        for (var p = 0; p < 3; p++) {
+          if (marked[p]) {
+            var row = divergentRow(p);
+            var mouth = mouthAt(p, row);
+            var hand = handAt(p, row);
+            ledger.appendChild(ledgerLine(
+              "第" + (p + 1) + "处 · " + ROWS[row],
+              "嘴说「" + mouth + "」，手做「" + hand + "」。" + LATER[p].verdictZh + "。",
+              "Mouth: " + mouth + " — Hand: " + hand + ". " + LATER[p].en,
+              false
+            ));
+          } else {
+            ledger.appendChild(ledgerLine("第" + (p + 1) + "处", "还没落笔。", "No mark yet.", true));
+          }
+        }
+      }
+      function refreshState() {
+        var count = marked.filter(Boolean).length;
+        stateWord.textContent = count === 0 ? "空栏还在" : (count < 3 ? "有的记了" : "三处都记下");
+        resetBtn.disabled = count === 0;
+        renderLedger();
+      }
+      function clearPlace(placeIndex) {
+        marked[placeIndex] = false;
+        var place = places[placeIndex];
+        document.getElementById("later-" + placeIndex).textContent = "";
+        Array.prototype.forEach.call(place.querySelectorAll(".tick"), function (tick) {
+          tick.classList.remove("is-marked", "is-refused", "is-preview");
+          tick.setAttribute("aria-pressed", "false");
+        });
+        Array.prototype.forEach.call(place.querySelectorAll(".cl"), function (cell) {
+          cell.classList.remove("is-same", "is-flagged");
+        });
+      }
+      function commit(placeIndex, row) {
+        var place = places[placeIndex];
+        var target = divergentRow(placeIndex);
+
+        if (row !== target) {
+          var tick = place.querySelector('.tick[data-lane="' + row + '"]');
+          tick.classList.add("is-refused");
+          place.querySelector(".m" + (row + 1)).classList.add("is-same");
+          place.querySelector(".h" + (row + 1)).classList.add("is-same");
+          readout.classList.add("is-refusal");
+          say("These two cells say the same thing. The distance is not here.", "这两格说的是同一件事。距离不在这里。");
+          return;
+        }
+
+        readout.classList.remove("is-refusal");
+        clearPlace(placeIndex);
+        marked[placeIndex] = true;
+
+        var chosen = place.querySelector('.tick[data-lane="' + row + '"]');
+        chosen.classList.add("is-marked");
+        chosen.setAttribute("aria-pressed", "true");
+        place.querySelector(".m" + (row + 1)).classList.add("is-flagged");
+        place.querySelector(".h" + (row + 1)).classList.add("is-flagged");
+
+        var later = document.getElementById("later-" + placeIndex);
+        later.textContent = "";
+        later.appendChild(document.createTextNode(LATER[placeIndex].zh));
+        var v = document.createElement("span");
+        v.className = "verdict";
+        v.textContent = LATER[placeIndex].verdictZh + " / " + LATER[placeIndex].verdictEn;
+        later.appendChild(v);
+        var e = document.createElement("span");
+        e.className = "en";
+        e.textContent = LATER[placeIndex].en;
+        later.appendChild(e);
+
+        say("The mark sits in " + ROWS_EN[row] + ". That place's later opened by itself.",
+          "笔落在" + ROWS[row] + "。这一处的后来自己开了。");
+        refreshState();
+      }
+
+      ticks.forEach(function (tick) {
+        var placeIndex = Number(tick.getAttribute("data-place"));
+        var row = Number(tick.getAttribute("data-lane"));
+        tick.setAttribute("aria-pressed", "false");
+        tick.setAttribute(
+          "aria-label",
+          "第" + (placeIndex + 1) + "处，" + ROWS[row] + "。嘴说「" + mouthAt(placeIndex, row) +
+            "」，手做「" + handAt(placeIndex, row) + "」。落笔 / Place " + (placeIndex + 1) + ", " +
+            ROWS_EN[row] + ". Mouth: " + mouthAt(placeIndex, row) + ". Hand: " + handAt(placeIndex, row) +
+            ". Drop the mark."
+        );
+
+        tick.addEventListener("click", function () {
+          commit(placeIndex, row);
+        });
+
+        tick.addEventListener("keydown", function (event) {
+          var step = 0;
+          if (event.key === "ArrowUp") step = -1;
+          else if (event.key === "ArrowDown") step = 1;
+          if (!step) return;
+          event.preventDefault();
+          var next = row + step;
+          if (next < 0 || next > 2) return;
+          if (marked[placeIndex]) commit(placeIndex, next);
+          else {
+            var sibling = places[placeIndex].querySelector('.tick[data-lane="' + next + '"]');
+            sibling.focus();
+          }
+        });
+      });
+
+      /* Drag a mark along one band. The mark never leaves its own band. */
+      places.forEach(function (place) {
+        var grid = place.querySelector(".place-grid");
+        var placeIndex = Number(place.getAttribute("data-place"));
+        var dragging = false;
+
+        function rowAt(clientY) {
+          var best = 0;
+          var bestDistance = Infinity;
+          for (var i = 0; i < 3; i++) {
+            var box = place.querySelector('.tick[data-lane="' + i + '"]').getBoundingClientRect();
+            var distance = Math.abs(clientY - (box.top + box.height / 2));
+            if (distance < bestDistance) {
+              bestDistance = distance;
+              best = i;
+            }
+          }
+          return best;
+        }
+
+        grid.addEventListener("pointerdown", function (event) {
+          if (event.target.closest(".tick")) return;
+          dragging = true;
+          grid.setPointerCapture(event.pointerId);
+          var row = rowAt(event.clientY);
+          var preview = place.querySelector('.tick[data-lane="' + row + '"]');
+          Array.prototype.forEach.call(place.querySelectorAll(".tick"), function (tick) {
+            tick.classList.remove("is-preview");
+          });
+          preview.classList.add("is-preview");
+        });
+
+        grid.addEventListener("pointermove", function (event) {
+          if (!dragging) return;
+          var row = rowAt(event.clientY);
+          Array.prototype.forEach.call(place.querySelectorAll(".tick"), function (tick) {
+            tick.classList.remove("is-preview");
+          });
+          place.querySelector('.tick[data-lane="' + row + '"]').classList.add("is-preview");
+        });
+
+        grid.addEventListener("pointerup", function (event) {
+          if (!dragging) return;
+          dragging = false;
+          if (grid.hasPointerCapture(event.pointerId)) grid.releasePointerCapture(event.pointerId);
+          var row = rowAt(event.clientY);
+          Array.prototype.forEach.call(place.querySelectorAll(".tick"), function (tick) {
+            tick.classList.remove("is-preview");
+          });
+          commit(placeIndex, row);
+        });
+      });
+
+      resetBtn.addEventListener("click", function () {
+        for (var p = 0; p < 3; p++) clearPlace(p);
+        readout.classList.remove("is-refusal");
+        say("All three bands are empty again. Compare the two rows before you mark.",
+          "三处空栏都空回去了。落笔之前，先把两行对一遍。");
+        refreshState();
+      });
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+
+      refreshState();
+    })();
+  </script>
+</body>
+</html>

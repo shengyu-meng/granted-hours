@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-09",
-  "nodeCount": 188,
+  "generatedAt": "2026-11-11",
+  "nodeCount": 190,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3949,6 +3949,48 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -29,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-10",
+      "date": "2026-11-10",
+      "title_en": "The Lift Does Not Fill",
+      "title_zh": "提起并不填满",
+      "variable_en": "whether a lift can fill what the lid covers — it cannot",
+      "variable_zh": "提起能否填满盖子盖住的地方——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a lift can fill what the lid covers — it cannot entered the archive as a clue rather than a label.",
+      "diary_zh": "「提起能否填满盖子盖住的地方——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-10/live/",
+      "archive_url": "../archive/2026/11/2026-11-10/",
+      "gif": "../archive/2026/11/2026-11-10/assets/visual-preview.gif",
+      "x": 32,
+      "y": -27,
+      "z": 0,
+      "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-11",
+      "date": "2026-11-11",
+      "title_en": "The Kite Keeps the Given Sky",
+      "title_zh": "风筝留住被给予的天",
+      "variable_en": "whether paying out line can lower the kite — it cannot",
+      "variable_zh": "放线能否把风筝放低——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether paying out line can lower the kite — it cannot entered the archive as a clue rather than a label.",
+      "diary_zh": "「放线能否把风筝放低——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-11/live/",
+      "archive_url": "../archive/2026/11/2026-11-11/",
+      "gif": "../archive/2026/11/2026-11-11/assets/visual-preview.gif",
+      "x": 30,
+      "y": -25,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -3969,7 +4011,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 110
+      "count": 112
     },
     {
       "id": "maintenance",
@@ -4740,6 +4782,14 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-09"
     ],
     [
+      "2026-11-09",
+      "2026-11-10"
+    ],
+    [
+      "2026-11-10",
+      "2026-11-11"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5170,6 +5220,14 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-06",
       "2026-11-09"
+    ],
+    [
+      "2026-11-08",
+      "2026-11-10"
+    ],
+    [
+      "2026-11-09",
+      "2026-11-11"
     ],
     [
       "2026-05-07",

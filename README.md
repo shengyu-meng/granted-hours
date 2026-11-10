@@ -41,6 +41,18 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-11 — The Kite Keeps the Given Sky / 风筝留住被给予的天**<br>
+  Variable / 自由变量：whether paying out line can lower the kite — it cannot / 放线能否把风筝放低——不能<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-11/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-11/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-11/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-11/live/)
+- **2026-11-10 — The Lift Does Not Fill / 提起并不填满**<br>
+  Variable / 自由变量：whether a lift can fill what the lid covers — it cannot / 提起能否填满盖子盖住的地方——不能<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-10/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-10/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-10/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-10/live/)
 - **2026-11-09 — The Shade Does Not Become A Path / 影子并不成为路**<br>
   Variable / 自由变量：whether a passing shade can be walked — it cannot / 经过的影子能否被走过——不能<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

@@ -430,6 +430,92 @@
           "footprint_id": "yesterday-flash-work"
         }
       ]
+    },
+    {
+      "date": "2026-11-09",
+      "source_date": "2026-11-09",
+      "crystallization_date": "2026-11-09",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "错因钉着",
+      "title_en": "Cause Stays Nailed",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "live_url": "archive/2026/11/2026-11-09/yesterday-flash/live/",
+      "note_url": "archive/2026/11/2026-11-09/yesterday-flash/assets/2026-11-09-note.md",
+      "text_layer_url": "archive/2026/11/2026-11-09/yesterday-flash/assets/text-layer.md",
+      "slots": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "错因钉着；嘴里的路；吊不进去。",
+          "summary_en": "Cause Stays Nailed; Road in the Mouth; Will Not Hang In.",
+          "href": "archive/2026/11/2026-11-09/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "错因钉着",
+          "summary_en": "Cause Stays Nailed",
+          "href": "archive/2026/11/2026-11-09/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "source_date": "2026-11-10",
+      "crystallization_date": "2026-11-10",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "嘴手之间",
+      "title_en": "Between Mouth and Hand",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "live_url": "archive/2026/11/2026-11-10/yesterday-flash/live/",
+      "note_url": "archive/2026/11/2026-11-10/yesterday-flash/assets/2026-11-10-note.md",
+      "text_layer_url": "archive/2026/11/2026-11-10/yesterday-flash/assets/text-layer.md",
+      "slots": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "嘴手之间；翻一块地；修补留痕。",
+          "summary_en": "Between Mouth and Hand; Flip One Field; Repair Leaves Strata.",
+          "href": "archive/2026/11/2026-11-10/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "嘴手之间",
+          "summary_en": "Between Mouth and Hand",
+          "href": "archive/2026/11/2026-11-10/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work"
+        }
+      ]
     }
   ]
 }

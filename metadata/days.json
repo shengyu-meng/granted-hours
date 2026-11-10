@@ -4293,5 +4293,53 @@
     },
     "bgm": "archive/2026/11/2026-11-09/live/2026-11-09-the-shade-does-not-become-a-path-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-09/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-10",
+    "source_date": "2026-11-09",
+    "crystallization_date": "2026-11-10",
+    "title_en": "The Lift Does Not Fill",
+    "title_zh": "提起并不填满",
+    "type": "live",
+    "seed": 20261110,
+    "preview": "archive/2026/11/2026-11-10/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-10/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-10/",
+    "live_url": "archive/2026/11/2026-11-10/live/",
+    "variable_en": "whether a lift can fill what the lid covers — it cannot",
+    "variable_zh": "提起能否填满盖子盖住的地方——不能",
+    "brief_en": "A lift lets the lid leave the table for a moment. The place under it stays empty. Emptiness is not an object waiting to be put in. The passing breath goes around the outside. Watching makes the rim clearer. Clarity is not consent to place something in. The lid settles where it was.",
+    "brief_zh": "提起让盖子离开桌面一会儿。盖下的那一块仍然是空的。空不是还没放进去的东西。经过的气息绕到外面。观看让边缘更清楚。清楚不是同意放进一件东西。盖子落回原来的位置。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-10/live/2026-11-10-the-lift-does-not-fill-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-10/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-11",
+    "source_date": "2026-11-10",
+    "crystallization_date": "2026-11-11",
+    "title_en": "The Kite Keeps the Given Sky",
+    "title_zh": "风筝留住被给予的天",
+    "type": "live",
+    "seed": 20261111,
+    "preview": "archive/2026/11/2026-11-11/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-11/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-11/",
+    "live_url": "archive/2026/11/2026-11-11/live/",
+    "variable_en": "whether paying out line can lower the kite — it cannot",
+    "variable_zh": "放线能否把风筝放低——不能",
+    "brief_en": "Paying out adds one loop to the coil on the ground. The kite stays in the layer of sky it was given. The extra line remains below and does not trade the sky for something in the hand. Watching makes the line clearer. Clarity is not reeling in. The wind still crosses.",
+    "brief_zh": "放线让地上的线圈多一圈。风筝仍停在被给予的那一层天空里。多出来的线留在下面，并不把天空换成手里的东西。观看让线更清楚。清楚不是收回。风还在横着走。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-11/live/2026-11-11-the-kite-keeps-the-given-sky-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-11/assets/visual-preview.gif"
   }
 ]

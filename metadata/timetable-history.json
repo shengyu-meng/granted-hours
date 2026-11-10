@@ -8217,6 +8217,93 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-11-09",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 3,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 2,
+          "session_count": 2,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "15:09",
+          "end": "23:19",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "把周五傍晚跟████和████的会面日程改到周四下午傍晚，并且当天早上通过 ████ 提醒我。",
+          "request_en": "Move the Friday-evening meeting with ████ and ████ to Thursday late afternoon, and remind me that morning through ████.",
+          "outcome_zh": "15:09–23:19 这组改期与会面提醒的要求，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the request, in the 15:09–23:19 window, to move the meeting to another day and set the same-morning reminder.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 5,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "09:09",
+          "end": "11:39",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "要求逐条总结并逐条回复，并核对是 4 条还是 5 条，因为当时只收到了 1 条。",
+          "request_en": "Asked for an item-by-item summary and reply, and asked whether 4 or 5 items remained, because only 1 reply had arrived.",
+          "outcome_zh": "09:09–11:39 这组逐条总结与回复核对的要求，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the 09:09–11:39 request to summarize and reply item by item and to check the remaining count.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "visual_production",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "12:44",
+          "end": "12:45",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "待视频发布：这个前端给自由画布加了深度变化，只有靠近的画布才会被渲染。某项未公开内容，按深度分层、进视野才填的无限面板。某项未公开内容 这条把空间按深度层切成格子，格子进入视野才填充。某项未公开内容 只写槽位和时间戳，剩下的动画交给 某项未公开内容。帖子给出的规模是 12000 块面板、65000 个字形、65000 个粒子，绘制次数很少，靠实例化。",
+          "request_en": "For a video post: this frontend adds depth to a free canvas so only nearby canvases render. a private item, an infinite panel filled by depth layers only when a cell enters view. a private item slices space into depth-layer cells and fills a cell only when it enters view.",
+          "outcome_zh": "12:44–12:45 这条待发布的视频说明，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the 12:44–12:45 request to prepare that video note.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

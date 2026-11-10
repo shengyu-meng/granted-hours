@@ -1424,6 +1424,38 @@
       "after_zh": "影子继续过去。立石留在被放下的地方。影子里面没有脚印。",
       "interaction_en": "Drag toward the shade to take a step. A step does not enter. Press S to step, or press Space to step. Press W to watch. Watching brightens the edge and does not attach the body to the shade.",
       "interaction_zh": "朝影子拖动，迈一步。迈步不进入。按 S 迈步，或按 Space 迈步。按 W 观看。观看照亮边缘，并不把身体接上影子。"
+    },
+    {
+      "date": "2026-11-10",
+      "slug": "the-lift-does-not-fill",
+      "title_en": "The Lift Does Not Fill",
+      "title_zh": "提起并不填满",
+      "variable_en": "whether a lift can fill what the lid covers — it cannot",
+      "variable_zh": "提起能否填满盖子盖住的地方——不能",
+      "seed": 20261110,
+      "file": "2026-11-10-the-lift-does-not-fill",
+      "intention_en": "A lift lets the lid leave the table for a moment. The place under it stays empty. Emptiness is not an object waiting to be put in. The passing breath goes around the outside. Watching makes the rim clearer. Clarity is not consent to place something in. The lid settles where it was.",
+      "intention_zh": "提起让盖子离开桌面一会儿。盖下的那一块仍然是空的。空不是还没放进去的东西。经过的气息绕到外面。观看让边缘更清楚。清楚不是同意放进一件东西。盖子落回原来的位置。",
+      "after_en": "The lid settles where it was. Nothing remains under it. The chip from the lift stays outside the circle.",
+      "after_zh": "盖子落回原处。盖下仍然没有物件。提起留下的屑停在圆圈外面。",
+      "interaction_en": "Drag upward to lift. A lift does not fill. Press L to lift, or press Space to lift. Press W to watch. Watching brightens the rim and does not place an object under the lid.",
+      "interaction_zh": "向上拖动，提起。提起不填满。按 L 提起，或按 Space 提起。按 W 观看。观看照亮边缘，并不在盖下放入物件。"
+    },
+    {
+      "date": "2026-11-11",
+      "slug": "the-kite-keeps-the-given-sky",
+      "title_en": "The Kite Keeps the Given Sky",
+      "title_zh": "风筝留住被给予的天",
+      "variable_en": "whether paying out line can lower the kite — it cannot",
+      "variable_zh": "放线能否把风筝放低——不能",
+      "seed": 20261111,
+      "file": "2026-11-11-the-kite-keeps-the-given-sky",
+      "intention_en": "Paying out adds one loop to the coil on the ground. The kite stays in the layer of sky it was given. The extra line remains below and does not trade the sky for something in the hand. Watching makes the line clearer. Clarity is not reeling in. The wind still crosses.",
+      "intention_zh": "放线让地上的线圈多一圈。风筝仍停在被给予的那一层天空里。多出来的线留在下面，并不把天空换成手里的东西。观看让线更清楚。清楚不是收回。风还在横着走。",
+      "after_en": "One more loop stays on the ground. The kite remains at the same height. The paid-out line does not become a held sky.",
+      "after_zh": "线圈多留在地上。风筝仍在原来的高度。放出的线没有变成一把抓住的天空。",
+      "interaction_en": "Drag downward to pay out line. Paying out does not lower the kite. Press P to pay out, or press Space to pay out. Press W to watch. Watching brightens the line and does not reel the kite in.",
+      "interaction_zh": "向下拖动，放线。放线不降低风筝。按 P 放线，或按 Space 放线。按 W 观看。观看照亮线，并不收回风筝。"
     }
   ]
 }

@@ -3290,6 +3290,36 @@
       "outcome_en": "No public-safe completion evidence was retained for the posting-date correction in the 11:50–19:02 window.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
+    },
+    "46857b4a87948d04742a0cc33e8b63b38cee56cabddab9c12eaf54eb3c61d5d1": {
+      "date": "2026-11-09",
+      "category": "redacted_private",
+      "request_zh": "把周五傍晚跟████和████的会面日程改到周四下午傍晚，并且当天早上通过 ████ 提醒我。",
+      "request_en": "Move the Friday-evening meeting with ████ and ████ to Thursday late afternoon, and remind me that morning through ████.",
+      "outcome_zh": "15:09–23:19 这组改期与会面提醒的要求，没有留下可公开且可靠对应的完成证据。",
+      "outcome_en": "No public-safe completion evidence was retained for the request, in the 15:09–23:19 window, to move the meeting to another day and set the same-morning reminder.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "36252032174986843b5b022ff016cfb2d07563a50ab063291da99cc7bcd7b520": {
+      "date": "2026-11-10",
+      "category": "redacted_private",
+      "request_zh": "要求逐条总结并逐条回复，并核对是 4 条还是 5 条，因为当时只收到了 1 条。",
+      "request_en": "Asked for an item-by-item summary and reply, and asked whether 4 or 5 items remained, because only 1 reply had arrived.",
+      "outcome_zh": "09:09–11:39 这组逐条总结与回复核对的要求，没有留下可公开且可靠对应的完成证据。",
+      "outcome_en": "No public-safe completion evidence was retained for the 09:09–11:39 request to summarize and reply item by item and to check the remaining count.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "193348ee0059879d2a9ac3125bc626f043a0651c759762c9bda0c854b229157b": {
+      "date": "2026-11-10",
+      "category": "visual_production",
+      "request_zh": "待视频发布：这个前端给自由画布加了深度变化，只有靠近的画布才会被渲染。████，按深度分层、进视野才填的无限面板。████ 这条把空间按深度层切成格子，格子进入视野才填充。████ 只写槽位和时间戳，剩下的动画交给 ████。帖子给出的规模是 12000 块面板、65000 个字形、65000 个粒子，绘制次数很少，靠实例化。",
+      "request_en": "For a video post: this frontend adds depth to a free canvas so only nearby canvases render. ████, an infinite panel filled by depth layers only when a cell enters view. ████ slices space into depth-layer cells and fills a cell only when it enters view. ████ writes only slots and timestamps, leaving the rest of the animation to ████. The post cites 12000 panels, 65000 glyphs, and 65000 particles, with few draw calls through instancing.",
+      "outcome_zh": "12:44–12:45 这条待发布的视频说明，没有留下可公开且可靠对应的完成证据。",
+      "outcome_en": "No public-safe completion evidence was retained for the 12:44–12:45 request to prepare that video note.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
     }
   }
 }

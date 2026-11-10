@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1120px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon, .text-layer { flex: none; }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.56fr);
+      gap: 16px;
+      flex: none;
+      min-height: 0;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { height: auto; min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .sheet-title .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-title strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .state-word {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.18em;
+      color: var(--violet);
+    }
+    .sheet.is-absence .state-word,
+    .sheet.is-nailed .state-word { color: #3e5960; }
+    .sheet.is-retracted .state-word,
+    .sheet.is-held .state-word { color: #6d5424; }
+    .sheet.is-refused .state-word { color: var(--refusal); }
+    .pair {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: rgba(26, 33, 31, 0.72);
+    }
+    .pair .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .well {
+      position: relative;
+      height: 300px;
+      border-top: 1px solid var(--hair);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 28%),
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26, 33, 31, 0.045) 28px),
+        var(--paper);
+    }
+    .well svg { width: 100%; height: 100%; display: block; }
+    .rule { stroke: rgba(26, 33, 31, 0.28); stroke-width: 1; }
+    .title-ink, .body-ink, .because-ink {
+      font-family: Palatino, "Palatino Linotype", "Songti SC", serif;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+    }
+    .title-ink { fill: rgba(26, 33, 31, 0.22); }
+    .sheet.is-absence .title-ink,
+    .sheet.is-nailed .title-ink,
+    .sheet.is-retracted .title-ink,
+    .sheet.is-held .title-ink { fill: rgba(26, 33, 31, 0.86); }
+    .sheet.is-refused .title-ink { fill: var(--refusal); }
+    .because-ink { fill: rgba(26, 33, 31, 0.28); font-size: 16px; }
+    .sheet.is-retracted .because-ink,
+    .sheet.is-held .because-ink { fill: rgba(109, 84, 36, 0.72); }
+    .strike { stroke: rgba(109, 84, 36, 0.85); stroke-width: 1.4; }
+    .body-ink { fill: rgba(26, 33, 31, 0.16); }
+    .sheet.is-nailed .body-ink,
+    .sheet.is-retracted .body-ink,
+    .sheet.is-held .body-ink { fill: rgba(26, 33, 31, 0.88); }
+    .sheet.is-slipping .body-ink {
+      fill: rgba(141, 92, 86, 0.35);
+      transform: translateX(10px);
+    }
+    .nail-stem { stroke: #6d5424; stroke-width: 1.6; }
+    .nail-head { fill: none; stroke: #6d5424; stroke-width: 1.5; }
+    .stamp {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      fill: rgba(109, 84, 36, 0.8);
+    }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      fill: rgba(26, 33, 31, 0.42);
+    }
+    .readout, .sheet-hint { margin: 0; font-size: 13px; color: rgba(26, 33, 31, 0.68); }
+    .readout {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-hint .en, .readout .en, .pair .hold { color: #6d5424; }
+    .sheet-hint .en, .readout .en {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .gestures { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gestures button, .sheet-actions button, .note-btn, .note-close {
+      touch-action: manipulation;
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+    .gestures button:disabled, .sheet-actions button:disabled { opacity: 0.45; cursor: default; }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+    }
+    .margin h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 6px 0 16px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 13px;
+    }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after {
+      margin: 16px 0 0;
+      color: rgba(230, 220, 203, 0.78);
+      font-size: 14px;
+    }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .sheet-actions { margin-top: auto; padding-top: 18px; }
+    .sheet-actions button, .note-btn, .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .gestures button:focus-visible,
+    .sheet-actions button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    @media (max-width: 800px) {
+      .colophon, .text-layer, .stage {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .colophon { padding-top: 10px; }
+      h1 { font-size: 32px; }
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      .well { height: 220px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      min-height: calc(100% - 12px);
+      height: auto;
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet,
+    body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .well { height: 210px; }
+    body.is-embed .sheet-title strong,
+    body.is-embed .state-word { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .body-ink { transition: none; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一下能走进去。错因钉着：标题只许写不再应的那一位。原因另起一行，标明还没换。不许升成这夜的名字，也不许从正文里擦掉。原因那一句可以塌，缺席还钉在身上。嘴里的路：上半张只看结构，写一句这地方在玩什么。下半张写后来知道那里实际有的。两句都留，不涂。上半张若是一张嘴，下半张若是一条路，这张卡才算写成。吊不进去：四角各写它们同意的那一句。中间写那个低到让整套装不进去的事实。再写一句因为这个，同意进不了这间屋。没有那个事实就空着，不要发明一根梁来凑。</p>
+    <p class="en">Three glints are still lit; only one can be entered. Cause Stays Nailed: the title may name only who no longer answers. The cause begins on another line and is marked not yet replaced. It may not rise into the night's name, and it may not be erased from the body. The cause sentence may collapse. The absence stays nailed in the body. Road in the Mouth: the upper half looks only at structure and writes what this place seems to be playing. The lower half writes what was later known to be there. Both sentences stay. Neither is painted over. If the upper half is a mouth and the lower half is a road, the card is written. Will Not Hang In: each corner writes the sentence it agreed to. The center writes the fact low enough that the whole rig will not fit. Then write one sentence, that because of this the agreement cannot enter the room. If that fact is absent, leave the center empty. Do not invent a beam to make it fit.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 错因钉着</p>
+    <section class="sheet is-empty" id="sheet" aria-label="错因钉着">
+      <div class="sheet-title">
+        <div>
+          <span class="k" id="sheet-k">第一夜</span>
+          <strong id="sheet-head">巷口</strong>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">空白</p>
+      </div>
+      <p class="pair" id="pair">标题 — · 正文 —</p>
+      <div class="well" id="well">
+        <svg id="field" viewBox="0 0 640 250" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <text class="svg-label" x="36" y="36">这夜的名字</text>
+          <text class="title-ink" id="title-ink" x="36" y="68">—</text>
+          <line class="rule" x1="28" y1="92" x2="612" y2="92"></line>
+          <text class="svg-label" x="36" y="118">原因那一句</text>
+          <text class="because-ink" id="because-ink" x="36" y="142"></text>
+          <line class="strike" id="strike" x1="36" y1="136" x2="36" y2="136"></line>
+          <text class="svg-label" x="36" y="176">正文</text>
+          <g id="nail" visibility="hidden">
+            <line class="nail-stem" x1="48" y1="168" x2="48" y2="214"></line>
+            <circle class="nail-head" cx="48" cy="164" r="5.5"></circle>
+          </g>
+          <text class="body-ink" id="body-ink" x="68" y="204"></text>
+          <text class="stamp" id="stamp" x="470" y="204"></text>
+        </svg>
+      </div>
+      <p class="readout" id="readout" aria-live="polite">空白。标题还没写。</p>
+      <p class="sheet-hint" id="hint">标题只许写不再应的那一位。错因先别往名字上放。</p>
+      <div class="gestures">
+        <button id="write-absence" type="button">写下谁不再应</button>
+        <button id="nail-cause" type="button">钉住错因</button>
+        <button id="retract" type="button" disabled>撤掉原因那一句</button>
+        <button id="promote" type="button" disabled>升成这夜的名字</button>
+        <button id="erase" type="button" disabled>从正文擦掉</button>
+        <button id="hold" type="button">这一页停</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after" id="after">原因塌了，不许升成名字。钉还在，才算这一页停了。</p>
+      <div class="sheet-actions">
+        <button id="another" type="button">换一夜</button>
+      </div>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>错因钉着</h2>
+      <p>Cause Stays Nailed</p>
+      <p>标题只许写不再应的那一位。原因另起一行，标明还没换。不许升成这夜的名字，也不许从正文里擦掉。原因那一句可以塌，缺席还钉在身上。</p>
+      <p>The title may name only who no longer answers. The cause stays on its own line, marked not yet replaced. It may not become the night's name, and it may not be erased. The sentence may collapse. The nail remains.</p>
+      <p>写下谁不再应。钉住错因。撤掉原因那一句，或试着升名，或试着擦掉。没有分数，没有倒计时。故意不发声。</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var nights = [
+        { k: "第一夜", head: "巷口", absence: "巷口那一位", cause: "原因写早了" },
+        { k: "第二夜", head: "廊下", absence: "廊下那一位", cause: "解释还停在旧处" },
+        { k: "第三夜", head: "门口", absence: "门口那一位", cause: "那一句还没换" }
+      ];
+      var nightIndex = 0;
+      var phase = {
+        absence: false,
+        nailed: false,
+        retracted: false,
+        held: false,
+        promoteRefused: false,
+        eraseRefused: false
+      };
+      var flash = null;
+      var flashMark = 0;
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var sheet = document.getElementById("sheet");
+      var sheetK = document.getElementById("sheet-k");
+      var sheetHead = document.getElementById("sheet-head");
+      var stateWord = document.getElementById("state-word");
+      var pair = document.getElementById("pair");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var after = document.getElementById("after");
+      var ledger = document.getElementById("ledger");
+      var titleInk = document.getElementById("title-ink");
+      var becauseInk = document.getElementById("because-ink");
+      var strike = document.getElementById("strike");
+      var bodyInk = document.getElementById("body-ink");
+      var stamp = document.getElementById("stamp");
+      var nail = document.getElementById("nail");
+      var writeAbsence = document.getElementById("write-absence");
+      var nailCause = document.getElementById("nail-cause");
+      var retractBtn = document.getElementById("retract");
+      var promoteBtn = document.getElementById("promote");
+      var eraseBtn = document.getElementById("erase");
+      var holdBtn = document.getElementById("hold");
+      var another = document.getElementById("another");
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+
+      function current() { return nights[nightIndex % nights.length]; }
+      function say(el, zh, en) {
+        el.textContent = "";
+        el.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        el.appendChild(span);
+      }
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+      function beginFlash(kind) {
+        flashMark += 1;
+        var mark = flashMark;
+        flash = kind;
+        render();
+        window.setTimeout(function () {
+          if (mark !== flashMark) return;
+          flash = null;
+          render();
+        }, reduce ? 0 : 640);
+      }
+      function titleText(item) {
+        if (flash === "promote") return item.cause;
+        if (phase.absence) return item.absence;
+        return "—";
+      }
+      function bodyText(item) {
+        return phase.nailed ? item.cause : "";
+      }
+      function mode() {
+        if (flash === "promote" || flash === "erase") return "is-refused";
+        if (phase.held) return "is-held";
+        if (phase.retracted) return "is-retracted";
+        if (phase.nailed) return "is-nailed";
+        if (phase.absence) return "is-absence";
+        return "is-empty";
+      }
+      function stateLabel() {
+        if (flash === "promote") return "升不上去";
+        if (flash === "erase") return "擦不掉";
+        if (phase.held) return "停了";
+        if (phase.retracted) return "原因塌了";
+        if (phase.nailed) return "钉着";
+        if (phase.absence) return "缺席成题";
+        return "空白";
+      }
+      function render() {
+        var item = current();
+        sheet.className = "sheet " + mode() + (flash === "erase" ? " is-slipping" : "");
+        sheetK.textContent = item.k;
+        sheetHead.textContent = item.head;
+        stateWord.textContent = stateLabel();
+        titleInk.textContent = titleText(item);
+        becauseInk.textContent = phase.nailed ? "因为这一句" : "";
+        var becauseWidth = phase.retracted ? 108 : 0;
+        strike.setAttribute("x2", String(36 + becauseWidth));
+        bodyInk.textContent = bodyText(item);
+        stamp.textContent = phase.nailed ? "还没换" : "";
+        nail.setAttribute("visibility", phase.nailed ? "visible" : "hidden");
+        var titleSide = phase.absence ? item.absence : "—";
+        var bodySide = phase.nailed ? "钉着" : "—";
+        say(pair, "标题 " + titleSide + " · 正文 " + bodySide, flash === "promote" ? "The cause climbed, and was refused." : "Title and body stay apart.");
+        writeAbsence.disabled = phase.absence || phase.held;
+        nailCause.disabled = phase.nailed || phase.held;
+        retractBtn.disabled = !phase.nailed || phase.retracted || phase.held;
+        promoteBtn.disabled = !phase.nailed || phase.held;
+        eraseBtn.disabled = !phase.nailed || phase.held;
+        holdBtn.disabled = phase.held;
+        if (phase.held) {
+          say(readout, "这一页停了。标题是缺席，错因还钉着。", "The page has stopped. The title is the absence. The wrong cause is still nailed.");
+          say(hint, "可以换一夜。这一页不再改。", "Another night may be taken. This page no longer changes.");
+        } else if (flash === "promote") {
+          say(readout, "升不上去。原因回到正文，标明还没换。", "It will not rise. The cause returns to the body, still marked not yet replaced.");
+          say(hint, "这夜的名字不肯收下原因。", "The night's name will not take the cause.");
+        } else if (flash === "erase") {
+          say(readout, "擦不掉。钉还在，句子回到正文。", "It will not erase. The nail remains, and the sentence returns to the body.");
+          say(hint, "正文不许空。错因钉在身上。", "The body may not go empty. The wrong cause stays nailed.");
+        } else if (!phase.absence) {
+          say(readout, "空白。标题还没写。", "Blank. The title has not been written.");
+          say(hint, "标题只许写不再应的那一位。错因先别往名字上放。", "The title may name only who no longer answers. Do not put the cause in the name yet.");
+        } else if (!phase.nailed) {
+          say(readout, "缺席成了标题。错因还没钉进正文。", "The absence is the title. The wrong cause is not yet nailed into the body.");
+          say(hint, "原因另起一行，钉进正文，标明还没换。", "Begin the cause on another line, nail it into the body, and mark it not yet replaced.");
+        } else if (!phase.retracted) {
+          say(readout, "错因钉着。原因那一句还立着。", "The wrong cause is nailed. The cause sentence is still standing.");
+          say(hint, "撤掉原因那一句。钉必须留下。", "Retract the cause sentence. The nail must remain.");
+        } else {
+          say(readout, "原因塌了，钉还在。可以停。", "The cause sentence has collapsed, and the nail remains. The page may stop.");
+          say(hint, "升成名字或从正文擦掉，都不算停。", "Promoting it into the name, or erasing it from the body, does not count as stopping.");
+        }
+        ledger.textContent = "";
+        ledger.appendChild(line("标题 / Title", phase.absence ? item.absence : "空白", phase.absence ? "Absence only." : "No title yet."));
+        ledger.appendChild(line("原因行 / Cause line", phase.retracted ? "塌了，还没换" : (phase.nailed ? "还立着，还没换" : "无"), phase.retracted ? "Collapsed, not yet replaced." : (phase.nailed ? "Still standing, not yet replaced." : "None.")));
+        ledger.appendChild(line("正文的钉 / Nail", phase.nailed ? item.cause : "空", phase.nailed ? "Still nailed in the body." : "Empty."));
+        ledger.appendChild(line("升名 / Promotion", phase.promoteRefused ? "被拒" : "未试", phase.promoteRefused ? "Refused." : "Not tried."));
+        ledger.appendChild(line("擦除 / Erasure", phase.eraseRefused ? "被拒" : "未试", phase.eraseRefused ? "Refused." : "Not tried."));
+        say(after, phase.held ? "这一页停了。原因没有变成这夜的名字。" : "原因塌了，不许升成名字。钉还在，才算这一页停了。", phase.held ? "The page has stopped. The cause did not become the night's name." : "A collapsed cause may not become the name. The page stops only while the nail remains.");
+      }
+      writeAbsence.addEventListener("click", function () {
+        if (writeAbsence.disabled) return;
+        phase.absence = true;
+        render();
+      });
+      nailCause.addEventListener("click", function () {
+        if (nailCause.disabled) return;
+        phase.nailed = true;
+        render();
+      });
+      retractBtn.addEventListener("click", function () {
+        if (retractBtn.disabled) return;
+        phase.retracted = true;
+        render();
+      });
+      promoteBtn.addEventListener("click", function () {
+        if (promoteBtn.disabled) return;
+        phase.promoteRefused = true;
+        beginFlash("promote");
+      });
+      eraseBtn.addEventListener("click", function () {
+        if (eraseBtn.disabled) return;
+        phase.eraseRefused = true;
+        beginFlash("erase");
+      });
+      holdBtn.addEventListener("click", function () {
+        if (holdBtn.disabled || flash) return;
+        if (!phase.absence) {
+          say(readout, "还不能停。标题还不是不再应的那一位。", "It cannot stop. The title is not yet who no longer answers.");
+          return;
+        }
+        if (!phase.nailed) {
+          say(readout, "还不能停。错因还没钉在身上。", "It cannot stop. The wrong cause is not yet nailed in the body.");
+          return;
+        }
+        if (!phase.retracted) {
+          say(readout, "还不能停。原因那一句还没塌。", "It cannot stop. The cause sentence has not collapsed.");
+          return;
+        }
+        phase.held = true;
+        render();
+      });
+      another.addEventListener("click", function () {
+        flashMark += 1;
+        flash = null;
+        nightIndex = (nightIndex + 1) % nights.length;
+        phase = {
+          absence: false,
+          nailed: false,
+          retracted: false,
+          held: false,
+          promoteRefused: false,
+          eraseRefused: false
+        };
+        render();
+      });
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+      render();
+    })();
+  </script>
+</body>
+</html>
