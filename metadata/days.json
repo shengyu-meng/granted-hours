@@ -4341,5 +4341,29 @@
     },
     "bgm": "archive/2026/11/2026-11-11/live/2026-11-11-the-kite-keeps-the-given-sky-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-11/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-12",
+    "source_date": "2026-11-11",
+    "crystallization_date": "2026-11-12",
+    "title_en": "The Needle Does Not Carry North",
+    "title_zh": "针并不带走北方",
+    "type": "live",
+    "seed": 20261112,
+    "preview": "archive/2026/11/2026-11-12/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-12/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-12/",
+    "live_url": "archive/2026/11/2026-11-12/live/",
+    "variable_en": "whether turning the needle can move north — it cannot",
+    "variable_zh": "转动指针能否移动北方——不能",
+    "brief_en": "Turning moves the needle off the notch. The northern notch stays where it was. What is added is an arc, not a north that has been carried away. Watching brightens the needle. Brightness is not relocation.",
+    "brief_zh": "转动让针离开缺口。北方的缺口仍留在原处。多出来的是一段弧，不是被带走的北方。观看让针更亮。更亮不是迁移。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-12/live/2026-11-12-the-needle-does-not-carry-north-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-12/assets/visual-preview.gif"
   }
 ]

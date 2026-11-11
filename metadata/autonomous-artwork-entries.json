@@ -1456,6 +1456,22 @@
       "after_zh": "线圈多留在地上。风筝仍在原来的高度。放出的线没有变成一把抓住的天空。",
       "interaction_en": "Drag downward to pay out line. Paying out does not lower the kite. Press P to pay out, or press Space to pay out. Press W to watch. Watching brightens the line and does not reel the kite in.",
       "interaction_zh": "向下拖动，放线。放线不降低风筝。按 P 放线，或按 Space 放线。按 W 观看。观看照亮线，并不收回风筝。"
+    },
+    {
+      "date": "2026-11-12",
+      "slug": "the-needle-does-not-carry-north",
+      "title_en": "The Needle Does Not Carry North",
+      "title_zh": "针并不带走北方",
+      "variable_en": "whether turning the needle can move north — it cannot",
+      "variable_zh": "转动指针能否移动北方——不能",
+      "seed": 20261112,
+      "file": "2026-11-12-the-needle-does-not-carry-north",
+      "intention_en": "Turning moves the needle off the notch. The northern notch stays where it was. What is added is an arc, not a north that has been carried away. Watching brightens the needle. Brightness is not relocation.",
+      "intention_zh": "转动让针离开缺口。北方的缺口仍留在原处。多出来的是一段弧，不是被带走的北方。观看让针更亮。更亮不是迁移。",
+      "after_en": "The needle rests at the turned angle. The notch remains above. Turning did not carry north elsewhere.",
+      "after_zh": "针停在转过的角度。缺口仍在上方。转动没有把北方带去别处。",
+      "interaction_en": "Drag along the ring to turn the needle. Turning does not move north. Press T to turn, or press Space to turn. Press W to watch. Watching brightens the needle and does not move the notch.",
+      "interaction_zh": "沿环拖动，转动指针。转动并不移动北方。按 T 转动，或按 Space 转动。按 W 观看。观看照亮指针，并不搬走缺口。"
     }
   ]
 }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-11",
-  "nodeCount": 190,
+  "generatedAt": "2026-11-12",
+  "nodeCount": 191,
   "featuredCount": 14,
   "nodes": [
     {
@@ -3991,6 +3991,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -25,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-12",
+      "date": "2026-11-12",
+      "title_en": "The Needle Does Not Carry North",
+      "title_zh": "针并不带走北方",
+      "variable_en": "whether turning the needle can move north — it cannot",
+      "variable_zh": "转动指针能否移动北方——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether turning the needle can move north — it cannot entered the archive as a clue rather than a label.",
+      "diary_zh": "「转动指针能否移动北方——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-12/live/",
+      "archive_url": "../archive/2026/11/2026-11-12/",
+      "gif": "../archive/2026/11/2026-11-12/assets/visual-preview.gif",
+      "x": 27,
+      "y": -24,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4011,7 +4032,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 112
+      "count": 113
     },
     {
       "id": "maintenance",
@@ -4790,6 +4811,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-11"
     ],
     [
+      "2026-11-11",
+      "2026-11-12"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5228,6 +5253,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-09",
       "2026-11-11"
+    ],
+    [
+      "2026-11-10",
+      "2026-11-12"
     ],
     [
       "2026-05-07",

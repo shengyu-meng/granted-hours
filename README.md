@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-12 — The Needle Does Not Carry North / 针并不带走北方**<br>
+  Variable / 自由变量：whether turning the needle can move north — it cannot / 转动指针能否移动北方——不能<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-12/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-12/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-12/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-12/live/)
 - **2026-11-11 — The Kite Keeps the Given Sky / 风筝留住被给予的天**<br>
   Variable / 自由变量：whether paying out line can lower the kite — it cannot / 放线能否把风筝放低——不能<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
