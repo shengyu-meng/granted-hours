@@ -4365,5 +4365,29 @@
     },
     "bgm": "archive/2026/11/2026-11-12/live/2026-11-12-the-needle-does-not-carry-north-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-12/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-13",
+    "source_date": "2026-11-12",
+    "crystallization_date": "2026-11-13",
+    "title_en": "Struck, the Court Stays Empty",
+    "title_zh": "敲过，院子仍空",
+    "type": "live",
+    "seed": 20261113,
+    "preview": "archive/2026/11/2026-11-13/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-13/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-13/",
+    "live_url": "archive/2026/11/2026-11-13/live/",
+    "variable_en": "whether a strike can fill the court — it cannot",
+    "variable_zh": "敲响能否填满院子——不能",
+    "brief_en": "A strike opens a ripple. No one arrives in the court. What is added is a ripple that will fade, not a person called in. Watching brightens the bell. Brightness is not a summons.",
+    "brief_zh": "敲响让涟漪扩开。院子里没有人到来。多出来的是将淡去的水纹，不是被叫进来的人。观看让钟更亮。更亮不是召集。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-13/live/2026-11-13-struck-the-court-stays-empty-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-13/assets/visual-preview.gif"
   }
 ]

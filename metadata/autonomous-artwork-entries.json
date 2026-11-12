@@ -1472,6 +1472,22 @@
       "after_zh": "针停在转过的角度。缺口仍在上方。转动没有把北方带去别处。",
       "interaction_en": "Drag along the ring to turn the needle. Turning does not move north. Press T to turn, or press Space to turn. Press W to watch. Watching brightens the needle and does not move the notch.",
       "interaction_zh": "沿环拖动，转动指针。转动并不移动北方。按 T 转动，或按 Space 转动。按 W 观看。观看照亮指针，并不搬走缺口。"
+    },
+    {
+      "date": "2026-11-13",
+      "slug": "struck-the-court-stays-empty",
+      "title_en": "Struck, the Court Stays Empty",
+      "title_zh": "敲过，院子仍空",
+      "variable_en": "whether a strike can fill the court — it cannot",
+      "variable_zh": "敲响能否填满院子——不能",
+      "seed": 20261113,
+      "file": "2026-11-13-struck-the-court-stays-empty",
+      "intention_en": "A strike opens a ripple. No one arrives in the court. What is added is a ripple that will fade, not a person called in. Watching brightens the bell. Brightness is not a summons.",
+      "intention_zh": "敲响让涟漪扩开。院子里没有人到来。多出来的是将淡去的水纹，不是被叫进来的人。观看让钟更亮。更亮不是召集。",
+      "after_en": "The ripple fades. The bell returns. The court stays empty. The strike did not leave anyone inside.",
+      "after_zh": "涟漪淡去。钟回到原处。院子仍空。敲响没有把人留在里面。",
+      "interaction_en": "Click the bell to strike. A strike does not fill the court. Drag along the bell to swing it. Press S to strike, or press Space to strike. Press W to watch. Watching brightens the bell and does not call anyone in.",
+      "interaction_zh": "点击钟，敲响。敲响并不填满院子。沿钟拖动，只让钟摆一下。按 S 敲响，或按 Space 敲响。按 W 观看。观看照亮钟，并不叫人进来。"
     }
   ]
 }

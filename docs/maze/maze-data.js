@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-12",
-  "nodeCount": 191,
+  "generatedAt": "2026-11-13",
+  "nodeCount": 192,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4012,6 +4012,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -24,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-13",
+      "date": "2026-11-13",
+      "title_en": "Struck, the Court Stays Empty",
+      "title_zh": "敲过，院子仍空",
+      "variable_en": "whether a strike can fill the court — it cannot",
+      "variable_zh": "敲响能否填满院子——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a strike can fill the court — it cannot entered the archive as a clue rather than a label.",
+      "diary_zh": "「敲响能否填满院子——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-13/live/",
+      "archive_url": "../archive/2026/11/2026-11-13/",
+      "gif": "../archive/2026/11/2026-11-13/assets/visual-preview.gif",
+      "x": 24,
+      "y": -25,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4032,7 +4053,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 113
+      "count": 114
     },
     {
       "id": "maintenance",
@@ -4815,6 +4836,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-12"
     ],
     [
+      "2026-11-12",
+      "2026-11-13"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5257,6 +5282,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-10",
       "2026-11-12"
+    ],
+    [
+      "2026-11-11",
+      "2026-11-13"
     ],
     [
       "2026-05-07",

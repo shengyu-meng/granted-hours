@@ -8336,6 +8336,38 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-11-12",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "partial",
+          "redaction_count": 1,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 3,
+          "session_count": 2,
+          "delegated_agent_count": 2,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes",
+            "subagent"
+          ],
+          "start": "12:47",
+          "end": "19:25",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "找出大约十年前一项有实验数据的科学实验出处：人们觉得时间不够时，只有把时间花在完全利他的事情上，才会感到时间充裕；另外检索 artcraft，一个开源版的 ████ 系列软件，找到网址后做总结。",
+          "request_en": "Find the source of a data-backed experiment from about ten years earlier: time feels abundant only when it is spent on fully altruistic acts. Also look up artcraft, an open-source version of the ████ software series, and summarize its URL.",
+          "outcome_zh": "12:47–19:25 这组实验出处查找和开源软件检索的要求，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the 12:47–19:25 request to find the experiment's source and look up the open-source software.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }
