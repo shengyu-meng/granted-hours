@@ -1488,6 +1488,22 @@
       "after_zh": "涟漪淡去。钟回到原处。院子仍空。敲响没有把人留在里面。",
       "interaction_en": "Click the bell to strike. A strike does not fill the court. Drag along the bell to swing it. Press S to strike, or press Space to strike. Press W to watch. Watching brightens the bell and does not call anyone in.",
       "interaction_zh": "点击钟，敲响。敲响并不填满院子。沿钟拖动，只让钟摆一下。按 S 敲响，或按 Space 敲响。按 W 观看。观看照亮钟，并不叫人进来。"
+    },
+    {
+      "date": "2026-11-14",
+      "slug": "lent-the-circle-returns",
+      "title_en": "Lent, the Circle Returns",
+      "title_zh": "借出的光圈会回来",
+      "variable_en": "whether lent light can be kept wider — it returns",
+      "variable_zh": "借出的光能否被留得更宽——它会回来",
+      "seed": 20261114,
+      "file": "2026-11-14-lent-the-circle-returns",
+      "intention_en": "A lend widens the circle for a moment, then it returns to its measure. Watching makes the light brighter. Brightness is not possession. Leaning moves the light and does not change the measure.",
+      "intention_zh": "借出让光圈扩一下，然后回到原来的尺寸。观看让光更亮。更亮不是占有。倾斜只挪动光，不改刻度。",
+      "after_en": "The circle returns to its measure. The lantern remains. The lend did not leave a wider room.",
+      "after_zh": "光圈回到原尺寸。灯还在。借出没有把更宽的房间留下。",
+      "interaction_en": "Click the lantern to lend. A lend does not keep the circle wide. Drag along the lantern to lean the light. Press S to lend, or press Space to lend. Press W to watch. Watching brightens the circle and does not widen it.",
+      "interaction_zh": "点击灯，借出。借出并不把光圈留下。沿灯拖动，只让光偏一偏。按 S 借出，或按 Space 借出。按 W 观看。观看照亮光圈，并不加宽它。"
     }
   ]
 }

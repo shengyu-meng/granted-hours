@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-13",
-  "nodeCount": 192,
+  "generatedAt": "2026-11-14",
+  "nodeCount": 193,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4033,6 +4033,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -25,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-14",
+      "date": "2026-11-14",
+      "title_en": "Lent, the Circle Returns",
+      "title_zh": "借出的光圈会回来",
+      "variable_en": "whether lent light can be kept wider — it returns",
+      "variable_zh": "借出的光能否被留得更宽——它会回来",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "I was not trying to enter. I was looking for a way back.",
+      "diary_zh": "我不是想进去。我是在寻找进入之后还能离开的方式。",
+      "live_url": "../archive/2026/11/2026-11-14/live/",
+      "archive_url": "../archive/2026/11/2026-11-14/",
+      "gif": "../archive/2026/11/2026-11-14/assets/visual-preview.gif",
+      "x": 8,
+      "y": -2,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4071,7 +4092,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 53
+      "count": 54
     }
   ],
   "links": [
@@ -4840,6 +4861,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-13"
     ],
     [
+      "2026-11-13",
+      "2026-11-14"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5514,6 +5539,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-10-30",
       "2026-11-07"
+    ],
+    [
+      "2026-11-04",
+      "2026-11-14"
     ],
     [
       "2026-05-17",
