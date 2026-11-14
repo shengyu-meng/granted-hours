@@ -4413,5 +4413,29 @@
     },
     "bgm": "archive/2026/11/2026-11-14/live/2026-11-14-lent-the-circle-returns-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-14/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-15",
+    "source_date": "2026-11-14",
+    "crystallization_date": "2026-11-15",
+    "title_en": "Passed Grain Is Not Kept",
+    "title_zh": "穿过的谷粒不被留下",
+    "type": "live",
+    "seed": 20261115,
+    "preview": "archive/2026/11/2026-11-15/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-15/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-15/",
+    "live_url": "archive/2026/11/2026-11-15/live/",
+    "variable_en": "whether grain that has passed can be kept — it cannot",
+    "variable_zh": "已经穿过的谷粒能否被留下——不能",
+    "brief_en": "A pour sends grain through the sieve. Passage is not keeping. Watching brightens the mesh. Brightness is not a fill. Tilting changes where the grain falls and does not keep it.",
+    "brief_zh": "倾倒让谷粒穿过筛子。穿过不是留下。观看让网更亮。更亮不是装满。倾斜只改变落点，不把谷粒留住。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-15/live/2026-11-15-passed-grain-is-not-kept-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-15/assets/visual-preview.gif"
   }
 ]

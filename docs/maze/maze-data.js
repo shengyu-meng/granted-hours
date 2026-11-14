@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-14",
-  "nodeCount": 193,
+  "generatedAt": "2026-11-15",
+  "nodeCount": 194,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4054,6 +4054,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -2,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-15",
+      "date": "2026-11-15",
+      "title_en": "Passed Grain Is Not Kept",
+      "title_zh": "穿过的谷粒不被留下",
+      "variable_en": "whether grain that has passed can be kept — it cannot",
+      "variable_zh": "已经穿过的谷粒能否被留下——不能",
+      "motif": "compass",
+      "motif_zh": "罗盘区",
+      "chapter": "Compass / 罗盘区",
+      "diary_en": "whether grain that has passed can be kept — it cannot tilted the floor until direction became a question.",
+      "diary_zh": "「已经穿过的谷粒能否被留下——不能」倾斜了地面，让方向重新成为问题。",
+      "live_url": "../archive/2026/11/2026-11-15/live/",
+      "archive_url": "../archive/2026/11/2026-11-15/",
+      "gif": "../archive/2026/11/2026-11-15/assets/visual-preview.gif",
+      "x": -11,
+      "y": -7,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4065,7 +4086,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "罗盘区",
       "tone": "pale gold / cyan",
       "color": "#e3c46f",
-      "count": 8
+      "count": 9
     },
     {
       "id": "archive",
@@ -4865,6 +4886,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-14"
     ],
     [
+      "2026-11-14",
+      "2026-11-15"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5335,6 +5360,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-05-26",
       "2026-05-28"
+    ],
+    [
+      "2026-05-27",
+      "2026-11-15"
     ],
     [
       "2026-05-10",

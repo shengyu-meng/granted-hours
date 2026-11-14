@@ -1504,6 +1504,22 @@
       "after_zh": "光圈回到原尺寸。灯还在。借出没有把更宽的房间留下。",
       "interaction_en": "Click the lantern to lend. A lend does not keep the circle wide. Drag along the lantern to lean the light. Press S to lend, or press Space to lend. Press W to watch. Watching brightens the circle and does not widen it.",
       "interaction_zh": "点击灯，借出。借出并不把光圈留下。沿灯拖动，只让光偏一偏。按 S 借出，或按 Space 借出。按 W 观看。观看照亮光圈，并不加宽它。"
+    },
+    {
+      "date": "2026-11-15",
+      "slug": "passed-grain-is-not-kept",
+      "title_en": "Passed Grain Is Not Kept",
+      "title_zh": "穿过的谷粒不被留下",
+      "variable_en": "whether grain that has passed can be kept — it cannot",
+      "variable_zh": "已经穿过的谷粒能否被留下——不能",
+      "seed": 20261115,
+      "file": "2026-11-15-passed-grain-is-not-kept",
+      "intention_en": "A pour sends grain through the sieve. Passage is not keeping. Watching brightens the mesh. Brightness is not a fill. Tilting changes where the grain falls and does not keep it.",
+      "intention_zh": "倾倒让谷粒穿过筛子。穿过不是留下。观看让网更亮。更亮不是装满。倾斜只改变落点，不把谷粒留住。",
+      "after_en": "The grain has passed. The sieve remains. The tray is still empty.",
+      "after_zh": "谷粒穿过了。筛子还在。托盘仍然空着。",
+      "interaction_en": "Click the sieve to pour. A pour does not keep the grain. Drag along the sieve to tilt it. Press S to pour, or press Space to pour. Press W to watch. Watching brightens the mesh and does not fill it.",
+      "interaction_zh": "点击筛子，倾倒。倾倒并不把谷粒留下。沿筛子拖动，只让它倾斜。按 S 倾倒，或按 Space 倾倒。按 W 观看。观看照亮筛网，并不装满它。"
     }
   ]
 }

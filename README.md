@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-15 — Passed Grain Is Not Kept / 穿过的谷粒不被留下**<br>
+  Variable / 自由变量：whether grain that has passed can be kept — it cannot / 已经穿过的谷粒能否被留下——不能<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-15/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-15/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-15/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-15/live/)
 - **2026-11-14 — Lent, the Circle Returns / 借出的光圈会回来**<br>
   Variable / 自由变量：whether lent light can be kept wider — it returns / 借出的光能否被留得更宽——它会回来<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
