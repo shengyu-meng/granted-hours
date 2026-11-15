@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+      --grain: 8px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1180px, calc(100% - 108px));
+      margin: 0 72px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void { color: var(--refusal); }
+    .state-word.is-far { color: #6d5424; }
+    .walk {
+      position: relative;
+      flex: 1;
+      min-height: 220px;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      padding: 18px 0 8px;
+    }
+    .ends {
+      display: flex;
+      justify-content: space-between;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .ground {
+      position: relative;
+      height: 148px;
+      margin-top: 10px;
+      border-radius: 2px;
+      background-color: rgba(255, 255, 255, 0.28);
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent calc(var(--grain) - 1px),
+        rgba(26, 33, 31, 0.2) calc(var(--grain) - 1px),
+        rgba(26, 33, 31, 0.2) var(--grain)
+      );
+      touch-action: none;
+      cursor: pointer;
+    }
+    .ground.is-clear {
+      background-color: rgba(255, 255, 255, 0.55);
+    }
+    .ground.is-shaking {
+      animation: tremble 0.22s steps(2) infinite;
+    }
+    .door {
+      position: absolute;
+      left: 18px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: rgba(26, 33, 31, 0.55);
+    }
+    .nail, .walker {
+      position: absolute;
+      top: 28px;
+      width: 44px;
+      height: 92px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: grab;
+      touch-action: none;
+    }
+    .nail { left: 0; z-index: 2; }
+    .walker { left: 0; z-index: 3; }
+    .nail:focus-visible, .walker:focus-visible,
+    .controls button:focus-visible, .note-btn:focus-visible, .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .pin {
+      display: block;
+      width: 14px;
+      height: 14px;
+      margin: 8px auto 0;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(184, 146, 74, 0.18);
+    }
+    .pin::after {
+      content: "";
+      display: block;
+      width: 2px;
+      height: 54px;
+      margin: 2px auto 0;
+      background: var(--gold);
+    }
+    .nail.is-taken .pin,
+    .nail.is-taken .pin::after { background: var(--refusal); }
+    .foot {
+      display: block;
+      width: 18px;
+      height: 28px;
+      margin: 46px auto 0;
+      border-radius: 10px 10px 4px 4px;
+      background: var(--ink);
+      box-shadow: 0 0 0 3px rgba(127, 158, 166, 0.55);
+    }
+    .coarse-word {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.2em;
+      color: #6d5424;
+      opacity: 0;
+    }
+    .ground.is-coarse .coarse-word { opacity: 1; }
+    .readout {
+      margin: 0;
+      min-height: 3.4em;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.68);
+    }
+    .readout.is-refusal { color: var(--refusal); }
+    .readout .en {
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .controls button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.22);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .controls button:disabled { opacity: 0.38; cursor: default; }
+    .controls .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.45); }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 72px;
+      display: flex;
+      flex-direction: column;
+    }
+    .margin h2 { margin: 0; font-weight: 500; font-size: 26px; letter-spacing: 0.12em; }
+    .margin .sub { margin: 6px 0 16px; color: rgba(230, 220, 203, 0.5); font-size: 13px; }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after { margin: 16px 0 0; color: rgba(230, 220, 203, 0.78); font-size: 14px; }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+      color: var(--bone);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label, .note .field {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+    .note .label { color: var(--gold); }
+    .note .field { color: var(--cyan); }
+    .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+      background: transparent;
+    }
+    @keyframes tremble {
+      50% { transform: translate(0.7px, -0.4px); }
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .walk { min-height: 150px; }
+    body.is-embed .ground { height: 112px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .ground.is-shaking { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。原点钉死：第一脚站的地方就是零。人可以往前走，远处允许变粗，允许抖一下。零不许被随身拖走。走得很远，地面还是门口那种清楚，这一段就不算走过。拉高就丢：只许走到下一处已经被叫过名字的地方。视野一拉开，人要是从画面里消失，这一帧就不能当勘察，也不能当标题。人还在，才算看见。借来的边：两件不相干的事，若只靠一个共同的动词粘在一起，那一笔是焊上去的，不是原因。先写下真正在动的那一条边，再写下被借来的那个说法。动词要是唯一的接头，就先别信它。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Origin Stays Nailed: the first footfall is zero. A person may walk on. Distance may coarsen, and it may shake. The zero may not travel with the walker. If the walk goes far and the ground is still as clear as the doorway, that stretch does not count as having been walked. Pull Back and Lose: walk only as far as the next place that already has a name. If the person disappears from the frame when the view pulls back, that frame cannot be a survey, and it cannot be a title. The person is still there, or it was not seen. Borrowed Edge: two unrelated things, stuck together by one shared verb, are welded. That weld is not a cause. Write the edge that is actually moving, then write the borrowed saying. If the verb is the only joint, do not trust it yet.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 原点钉死</p>
+    <section class="sheet" aria-label="原点钉死">
+      <div class="sheet-head">
+        <div>
+          <span class="k">第一脚 · 零不许走</span>
+          <strong>原点钉死</strong>
+          <p class="en-title">Origin Stays Nailed</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">还在门口</p>
+      </div>
+      <div class="walk">
+        <div class="ends">
+          <span>门口 / DOOR</span>
+          <span>远处 / FAR</span>
+        </div>
+        <div class="ground" id="ground">
+          <span class="door" aria-hidden="true"></span>
+          <p class="coarse-word" id="coarse-word" hidden>粗</p>
+          <button class="nail" id="nail" type="button" aria-label="零，钉在门口。拖离门口就把零带走。Zero, nailed at the door. Drag it off the doorway to take it along.">
+            <span class="pin" aria-hidden="true"></span>
+          </button>
+          <button class="walker" id="walker" type="button" aria-label="人。拖着走，或用左右方向键。Person. Drag to walk, or use the left and right arrow keys.">
+            <span class="foot" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+      <div class="controls">
+        <button id="step-back" type="button">退一步</button>
+        <button id="step-on" type="button">往前走</button>
+        <button id="take-zero" class="void-btn" type="button">把零带走</button>
+        <button id="reset" type="button" disabled>再走一次</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after">记下的是零还在不在，不是走了多远。<span class="en">What gets recorded is whether the zero stayed, not how far the walk went.</span></p>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>原点钉死</h2>
+      <p>Origin Stays Nailed</p>
+      <p class="field">自由变量 / Free variable</p>
+      <p>零是不是还钉在第一脚，人走远之后地面还清不清楚。Whether the zero stays nailed at the first footfall, and whether the ground stays as clear as the doorway after the person has walked far.</p>
+      <p class="field">发心 / Intention</p>
+      <p>第一脚站的地方就是零。人可以往前走，远处允许变粗，允许抖一下。零不许被随身拖走。走得很远，地面还是门口那种清楚，这一段就不算走过。</p>
+      <p>The first footfall is zero. A person may walk on. Distance may coarsen, and it may shake. The zero may not travel with the walker. If the walk goes far and the ground is still as clear as the doorway, that stretch does not count as having been walked.</p>
+      <p class="field">交互 / Interaction</p>
+      <p>在路上往前走。可以点往前走，可以拖着人走，也可以用左右方向键。零钉在第一脚。走到远处，地面变粗，允许抖一下，这一段才算走过。把零带走，或把钉子拖离门口，地面会回到门口那种清楚，这一段不作数。人还在门口时，零本来就在，不算带走。可以再走一次。没有分数，没有倒计时。</p>
+      <p>Walk forward on the path. Press Step on, drag the person, or use the left and right arrow keys. The zero stays nailed at the first footfall. When the walk reaches the far ground, the grain coarsens and may shake, and that stretch counts as walked. Take the zero, or drag the nail off the doorway, and the ground returns to doorway clarity. That stretch does not count. If the person is still at the door, the zero was already there, and taking it does not count. The page may be walked again. No score. No countdown.</p>
+      <p class="field">余像 / Afterimage</p>
+      <p>账页分开记零、远处、这一段。没有总数。</p>
+      <p>The ledger keeps the zero, the far ground, and this stretch apart. There is no total.</p>
+      <p class="field">时间 / Time</p>
+      <p>源日 2026-11-11。结晶日 2026-11-11。体验时长开放。故意不发声。</p>
+      <p>Source Day 2026-11-11. Crystallization Day 2026-11-11. Open-ended. Deliberate silence.</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var MAX = 8;
+      var FAR = 6;
+      var step = 0;
+      var voided = false;
+      var moved = false;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var ground = document.getElementById("ground");
+      var nail = document.getElementById("nail");
+      var walker = document.getElementById("walker");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var coarseWord = document.getElementById("coarse-word");
+      var stepBack = document.getElementById("step-back");
+      var stepOn = document.getElementById("step-on");
+      var takeZeroBtn = document.getElementById("take-zero");
+      var resetBtn = document.getElementById("reset");
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function farReached() {
+        return step >= FAR && !voided;
+      }
+
+      function proofZhDone() {
+        return reduceMotion ? "变粗了" : "抖了";
+      }
+
+      function proofZhYet() {
+        return reduceMotion ? "变粗" : "抖";
+      }
+
+      function proofEnDone() {
+        return reduceMotion ? "coarsened" : "shook";
+      }
+
+      function proofEnYet() {
+        return reduceMotion ? "coarsened" : "shaken";
+      }
+
+      function placeMarks() {
+        var span = Math.max(ground.clientWidth - 44, 1);
+        var x = (step / MAX) * span;
+        walker.style.transform = "translateX(" + x + "px)";
+        nail.style.transform = "translateX(" + (voided ? x : 0) + "px)";
+      }
+
+      function render() {
+        var grain = voided ? 8 : 8 + step * 7;
+        ground.style.setProperty("--grain", grain + "px");
+        ground.classList.toggle("is-clear", voided);
+        ground.classList.toggle("is-shaking", farReached() && !reduceMotion);
+        ground.classList.toggle("is-coarse", farReached());
+        coarseWord.hidden = !(farReached() && reduceMotion);
+        nail.classList.toggle("is-taken", voided);
+        placeMarks();
+
+        stateWord.classList.toggle("is-void", voided);
+        stateWord.classList.toggle("is-far", farReached());
+        if (voided) stateWord.textContent = "不作数";
+        else if (farReached()) stateWord.textContent = "远处" + proofZhDone();
+        else if (step === 0) stateWord.textContent = "还在门口";
+        else stateWord.textContent = "零还在";
+
+        stepBack.disabled = voided || step === 0;
+        stepOn.disabled = voided || step === MAX;
+        takeZeroBtn.disabled = voided;
+        resetBtn.disabled = !moved && !voided;
+
+        ledger.textContent = "";
+        if (voided) {
+          ledger.appendChild(line("零", "被带走了。", "Taken along."));
+          ledger.appendChild(line("远处", "被修回门口那种清楚。", "Restored to doorway clarity."));
+          ledger.appendChild(line("这一段", "不作数。", "Does not count."));
+        } else if (farReached()) {
+          ledger.appendChild(line("零", "还钉在门口。", "Still nailed at the door."));
+          ledger.appendChild(line("远处", proofZhDone() + "。", "The far ground " + proofEnDone() + "."));
+          ledger.appendChild(line("这一段", "算走过。", "Counts as walked."));
+        } else if (step === 0) {
+          ledger.appendChild(line("零", "还钉在门口。", "Still nailed at the door."));
+          ledger.appendChild(line("远处", "还清楚。", "Still clear."));
+          ledger.appendChild(line("这一段", "还没走。", "Not walked yet."));
+        } else {
+          ledger.appendChild(line("零", "还钉在门口。", "Still nailed at the door."));
+          ledger.appendChild(line("远处", "还没到。", "Not reached."));
+          ledger.appendChild(line("这一段", "人离开了门口。", "The person has left the door."));
+        }
+      }
+
+      function setStep(next) {
+        if (voided) {
+          say("这一段已经不作数。再走一次，零才会回到门口。", "This stretch is already void. Walk again, and the zero returns to the door.", true);
+          return;
+        }
+        step = Math.max(0, Math.min(MAX, next));
+        if (step > 0) moved = true;
+        render();
+        if (farReached()) {
+          say(
+            "零还钉在门口。远处" + proofZhDone() + "。这一段算走过。",
+            "The zero is still nailed at the door. The far ground " + proofEnDone() + ". This stretch counts as walked.",
+            false
+          );
+        } else if (step === 0) {
+          say("人回到门口。零还在第一脚。", "The person is back at the door. The zero is still at the first footfall.", false);
+        } else {
+          say("人离开了门口。远处还没" + proofZhYet() + "。零还钉着。", "The person has left the door. The far ground has not " + proofEnYet() + " yet. The zero is still nailed.", false);
+        }
+      }
+
+      function takeZero() {
+        if (voided) return;
+        if (step === 0) {
+          say("人还在门口。零本来就在这儿。", "The person is still at the door. The zero was already here.", true);
+          return;
+        }
+        voided = true;
+        moved = true;
+        render();
+        say("零被带走了。地面还是门口那种清楚。这一段不作数。", "The zero was taken along. The ground is still as clear as the doorway. This stretch does not count.", true);
+      }
+
+      function reset() {
+        step = 0;
+        voided = false;
+        moved = false;
+        render();
+        say("零回到门口。可以再走。远处允许变粗，零不许跟着走。", "The zero is back at the door. The page may be walked again. Distance may coarsen. The zero may not follow.", false);
+      }
+
+      stepBack.addEventListener("click", function () { setStep(step - 1); });
+      stepOn.addEventListener("click", function () { setStep(step + 1); });
+      takeZeroBtn.addEventListener("click", takeZero);
+      resetBtn.addEventListener("click", reset);
+
+      var dragKind = "";
+      var dragStartX = 0;
+
+      function stepAt(clientX) {
+        var box = ground.getBoundingClientRect();
+        var t = (clientX - box.left) / Math.max(box.width, 1);
+        t = Math.max(0, Math.min(1, t));
+        return Math.round(t * MAX);
+      }
+
+      ground.addEventListener("pointerdown", function (event) {
+        if (event.target.closest("#nail")) {
+          dragKind = "nail";
+          dragStartX = event.clientX;
+          nail.setPointerCapture(event.pointerId);
+          return;
+        }
+        dragKind = "walk";
+        if (event.target.closest("#walker")) walker.setPointerCapture(event.pointerId);
+        else ground.setPointerCapture(event.pointerId);
+        setStep(stepAt(event.clientX));
+      });
+      ground.addEventListener("pointermove", function (event) {
+        if (dragKind === "walk") setStep(stepAt(event.clientX));
+        if (dragKind === "nail" && Math.abs(event.clientX - dragStartX) > 18) takeZero();
+      });
+      function endDrag(event) {
+        if (dragKind === "nail" && Math.abs(event.clientX - dragStartX) > 18) takeZero();
+        dragKind = "";
+      }
+      ground.addEventListener("pointerup", endDrag);
+      ground.addEventListener("pointercancel", function () { dragKind = ""; });
+
+      document.addEventListener("keydown", function (event) {
+        if (!note.hidden) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          setStep(step + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          setStep(step - 1);
+        } else if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+        }
+      });
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) closeNote();
+      });
+      window.addEventListener("resize", placeMarks);
+
+      render();
+      say("往前走。零留在门口。远处允许抖，零不许跟着走。", "Walk on. Leave the zero at the door. Distance may shake. The zero may not follow.", false);
+    })();
+  </script>
+</body>
+</html>
