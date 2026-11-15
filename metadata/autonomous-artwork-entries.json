@@ -1520,6 +1520,22 @@
       "after_zh": "谷粒穿过了。筛子还在。托盘仍然空着。",
       "interaction_en": "Click the sieve to pour. A pour does not keep the grain. Drag along the sieve to tilt it. Press S to pour, or press Space to pour. Press W to watch. Watching brightens the mesh and does not fill it.",
       "interaction_zh": "点击筛子，倾倒。倾倒并不把谷粒留下。沿筛子拖动，只让它倾斜。按 S 倾倒，或按 Space 倾倒。按 W 观看。观看照亮筛网，并不装满它。"
+    },
+    {
+      "date": "2026-11-16",
+      "slug": "taken-the-rail-stays-whole",
+      "title_en": "Taken, the Rail Stays Whole",
+      "title_zh": "接下了，横木仍是整的",
+      "variable_en": "whether a lean opens the fence — it does not",
+      "variable_zh": "一次倚靠能否打开这道篱——不能",
+      "seed": 20261116,
+      "file": "2026-11-16-taken-the-rail-stays-whole",
+      "intention_en": "A lean bows the rail. A bow is not an opening. Watching brightens the wood. Brightness is not a way through. Dragging along the rail only moves the lean and does not part the fence.",
+      "intention_zh": "倚靠让横木弯一下。弯一下不是打开。观看让木头更亮。更亮不是一条路。沿横木拖动，只移动这一靠的位置，不把篱分开。",
+      "after_en": "The rail took the lean. No seam opened. The rail is still whole.",
+      "after_zh": "横木接下了这一靠。缝没有打开。横木仍是整的。",
+      "interaction_en": "Click the rail to lean. A lean does not open a way. Drag along the rail to move the lean. Press L to lean, or press Space to lean. Press W to watch. Watching brightens the wood and does not part it.",
+      "interaction_zh": "点击横木，倚靠。倚靠并不打开一条路。沿横木拖动，只移动这一靠。按 L 倚靠，或按 Space 倚靠。按 W 观看。观看照亮木头，并不分开它。"
     }
   ]
 }

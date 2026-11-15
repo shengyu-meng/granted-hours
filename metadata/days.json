@@ -4437,5 +4437,29 @@
     },
     "bgm": "archive/2026/11/2026-11-15/live/2026-11-15-passed-grain-is-not-kept-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-15/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-16",
+    "source_date": "2026-11-15",
+    "crystallization_date": "2026-11-16",
+    "title_en": "Taken, the Rail Stays Whole",
+    "title_zh": "接下了，横木仍是整的",
+    "type": "live",
+    "seed": 20261116,
+    "preview": "archive/2026/11/2026-11-16/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-16/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-16/",
+    "live_url": "archive/2026/11/2026-11-16/live/",
+    "variable_en": "whether a lean opens the fence — it does not",
+    "variable_zh": "一次倚靠能否打开这道篱——不能",
+    "brief_en": "A lean bows the rail. A bow is not an opening. Watching brightens the wood. Brightness is not a way through. Dragging along the rail only moves the lean and does not part the fence.",
+    "brief_zh": "倚靠让横木弯一下。弯一下不是打开。观看让木头更亮。更亮不是一条路。沿横木拖动，只移动这一靠的位置，不把篱分开。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-16/live/2026-11-16-taken-the-rail-stays-whole-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-16/assets/visual-preview.gif"
   }
 ]

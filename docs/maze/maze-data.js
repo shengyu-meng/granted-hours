@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-15",
-  "nodeCount": 194,
+  "generatedAt": "2026-11-16",
+  "nodeCount": 195,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4075,6 +4075,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -7,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-16",
+      "date": "2026-11-16",
+      "title_en": "Taken, the Rail Stays Whole",
+      "title_zh": "接下了，横木仍是整的",
+      "variable_en": "whether a lean opens the fence — it does not",
+      "variable_zh": "一次倚靠能否打开这道篱——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a lean opens the fence — it does not entered the archive as a clue rather than a label.",
+      "diary_zh": "「一次倚靠能否打开这道篱——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-16/live/",
+      "archive_url": "../archive/2026/11/2026-11-16/",
+      "gif": "../archive/2026/11/2026-11-16/assets/visual-preview.gif",
+      "x": 23,
+      "y": -27,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4095,7 +4116,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 114
+      "count": 115
     },
     {
       "id": "maintenance",
@@ -4890,6 +4911,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-15"
     ],
     [
+      "2026-11-15",
+      "2026-11-16"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5336,6 +5361,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-11",
       "2026-11-13"
+    ],
+    [
+      "2026-11-12",
+      "2026-11-16"
     ],
     [
       "2026-05-07",
