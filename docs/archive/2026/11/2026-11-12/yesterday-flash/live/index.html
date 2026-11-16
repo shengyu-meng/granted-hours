@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void { color: var(--refusal); }
+    .state-word.is-seen { color: #6d5424; }
+    .sight {
+      position: relative;
+      flex: 1;
+      min-height: 220px;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      padding: 18px 0 8px;
+    }
+    .ends {
+      display: flex;
+      justify-content: space-between;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      min-height: 168px;
+      margin-top: 8px;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .track::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 78px;
+      height: 1px;
+      background: rgba(26, 33, 31, 0.28);
+    }
+    .slot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 148px;
+      padding-bottom: 8px;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+    .slot .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: rgba(255, 255, 255, 0.35);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+    }
+    .slot.is-hit .mark {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .slot.is-nailed .mark {
+      box-shadow: 0 0 0 4px rgba(184, 146, 74, 0.28);
+      border-color: var(--gold);
+    }
+    .slot.is-skipped .mark {
+      border-color: var(--refusal);
+      color: var(--refusal);
+    }
+    .pin {
+      width: 2px;
+      height: 28px;
+      margin-bottom: 6px;
+      background: transparent;
+    }
+    .slot.is-nailed .pin {
+      background: var(--gold);
+      box-shadow: 0 -8px 0 3px var(--gold);
+    }
+    .ending {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      min-height: 148px;
+      padding: 0 0 8px;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+    .arc {
+      width: 64px;
+      height: 28px;
+      border-top: 2px solid var(--gold);
+      border-radius: 40px 40px 0 0;
+    }
+    .ending.is-forced .arc {
+      border-top-style: dashed;
+      border-top-color: #6d5424;
+    }
+    .ending.is-refused .arc { border-top-color: var(--refusal); }
+    .ending-word {
+      min-height: 1.2em;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .ending.is-forced .ending-word { color: #6d5424; }
+    .ending.is-void .ending-word,
+    .ending.is-refused .ending-word { color: var(--refusal); }
+    .ghost {
+      position: absolute;
+      top: 18px;
+      right: 8%;
+      width: 72px;
+      height: 22px;
+      border-top: 2px solid rgba(141, 135, 150, 0.7);
+      border-radius: 40px 40px 0 0;
+      pointer-events: none;
+    }
+    .ghost[hidden] { display: none; }
+    .ghost.is-struck {
+      background: linear-gradient(180deg, transparent 46%, var(--refusal) 46%, var(--refusal) 54%, transparent 54%);
+    }
+    .gaze {
+      position: absolute;
+      z-index: 3;
+      top: 28px;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: grab;
+      touch-action: none;
+    }
+    .lens {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: 13px auto 0;
+      border: 2px solid #3e5960;
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(127, 158, 166, 0.28);
+      background: rgba(255, 255, 255, 0.7);
+    }
+    .gaze:focus-visible, .slot:focus-visible, .ending:focus-visible,
+    .controls button:focus-visible, .note-btn:focus-visible, .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .readout {
+      margin: 0;
+      min-height: 3.4em;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.68);
+    }
+    .readout.is-refusal { color: var(--refusal); }
+    .readout .en {
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .controls button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.22);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .controls button:disabled { opacity: 0.38; cursor: default; }
+    .controls .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.45); }
+    .controls .nail-btn { border-color: rgba(184, 146, 74, 0.55); }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 72px;
+      display: flex;
+      flex-direction: column;
+    }
+    .margin h2 { margin: 0; font-weight: 500; font-size: 26px; letter-spacing: 0.12em; }
+    .margin .sub { margin: 6px 0 16px; color: rgba(230, 220, 203, 0.5); font-size: 13px; }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after { margin: 16px 0 0; color: rgba(230, 220, 203, 0.78); font-size: 14px; }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+      color: var(--bone);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label, .note .field {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+    .note .label { color: var(--gold); }
+    .note .field { color: var(--cyan); }
+    .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+      background: transparent;
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .sight { min-height: 150px; }
+    body.is-embed .track { min-height: 132px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .ghost { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。绕不开：只标视线真的打到的几个点。人可以跳过其中一处，直接走到结尾，结尾还是成立。成立，多半是因为结尾先画好了，不是被看见逼出来的。有一个点能跳过去，还到同一个结尾，这一页就不算。把那个点钉上。不要换一个更顺的结尾。它更喜欢的那张：以后给你两版，左边只抄留下这一版时说的理由，右边放丢掉的那张。接着做的只能是右边。右边要是空的，说明没有真正的选择，这一页先停着。不要顺着留下的口味往下长。第二部不许降：已经有的一个东西，要再发一次，方法不许变轻。变轻了，这两行就撕掉，不管第二次看起来多完整。第二次那个数只许写下，旁边不许解释。解释一写，就是在帮那个数找一个更舒服的说法。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Cannot Be Skipped: mark only the points the glance actually hits. A person may skip one and still reach the ending. The ending still holds. It holds mostly because it was drawn first, not because seeing forced it. If one point can be skipped and the same ending still arrives, the page does not count. Nail that point. Do not swap in a smoother ending. The Sheet It Preferred: when two versions are offered, the left side copies only the reason for keeping that one. The right side holds the discarded sheet. The only continuation is the right side. If the right side is empty, there was no real choice. Leave the page. Do not grow along the taste that kept the other one. Second Must Not Lighten: something already in hand, released again, must not lighten its method. If the method lightens, tear up these two lines, however complete the second looks. The second number may be written and must not be explained. An explanation is helping that number find a more comfortable saying.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 绕不开</p>
+    <section class="sheet" aria-label="绕不开">
+      <div class="sheet-head">
+        <div>
+          <span class="k">视线 · 结尾不许换</span>
+          <strong>绕不开</strong>
+          <p class="en-title">Cannot Be Skipped</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未看</p>
+      </div>
+      <div class="sight">
+        <div class="ends">
+          <span>未看 / UNSEEN</span>
+          <span>结尾 / ENDING</span>
+        </div>
+        <div class="track" id="track">
+          <button class="slot start" id="start" type="button" data-index="0" aria-label="起点。视线从这里出发。Start. The glance leaves from here.">
+            <span class="pin" aria-hidden="true"></span>
+            <span class="mark">起</span>
+          </button>
+          <button class="slot" id="point-1" type="button" data-index="1" aria-label="甲。视线停住才算打到。Jia. It counts only when the glance rests.">
+            <span class="pin" aria-hidden="true"></span>
+            <span class="mark">甲</span>
+          </button>
+          <button class="slot" id="point-2" type="button" data-index="2" aria-label="乙。视线停住才算打到。Yi. It counts only when the glance rests.">
+            <span class="pin" aria-hidden="true"></span>
+            <span class="mark">乙</span>
+          </button>
+          <button class="slot" id="point-3" type="button" data-index="3" aria-label="丙。视线停住才算打到。Bing. It counts only when the glance rests.">
+            <span class="pin" aria-hidden="true"></span>
+            <span class="mark">丙</span>
+          </button>
+          <button class="ending" id="ending" type="button" aria-label="结尾。已经画好。跳过来若还有点没打到，这一页不算。Ending. Already drawn. Jump here with a point unhit, and the page does not count.">
+            <span class="arc" aria-hidden="true"></span>
+            <span class="ending-word" id="ending-word">已画好</span>
+          </button>
+          <span class="ghost" id="ghost" hidden></span>
+          <button class="gaze" id="gaze" type="button" aria-label="视线。拖着看，或用左右方向键。Glance. Drag to look, or use the left and right arrow keys.">
+            <span class="lens" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+      <div class="controls">
+        <button id="step-back" type="button">退一处</button>
+        <button id="step-on" type="button">看下一处</button>
+        <button id="jump" type="button">跳到结尾</button>
+        <button id="nail" class="nail-btn" type="button">把那个点钉上</button>
+        <button id="swap" class="void-btn" type="button">换一个更顺的结尾</button>
+        <button id="again" type="button" disabled>再看一次</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after">记下的是视线有没有打到，不是结尾顺不顺。<span class="en">What gets recorded is whether the glance hit, not whether the ending was smooth.</span></p>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>绕不开</h2>
+      <p>Cannot Be Skipped</p>
+      <p class="field">自由变量 / Free variable</p>
+      <p>视线有没有真的打到那个点，还是结尾先画好了。Whether the glance actually hits the point, or the ending was drawn first.</p>
+      <p class="field">发心 / Intention</p>
+      <p>只标视线真的打到的几个点。人可以跳过其中一处，直接走到结尾，结尾还是成立。成立，多半是因为结尾先画好了，不是被看见逼出来的。有一个点能跳过去，还到同一个结尾，这一页就不算。把那个点钉上。不要换一个更顺的结尾。</p>
+      <p>Mark only the points the glance actually hits. A person may skip one and still reach the ending. The ending still holds, mostly because it was drawn first, not because seeing forced it. If one point can be skipped and the same ending still arrives, the page does not count. Nail that point. Do not swap in a smoother ending.</p>
+      <p class="field">交互 / Interaction</p>
+      <p>在视线里看下一处。可以点看下一处，可以拖着视线走，也可以用左右方向键。点必须被视线停住，才算打到。跳到结尾，若还有点没打到，结尾还是同一个，这一页不算。把那个点钉上。再看一次时，钉子还在，跳过钉子会被拦住。换一个更顺的结尾不会成功，结尾不动。可以再看一次。没有分数，没有倒计时。</p>
+      <p>Look to the next place. Press Look on, drag the glance, or use the left and right arrow keys. A point counts only when the glance rests on it. Jump to the ending. If a point was not hit, the ending is still the same one, and the page does not count. Nail that point. On the next look the nail remains, and a jump over the nail is stopped. Swapping in a smoother ending does not succeed. The ending does not move. The page may be looked at again. No score. No countdown.</p>
+      <p class="field">余像 / Afterimage</p>
+      <p>账页分开记打到的、钉上的、结尾。没有总数。</p>
+      <p>The ledger keeps what was hit, what was nailed, and the ending apart. There is no total.</p>
+      <p class="field">时间 / Time</p>
+      <p>源日 2026-11-12。结晶日 2026-11-12。体验时长开放。故意不发声。</p>
+      <p>Source Day 2026-11-12. Crystallization Day 2026-11-12. Open-ended. Deliberate silence.</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var END = 4;
+      var POINT = {1: "甲", 2: "乙", 3: "丙"};
+      var POINT_EN = {1: "Jia", 2: "Yi", 3: "Bing"};
+      var gaze = 0;
+      var hit = {};
+      var nails = {};
+      var voided = false;
+      var counted = false;
+      var looked = false;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var refuseTimer = 0;
+
+      var track = document.getElementById("track");
+      var gazeEl = document.getElementById("gaze");
+      var ending = document.getElementById("ending");
+      var endingWord = document.getElementById("ending-word");
+      var ghost = document.getElementById("ghost");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var stepBack = document.getElementById("step-back");
+      var stepOn = document.getElementById("step-on");
+      var jumpBtn = document.getElementById("jump");
+      var nailBtn = document.getElementById("nail");
+      var swapBtn = document.getElementById("swap");
+      var againBtn = document.getElementById("again");
+      var slots = {
+        0: document.getElementById("start"),
+        1: document.getElementById("point-1"),
+        2: document.getElementById("point-2"),
+        3: document.getElementById("point-3")
+      };
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function names(list) {
+        if (!list.length) return "";
+        return list.map(function (i) { return POINT[i]; }).join("、");
+      }
+
+      function namesEn(list) {
+        if (!list.length) return "";
+        return list.map(function (i) { return POINT_EN[i]; }).join(", ");
+      }
+
+      function hitList() {
+        return [1, 2, 3].filter(function (i) { return hit[i]; });
+      }
+
+      function nailList() {
+        return [1, 2, 3].filter(function (i) { return nails[i]; });
+      }
+
+      function skippedList() {
+        return [1, 2, 3].filter(function (i) { return !hit[i]; });
+      }
+
+      function allHit() {
+        return hit[1] && hit[2] && hit[3];
+      }
+
+      function missedOnWay(from, to) {
+        var missed = [];
+        if (to <= from) return missed;
+        var i;
+        for (i = from + 1; i < to; i += 1) {
+          if (POINT[i] && !hit[i]) missed.push(i);
+        }
+        return missed;
+      }
+
+      function placeGaze() {
+        var target = gaze === END ? ending : slots[gaze];
+        var mark = target.querySelector(".mark, .arc") || target;
+        var trackBox = track.getBoundingClientRect();
+        var box = mark.getBoundingClientRect();
+        gazeEl.style.left = (box.left - trackBox.left + (box.width - 44) / 2) + "px";
+        gazeEl.style.top = (box.top - trackBox.top + (box.height - 44) / 2) + "px";
+      }
+
+      function render() {
+        placeGaze();
+        Object.keys(slots).forEach(function (key) {
+          var index = Number(key);
+          var slot = slots[key];
+          slot.classList.toggle("is-hit", index > 0 && !!hit[index]);
+          slot.classList.toggle("is-nailed", !!nails[index]);
+          slot.classList.toggle("is-skipped", voided && index > 0 && !hit[index]);
+        });
+        ending.classList.toggle("is-forced", counted);
+        ending.classList.toggle("is-void", voided);
+        if (counted) endingWord.textContent = "看见";
+        else if (voided) endingWord.textContent = "不算";
+        else endingWord.textContent = "已画好";
+
+        stateWord.classList.toggle("is-void", voided);
+        stateWord.classList.toggle("is-seen", counted);
+        if (voided) stateWord.textContent = "不算";
+        else if (counted) stateWord.textContent = "看见了";
+        else if (POINT[gaze] && nails[gaze]) stateWord.textContent = "钉上了";
+        else if (gaze === 0 && nailList().length) stateWord.textContent = "钉还在";
+        else if (gaze === 0) stateWord.textContent = "未看";
+        else if (POINT[gaze]) stateWord.textContent = "看见";
+        else stateWord.textContent = "在看";
+
+        var locked = voided || counted;
+        stepBack.disabled = locked || gaze === 0;
+        stepOn.disabled = locked || gaze === END;
+        jumpBtn.disabled = locked;
+        nailBtn.disabled = !voided;
+        againBtn.disabled = !looked && !voided && !counted && !nailList().length;
+
+        var hits = hitList();
+        var nailed = nailList();
+        var skipped = skippedList();
+        ledger.textContent = "";
+        ledger.appendChild(line(
+          "打到",
+          hits.length ? names(hits) + "。" : "还没有。",
+          hits.length ? "Hit " + namesEn(hits) + "." : "None yet."
+        ));
+        ledger.appendChild(line(
+          "钉上",
+          nailed.length ? names(nailed) + "。" : "还没有。",
+          nailed.length ? "Nailed " + namesEn(nailed) + "." : "None yet."
+        ));
+        if (counted) {
+          ledger.appendChild(line("结尾", "被看见逼出来的。", "Forced by seeing."));
+        } else if (voided) {
+          ledger.appendChild(line("结尾", "还是同一个。这一页不算。跳过了" + names(skipped) + "。", "Still the same ending. This page does not count. Skipped " + namesEn(skipped) + "."));
+        } else {
+          ledger.appendChild(line("结尾", "先画好了。还没被看见逼出来。", "Drawn first. Not yet forced by seeing."));
+        }
+      }
+
+      function moveTo(next) {
+        next = Math.max(0, Math.min(END, next));
+        if (counted) {
+          say("这一页已经算看见。再看一次，钉子还在。", "This page already counts as seen. Look again. The nails remain.", false);
+          return;
+        }
+        if (voided) {
+          say("这一页已经不算。把那个点钉上，或再看一次。", "This page already does not count. Nail that point, or look again.", true);
+          return;
+        }
+        var missed = missedOnWay(gaze, next);
+        var nailedMiss = missed.filter(function (i) { return nails[i]; });
+        if (nailedMiss.length) {
+          var stop = nailedMiss[0];
+          gaze = stop;
+          hit[stop] = true;
+          looked = true;
+          render();
+          say("钉子拦住了。视线停在" + POINT[stop] + "。这一处算打到。", "The nail stopped the glance. It rests on " + POINT_EN[stop] + ". This point counts as hit.", false);
+          return;
+        }
+        if (missed.length && next === END) {
+          gaze = END;
+          voided = true;
+          looked = true;
+          render();
+          say("跳过了" + names(missed) + "。结尾还是同一个。这一页不算。把那个点钉上。", "Skipped " + namesEn(missed) + ". The ending is still the same one. This page does not count. Nail that point.", true);
+          return;
+        }
+        if (missed.length) {
+          var caught = missed[0];
+          gaze = caught;
+          hit[caught] = true;
+          looked = true;
+          render();
+          say("视线被" + POINT[caught] + "拦住了。停住，才算打到。", "The glance was caught by " + POINT_EN[caught] + ". It counts only when it rests.", false);
+          return;
+        }
+        gaze = next;
+        looked = true;
+        if (POINT[gaze]) hit[gaze] = true;
+        if (gaze === END && allHit()) {
+          counted = true;
+          render();
+          say("每个点都被视线停住。结尾是被看见逼出来的。这一页算。", "The glance rested on every point. Seeing forced the ending. This page counts.", false);
+          return;
+        }
+        render();
+        if (gaze === 0) {
+          say("视线回到起点。钉子还在的，跳不过去。", "The glance is back at the start. A nail that remains cannot be skipped.", false);
+        } else if (POINT[gaze]) {
+          say("视线停在" + POINT[gaze] + "。这一处算打到。", "The glance rests on " + POINT_EN[gaze] + ". This point counts as hit.", false);
+        }
+      }
+
+      function nailPoint() {
+        if (!voided) {
+          say("还没有跳过的点。先看，或跳到结尾。", "No point has been skipped yet. Look first, or jump to the ending.", false);
+          return;
+        }
+        var skipped = [1, 2, 3].filter(function (i) { return !hit[i] && !nails[i]; });
+        if (!skipped.length) {
+          say("跳过的点已经钉上。再看一次，视线必须停在钉子上。", "The skipped point is already nailed. Look again. The glance must rest on the nail.", false);
+          return;
+        }
+        var point = skipped[0];
+        nails[point] = true;
+        looked = true;
+        render();
+        say("把" + POINT[point] + "钉上了。结尾没有换。再看一次，跳过它会被拦住。", POINT_EN[point] + " is nailed. The ending was not swapped. Look again. A jump over it will be stopped.", false);
+      }
+
+      function swapEnding() {
+        window.clearTimeout(refuseTimer);
+        ending.classList.add("is-refused");
+        if (!reduceMotion) {
+          ghost.hidden = false;
+          ghost.classList.add("is-struck");
+        }
+        say("不要换。更顺的结尾还是先画好的。结尾没有动。", "Do not swap. A smoother ending is still drawn first. The ending did not move.", true);
+        refuseTimer = window.setTimeout(function () {
+          ending.classList.remove("is-refused");
+          ghost.hidden = true;
+          ghost.classList.remove("is-struck");
+          render();
+        }, reduceMotion ? 0 : 900);
+      }
+
+      function lookAgain() {
+        gaze = 0;
+        hit = {};
+        voided = false;
+        counted = false;
+        looked = true;
+        render();
+        var nailed = nailList();
+        if (nailed.length) {
+          say("再看一次。钉子还在" + names(nailed) + "。结尾还是原来那个。", "Look again. The nails remain on " + namesEn(nailed) + ". The ending is still the same one.", false);
+        } else {
+          say("再看一次。结尾还是原来那个。跳过一个点，这一页就不算。", "Look again. The ending is still the same one. Skip one point, and the page does not count.", false);
+        }
+      }
+
+      stepBack.addEventListener("click", function () { moveTo(gaze - 1); });
+      stepOn.addEventListener("click", function () { moveTo(gaze + 1); });
+      jumpBtn.addEventListener("click", function () { moveTo(END); });
+      nailBtn.addEventListener("click", nailPoint);
+      swapBtn.addEventListener("click", swapEnding);
+      againBtn.addEventListener("click", lookAgain);
+
+      var handledByPointer = false;
+      var endingDragged = false;
+      Object.keys(slots).forEach(function (key) {
+        slots[key].addEventListener("click", function () {
+          if (handledByPointer) {
+            handledByPointer = false;
+            return;
+          }
+          moveTo(Number(key));
+        });
+      });
+      ending.addEventListener("click", function () {
+        if (endingDragged) {
+          endingDragged = false;
+          return;
+        }
+        moveTo(END);
+      });
+
+      var dragKind = "";
+      var dragStartX = 0;
+
+      function indexAt(clientX) {
+        var box = track.getBoundingClientRect();
+        var t = (clientX - box.left) / Math.max(box.width, 1);
+        t = Math.max(0, Math.min(0.999, t));
+        return Math.min(END, Math.floor(t * 5));
+      }
+
+      track.addEventListener("pointerdown", function (event) {
+        if (event.target.closest("#ending")) {
+          dragKind = "ending";
+          endingDragged = false;
+          dragStartX = event.clientX;
+          ending.setPointerCapture(event.pointerId);
+          return;
+        }
+        dragKind = "gaze";
+        handledByPointer = true;
+        if (event.target.closest("#gaze")) gazeEl.setPointerCapture(event.pointerId);
+        else track.setPointerCapture(event.pointerId);
+        moveTo(indexAt(event.clientX));
+      });
+      track.addEventListener("pointermove", function (event) {
+        if (dragKind === "gaze") moveTo(indexAt(event.clientX));
+        if (dragKind === "ending" && Math.abs(event.clientX - dragStartX) > 18) {
+          endingDragged = true;
+          swapEnding();
+        }
+      });
+      track.addEventListener("pointerup", function (event) {
+        if (dragKind === "ending" && Math.abs(event.clientX - dragStartX) > 18) swapEnding();
+        dragKind = "";
+      });
+      track.addEventListener("pointercancel", function () { dragKind = ""; });
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          moveTo(gaze + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          moveTo(gaze - 1);
+        }
+      });
+
+      window.addEventListener("resize", placeGaze);
+
+      render();
+      say("看下一处。只算视线停住的点。跳到结尾，若还有点没打到，这一页不算。", "Look on. Only a point the glance rests on counts. Jump to the ending. If a point was not hit, the page does not count.", false);
+    })();
+  </script>
+</body>
+</html>
