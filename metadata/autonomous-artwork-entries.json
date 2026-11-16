@@ -1536,6 +1536,22 @@
       "after_zh": "横木接下了这一靠。缝没有打开。横木仍是整的。",
       "interaction_en": "Click the rail to lean. A lean does not open a way. Drag along the rail to move the lean. Press L to lean, or press Space to lean. Press W to watch. Watching brightens the wood and does not part it.",
       "interaction_zh": "点击横木，倚靠。倚靠并不打开一条路。沿横木拖动，只移动这一靠。按 L 倚靠，或按 Space 倚靠。按 W 观看。观看照亮木头，并不分开它。"
+    },
+    {
+      "date": "2026-11-17",
+      "slug": "cooled-the-clay-does-not-keep-the-hand",
+      "title_en": "Cooled, the Clay Does Not Keep the Hand",
+      "title_zh": "冷了，陶土不留那只手",
+      "variable_en": "whether cooling keeps the hand that set the vessel — it does not",
+      "variable_zh": "冷却能否留下放下器物的那只手——不能",
+      "seed": 20261117,
+      "file": "2026-11-17-cooled-the-clay-does-not-keep-the-hand",
+      "intention_en": "Setting leaves a heat band on the clay. The band is not a hand. Withdrawing returns the vessel to the bench and does not write an owner. Dragging along the lip only moves the seat and does not turn the mouth into a room.",
+      "intention_zh": "放下让陶土接过一圈热。热环不是手。撤回把器物送回台座，并不写下主人。沿窑唇拖动，只移动落点，不把窑口变成房间。",
+      "after_en": "The clay cooled. The hand did not remain. The mouth is still only a mouth.",
+      "after_zh": "陶土冷了。那只手没有留下。窑口仍只是窑口。",
+      "interaction_en": "Click the mouth to set the vessel. Setting does not keep a hand. Drag along the lip to move the seat. Press S to set, or press Space to set. Press W to withdraw. Withdrawing cools the band and does not write a name.",
+      "interaction_zh": "点击窑口，放下器物。放下并不留下那只手。沿窑唇拖动，只移动落点。按 S 放下，或按 Space 放下。按 W 撤回。撤回让热环冷却，并不写下名字。"
     }
   ]
 }

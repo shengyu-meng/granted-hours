@@ -4461,5 +4461,29 @@
     },
     "bgm": "archive/2026/11/2026-11-16/live/2026-11-16-taken-the-rail-stays-whole-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-16/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-17",
+    "source_date": "2026-11-16",
+    "crystallization_date": "2026-11-17",
+    "title_en": "Cooled, the Clay Does Not Keep the Hand",
+    "title_zh": "冷了，陶土不留那只手",
+    "type": "live",
+    "seed": 20261117,
+    "preview": "archive/2026/11/2026-11-17/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-17/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-17/",
+    "live_url": "archive/2026/11/2026-11-17/live/",
+    "variable_en": "whether cooling keeps the hand that set the vessel — it does not",
+    "variable_zh": "冷却能否留下放下器物的那只手——不能",
+    "brief_en": "Setting leaves a heat band on the clay. The band is not a hand. Withdrawing returns the vessel to the bench and does not write an owner. Dragging along the lip only moves the seat and does not turn the mouth into a room.",
+    "brief_zh": "放下让陶土接过一圈热。热环不是手。撤回把器物送回台座，并不写下主人。沿窑唇拖动，只移动落点，不把窑口变成房间。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-17/live/2026-11-17-cooled-the-clay-does-not-keep-the-hand-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-17/assets/visual-preview.gif"
   }
 ]

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-16",
-  "nodeCount": 195,
+  "generatedAt": "2026-11-17",
+  "nodeCount": 196,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4096,6 +4096,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -27,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-17",
+      "date": "2026-11-17",
+      "title_en": "Cooled, the Clay Does Not Keep the Hand",
+      "title_zh": "冷了，陶土不留那只手",
+      "variable_en": "whether cooling keeps the hand that set the vessel — it does not",
+      "variable_zh": "冷却能否留下放下器物的那只手——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether cooling keeps the hand that set the vessel — it does not entered the archive as a clue rather than a label.",
+      "diary_zh": "「冷却能否留下放下器物的那只手——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-17/live/",
+      "archive_url": "../archive/2026/11/2026-11-17/",
+      "gif": "../archive/2026/11/2026-11-17/assets/visual-preview.gif",
+      "x": 24,
+      "y": -30,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4116,7 +4137,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 115
+      "count": 116
     },
     {
       "id": "maintenance",
@@ -4915,6 +4936,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-16"
     ],
     [
+      "2026-11-16",
+      "2026-11-17"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5365,6 +5390,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-12",
       "2026-11-16"
+    ],
+    [
+      "2026-11-13",
+      "2026-11-17"
     ],
     [
       "2026-05-07",
