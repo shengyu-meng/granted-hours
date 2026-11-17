@@ -326187,6 +326187,36 @@ const timetableDataSource = {
         "gif_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-13/assets/visual-preview.gif",
         "bgm_url": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-13/live/2026-11-13-struck-the-court-stays-empty-bgm.mp3"
       },
+      "yesterday_flash_entries": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "画面不许改；先吃掉的；住不进这缸的。",
+          "summary_en": "The Picture May Not Change; The First Layer Eaten; What Cannot Live in This Tank.",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-13/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "画面不许改",
+          "summary_en": "The Picture May Not Change",
+          "href": "https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-13/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work",
+          "origin": "flash",
+          "timezone": "Asia/Shanghai"
+        }
+      ],
       "background_pulses": [
         {
           "origin": "background",
@@ -328957,6 +328987,24 @@ const timetableDataSource = {
           ],
           "layer": "event",
           "classification": "readable_reminder"
+        },
+        {
+          "reading_id": "yesterday-flash-digest",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-digest"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
+        },
+        {
+          "reading_id": "yesterday-flash-work",
+          "source": "yesterday_flash",
+          "source_refs": [
+            "yesterday-flash-work"
+          ],
+          "layer": "event",
+          "classification": "flash_slot"
         },
         {
           "reading_id": "climate-03",

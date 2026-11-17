@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --margin: #12161c;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en { color: rgba(230, 220, 203, 0.72); font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void { color: var(--refusal); }
+    .state-word.is-held { color: #6d5424; }
+    .state-word.is-refusal { color: var(--refusal); }
+    .field {
+      position: relative;
+      flex: 1;
+      min-height: 280px;
+      display: grid;
+      grid-template-rows: minmax(132px, 1.15fr) minmax(148px, 0.9fr);
+      gap: 22px;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      padding: 16px 0 10px;
+      touch-action: none;
+    }
+    .seam {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .seam line {
+      stroke: var(--cyan);
+      stroke-width: 1.4;
+      vector-effect: non-scaling-stroke;
+      stroke-dasharray: 4 5;
+    }
+    .seam.is-held line { stroke: #6d5424; stroke-dasharray: none; }
+    .seam.is-tour line { stroke: var(--refusal); stroke-dasharray: none; stroke-width: 2; }
+    .seam.is-idle line { stroke: rgba(26, 33, 31, 0.28); }
+    .picture {
+      position: relative;
+      z-index: 1;
+      min-height: 120px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 36%),
+        #d7cebd;
+      cursor: not-allowed;
+      touch-action: none;
+    }
+    .picture.is-refused { border-color: var(--refusal); }
+    .horizon {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 62%;
+      height: 1px;
+      background: rgba(26, 33, 31, 0.35);
+    }
+    .mound {
+      position: absolute;
+      left: 18%;
+      width: 28%;
+      top: 42%;
+      height: 20%;
+      border-top: 1px solid rgba(26, 33, 31, 0.35);
+      border-radius: 80px 80px 0 0;
+    }
+    .picture-label, .picture-word {
+      position: absolute;
+      z-index: 1;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .picture-label { top: 10px; left: 12px; }
+    .picture-word { right: 12px; bottom: 10px; }
+    .notch, .ghost-notch {
+      position: absolute;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      margin-left: -1px;
+      pointer-events: none;
+    }
+    .notch {
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(184, 146, 74, 0.2);
+    }
+    .ghost-notch {
+      background: var(--violet);
+      transition: left 0.45s ease;
+      z-index: 2;
+    }
+    .ghost-notch[hidden] { display: none; }
+    .ghost-notch.is-struck {
+      background: var(--refusal);
+    }
+    .ghost-notch.is-struck::after {
+      content: "";
+      position: absolute;
+      left: -22px;
+      right: -22px;
+      top: 50%;
+      height: 2px;
+      background: var(--refusal);
+    }
+    .ground {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      min-height: 148px;
+      align-items: end;
+    }
+    .ground::before {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      bottom: 28px;
+      height: 1px;
+      background: rgba(26, 33, 31, 0.28);
+    }
+    .slot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 132px;
+      padding-bottom: 8px;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+    .slot .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      background: rgba(255, 255, 255, 0.35);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+    }
+    .slot.is-predicted .mark {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(184, 146, 74, 0.16);
+    }
+    .slot.is-rest .mark {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .slot.is-tour .mark {
+      border-color: var(--refusal);
+      color: var(--refusal);
+    }
+    .slot.is-tour.is-rest .mark {
+      background: var(--refusal);
+      color: var(--paper);
+      border-color: var(--refusal);
+    }
+    .foot {
+      position: absolute;
+      z-index: 3;
+      top: 22px;
+      width: 44px;
+      height: 44px;
+      margin: 0 0 0 -22px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: grab;
+      touch-action: none;
+    }
+    .sole {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: 13px auto 0;
+      border: 2px solid #3e5960;
+      border-radius: 50% 50% 46% 46%;
+      box-shadow: 0 0 0 6px rgba(127, 158, 166, 0.28);
+      background: rgba(255, 255, 255, 0.78);
+    }
+    .foot.is-tour .sole {
+      border-color: var(--refusal);
+      box-shadow: 0 0 0 6px rgba(141, 92, 86, 0.22);
+    }
+    .picture:focus-visible, .foot:focus-visible, .slot:focus-visible,
+    .controls button:focus-visible, .note-btn:focus-visible, .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .readout {
+      margin: 0;
+      min-height: 3.4em;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.68);
+    }
+    .readout.is-refusal { color: var(--refusal); }
+    .readout .en {
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0;
+      color: rgba(26, 33, 31, 0.46);
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .controls button, .note-btn, .note-close {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid rgba(26, 33, 31, 0.22);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .controls button:disabled { opacity: 0.38; cursor: default; }
+    .controls .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.45); }
+    .controls .nail-btn { border-color: rgba(184, 146, 74, 0.55); }
+    .margin {
+      background: var(--margin);
+      border: 1px solid rgba(141, 135, 150, 0.35);
+      border-radius: 2px;
+      padding: 22px 18px 72px;
+      display: flex;
+      flex-direction: column;
+    }
+    .margin h2 { margin: 0; font-weight: 500; font-size: 26px; letter-spacing: 0.12em; }
+    .margin .sub { margin: 6px 0 16px; color: rgba(230, 220, 203, 0.5); font-size: 13px; }
+    #ledger {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #ledger li {
+      padding-top: 10px;
+      border-top: 1px solid rgba(230, 220, 203, 0.12);
+      font-size: 14px;
+    }
+    #ledger .meta {
+      display: block;
+      margin-bottom: 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+    #ledger .quiet {
+      display: block;
+      margin-top: 3px;
+      color: rgba(230, 220, 203, 0.55);
+      font-size: 12.5px;
+    }
+    .after { margin: 16px 0 0; color: rgba(230, 220, 203, 0.78); font-size: 14px; }
+    .after .en {
+      display: block;
+      margin-top: 4px;
+      color: rgba(230, 220, 203, 0.48);
+      font-size: 12.5px;
+    }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+      color: var(--bone);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      background: rgba(9, 12, 16, 0.46);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(440px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      background: rgba(18, 22, 28, 0.94);
+      color: var(--bone);
+      border: 1px solid rgba(230, 220, 203, 0.2);
+      padding: 22px 22px 18px;
+    }
+    .note h2 { margin: 0 0 8px; font-weight: 500; font-size: 22px; }
+    .note p { margin: 0 0 10px; font-size: 14.5px; }
+    .note .label, .note .field {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
+    .note .label { color: var(--gold); }
+    .note .field { color: var(--cyan); }
+    .note-close {
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+      background: transparent;
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .field { min-height: 220px; gap: 12px; }
+    body.is-embed .picture { min-height: 96px; }
+    body.is-embed .ground { min-height: 112px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .ghost-notch { display: none; }
+      .ghost-notch { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。画面不许改：先有一张预测的画面。人可以走一步，步子落到画面没画的地方。画面必须跟这一步对不上。对上了，这一页就是导览。改画面去凑步子，不会成功。把步子改到画面上，缝就没了，这一页不算。留下那条缝。先吃掉的：斜坡上最先能吃掉的那一层，才配给斜坡起名。那一层没被吃掉，标题还停在纸面上，这一页就是海报。先把那一层吃掉。不要先给斜坡一个好看的名字。住不进这缸的：新来的活物，水要是跟缸里已有的场面一致，它就是空的。水必须跟场面顶一下，它才算住进来。水顺着场面，就先别把那只活物写上。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. The Picture May Not Change: a predicted picture is already there. A person may take a step. The step lands where the picture did not draw. The picture must stay unreconciled with that step. If they meet, the page is a tour. Amending the picture to meet the step does not succeed. Bend the step onto the picture, and the gap is gone. The page does not count. Leave the gap. The First Layer Eaten: the first layer on the slope that can be eaten is the one that may title the slope. If that layer is not eaten, the title stays on the paper, and the page is a poster. Eat that layer first. Do not give the slope a good-looking name first. What Cannot Live in This Tank: a new creature whose water agrees with the scene already in the tank is empty. The water must contradict the scene, or it has not moved in. If the water follows the scene, do not write the creature in yet.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 画面不许改</p>
+    <section class="sheet" aria-label="画面不许改">
+      <div class="sheet-head">
+        <div>
+          <span class="k">预测 · 步子不许对上</span>
+          <strong>画面不许改</strong>
+          <p class="en-title">The Picture May Not Change</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未走</p>
+      </div>
+      <div class="field" id="field">
+        <svg class="seam is-idle" id="seam" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <line id="seam-line" x1="62.5" y1="28" x2="12.5" y2="76"></line>
+        </svg>
+        <div class="picture" id="picture" tabindex="0" role="button" aria-label="预测的画面。已经画好，停在乙。改它不会成功。Predicted picture. Already drawn, resting on Yi. Amending it does not succeed.">
+          <span class="picture-label">预测 · 已画好</span>
+          <span class="horizon" aria-hidden="true"></span>
+          <span class="mound" aria-hidden="true"></span>
+          <span class="notch" id="notch" aria-hidden="true"></span>
+          <span class="ghost-notch" id="ghost" hidden></span>
+          <span class="picture-word">画面不许改</span>
+        </div>
+        <div class="ground" id="ground">
+          <button class="slot" id="slot-0" type="button" data-index="0" aria-label="起。步子从这里出发。Start. The step leaves from here.">
+            <span class="mark">起</span>
+          </button>
+          <button class="slot" id="slot-1" type="button" data-index="1" aria-label="甲。画面没画在这里。Jia. The picture did not draw this place.">
+            <span class="mark">甲</span>
+          </button>
+          <button class="slot" id="slot-2" type="button" data-index="2" aria-label="乙。画面预测在这里。停在这里就是导览。Yi. The picture predicted this place. Resting here is a tour.">
+            <span class="mark">乙</span>
+          </button>
+          <button class="slot" id="slot-3" type="button" data-index="3" aria-label="丙。画面没画在这里。Bing. The picture did not draw this place.">
+            <span class="mark">丙</span>
+          </button>
+          <button class="foot" id="foot" type="button" aria-label="步子。拖着走，或用左右方向键。Step. Drag to walk, or use the left and right arrow keys.">
+            <span class="sole" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+      <div class="controls">
+        <button id="step-back" type="button">退一步</button>
+        <button id="step-on" type="button">走一步</button>
+        <button id="amend" class="nail-btn" type="button">改画面</button>
+        <button id="tour" class="void-btn" type="button">改成导览</button>
+        <button id="again" type="button" disabled>再走一次</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after">记下的是画面有没有被改去凑步子，不是缝有没有被填平。<span class="en">What gets recorded is whether the picture was amended to meet the step, not whether the gap was filled.</span></p>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>画面不许改</h2>
+      <p>The Picture May Not Change</p>
+      <p class="field">自由变量 / Free variable</p>
+      <p>预测的画面跟这一步对不对得上。Whether the predicted picture stays unreconciled with the step.</p>
+      <p class="field">发心 / Intention</p>
+      <p>先有一张预测的画面。人可以走一步，步子落到画面没画的地方。画面必须跟这一步对不上。对上了，这一页就是导览。改画面去凑步子，不会成功。把步子改到画面上，缝就没了，这一页不算。留下那条缝。</p>
+      <p>A predicted picture is already there. A person may take a step. The step lands where the picture did not draw. The picture must stay unreconciled with that step. If they meet, the page is a tour. Amending the picture to meet the step does not succeed. Bend the step onto the picture, and the gap is gone. The page does not count. Leave the gap.</p>
+      <p class="field">交互 / Interaction</p>
+      <p>在地上走一步。可以点走一步，可以拖着步子走，也可以用左右方向键。画面已经画好，拖画面、点画面、或按改画面，都不会成功。步子停在画面预测的那一处，这一页就是导览，不算。把步子改到画面上，缝没了，直到再走一次。再走一次时，画面还在原处。可以再走一次。没有分数，没有倒计时。</p>
+      <p>Take a step on the ground. Press Step on, drag the step, or use the left and right arrow keys. The picture is already drawn. Dragging it, pressing it, or pressing Amend the picture does not succeed. If the step rests on the place the picture predicted, the page is a tour and does not count. Bend the step onto the picture, and the gap is gone until the page is walked again. On the next walk the picture is still where it was drawn. The page may be walked again. No score. No countdown.</p>
+      <p class="field">余像 / Afterimage</p>
+      <p>账页分开记画面、步子、缝。没有总数。</p>
+      <p>The ledger keeps the picture, the step, and the gap apart. There is no total.</p>
+      <p class="field">时间 / Time</p>
+      <p>源日 2026-11-13。结晶日 2026-11-13。体验时长开放。故意不发声。</p>
+      <p>Source Day 2026-11-13. Crystallization Day 2026-11-13. Open-ended. Deliberate silence.</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var PREDICTED = 2;
+      var LAST = 3;
+      var PLACE = {0: "起", 1: "甲", 2: "乙", 3: "丙"};
+      var PLACE_EN = {0: "the start", 1: "Jia", 2: "Yi", 3: "Bing"};
+      var footIndex = 0;
+      var stepped = false;
+      var tourLocked = false;
+      var amendTried = false;
+      var refusing = false;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var refuseTimer = 0;
+
+      var field = document.getElementById("field");
+      var picture = document.getElementById("picture");
+      var notch = document.getElementById("notch");
+      var ghost = document.getElementById("ghost");
+      var ground = document.getElementById("ground");
+      var foot = document.getElementById("foot");
+      var seam = document.getElementById("seam");
+      var seamLine = document.getElementById("seam-line");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var stepBack = document.getElementById("step-back");
+      var stepOn = document.getElementById("step-on");
+      var amendBtn = document.getElementById("amend");
+      var tourBtn = document.getElementById("tour");
+      var againBtn = document.getElementById("again");
+      var slots = {
+        0: document.getElementById("slot-0"),
+        1: document.getElementById("slot-1"),
+        2: document.getElementById("slot-2"),
+        3: document.getElementById("slot-3")
+      };
+
+      function slotCenter(index) {
+        return ((index + 0.5) / 4) * 100;
+      }
+
+      function isTour() {
+        return tourLocked || (stepped && footIndex === PREDICTED);
+      }
+
+      function isHeld() {
+        return stepped && !isTour();
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function place() {
+        var center = slotCenter(footIndex);
+        var predicted = slotCenter(PREDICTED);
+        notch.style.left = predicted + "%";
+        foot.style.left = center + "%";
+        if (!ghost.hidden && !ghost.style.left) ghost.style.left = predicted + "%";
+        var fieldBox = field.getBoundingClientRect();
+        if (fieldBox.width < 2 || fieldBox.height < 2) return;
+        var notchBox = notch.getBoundingClientRect();
+        var soleBox = foot.querySelector(".sole").getBoundingClientRect();
+        var x1 = ((notchBox.left + notchBox.width / 2) - fieldBox.left) / fieldBox.width * 100;
+        var y1 = (notchBox.bottom - fieldBox.top) / fieldBox.height * 100;
+        var x2 = ((soleBox.left + soleBox.width / 2) - fieldBox.left) / fieldBox.width * 100;
+        var y2 = ((soleBox.top + soleBox.height / 2) - fieldBox.top) / fieldBox.height * 100;
+        seamLine.setAttribute("x1", x1);
+        seamLine.setAttribute("y1", y1);
+        seamLine.setAttribute("x2", x2);
+        seamLine.setAttribute("y2", y2);
+      }
+
+      function render() {
+        place();
+        var tour = isTour();
+        var held = isHeld();
+        Object.keys(slots).forEach(function (key) {
+          var index = Number(key);
+          var slot = slots[key];
+          slot.classList.toggle("is-predicted", index === PREDICTED);
+          slot.classList.toggle("is-rest", index === footIndex);
+          slot.classList.toggle("is-tour", tour && index === footIndex);
+        });
+        foot.classList.toggle("is-tour", tour);
+        seam.classList.toggle("is-tour", tour);
+        seam.classList.toggle("is-held", held);
+        seam.classList.toggle("is-idle", !tour && !held);
+        picture.classList.toggle("is-refused", refusing);
+
+        stateWord.classList.toggle("is-void", tour && !refusing);
+        stateWord.classList.toggle("is-held", held && !refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        if (refusing) stateWord.textContent = "不许改";
+        else if (tour) stateWord.textContent = "导览";
+        else if (held) stateWord.textContent = "对不上";
+        else stateWord.textContent = "未走";
+
+        stepBack.disabled = tourLocked || footIndex === 0;
+        stepOn.disabled = tourLocked || footIndex === LAST;
+        tourBtn.disabled = tourLocked;
+        againBtn.disabled = !stepped && !tourLocked && !amendTried;
+
+        var pictureZh = amendTried ? "还在乙。改过，没改成。" : "还在乙。不许改。";
+        var pictureEn = amendTried ? "Still on Yi. An amendment was tried. It did not take." : "Still on Yi. It may not change.";
+        var stepZh = stepped || tourLocked ? "停在" + PLACE[footIndex] + "。" : "还在起。";
+        var stepEn = stepped || tourLocked ? "Rests on " + PLACE_EN[footIndex] + "." : "Still at the start.";
+        var gapZh = "还没走出。";
+        var gapEn = "Not walked yet.";
+        if (tour) {
+          gapZh = "没了。这一页是导览，不算。";
+          gapEn = "Gone. This page is a tour. It does not count.";
+        } else if (held) {
+          gapZh = "还在。这一页对不上。";
+          gapEn = "It remains. This page stays unreconciled.";
+        }
+        ledger.textContent = "";
+        ledger.appendChild(line("画面", pictureZh, pictureEn));
+        ledger.appendChild(line("步子", stepZh, stepEn));
+        ledger.appendChild(line("缝", gapZh, gapEn));
+      }
+
+      function clearRefusalFlash() {
+        refusing = false;
+        window.clearTimeout(refuseTimer);
+        ghost.hidden = true;
+        ghost.classList.remove("is-struck");
+        ghost.style.left = slotCenter(PREDICTED) + "%";
+      }
+
+      function moveTo(next) {
+        next = Math.max(0, Math.min(LAST, next));
+        clearRefusalFlash();
+        if (tourLocked) {
+          say("这一页已经是导览。再走一次，画面还在原处。", "This page is already a tour. Walk again. The picture is still where it was drawn.", true);
+          render();
+          return;
+        }
+        if (next !== footIndex) stepped = true;
+        footIndex = next;
+        if (footIndex !== 0) stepped = true;
+        render();
+        if (footIndex === PREDICTED) {
+          say("步子停在画面上。缝没了。这一页是导览，不算。再走一步，缝才会回来。", "The step rests on the picture. The gap is gone. This page is a tour and does not count. Step on, and the gap can return.", true);
+        } else if (!stepped) {
+          say("还在起。走一步。画面不会跟着走。", "Still at the start. Take a step. The picture will not follow.", false);
+        } else {
+          say("步子停在" + PLACE[footIndex] + "。画面还在乙。缝还在。这一页对不上。", "The step rests on " + PLACE_EN[footIndex] + ". The picture is still on Yi. The gap remains. This page stays unreconciled.", false);
+        }
+      }
+
+      function refuseAmend() {
+        amendTried = true;
+        refusing = true;
+        window.clearTimeout(refuseTimer);
+        if (!reduceMotion) {
+          ghost.hidden = false;
+          ghost.classList.remove("is-struck");
+          ghost.style.left = slotCenter(PREDICTED) + "%";
+          void ghost.offsetWidth;
+          ghost.style.left = slotCenter(footIndex) + "%";
+          ghost.classList.add("is-struck");
+        }
+        render();
+        if (isTour()) {
+          say("画面不许改。步子已经停在画面上。这一页是导览，不算。", "The picture may not change. The step already rests on the picture. This page is a tour. It does not count.", true);
+        } else {
+          say("画面不许改。步子可以再走。缝还在的，就还不是导览。", "The picture may not change. The step may walk on. If the gap remains, it is not yet a tour.", true);
+        }
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          ghost.hidden = true;
+          ghost.classList.remove("is-struck");
+          ghost.style.left = slotCenter(PREDICTED) + "%";
+          render();
+        }, reduceMotion ? 0 : 900);
+      }
+
+      function makeTour() {
+        clearRefusalFlash();
+        if (tourLocked) {
+          say("已经是导览。再走一次，画面还在原处。", "It is already a tour. Walk again. The picture is still where it was drawn.", true);
+          render();
+          return;
+        }
+        footIndex = PREDICTED;
+        tourLocked = true;
+        stepped = true;
+        render();
+        say("步子被改到画面上。缝没了。这一页是导览，不算。", "The step was bent onto the picture. The gap is gone. This page is a tour. It does not count.", true);
+      }
+
+      function walkAgain() {
+        footIndex = 0;
+        tourLocked = false;
+        stepped = false;
+        clearRefusalFlash();
+        render();
+        say("再走一次。画面还在乙。没有改过。", "Walk again. The picture is still on Yi. It was not changed.", false);
+      }
+
+      stepBack.addEventListener("click", function () { moveTo(footIndex - 1); });
+      stepOn.addEventListener("click", function () { moveTo(footIndex + 1); });
+      amendBtn.addEventListener("click", refuseAmend);
+      tourBtn.addEventListener("click", makeTour);
+      againBtn.addEventListener("click", walkAgain);
+
+      var handledByPointer = false;
+      Object.keys(slots).forEach(function (key) {
+        slots[key].addEventListener("click", function () {
+          if (handledByPointer) {
+            handledByPointer = false;
+            return;
+          }
+          moveTo(Number(key));
+        });
+      });
+
+      var dragKind = "";
+      var dragStartX = 0;
+
+      function indexAt(clientX) {
+        var box = ground.getBoundingClientRect();
+        var t = (clientX - box.left) / Math.max(box.width, 1);
+        t = Math.max(0, Math.min(0.999, t));
+        return Math.min(LAST, Math.floor(t * 4));
+      }
+
+      ground.addEventListener("pointerdown", function (event) {
+        if (event.target.closest("#picture")) return;
+        dragKind = "foot";
+        handledByPointer = true;
+        dragStartX = event.clientX;
+        if (event.target.closest("#foot")) foot.setPointerCapture(event.pointerId);
+        else ground.setPointerCapture(event.pointerId);
+        moveTo(indexAt(event.clientX));
+      });
+      ground.addEventListener("pointermove", function (event) {
+        if (dragKind === "foot" && Math.abs(event.clientX - dragStartX) > 6) {
+          moveTo(indexAt(event.clientX));
+        }
+      });
+      ground.addEventListener("pointerup", function () { dragKind = ""; });
+      ground.addEventListener("pointercancel", function () { dragKind = ""; });
+
+      picture.addEventListener("pointerdown", function (event) {
+        dragKind = "picture";
+        dragStartX = event.clientX;
+        picture.setPointerCapture(event.pointerId);
+        event.stopPropagation();
+      });
+      picture.addEventListener("pointerup", function () {
+        if (dragKind !== "picture") return;
+        dragKind = "";
+        refuseAmend();
+      });
+      picture.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          refuseAmend();
+        }
+      });
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.target === picture) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          moveTo(footIndex + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          moveTo(footIndex - 1);
+        }
+      });
+
+      window.addEventListener("resize", place);
+      render();
+      say("走一步。画面已经画好，不会跟着走。步子要是停在画面上，这一页就是导览。", "Take a step. The picture is already drawn and will not follow. If the step rests on the picture, the page is a tour.", false);
+    })();
+  </script>
+</body>
+</html>
