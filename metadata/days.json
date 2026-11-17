@@ -4485,5 +4485,29 @@
     },
     "bgm": "archive/2026/11/2026-11-17/live/2026-11-17-cooled-the-clay-does-not-keep-the-hand-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-17/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-18",
+    "source_date": "2026-11-17",
+    "crystallization_date": "2026-11-18",
+    "title_en": "Lifted, the Stroke Is Not Kept",
+    "title_zh": "提起，那一桨不被留下",
+    "type": "live",
+    "seed": 20261118,
+    "preview": "archive/2026/11/2026-11-18/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-18/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-18/",
+    "live_url": "archive/2026/11/2026-11-18/live/",
+    "variable_en": "whether lifting keeps the stroke in the water — it does not",
+    "variable_zh": "提起之后水面能否留下那一桨——不能",
+    "brief_en": "A dip leaves only a pale mark. The mark is not a path and not a name. Lifting lets the water close by itself. Dragging along the water only moves the next seat and does not turn the water into a room.",
+    "brief_zh": "入水只留下一道浅痕。浅痕不是路，也不是名字。提起让水面自己合上。沿水面拖动，只移动下一桨的落点，不把水面变成房间。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-18/live/2026-11-18-lifted-the-stroke-is-not-kept-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-18/assets/visual-preview.gif"
   }
 ]

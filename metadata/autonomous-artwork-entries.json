@@ -1552,6 +1552,22 @@
       "after_zh": "陶土冷了。那只手没有留下。窑口仍只是窑口。",
       "interaction_en": "Click the mouth to set the vessel. Setting does not keep a hand. Drag along the lip to move the seat. Press S to set, or press Space to set. Press W to withdraw. Withdrawing cools the band and does not write a name.",
       "interaction_zh": "点击窑口，放下器物。放下并不留下那只手。沿窑唇拖动，只移动落点。按 S 放下，或按 Space 放下。按 W 撤回。撤回让热环冷却，并不写下名字。"
+    },
+    {
+      "date": "2026-11-18",
+      "slug": "lifted-the-stroke-is-not-kept",
+      "title_en": "Lifted, the Stroke Is Not Kept",
+      "title_zh": "提起，那一桨不被留下",
+      "variable_en": "whether lifting keeps the stroke in the water — it does not",
+      "variable_zh": "提起之后水面能否留下那一桨——不能",
+      "seed": 20261118,
+      "file": "2026-11-18-lifted-the-stroke-is-not-kept",
+      "intention_en": "A dip leaves only a pale mark. The mark is not a path and not a name. Lifting lets the water close by itself. Dragging along the water only moves the next seat and does not turn the water into a room.",
+      "intention_zh": "入水只留下一道浅痕。浅痕不是路，也不是名字。提起让水面自己合上。沿水面拖动，只移动下一桨的落点，不把水面变成房间。",
+      "after_en": "The water closed. The stroke did not remain. The blade is still only a blade.",
+      "after_zh": "水面合上了。那一桨没有留下。桨仍只是桨。",
+      "interaction_en": "Click the water to dip the blade. Dipping does not keep the stroke. Drag along the water to move the seat. Press S to dip, or press Space to dip. Press W to lift. Lifting closes the mark and does not write a name.",
+      "interaction_zh": "点击水面，让桨入水。入水并不留下那一桨。沿水面拖动，只移动落点。按 S 入水，或按 Space 入水。按 W 提起。提起让浅痕合上，并不写下名字。"
     }
   ]
 }

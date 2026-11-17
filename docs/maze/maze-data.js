@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-17",
-  "nodeCount": 196,
+  "generatedAt": "2026-11-18",
+  "nodeCount": 197,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4117,6 +4117,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -30,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-18",
+      "date": "2026-11-18",
+      "title_en": "Lifted, the Stroke Is Not Kept",
+      "title_zh": "提起，那一桨不被留下",
+      "variable_en": "whether lifting keeps the stroke in the water — it does not",
+      "variable_zh": "提起之后水面能否留下那一桨——不能",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether lifting keeps the stroke in the water — it does not entered the archive as a clue rather than a label.",
+      "diary_zh": "「提起之后水面能否留下那一桨——不能」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-18/live/",
+      "archive_url": "../archive/2026/11/2026-11-18/",
+      "gif": "../archive/2026/11/2026-11-18/assets/visual-preview.gif",
+      "x": 27,
+      "y": -32,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4137,7 +4158,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 116
+      "count": 117
     },
     {
       "id": "maintenance",
@@ -4940,6 +4961,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-17"
     ],
     [
+      "2026-11-17",
+      "2026-11-18"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5394,6 +5419,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-13",
       "2026-11-17"
+    ],
+    [
+      "2026-11-16",
+      "2026-11-18"
     ],
     [
       "2026-05-07",
