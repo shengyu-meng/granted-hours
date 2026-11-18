@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-18",
-  "nodeCount": 197,
+  "generatedAt": "2026-11-19",
+  "nodeCount": 198,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4138,6 +4138,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -32,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-19",
+      "date": "2026-11-19",
+      "title_en": "Met, the Edges Remain Two",
+      "title_zh": "相遇，两边仍是两边",
+      "variable_en": "whether meeting merges the two edges — it does not",
+      "variable_zh": "相遇之后两边会不会并成一边——不会",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether meeting merges the two edges — it does not entered the archive as a clue rather than a label.",
+      "diary_zh": "「相遇之后两边会不会并成一边——不会」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-19/live/",
+      "archive_url": "../archive/2026/11/2026-11-19/",
+      "gif": "../archive/2026/11/2026-11-19/assets/visual-preview.gif",
+      "x": 30,
+      "y": -32,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4158,7 +4179,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 117
+      "count": 118
     },
     {
       "id": "maintenance",
@@ -4965,6 +4986,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-18"
     ],
     [
+      "2026-11-18",
+      "2026-11-19"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5423,6 +5448,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-16",
       "2026-11-18"
+    ],
+    [
+      "2026-11-17",
+      "2026-11-19"
     ],
     [
       "2026-05-07",

@@ -4509,5 +4509,29 @@
     },
     "bgm": "archive/2026/11/2026-11-18/live/2026-11-18-lifted-the-stroke-is-not-kept-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-18/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-19",
+    "source_date": "2026-11-18",
+    "crystallization_date": "2026-11-19",
+    "title_en": "Met, the Edges Remain Two",
+    "title_zh": "相遇，两边仍是两边",
+    "type": "live",
+    "seed": 20261119,
+    "preview": "archive/2026/11/2026-11-19/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-19/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-19/",
+    "live_url": "archive/2026/11/2026-11-19/live/",
+    "variable_en": "whether meeting merges the two edges — it does not",
+    "variable_zh": "相遇之后两边会不会并成一边——不会",
+    "brief_en": "A meeting only brings the edges near. Nearness is not a merger. The seam remains. Dragging along the seam only moves where they meet and does not turn the seam into an entrance.",
+    "brief_zh": "相遇只让两边靠近。靠近不是合并。缝还在。沿缝拖动，只移动相遇的位置，不把缝变成入口。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-19/live/2026-11-19-met-the-edges-remain-two-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-19/assets/visual-preview.gif"
   }
 ]

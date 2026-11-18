@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+      --held: #6d5424;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .state-word.is-refusal { color: var(--refusal); }
+    .field {
+      position: relative;
+      flex: 1;
+      min-height: 280px;
+      aspect-ratio: 640 / 280;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .route-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .already {
+      fill: none;
+      stroke: rgba(141, 135, 150, 0.45);
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .ink {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .ghost {
+      fill: none;
+      stroke: var(--refusal);
+      stroke-width: 1.4;
+      stroke-dasharray: 4 5;
+      opacity: 0;
+    }
+    .ghost.is-struck { opacity: 1; }
+    .station .mass { stroke: var(--violet); fill: none; stroke-width: 1.3; opacity: 0.55; }
+    .station.is-mass .mass { stroke: var(--ink); opacity: 1; stroke-width: 1.7; }
+    .station.is-decision .mass { opacity: 0.82; }
+    .station .tick { opacity: 0; }
+    .station.is-decision .tick { opacity: 1; }
+    .node { fill: var(--ink); }
+    .station.is-selected .node { fill: #3e5960; }
+    .end-tick { stroke: rgba(26, 33, 31, 0.45); stroke-width: 1; }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      fill: rgba(26, 33, 31, 0.55);
+      letter-spacing: 0.08em;
+    }
+    .bend {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      touch-action: none;
+    }
+    .bend.is-selected {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 4px rgba(127, 158, 166, 0.18);
+    }
+    .bend.is-refused { border-color: var(--refusal); }
+    .bend:focus-visible, button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .seal {
+      position: absolute;
+      right: 16px;
+      top: 12px;
+      width: 74px;
+      height: 74px;
+      border: 1.5px solid transparent;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.18em;
+      font-size: 15px;
+      pointer-events: none;
+      background: rgba(239, 230, 214, 0.72);
+    }
+    .seal.is-void {
+      display: flex;
+      border-color: var(--refusal);
+      color: var(--refusal);
+      transform: rotate(-8deg);
+    }
+    .seal.is-held {
+      display: flex;
+      border-color: var(--held);
+      color: var(--held);
+      transform: rotate(6deg);
+    }
+    .readout {
+      min-height: 3.2em;
+      margin: 0;
+      font-size: 15px;
+    }
+    .readout .en { display: block; font-size: 13px; color: rgba(26, 33, 31, 0.55); }
+    .readout.is-refusal { color: var(--refusal); }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .controls button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .margin {
+      padding: 8px 4px 0;
+      color: var(--bone);
+    }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note .field { color: var(--cyan); margin: 14px 0 0; font-size: 12px; letter-spacing: 0.12em; }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .field { min-height: 220px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .ghost { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。弯的那一下：记一条已经走过的路。每个弯只标决定，或者质量。到点就关的门，写进场地、挪不走的墙，已经走出去、收不回的一段，都会把接下来的路掰弯，不管有没有做决定。每个弯都标成决定，这一页先别收。至少留一个没选的弯。只重修掉的那一步：一处别扭，手会想把整页重来。修理只写给被丢掉的那一步。前后不许动。一写就把前后都改了，就不算修，先搁下。图里没有的线：图里本来没有、搭的时候却不得不加上的线，才说明有没有真的在建。每根只标承重，或者打扮。一根承重都没有，它就是一件衣服，不能拿来当这块地的名字。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. The Bend of Mass: record a path already walked. Mark each bend only as a decision, or as mass. A door that closes on time, a wall written into the site and impossible to move, a stretch already walked and impossible to take back, each bends what comes next whether or not anyone decided. If every bend is marked a decision, do not keep the page. Leave at least one bend that was not chosen. Repair Only the Dropped Step: one awkward place makes the hand want to redo the whole page. The repair is written only to the step that was dropped. What stands before and after must not move. If the sentence rewrites the neighbors, it is not a repair. Set it down. The Line the Picture Lacked: the lines the picture never contained, and that had to be added while building, are what say whether anything was built. Tag each added line as load, or as costume. If none carry load, it is a garment. It cannot name the site.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 弯的那一下</p>
+    <section class="sheet" aria-label="弯的那一下">
+      <div class="sheet-head">
+        <div>
+          <span class="k">已走过 · 弯不能抹</span>
+          <strong>弯的那一下</strong>
+          <p class="en-title">The Bend of Mass</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未标</p>
+      </div>
+      <div class="field" id="field">
+        <svg class="route-svg" viewBox="0 0 640 280" preserveAspectRatio="none" aria-hidden="true">
+          <path id="already" class="already" d="M 40 190 L 156 78 L 276 210 L 400 72 L 524 176 L 608 124"></path>
+          <path id="route" class="ink" d="M 40 190 L 156 78 L 276 210 L 400 72 L 524 176 L 608 124"></path>
+          <line id="ghost" class="ghost" x1="40" y1="190" x2="276" y2="210"></line>
+          <g class="station" id="glyph-0">
+            <g class="mass">
+              <path d="M146 58 L146 98 M166 58 L166 98 M148 60 L164 78 L148 96"></path>
+            </g>
+            <g class="tick"><path d="M172 64 L178 70 L190 54" stroke="#b8924a" fill="none" stroke-width="1.6"></path></g>
+            <circle class="node" cx="156" cy="78" r="3.5"></circle>
+            <text class="svg-label" x="146" y="50">门</text>
+          </g>
+          <g class="station" id="glyph-1">
+            <g class="mass">
+              <rect x="262" y="198" width="28" height="26"></rect>
+              <path d="M266 204 L286 220 M266 214 L280 228"></path>
+            </g>
+            <g class="tick"><path d="M294 196 L300 202 L312 186" stroke="#b8924a" fill="none" stroke-width="1.6"></path></g>
+            <circle class="node" cx="276" cy="210" r="3.5"></circle>
+            <text class="svg-label" x="266" y="246">墙</text>
+          </g>
+          <g class="station" id="glyph-2">
+            <g class="mass">
+              <path d="M378 84 L392 70 M386 92 L404 74"></path>
+            </g>
+            <g class="tick"><path d="M410 60 L416 66 L428 50" stroke="#b8924a" fill="none" stroke-width="1.6"></path></g>
+            <circle class="node" cx="400" cy="72" r="3.5"></circle>
+            <text class="svg-label" x="386" y="48">已走</text>
+          </g>
+          <g class="station" id="glyph-3">
+            <g class="mass">
+              <path d="M524 160 L524 192 M508 176 L540 176"></path>
+            </g>
+            <g class="tick"><path d="M544 160 L550 166 L562 150" stroke="#b8924a" fill="none" stroke-width="1.6"></path></g>
+            <circle class="node" cx="524" cy="176" r="3.5"></circle>
+            <text class="svg-label" x="508" y="208">路口</text>
+          </g>
+          <g class="end-tick">
+            <circle cx="40" cy="190" r="2.2" fill="rgba(26,33,31,0.45)"></circle>
+            <circle cx="608" cy="124" r="2.2" fill="rgba(26,33,31,0.45)"></circle>
+          </g>
+        </svg>
+        <button class="bend is-selected" id="bend-0" type="button" style="left:24.375%;top:27.857%"></button>
+        <button class="bend" id="bend-1" type="button" style="left:43.125%;top:75%"></button>
+        <button class="bend" id="bend-2" type="button" style="left:62.5%;top:25.714%"></button>
+        <button class="bend" id="bend-3" type="button" style="left:81.875%;top:62.857%"></button>
+        <div class="seal" id="seal" aria-hidden="true"></div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+      <div class="controls">
+        <button id="mark-decision" type="button">标决定</button>
+        <button id="mark-mass" type="button">标质量</button>
+        <button id="mark-all" class="void-btn" type="button">全标决定</button>
+        <button id="erase" class="void-btn" type="button">抹掉这个弯</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after">记下的是这个弯被标成决定还是质量，不是路有没有被掰直。<span class="en">What gets recorded is whether the bend was marked decision or mass, not whether the path was straightened.</span></p>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>弯的那一下</h2>
+      <p>The Bend of Mass</p>
+      <p class="field">自由变量 / Free variable</p>
+      <p>这个弯被标成决定，还是质量。Whether a bend is marked decision or mass.</p>
+      <p class="field">发心 / Intention</p>
+      <p>记一条已经走过的路。每个弯只标决定，或者质量。到点就关的门，写进场地、挪不走的墙，已经走出去、收不回的一段，都会把接下来的路掰弯，不管有没有做决定。每个弯都标成决定，这一页先别收。至少留一个没选的弯。路不许被抹直。</p>
+      <p>Record a path already walked. Mark each bend only as a decision, or as mass. A door that closes on time, a wall written into the site and impossible to move, a stretch already walked and impossible to take back, each bends what comes next whether or not anyone decided. If every bend is marked a decision, do not keep the page. Leave at least one bend that was not chosen. The path may not be straightened.</p>
+      <p class="field">交互 / Interaction</p>
+      <p>点一个弯，或用左右方向键选中。再按标决定，或标质量。全标决定，这一页先别收。按抹掉这个弯不会成功，路还停在原来的弯上。至少留一个标成质量的弯，这一页才可以收。可以再改标记。没有分数，没有倒计时。</p>
+      <p>Select a bend by pressing it, or with the left and right arrow keys. Then press Mark decision, or Mark mass. Mark every bend a decision, and the page is not kept. Press Erase this bend, and it does not succeed. The path stays on the bend it already took. The page can be kept only when at least one bend is marked mass. Marks may be changed. No score. No countdown.</p>
+      <p class="field">余像 / Afterimage</p>
+      <p>账页分开记决定、质量、卡片。没有总数。</p>
+      <p>The ledger keeps decision, mass, and the card apart. There is no total.</p>
+      <p class="field">时间 / Time</p>
+      <p>源日 2026-11-14。结晶日 2026-11-14。体验时长开放。故意不发声。</p>
+      <p>Source Day 2026-11-14. Crystallization Day 2026-11-14. Open-ended. Deliberate silence.</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var PATH_D = "M 40 190 L 156 78 L 276 210 L 400 72 L 524 176 L 608 124";
+      var KNOTS = [[40, 190], [156, 78], [276, 210], [400, 72], [524, 176], [608, 124]];
+      var BENDS = [
+        { zh: "门", en: "Door", massZh: "到点就关", massEn: "Closes on time" },
+        { zh: "墙", en: "Wall", massZh: "挪不走", massEn: "Cannot be moved" },
+        { zh: "已走", en: "Walked", massZh: "收不回", massEn: "Cannot be taken back" },
+        { zh: "路口", en: "Crossing", massZh: "也可以不是决定", massEn: "Need not be a decision" }
+      ];
+      var marks = [null, null, null, null];
+      var selected = 0;
+      var refusing = false;
+      var refuseTimer = 0;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var route = document.getElementById("route");
+      var already = document.getElementById("already");
+      var ghost = document.getElementById("ghost");
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var seal = document.getElementById("seal");
+      var buttons = [0, 1, 2, 3].map(function (i) { return document.getElementById("bend-" + i); });
+      var glyphs = [0, 1, 2, 3].map(function (i) { return document.getElementById("glyph-" + i); });
+
+      function lockPath() {
+        if (route.getAttribute("d") !== PATH_D) route.setAttribute("d", PATH_D);
+        if (already.getAttribute("d") !== PATH_D) already.setAttribute("d", PATH_D);
+      }
+
+      function counts() {
+        return {
+          decision: marks.filter(function (m) { return m === "decision"; }).length,
+          mass: marks.filter(function (m) { return m === "mass"; }).length
+        };
+      }
+
+      function status() {
+        var c = counts();
+        if (c.decision === 4) return "void";
+        if (c.mass >= 1) return "held";
+        return "open";
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function markWord(mark) {
+        if (mark === "decision") return "决定";
+        if (mark === "mass") return "质量";
+        return "未标";
+      }
+
+      function render() {
+        lockPath();
+        var state = status();
+        var c = counts();
+        buttons.forEach(function (btn, i) {
+          var bend = BENDS[i];
+          var mark = marks[i];
+          btn.classList.toggle("is-selected", i === selected);
+          btn.classList.toggle("is-refused", refusing && i === selected);
+          btn.setAttribute("aria-current", i === selected ? "true" : "false");
+          btn.setAttribute("aria-label", bend.zh + "，" + markWord(mark) + "。" + bend.en + ", " + (mark || "unmarked") + ".");
+          glyphs[i].classList.toggle("is-selected", i === selected);
+          glyphs[i].classList.toggle("is-decision", mark === "decision");
+          glyphs[i].classList.toggle("is-mass", mark === "mass");
+        });
+        stateWord.classList.toggle("is-void", state === "void" && !refusing);
+        stateWord.classList.toggle("is-held", state === "held" && !refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        seal.classList.toggle("is-void", state === "void");
+        seal.classList.toggle("is-held", state === "held");
+        seal.textContent = state === "void" ? "别收" : state === "held" ? "留下" : "";
+        if (refusing) stateWord.textContent = "抹不掉";
+        else if (state === "void") stateWord.textContent = "别收";
+        else if (state === "held") stateWord.textContent = "留下";
+        else stateWord.textContent = "未标";
+
+        var cardZh = "还没标完，也还没把每个弯都写成决定。";
+        var cardEn = "Not yet fully marked, and not yet every bend written as a decision.";
+        if (state === "void") {
+          cardZh = "每个弯都是决定。这一页先别收。路没有被掰直。";
+          cardEn = "Every bend is a decision. Do not keep this page. The path was not straightened.";
+        } else if (state === "held") {
+          cardZh = "留下没选的弯。这一页可以收。";
+          cardEn = "An unchosen bend remains. This page can be kept.";
+        }
+        ledger.textContent = "";
+        ledger.appendChild(line("决定", String(c.decision) + "。标成决定，弯还在。", String(c.decision) + ". Marked decision. The bend remains."));
+        ledger.appendChild(line("质量", String(c.mass) + "。没选的弯。", String(c.mass) + ". Bends that were not chosen."));
+        ledger.appendChild(line("卡片", cardZh, cardEn));
+      }
+
+      function select(index) {
+        selected = Math.max(0, Math.min(3, index));
+        render();
+      }
+
+      function markSelected(kind) {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        ghost.classList.remove("is-struck");
+        marks[selected] = kind;
+        render();
+        var bend = BENDS[selected];
+        var state = status();
+        if (kind === "decision") {
+          say(
+            bend.zh + "，标成决定。" + bend.massZh + "还在。路没有被掰直。" + (state === "void" ? "这一页先别收。" : ""),
+            bend.en + " marked decision. " + bend.massEn + " remains. The path was not straightened." + (state === "void" ? " Do not keep this page." : ""),
+            state === "void"
+          );
+        } else {
+          say(
+            bend.zh + "，标成质量。留下一个没选的弯。" + (state === "held" ? "这一页可以收。" : ""),
+            bend.en + " marked mass. One unchosen bend remains." + (state === "held" ? " This page can be kept." : ""),
+            false
+          );
+        }
+      }
+
+      function markAll() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        ghost.classList.remove("is-struck");
+        marks = ["decision", "decision", "decision", "decision"];
+        render();
+        say(
+          "每个弯都标成决定。没有没选的弯。路没有被掰直。这一页先别收。",
+          "Every bend is marked a decision. No unchosen bend remains. The path was not straightened. Do not keep this page.",
+          true
+        );
+      }
+
+      function erase() {
+        refusing = true;
+        var prev = KNOTS[selected];
+        var next = KNOTS[selected + 2];
+        ghost.setAttribute("x1", prev[0]);
+        ghost.setAttribute("y1", prev[1]);
+        ghost.setAttribute("x2", next[0]);
+        ghost.setAttribute("y2", next[1]);
+        ghost.classList.add("is-struck");
+        lockPath();
+        render();
+        var bend = BENDS[selected];
+        say(
+          bend.zh + "抹不掉。路还停在这个弯上。只能标决定，或者质量。",
+          bend.en + " cannot be erased. The path stays on this bend. It can only be marked decision, or mass.",
+          true
+        );
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          ghost.classList.remove("is-struck");
+          render();
+        }, reduceMotion ? 0 : 900);
+      }
+
+      document.getElementById("mark-decision").addEventListener("click", function () { markSelected("decision"); });
+      document.getElementById("mark-mass").addEventListener("click", function () { markSelected("mass"); });
+      document.getElementById("mark-all").addEventListener("click", markAll);
+      document.getElementById("erase").addEventListener("click", erase);
+      buttons.forEach(function (btn, i) {
+        btn.addEventListener("click", function () { select(i); });
+      });
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          select(selected + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          select(selected - 1);
+        }
+      });
+
+      lockPath();
+      render();
+      say(
+        "路已经走过。选一个弯，标决定，或者质量。抹不掉。",
+        "The path has already been walked. Select a bend. Mark it decision, or mass. It cannot be erased.",
+        false
+      );
+    })();
+  </script>
+</body>
+</html>

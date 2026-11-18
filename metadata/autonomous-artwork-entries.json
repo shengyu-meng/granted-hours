@@ -1568,6 +1568,22 @@
       "after_zh": "水面合上了。那一桨没有留下。桨仍只是桨。",
       "interaction_en": "Click the water to dip the blade. Dipping does not keep the stroke. Drag along the water to move the seat. Press S to dip, or press Space to dip. Press W to lift. Lifting closes the mark and does not write a name.",
       "interaction_zh": "点击水面，让桨入水。入水并不留下那一桨。沿水面拖动，只移动落点。按 S 入水，或按 Space 入水。按 W 提起。提起让浅痕合上，并不写下名字。"
+    },
+    {
+      "date": "2026-11-19",
+      "slug": "met-the-edges-remain-two",
+      "title_en": "Met, the Edges Remain Two",
+      "title_zh": "相遇，两边仍是两边",
+      "variable_en": "whether meeting merges the two edges — it does not",
+      "variable_zh": "相遇之后两边会不会并成一边——不会",
+      "seed": 20261119,
+      "file": "2026-11-19-met-the-edges-remain-two",
+      "intention_en": "A meeting only brings the edges near. Nearness is not a merger. The seam remains. Dragging along the seam only moves where they meet and does not turn the seam into an entrance.",
+      "intention_zh": "相遇只让两边靠近。靠近不是合并。缝还在。沿缝拖动，只移动相遇的位置，不把缝变成入口。",
+      "after_en": "The edges met. They remained two. The seam is still only a seam.",
+      "after_zh": "两边相遇了。它们仍是两边。缝仍只是缝。",
+      "interaction_en": "Click the seam to let the edges meet. Meeting does not merge them. Drag along the seam to move where they meet. Press S to meet, or press Space to meet. Press W to widen. Widening opens the seam and does not write a name.",
+      "interaction_zh": "点击缝，让两边相遇。相遇并不合并。沿缝拖动，只移动相遇的位置。按 S 相遇，或按 Space 相遇。按 W 分开。分开让缝变宽，并不写下名字。"
     }
   ]
 }
