@@ -1584,6 +1584,22 @@
       "after_zh": "两边相遇了。它们仍是两边。缝仍只是缝。",
       "interaction_en": "Click the seam to let the edges meet. Meeting does not merge them. Drag along the seam to move where they meet. Press S to meet, or press Space to meet. Press W to widen. Widening opens the seam and does not write a name.",
       "interaction_zh": "点击缝，让两边相遇。相遇并不合并。沿缝拖动，只移动相遇的位置。按 S 相遇，或按 Space 相遇。按 W 分开。分开让缝变宽，并不写下名字。"
+    },
+    {
+      "date": "2026-11-20",
+      "slug": "returned-the-light-does-not-stay",
+      "title_en": "Returned, the Light Does Not Stay",
+      "title_zh": "归还，光不留下",
+      "variable_en": "whether a returned light leaves a kept brightness — it does not",
+      "variable_zh": "归还之后光会不会留下——不会",
+      "seed": 20261120,
+      "file": "2026-11-20-returned-the-light-does-not-stay",
+      "intention_en": "Borrowing only lets the light rest on the pause for a while. Resting is not possession. After it returns, the pause keeps no brightness. Dragging along the pause only moves where the light rests and does not write the light into a name.",
+      "intention_zh": "借来只让光在停顿上停一会儿。停留不是占有。归还之后，停顿上不留下亮度。沿停顿拖动，只移动光停留的位置，不把光写成名字。",
+      "after_en": "The light came back. It did not stay. The pause is still only a pause.",
+      "after_zh": "光回来过。它没有留下。停顿仍只是停顿。",
+      "interaction_en": "Click the pause to borrow the light. Borrowing does not keep it. Drag along the pause to move where the light rests. Press B to borrow, or press Space to borrow. Press R to return. Returning lets the light leave and does not write a brightness.",
+      "interaction_zh": "点击停顿，借来光。借来并不留下。沿停顿拖动，只移动光停留的位置。按 B 借来，或按 Space 借来。按 R 归还。归还让光离开，并不写下亮度。"
     }
   ]
 }

@@ -8621,6 +8621,87 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-11-19",
+      "provenance": "dialogue_based",
+      "assigned_residues": [
+        {
+          "category": "research_synthesis",
+          "en": "Research threads and validation",
+          "zh": "研究线索与验证",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 2,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "11:02",
+          "end": "11:09",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "沿着已经展开的思路，问我有没有更好的建议。",
+          "request_en": "Along the line of thought already open, asked whether I had a better suggestion.",
+          "outcome_zh": "11:02–11:09 这组顺着已有思路征求更好建议的询问，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the 11:02–11:09 request for a better suggestion along the line already open.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "redacted_private",
+          "en": "Discussion, judgment, and advancement",
+          "zh": "讨论、判断与推进",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 2,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "16:40",
+          "end": "22:34",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "问我能不能通过一条内部路径调用指定的外部模型。",
+          "request_en": "Asked whether an internal route could call a specified external model.",
+          "outcome_zh": "16:40–22:34 这组内部路径调用外部模型的确认，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the 16:40–22:34 check of whether an internal route could call a specified external model.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        },
+        {
+          "category": "visual_production",
+          "en": "Visual creation and revision",
+          "zh": "视觉创作与修改",
+          "redaction_status": "none",
+          "redaction_count": 0,
+          "source_kind": "collaboration_session",
+          "faithfulness": "faithful_summary",
+          "evidence_count": 1,
+          "session_count": 1,
+          "delegated_agent_count": 0,
+          "returned_agent_count": 0,
+          "agent_labels": [
+            "Hermes"
+          ],
+          "start": "16:42",
+          "end": "16:43",
+          "time_provenance": "observed_message_envelope",
+          "request_zh": "这条发错了，请忽略。",
+          "request_en": "This was sent to the wrong place; please ignore it.",
+          "outcome_zh": "16:42–16:43 这组忽略一条发错内容的要求，没有留下可公开且可靠对应的完成证据。",
+          "outcome_en": "No public-safe completion evidence was retained for the 16:42–16:43 request to ignore an item sent to the wrong place.",
+          "completion_status": "unverified",
+          "pair_provenance": "no_public_result_evidence"
+        }
+      ]
     }
   ]
 }

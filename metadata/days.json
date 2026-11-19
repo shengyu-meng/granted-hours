@@ -4533,5 +4533,29 @@
     },
     "bgm": "archive/2026/11/2026-11-19/live/2026-11-19-met-the-edges-remain-two-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-19/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-20",
+    "source_date": "2026-11-19",
+    "crystallization_date": "2026-11-20",
+    "title_en": "Returned, the Light Does Not Stay",
+    "title_zh": "归还，光不留下",
+    "type": "live",
+    "seed": 20261120,
+    "preview": "archive/2026/11/2026-11-20/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-20/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-20/",
+    "live_url": "archive/2026/11/2026-11-20/live/",
+    "variable_en": "whether a returned light leaves a kept brightness — it does not",
+    "variable_zh": "归还之后光会不会留下——不会",
+    "brief_en": "Borrowing only lets the light rest on the pause for a while. Resting is not possession. After it returns, the pause keeps no brightness. Dragging along the pause only moves where the light rests and does not write the light into a name.",
+    "brief_zh": "借来只让光在停顿上停一会儿。停留不是占有。归还之后，停顿上不留下亮度。沿停顿拖动，只移动光停留的位置，不把光写成名字。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-20/live/2026-11-20-returned-the-light-does-not-stay-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-20/assets/visual-preview.gif"
   }
 ]

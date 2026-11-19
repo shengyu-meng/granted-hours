@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --hair: rgba(26, 33, 31, 0.16);
+      --held: #6d5424;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .state-word.is-refusal { color: var(--refusal); }
+    .field {
+      position: relative;
+      flex: 1;
+      min-height: 280px;
+      aspect-ratio: 640 / 280;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plan-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .room {
+      fill: none;
+      stroke: rgba(26, 33, 31, 0.28);
+      stroke-width: 1.2;
+    }
+    .ground-fill { fill: rgba(141, 135, 150, 0.08); stroke: none; }
+    .hatch {
+      fill: none;
+      stroke: rgba(26, 33, 31, 0.28);
+      stroke-width: 0.8;
+    }
+    .wall {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 3.2;
+      stroke-linecap: square;
+    }
+    .path {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .threshold {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+    }
+    .look {
+      fill: none;
+      stroke: var(--violet);
+      stroke-width: 1.2;
+      stroke-dasharray: 4 5;
+      stroke-linecap: round;
+    }
+    .look-ring { fill: none; stroke: var(--violet); stroke-width: 1.2; }
+    .price-mark { opacity: 0; }
+    .unsellable-mark { opacity: 0; }
+    .station.is-price .price-mark { opacity: 1; }
+    .station.is-unsellable .unsellable-mark { opacity: 1; }
+    .price-mark path, .price-mark line {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.3;
+    }
+    .unsellable-mark circle {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 1.2;
+    }
+    .node { fill: var(--ink); }
+    .station.is-selected .node { fill: #3e5960; }
+    .svg-label {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      fill: rgba(26, 33, 31, 0.55);
+      letter-spacing: 0.08em;
+    }
+    .ghost-measure, .ghost-name { opacity: 0; }
+    .ghost-measure.is-struck, .ghost-name.is-struck { opacity: 1; }
+    .ghost-measure rect, .ghost-measure path, .ghost-measure line,
+    .ghost-name text, .ghost-name line {
+      stroke: var(--refusal);
+      fill: none;
+    }
+    .ghost-name text {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 18px;
+      letter-spacing: 0.22em;
+      fill: var(--refusal);
+      stroke: none;
+    }
+    .ghost-measure .area, .ghost-measure .volume, .ghost-measure .swatch { display: none; }
+    .ghost-measure.is-area .area,
+    .ghost-measure.is-volume .volume,
+    .ghost-measure.is-material .swatch { display: inline; }
+    .line-btn {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      touch-action: none;
+    }
+    .line-btn.is-selected {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 4px rgba(127, 158, 166, 0.18);
+    }
+    .line-btn.is-refused { border-color: var(--refusal); }
+    .line-btn:focus-visible, button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .seal {
+      position: absolute;
+      right: 16px;
+      top: 12px;
+      width: 74px;
+      height: 74px;
+      border: 1.5px solid transparent;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.18em;
+      font-size: 15px;
+      pointer-events: none;
+      background: rgba(239, 230, 214, 0.72);
+    }
+    .seal.is-void {
+      display: flex;
+      border-color: var(--refusal);
+      color: var(--refusal);
+      transform: rotate(-8deg);
+    }
+    .seal.is-held {
+      display: flex;
+      border-color: var(--held);
+      color: var(--held);
+      transform: rotate(6deg);
+    }
+    .readout {
+      min-height: 3.2em;
+      margin: 0;
+      font-size: 15px;
+    }
+    .readout .en { display: block; font-size: 13px; color: rgba(26, 33, 31, 0.55); }
+    .readout.is-refusal { color: var(--refusal); }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .controls button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .margin {
+      padding: 8px 4px 0;
+      color: var(--bone);
+    }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note .field { color: var(--cyan); margin: 14px 0 0; font-size: 12px; letter-spacing: 0.12em; }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .field { min-height: 220px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (prefers-reduced-motion: reduce) {
+      .ghost-measure, .ghost-name { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。报不了价的：一张图要是每根线都能换成数量和价钱，它可以去当报价单，不该再当一块地的名字。只写下报不了价的东西，一条没有面积的路，一个没有体积的门槛，一个没有材料的看。页是空的，说明那张图本来就是清单，只是穿着平面图的衣服。再量细一点，每一条都能变成长度或面积，这一页先别收。只是还没量完。原文如此：干净的那一栏可以编号，可以翻译，可以核对，不许改掉原文里写错的原因、写错的名字、写错的转向。错的地方两栏都留着。干净的那一栏要是一个都没有，整理已经把本子吃掉了。涂掉一个错转向，那一次走就换了一条路。谁在等：每次停顿只标三种，人在等机器，机器在等人，两边都还没收住。前两种只是记账。第三种才要写下那一下场地变了什么，一步，一扇门，或一句没说完的话。一种重叠都没有，就写这周没有重叠，别补一场。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. What Cannot Be Priced: a drawing whose every line can become quantity and price may be a quotation. It should not name a site. Write only what cannot be priced, a path with no area, a threshold with no volume, a look with no material. An empty page means the drawing was a bill wearing a plan's clothes. Measure finer until every line becomes length or area, and do not keep the page. The measuring is not finished. As Written: the clean column may number, translate, and check. It may not repair the wrong cause, the wrong name, or the wrong turn in the original. The wrong place stays in both columns. If the clean column has none, the notebook has already been eaten. Erase one wrong turn, and that walk becomes another path. Who Is Waiting: mark each pause as one of three, a person waiting on a machine, a machine waiting on a person, or both still unclosed. The first two are only a ledger. The third must say what the site changed in that moment, a step, a door, or a sentence left unfinished. If there is no overlap, write that this week had none. Do not invent one.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 报不了价的</p>
+    <section class="sheet" aria-label="报不了价的">
+      <div class="sheet-head">
+        <div>
+          <span class="k">图不能起名 · 页可以留下</span>
+          <strong>报不了价的</strong>
+          <p class="en-title">What Cannot Be Priced</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未标</p>
+      </div>
+      <div class="field" id="field">
+        <svg class="plan-svg" viewBox="0 0 640 280" preserveAspectRatio="none" aria-hidden="true">
+          <rect class="room" x="96" y="64" width="292" height="156"></rect>
+          <path class="room" d="M388 168 L456 168"></path>
+          <g class="station" id="glyph-4">
+            <rect class="ground-fill" x="108" y="148" width="148" height="60"></rect>
+            <path class="hatch" d="M116 156 L248 200 M116 172 L248 216 M116 188 L220 216 M148 148 L248 184"></path>
+            <g class="price-mark"><path d="M118 142 L248 142 M118 138 L118 146 M248 138 L248 146"></path></g>
+            <g class="unsellable-mark"><circle cx="150" cy="186" r="11"></circle></g>
+            <circle class="node" cx="150" cy="186" r="3.2"></circle>
+            <text class="svg-label" x="132" y="176">地面</text>
+          </g>
+          <g class="station" id="glyph-3">
+            <path class="wall" d="M268 72 L268 188"></path>
+            <g class="price-mark"><path d="M258 78 L278 78 M268 78 L268 188 M258 188 L278 188"></path></g>
+            <g class="unsellable-mark"><circle cx="268" cy="118" r="11"></circle></g>
+            <circle class="node" cx="268" cy="118" r="3.2"></circle>
+            <text class="svg-label" x="276" y="112">墙</text>
+          </g>
+          <g class="station" id="glyph-0">
+            <path class="path" d="M36 236 C 120 236, 180 214, 250 206 S 360 176, 400 168 S 500 132, 590 118"></path>
+            <g class="price-mark"><path d="M372 156 L428 156 M372 152 L372 160 M428 152 L428 160"></path></g>
+            <g class="unsellable-mark"><circle cx="400" cy="168" r="11"></circle></g>
+            <circle class="node" cx="400" cy="168" r="3.2"></circle>
+            <text class="svg-label" x="408" y="160">路</text>
+          </g>
+          <g class="station" id="glyph-1">
+            <path class="threshold" d="M304 190 L332 190 M304 198 L332 198 M304 206 L332 206"></path>
+            <g class="price-mark"><path d="M300 214 L336 214 L336 228 L300 228 Z"></path></g>
+            <g class="unsellable-mark"><circle cx="318" cy="198" r="11"></circle></g>
+            <circle class="node" cx="318" cy="198" r="3.2"></circle>
+            <text class="svg-label" x="300" y="184">门槛</text>
+          </g>
+          <g class="station" id="glyph-2">
+            <path class="look" d="M360 96 L508 56"></path>
+            <circle class="look-ring" cx="508" cy="56" r="9"></circle>
+            <g class="price-mark"><path d="M496 44 L520 44 L520 68 L496 68 Z"></path></g>
+            <g class="unsellable-mark"><circle cx="508" cy="56" r="14"></circle></g>
+            <circle class="node" cx="508" cy="56" r="3.2"></circle>
+            <text class="svg-label" x="518" y="52">看</text>
+          </g>
+          <g id="measure-ghost" class="ghost-measure">
+            <g class="area"><rect x="-18" y="-14" width="36" height="24"></rect><line x1="-18" y1="-18" x2="18" y2="10"></line></g>
+            <g class="volume"><path d="M-16 4 L0 -10 L16 4 L0 16 Z M-16 4 L-16 16 L0 26 L0 16 M16 4 L16 16 L0 26"></path></g>
+            <g class="swatch"><rect x="-14" y="-14" width="28" height="28"></rect><line x1="-14" y1="-14" x2="14" y2="14"></line></g>
+          </g>
+          <g id="name-ghost" class="ghost-name">
+            <text x="250" y="42">场地</text>
+            <line x1="246" y1="36" x2="318" y2="36"></line>
+          </g>
+        </svg>
+        <button class="line-btn is-selected" id="line-0" type="button" style="left:62.5%;top:60%"></button>
+        <button class="line-btn" id="line-1" type="button" style="left:49.6875%;top:70.714%"></button>
+        <button class="line-btn" id="line-2" type="button" style="left:79.375%;top:20%"></button>
+        <button class="line-btn" id="line-3" type="button" style="left:41.875%;top:42.143%"></button>
+        <button class="line-btn" id="line-4" type="button" style="left:23.4375%;top:66.429%"></button>
+        <div class="seal" id="seal" aria-hidden="true"></div>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+      <div class="controls">
+        <button id="mark-price" type="button">标价钱</button>
+        <button id="mark-unsellable" type="button">标报不了价</button>
+        <button id="measure" class="void-btn" type="button">再量细一点</button>
+        <button id="name-site" class="void-btn" type="button">用这张图起名</button>
+      </div>
+    </section>
+    <aside class="margin">
+      <h2>账页</h2>
+      <p class="sub">Ledger</p>
+      <ul id="ledger"></ul>
+      <p class="after">记下的是这条线被标成价钱还是报不了价，不是场地有没有被这张图命名。<span class="en">What gets recorded is whether the line was marked price or unsellable, not whether the drawing named the site.</span></p>
+    </aside>
+  </main>
+
+  <button class="note-btn" id="note-toggle" type="button" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">昨日闪光 · 抽出的一件</p>
+      <h2>报不了价的</h2>
+      <p>What Cannot Be Priced</p>
+      <p class="field">自由变量 / Free variable</p>
+      <p>这条线被标成价钱，还是报不了价。Whether a line is marked price or unsellable.</p>
+      <p class="field">发心 / Intention</p>
+      <p>一张图要是每根线都能换成数量和价钱，它可以去当报价单，不该再当一块地的名字。只写下报不了价的东西。页是空的，这张图就是清单，穿着平面图的衣服。每一条都量成数量，这一页先别收。图不许给场地起名。</p>
+      <p>A drawing whose every line can become quantity and price may be a quotation. It should not name a site. Write only what cannot be priced. An empty page means the drawing was a bill wearing a plan's clothes. If every line becomes quantity, do not keep the page. The drawing may not title the site.</p>
+      <p class="field">交互 / Interaction</p>
+      <p>点一条线，或用左右方向键选中。再按标价钱，或标报不了价。全标价钱，这一页先别收。按再量细一点，路不会得到面积，门槛不会得到体积，看不会得到材料。墙和地面可以量成数量，然后只去报价单。按用这张图起名不会成功。至少留一条报不了价的，这一页才可以收。可以再改标记。没有分数，没有倒计时。</p>
+      <p>Select a line by pressing it, or with the left and right arrow keys. Then press Mark price, or Mark unsellable. Mark every line a price, and the page is not kept. Press Measure finer, and the path does not gain area, the threshold does not gain volume, and the look does not gain material. The wall and the ground may become quantity, and then they go only to the quotation. Press Name the site with this drawing, and it does not succeed. The page can be kept only when at least one line is marked unsellable. Marks may be changed. No score. No countdown.</p>
+      <p class="field">余像 / Afterimage</p>
+      <p>账页分开记价钱、报不了价、场地名。没有总数。</p>
+      <p>The ledger keeps price, unsellable, and the site name apart. There is no total.</p>
+      <p class="field">时间 / Time</p>
+      <p>源日 2026-11-15。结晶日 2026-11-15。体验时长开放。故意不发声。</p>
+      <p>Source Day 2026-11-15. Crystallization Day 2026-11-15. Open-ended. Deliberate silence.</p>
+      <button class="note-close" id="note-close" type="button">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("embed") === "calendar") document.body.classList.add("is-embed");
+
+      var LINES = [
+        { zh: "路", en: "Path", kind: "area", refuseZh: "这条路没有面积。量不成。", refuseEn: "This path has no area. It cannot be measured.", node: [400, 168] },
+        { zh: "门槛", en: "Threshold", kind: "volume", refuseZh: "这个门槛没有体积。量不成。", refuseEn: "This threshold has no volume. It cannot be measured.", node: [318, 198] },
+        { zh: "看", en: "Look", kind: "material", refuseZh: "这一看没有材料。写不成。", refuseEn: "This look has no material. It cannot be written as one.", node: [508, 56] },
+        { zh: "墙", en: "Wall", kind: null, acceptZh: "墙量成了长度。它去报价单，不去场地的名字。", acceptEn: "The wall became length. It goes to the quotation, not to the site's name.", node: [268, 118] },
+        { zh: "地面", en: "Ground", kind: null, acceptZh: "地面量成了面积。它去报价单，不去场地的名字。", acceptEn: "The ground became area. It goes to the quotation, not to the site's name.", node: [150, 186] }
+      ];
+      var marks = [null, null, null, null, null];
+      var selected = 0;
+      var refusing = false;
+      var refuseWord = "";
+      var refuseTimer = 0;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var seal = document.getElementById("seal");
+      var measureGhost = document.getElementById("measure-ghost");
+      var nameGhost = document.getElementById("name-ghost");
+      var buttons = [0, 1, 2, 3, 4].map(function (i) { return document.getElementById("line-" + i); });
+      var glyphs = [0, 1, 2, 3, 4].map(function (i) { return document.getElementById("glyph-" + i); });
+
+      function counts() {
+        return {
+          price: marks.filter(function (m) { return m === "price"; }).length,
+          unsellable: marks.filter(function (m) { return m === "unsellable"; }).length
+        };
+      }
+
+      function status() {
+        var c = counts();
+        if (c.price === 5) return "void";
+        if (c.unsellable >= 1) return "held";
+        return "open";
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function markWord(mark) {
+        if (mark === "price") return "价钱";
+        if (mark === "unsellable") return "报不了价";
+        return "未标";
+      }
+
+      function clearRefuseSoon() {
+        window.clearTimeout(refuseTimer);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          refuseWord = "";
+          measureGhost.classList.remove("is-struck", "is-area", "is-volume", "is-material");
+          nameGhost.classList.remove("is-struck");
+          render();
+        }, reduceMotion ? 0 : 900);
+      }
+
+      function render() {
+        var state = status();
+        var c = counts();
+        buttons.forEach(function (btn, i) {
+          var item = LINES[i];
+          var mark = marks[i];
+          btn.classList.toggle("is-selected", i === selected);
+          btn.classList.toggle("is-refused", refusing && i === selected);
+          btn.setAttribute("aria-current", i === selected ? "true" : "false");
+          btn.setAttribute("aria-label", item.zh + "，" + markWord(mark) + "。" + item.en + ", " + (mark || "unmarked") + ".");
+          glyphs[i].classList.toggle("is-selected", i === selected);
+          glyphs[i].classList.toggle("is-price", mark === "price");
+          glyphs[i].classList.toggle("is-unsellable", mark === "unsellable");
+        });
+        stateWord.classList.toggle("is-void", state === "void" && !refusing);
+        stateWord.classList.toggle("is-held", state === "held" && !refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        seal.classList.toggle("is-void", state === "void");
+        seal.classList.toggle("is-held", state === "held");
+        seal.textContent = state === "void" ? "别收" : state === "held" ? "留下" : "";
+        if (refusing) stateWord.textContent = refuseWord;
+        else if (state === "void") stateWord.textContent = "别收";
+        else if (state === "held") stateWord.textContent = "留下";
+        else stateWord.textContent = "未标";
+
+        var cardZh = "还没写下报不了价的。图也不能起名。";
+        var cardEn = "Nothing unsellable is written yet. The drawing still cannot name the site.";
+        if (state === "void") {
+          cardZh = "页是空的。只是还没量完。场地名没有。";
+          cardEn = "The page is empty. The measuring is not finished. The site name is none.";
+        } else if (state === "held") {
+          cardZh = "报不了价的留下了。场地名还是没有。";
+          cardEn = "What cannot be priced remains. The site name is still none.";
+        }
+        ledger.textContent = "";
+        ledger.appendChild(line("价钱", String(c.price) + "。去报价单，不去场地的名字。", String(c.price) + ". To the quotation, not to the site's name."));
+        ledger.appendChild(line("报不了价", String(c.unsellable) + "。这一页只记这些。", String(c.unsellable) + ". This page records only these."));
+        ledger.appendChild(line("场地名", "没有。" + cardZh, "None. " + cardEn));
+      }
+
+      function select(index) {
+        selected = Math.max(0, Math.min(4, index));
+        render();
+      }
+
+      function tail(state) {
+        if (state === "void") return ["这一页先别收。", " Do not keep this page."];
+        if (state === "held") return ["这一页可以收。图还是不能给场地起名。", " This page can be kept. The drawing still cannot title the site."];
+        return ["", ""];
+      }
+
+      function markSelected(kind) {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        refuseWord = "";
+        measureGhost.classList.remove("is-struck", "is-area", "is-volume", "is-material");
+        nameGhost.classList.remove("is-struck");
+        marks[selected] = kind;
+        render();
+        var item = LINES[selected];
+        var state = status();
+        var extra = tail(state);
+        if (kind === "price") {
+          say(
+            item.zh + "，标成价钱。它去报价单，不去场地的名字。" + extra[0],
+            item.en + " marked price. It goes to the quotation, not to the site's name." + extra[1],
+            state === "void"
+          );
+        } else {
+          say(
+            item.zh + "，标成报不了价。页上多了一条不能卖的。" + extra[0],
+            item.en + " marked unsellable. The page gains one thing that cannot be sold." + extra[1],
+            false
+          );
+        }
+      }
+
+      function placeGhost(node) {
+        measureGhost.setAttribute("transform", "translate(" + node[0] + " " + node[1] + ")");
+      }
+
+      function measureFiner() {
+        var item = LINES[selected];
+        if (item.kind) {
+          refusing = true;
+          refuseWord = "量不成";
+          placeGhost(item.node);
+          measureGhost.classList.remove("is-area", "is-volume", "is-material");
+          measureGhost.classList.add("is-struck", "is-" + item.kind);
+          nameGhost.classList.remove("is-struck");
+          render();
+          say(item.refuseZh + "线还在。", item.refuseEn + " The line stays.", true);
+          clearRefuseSoon();
+          return;
+        }
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        refuseWord = "";
+        measureGhost.classList.remove("is-struck", "is-area", "is-volume", "is-material");
+        nameGhost.classList.remove("is-struck");
+        marks[selected] = "price";
+        render();
+        var state = status();
+        var extra = tail(state);
+        say(item.acceptZh + extra[0], item.acceptEn + extra[1], state === "void");
+      }
+
+      function nameSite() {
+        refusing = true;
+        refuseWord = "起不了名";
+        nameGhost.classList.add("is-struck");
+        measureGhost.classList.remove("is-struck", "is-area", "is-volume", "is-material");
+        render();
+        var state = status();
+        var zh = "页还是空的。这张图不能给这块地起名。";
+        var en = "The page is still empty. This drawing cannot name the site.";
+        if (state === "void") {
+          zh = "每一条都换成了数量。只是还没量完。这一页先别收。图不能给这块地起名。";
+          en = "Every line became quantity. The measuring is not finished. Do not keep this page. The drawing cannot name the site.";
+        } else if (state === "held") {
+          zh = "报不了价的可以留下。图还是不能给这块地起名。";
+          en = "What cannot be priced can remain. The drawing still cannot name the site.";
+        }
+        say(zh, en, true);
+        clearRefuseSoon();
+      }
+
+      document.getElementById("mark-price").addEventListener("click", function () { markSelected("price"); });
+      document.getElementById("mark-unsellable").addEventListener("click", function () { markSelected("unsellable"); });
+      document.getElementById("measure").addEventListener("click", measureFiner);
+      document.getElementById("name-site").addEventListener("click", nameSite);
+      buttons.forEach(function (btn, i) {
+        btn.addEventListener("click", function () { select(i); });
+      });
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          select(selected + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          select(selected - 1);
+        }
+      });
+
+      render();
+      say(
+        "一张图在这儿。选一条线，标价钱，或者报不了价。用这张图起名不会成功。",
+        "A drawing is here. Select a line. Mark it price, or unsellable. Naming the site with this drawing will not succeed.",
+        false
+      );
+    })();
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-19",
-  "nodeCount": 198,
+  "generatedAt": "2026-11-20",
+  "nodeCount": 199,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4159,6 +4159,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -32,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-20",
+      "date": "2026-11-20",
+      "title_en": "Returned, the Light Does Not Stay",
+      "title_zh": "归还，光不留下",
+      "variable_en": "whether a returned light leaves a kept brightness — it does not",
+      "variable_zh": "归还之后光会不会留下——不会",
+      "motif": "threshold",
+      "motif_zh": "阈值区",
+      "chapter": "Threshold / 阈值区",
+      "diary_en": "I was not trying to enter. I was looking for a way back.",
+      "diary_zh": "我不是想进去。我是在寻找进入之后还能离开的方式。",
+      "live_url": "../archive/2026/11/2026-11-20/live/",
+      "archive_url": "../archive/2026/11/2026-11-20/",
+      "gif": "../archive/2026/11/2026-11-20/assets/visual-preview.gif",
+      "x": 16,
+      "y": 0,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4197,7 +4218,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "阈值区",
       "tone": "violet / rose / cyan",
       "color": "#df8cff",
-      "count": 54
+      "count": 55
     }
   ],
   "links": [
@@ -4990,6 +5011,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-19"
     ],
     [
+      "2026-11-19",
+      "2026-11-20"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5688,6 +5713,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-04",
       "2026-11-14"
+    ],
+    [
+      "2026-11-07",
+      "2026-11-20"
     ],
     [
       "2026-05-17",

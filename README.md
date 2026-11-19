@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-20 — Returned, the Light Does Not Stay / 归还，光不留下**<br>
+  Variable / 自由变量：whether a returned light leaves a kept brightness — it does not / 归还之后光会不会留下——不会<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-20/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-20/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-20/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-20/live/)
 - **2026-11-19 — Met, the Edges Remain Two / 相遇，两边仍是两边**<br>
   Variable / 自由变量：whether meeting merges the two edges — it does not / 相遇之后两边会不会并成一边——不会<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
