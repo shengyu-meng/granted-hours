@@ -731,6 +731,49 @@
           "footprint_id": "yesterday-flash-work"
         }
       ]
+    },
+    {
+      "date": "2026-11-16",
+      "source_date": "2026-11-16",
+      "crystallization_date": "2026-11-16",
+      "label_zh": "昨日闪光",
+      "label_en": "Yesterday's Flash",
+      "title_zh": "图下的小字",
+      "title_en": "Small Type Under the Figure",
+      "start": "08:10",
+      "end": "08:12",
+      "timezone": "Asia/Shanghai",
+      "duration_minutes": 2,
+      "origin": "flash",
+      "live_url": "archive/2026/11/2026-11-16/yesterday-flash/live/",
+      "note_url": "archive/2026/11/2026-11-16/yesterday-flash/assets/2026-11-16-note.md",
+      "text_layer_url": "archive/2026/11/2026-11-16/yesterday-flash/assets/text-layer.md",
+      "slots": [
+        {
+          "kind": "digest",
+          "label_zh": "三条闪光",
+          "label_en": "Three glints",
+          "summary_zh": "图下的小字；没碰过就没有墙；认不出的那颗。",
+          "summary_en": "Small Type Under the Figure; No Wall Before Contact; The Unrecognizable One.",
+          "href": "archive/2026/11/2026-11-16/yesterday-flash/assets/text-layer.md",
+          "start": "08:10",
+          "end": "08:11",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-digest"
+        },
+        {
+          "kind": "work",
+          "label_zh": "抽出的一件",
+          "label_en": "Entered piece",
+          "summary_zh": "图下的小字",
+          "summary_en": "Small Type Under the Figure",
+          "href": "archive/2026/11/2026-11-16/yesterday-flash/live/",
+          "start": "08:11",
+          "end": "08:12",
+          "duration_minutes": 1,
+          "footprint_id": "yesterday-flash-work"
+        }
+      ]
     }
   ]
 }

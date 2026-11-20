@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      min-height: 250px;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate {
+      width: 100%;
+      height: 250px;
+      display: block;
+    }
+    .frame {
+      fill: none;
+      stroke: rgba(26, 33, 31, 0.22);
+      stroke-width: 1;
+    }
+    .origin-curve {
+      fill: none;
+      stroke: rgba(26, 33, 31, 0.28);
+      stroke-width: 1.1;
+    }
+    .own-curve {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .own-curve.is-open { opacity: 0; }
+    .own-curve.is-void {
+      stroke: var(--refusal);
+      stroke-width: 1.6;
+      stroke-dasharray: 5 6;
+      opacity: 0.62;
+    }
+    .own-curve.is-held { stroke: var(--ink); opacity: 1; }
+    .prick { stroke: rgba(26, 33, 31, 0.35); stroke-width: 1; }
+    .prick.is-home { opacity: 0; }
+    .ring {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.4;
+      opacity: 0;
+    }
+    .ring.is-selected { opacity: 1; }
+    .dot { fill: var(--ink); }
+    .dot.is-void { fill: var(--refusal); }
+    .dot.is-held { fill: var(--held); }
+    .mark-label {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 13px;
+      fill: rgba(26, 33, 31, 0.72);
+    }
+    .fig-k {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      fill: rgba(26, 33, 31, 0.4);
+    }
+    .hit { fill: transparent; cursor: pointer; }
+    .footnote {
+      min-height: 52px;
+      margin: 0;
+      padding: 2px 2px 0;
+      border-bottom: 1px solid var(--hair);
+    }
+    .footnote .fn-k {
+      display: block;
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: rgba(26, 33, 31, 0.42);
+    }
+    .footnote .fn-zh {
+      display: block;
+      margin-top: 3px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+    .footnote .fn-zh.is-empty { color: var(--violet); letter-spacing: 0.04em; }
+    .footnote .fn-en {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .point-row, .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected {
+      border-color: var(--gold);
+      color: var(--held);
+    }
+    .point-row button.is-named { background: rgba(184, 146, 74, 0.12); }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate, .field { height: 180px; min-height: 180px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate, body.is-embed .field { height: 168px; min-height: 168px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。图下的小字：自己画的那条线，要是图下的小字没有点出哪几个点动过，这条线就是空的。图可以弯，页可以留白。没被点名的移动，只是纸上晃了一下，不算自己的曲线。没碰过就没有墙：墙只在碰上的那一下才出生。页要是空的，不是还没碰到，是皮早就画好了。空页不是等待，是预先画上的皮肤。认不出的那颗：旧分类的名字要是还能套上，这一页场地就不成立。认得出的那颗，还是旧名字。能留下的，只能是旧名字套不上的那一颗。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Small Type Under the Figure: a curve you drew stays void unless the small type under the figure names the points that moved. The figure may bend. The page may stay blank. A movement the small type does not name is only a shiver on the paper. No Wall Before Contact: a wall is born only at contact. An empty page means the skin was already drawn, not that nothing has been touched yet. Emptiness is not waiting. It is a predrawn skin. The Unrecognizable One: if the old category name still fits, the site page is void. The one you can still recognize is still the old name. Only the one the old name cannot fit may remain.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 图下的小字</p>
+    <section class="sheet" aria-label="图下的小字">
+      <div class="sheet-head">
+        <div>
+          <span class="k">没被点名的移动 · 不算曲线</span>
+          <strong>图下的小字</strong>
+          <p class="en-title">Small Type Under the Figure</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未动</p>
+      </div>
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 200" role="img" aria-label="一张还没被小字点名的曲线">
+          <rect class="frame" x="28" y="16" width="584" height="168"></rect>
+          <text class="fig-k" x="40" y="34">图</text>
+          <path class="origin-curve" id="origin-curve"></path>
+          <path class="own-curve is-open" id="own-curve"></path>
+          <g id="marks"></g>
+        </svg>
+      </div>
+      <p class="footnote" id="footnote">
+        <span class="fn-k">小字</span>
+        <span class="fn-zh is-empty" id="fn-zh">（图下还没有小字）</span>
+        <span class="fn-en" id="fn-en">No small type under the figure yet.</span>
+      </p>
+      <div class="point-row" id="point-row"></div>
+      <div class="controls">
+        <button type="button" id="nudge-up">挪上</button>
+        <button type="button" id="nudge-down">挪下</button>
+        <button type="button" id="write-name">写入小字</button>
+        <button type="button" id="erase-name">从字里拿掉</button>
+        <button type="button" id="restore">回到原位</button>
+        <button type="button" id="keep" class="void-btn">留下这张图</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+    <aside class="margin">
+      <p class="kicker">余像</p>
+      <h2>分开记</h2>
+      <p class="sub">Afterimage</p>
+      <ul id="ledger"></ul>
+      <p class="after">小字写对了，也不会替你把点挪回去。<span class="en">A correct small type does not move the points back for you.</span></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>图下的小字</h2>
+      <p>自己画的那条线，要是图下的小字没有点出哪几个点动过，这条线就是空的。点一个点，或用左右方向键选中。再按挪上、挪下，或用上下方向键，也可以在图上拖这个点。再按写入小字，或从字里拿掉。按回到原位，这个点不再算动过。按留下这张图，只有小字正好点出动过的点，这一页才可以收。可以再改。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">A curve you drew stays void unless the small type under the figure names the points that moved. Select a point by pressing it, or with the left and right arrow keys. Then press Nudge up or Nudge down, or use the up and down arrow keys. You may also drag that point on the figure. Then press Write into the small type, or Take it out of the type. Press Return to first place, and that point no longer counts as moved. Press Keep this figure. The page can be kept only when the small type names exactly the points that moved. Marks may be changed. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var POINTS = [
+        { zh: "甲", en: "A", x: 78, y: 132 },
+        { zh: "乙", en: "B", x: 186, y: 78 },
+        { zh: "丙", en: "C", x: 304, y: 118 },
+        { zh: "丁", en: "D", x: 422, y: 64 },
+        { zh: "戊", en: "E", x: 540, y: 108 }
+      ];
+      var ys = POINTS.map(function (p) { return p.y; });
+      var named = [false, false, false, false, false];
+      var selected = 0;
+      var dragging = -1;
+      var refusing = false;
+      var refuseTimer = 0;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var Y_MIN = 42;
+      var Y_MAX = 168;
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var fnZh = document.getElementById("fn-zh");
+      var fnEn = document.getElementById("fn-en");
+      var originCurve = document.getElementById("origin-curve");
+      var ownCurve = document.getElementById("own-curve");
+      var marks = document.getElementById("marks");
+      var pointRow = document.getElementById("point-row");
+      var plate = document.getElementById("plate");
+      var pointButtons = [];
+
+      function movedAt(i) {
+        return Math.abs(ys[i] - POINTS[i].y) > 4;
+      }
+
+      function indexes(pred) {
+        var out = [];
+        for (var i = 0; i < POINTS.length; i++) if (pred(i)) out.push(i);
+        return out;
+      }
+
+      function same(a, b) {
+        if (a.length !== b.length) return false;
+        for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+        return true;
+      }
+
+      function sets() {
+        return {
+          moved: indexes(movedAt),
+          named: indexes(function (i) { return named[i]; })
+        };
+      }
+
+      function status() {
+        var s = sets();
+        if (!s.moved.length && !s.named.length) return "open";
+        if (s.moved.length && same(s.moved, s.named)) return "held";
+        return "void";
+      }
+
+      function joinZh(list) {
+        if (!list.length) return "没有";
+        return list.map(function (i) { return POINTS[i].zh; }).join("、");
+      }
+
+      function joinEn(list) {
+        if (!list.length) return "none";
+        return list.map(function (i) { return POINTS[i].en; }).join(", ");
+      }
+
+      function curve(useOrigin) {
+        var pts = POINTS.map(function (p, i) {
+          return { x: p.x, y: useOrigin ? p.y : ys[i] };
+        });
+        var d = "M " + pts[0].x + " " + pts[0].y;
+        for (var i = 0; i < pts.length - 1; i++) {
+          var p0 = pts[Math.max(0, i - 1)];
+          var p1 = pts[i];
+          var p2 = pts[i + 1];
+          var p3 = pts[Math.min(pts.length - 1, i + 2)];
+          var c1x = p1.x + (p2.x - p0.x) / 6;
+          var c1y = p1.y + (p2.y - p0.y) / 6;
+          var c2x = p2.x - (p3.x - p1.x) / 6;
+          var c2y = p2.y - (p3.y - p1.y) / 6;
+          d += " C " + c1x.toFixed(1) + " " + c1y.toFixed(1) + " " + c2x.toFixed(1) + " " + c2y.toFixed(1) + " " + p2.x + " " + p2.y;
+        }
+        return d;
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function tail(state) {
+        if (state === "void") return ["曲线是空的。", " The curve is void."];
+        if (state === "held") return ["曲线成立。", " The curve holds."];
+        return ["还没有自己的曲线。", " There is no curve of your own yet."];
+      }
+
+      function render() {
+        var state = status();
+        var s = sets();
+        var missing = s.moved.filter(function (i) { return s.named.indexOf(i) === -1; });
+        var extra = s.named.filter(function (i) { return s.moved.indexOf(i) === -1; });
+        originCurve.setAttribute("d", curve(true));
+        ownCurve.setAttribute("d", curve(false));
+        ownCurve.classList.toggle("is-open", state === "open");
+        ownCurve.classList.toggle("is-void", state === "void");
+        ownCurve.classList.toggle("is-held", state === "held");
+        marks.textContent = "";
+        POINTS.forEach(function (p, i) {
+          var ns = plate.namespaceURI;
+          var g = document.createElementNS(ns, "g");
+          var prick = document.createElementNS(ns, "path");
+          prick.setAttribute("class", "prick" + (movedAt(i) ? "" : " is-home"));
+          prick.setAttribute("d", "M " + (p.x - 4) + " " + p.y + " L " + (p.x + 4) + " " + p.y + " M " + p.x + " " + (p.y - 4) + " L " + p.x + " " + (p.y + 4));
+          var ring = document.createElementNS(ns, "circle");
+          ring.setAttribute("class", "ring" + (i === selected ? " is-selected" : ""));
+          ring.setAttribute("cx", p.x);
+          ring.setAttribute("cy", ys[i]);
+          ring.setAttribute("r", "11");
+          var dot = document.createElementNS(ns, "circle");
+          dot.setAttribute("class", "dot" + (state === "void" && movedAt(i) ? " is-void" : "") + (state === "held" && movedAt(i) ? " is-held" : ""));
+          dot.setAttribute("cx", p.x);
+          dot.setAttribute("cy", ys[i]);
+          dot.setAttribute("r", "3.4");
+          var label = document.createElementNS(ns, "text");
+          label.setAttribute("class", "mark-label");
+          label.setAttribute("x", p.x - 6);
+          label.setAttribute("y", ys[i] - 16);
+          label.textContent = p.zh;
+          var hit = document.createElementNS(ns, "circle");
+          hit.setAttribute("class", "hit");
+          hit.setAttribute("cx", p.x);
+          hit.setAttribute("cy", ys[i]);
+          hit.setAttribute("r", "18");
+          hit.addEventListener("pointerdown", function (event) {
+            event.preventDefault();
+            select(i);
+            beginDrag(i, event);
+          });
+          g.appendChild(prick);
+          g.appendChild(ring);
+          g.appendChild(dot);
+          g.appendChild(label);
+          g.appendChild(hit);
+          marks.appendChild(g);
+          var btn = pointButtons[i];
+          btn.classList.toggle("is-selected", i === selected);
+          btn.classList.toggle("is-named", named[i]);
+          btn.setAttribute("aria-current", i === selected ? "true" : "false");
+          var place = movedAt(i) ? "已离开原位" : "还在原位";
+          var claim = named[i] ? "小字点了它" : "小字没有它";
+          btn.setAttribute("aria-label", p.zh + "，" + place + "，" + claim + "。");
+        });
+        stateWord.classList.toggle("is-void", state === "void" && !refusing);
+        stateWord.classList.toggle("is-held", state === "held" && !refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        if (refusing) stateWord.textContent = "别收";
+        else if (state === "void") stateWord.textContent = "空";
+        else if (state === "held") stateWord.textContent = "成立";
+        else stateWord.textContent = "未动";
+        if (!s.named.length) {
+          fnZh.textContent = "（图下还没有小字）";
+          fnZh.classList.add("is-empty");
+          fnEn.textContent = "No small type under the figure yet.";
+        } else {
+          fnZh.textContent = joinZh(s.named) + "。";
+          fnZh.classList.remove("is-empty");
+          fnEn.textContent = joinEn(s.named) + ".";
+        }
+        ledger.textContent = "";
+        ledger.appendChild(line("动过", joinZh(s.moved) + "。", joinEn(s.moved) + "."));
+        ledger.appendChild(line("小字", s.named.length ? joinZh(s.named) + "。" : "还没有。", s.named.length ? joinEn(s.named) + "." : "Not yet."));
+        ledger.appendChild(line("没点到", joinZh(missing) + "。", joinEn(missing) + "."));
+        ledger.appendChild(line("多点了", joinZh(extra) + "。", joinEn(extra) + "."));
+      }
+
+      function select(index) {
+        selected = Math.max(0, Math.min(POINTS.length - 1, index));
+        refusing = false;
+        render();
+      }
+
+      function clamp(y) {
+        return Math.max(Y_MIN, Math.min(Y_MAX, y));
+      }
+
+      function nudge(dir) {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        ys[selected] = clamp(ys[selected] + dir * 18);
+        render();
+        var p = POINTS[selected];
+        var extra = tail(status());
+        if (movedAt(selected)) {
+          say(p.zh + "离开了原位。" + extra[0], p.en + " left its first place." + extra[1], status() === "void");
+        } else {
+          say(p.zh + "还在原位。" + extra[0], p.en + " is still at its first place." + extra[1], status() === "void");
+        }
+      }
+
+      function writeName() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        named[selected] = true;
+        render();
+        var p = POINTS[selected];
+        var extra = tail(status());
+        say("小字点了" + p.zh + "。" + extra[0], "The small type names " + p.en + "." + extra[1], status() === "void");
+      }
+
+      function eraseName() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        named[selected] = false;
+        render();
+        var p = POINTS[selected];
+        var extra = tail(status());
+        say(p.zh + "从小字里拿掉了。" + extra[0], p.en + " is taken out of the small type." + extra[1], status() === "void");
+      }
+
+      function restore() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        ys[selected] = POINTS[selected].y;
+        render();
+        var p = POINTS[selected];
+        var extra = tail(status());
+        say(p.zh + "回到原位。" + extra[0], p.en + " is back at its first place." + extra[1], status() === "void");
+      }
+
+      function keep() {
+        var state = status();
+        if (state === "held") {
+          refusing = false;
+          render();
+          say("这张图可以留下。小字点过的，就是动过的。", "This figure can be kept. The small type names the points that moved.", false);
+          return;
+        }
+        refusing = true;
+        render();
+        if (state === "open") {
+          say("还没有自己的曲线。先别收。", "There is no curve of your own yet. Do not keep it.", true);
+        } else {
+          say("先别收。小字还没正好点出动过的点。", "Do not keep it yet. The small type does not yet name exactly the points that moved.", true);
+        }
+        window.clearTimeout(refuseTimer);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          render();
+        }, reduceMotion ? 0 : 900);
+      }
+
+      function beginDrag(index, event) {
+        dragging = index;
+        if (event.pointerId != null && plate.setPointerCapture) {
+          try { plate.setPointerCapture(event.pointerId); } catch (err) { /* pointer may already be gone */ }
+        }
+      }
+
+      function svgY(event) {
+        var pt = plate.createSVGPoint();
+        pt.x = event.clientX;
+        pt.y = event.clientY;
+        var ctm = plate.getScreenCTM();
+        if (!ctm) return null;
+        return pt.matrixTransform(ctm.inverse()).y;
+      }
+
+      POINTS.forEach(function (p, i) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = "point-" + i;
+        btn.textContent = p.zh;
+        btn.addEventListener("click", function () { select(i); });
+        pointRow.appendChild(btn);
+        pointButtons.push(btn);
+      });
+
+      document.getElementById("nudge-up").addEventListener("click", function () { nudge(-1); });
+      document.getElementById("nudge-down").addEventListener("click", function () { nudge(1); });
+      document.getElementById("write-name").addEventListener("click", writeName);
+      document.getElementById("erase-name").addEventListener("click", eraseName);
+      document.getElementById("restore").addEventListener("click", restore);
+      document.getElementById("keep").addEventListener("click", keep);
+      plate.addEventListener("pointermove", function (event) {
+        if (dragging < 0) return;
+        var y = svgY(event);
+        if (y == null) return;
+        ys[dragging] = clamp(y);
+        render();
+      });
+      function endDrag() {
+        if (dragging < 0) return;
+        var i = dragging;
+        dragging = -1;
+        var p = POINTS[i];
+        var extra = tail(status());
+        if (movedAt(i)) say(p.zh + "离开了原位。" + extra[0], p.en + " left its first place." + extra[1], status() === "void");
+        else say(p.zh + "还在原位。" + extra[0], p.en + " is still at its first place." + extra[1], status() === "void");
+      }
+      plate.addEventListener("pointerup", endDrag);
+      plate.addEventListener("pointercancel", endDrag);
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          select(selected + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          select(selected - 1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          nudge(-1);
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          nudge(1);
+        }
+      });
+
+      render();
+      say("图在这儿。选一个点，挪开它，再让图下的小字点出它的名字。没点名，曲线是空的。", "The figure is here. Select a point, move it, then let the small type under the figure name it. Unnamed, the curve is void.", false);
+    })();
+  </script>
+</body>
+</html>

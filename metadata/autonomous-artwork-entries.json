@@ -1600,6 +1600,22 @@
       "after_zh": "光回来过。它没有留下。停顿仍只是停顿。",
       "interaction_en": "Click the pause to borrow the light. Borrowing does not keep it. Drag along the pause to move where the light rests. Press B to borrow, or press Space to borrow. Press R to return. Returning lets the light leave and does not write a brightness.",
       "interaction_zh": "点击停顿，借来光。借来并不留下。沿停顿拖动，只移动光停留的位置。按 B 借来，或按 Space 借来。按 R 归还。归还让光离开，并不写下亮度。"
+    },
+    {
+      "date": "2026-11-21",
+      "slug": "pressure-without-a-bearing",
+      "title_en": "Pressure Without a Bearing",
+      "title_zh": "无方位的气压",
+      "variable_en": "whether a rise in pressure must choose a bearing — it does not",
+      "variable_zh": "气压升高之后会不会选定方位——不会",
+      "seed": 20261121,
+      "file": "2026-11-21-pressure-without-a-bearing",
+      "intention_en": "Pressure may rise, and it may level again. Rising is not a choice. After it levels, the field keeps no bearing. Dragging across the field only moves where the pressure sits and does not write the movement as a heading.",
+      "intention_zh": "气压可以升高，也可以平回去。升高不是选择。平回去之后，场上不留下方位。沿画面拖动，只移动气压所在的位置，不把移动写成朝向。",
+      "after_en": "The pressure rose. It did not point. The air is still only air.",
+      "after_zh": "气压升高过。它没有指向。空气仍只是空气。",
+      "interaction_en": "Click the pressure to raise it. Raising does not point. Drag across the field to move where the pressure sits. Press H to raise, or press Space to raise. Press E to equalize. Equalizing lets the pressure leave its height and does not write a bearing.",
+      "interaction_zh": "点击气压，让它升高。升高并不指向。沿画面拖动，只移动气压所在的位置。按 H 升高，或按 Space 升高。按 E 平回。平回让气压离开高处，并不写下方位。"
     }
   ]
 }

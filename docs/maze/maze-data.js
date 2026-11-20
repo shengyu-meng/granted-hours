@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-20",
-  "nodeCount": 199,
+  "generatedAt": "2026-11-21",
+  "nodeCount": 200,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4180,6 +4180,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": 0,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-21",
+      "date": "2026-11-21",
+      "title_en": "Pressure Without a Bearing",
+      "title_zh": "无方位的气压",
+      "variable_en": "whether a rise in pressure must choose a bearing — it does not",
+      "variable_zh": "气压升高之后会不会选定方位——不会",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a rise in pressure must choose a bearing — it does not entered the archive as a clue rather than a label.",
+      "diary_zh": "「气压升高之后会不会选定方位——不会」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-21/live/",
+      "archive_url": "../archive/2026/11/2026-11-21/",
+      "gif": "../archive/2026/11/2026-11-21/assets/visual-preview.gif",
+      "x": 33,
+      "y": -30,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4200,7 +4221,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 118
+      "count": 119
     },
     {
       "id": "maintenance",
@@ -5015,6 +5036,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-20"
     ],
     [
+      "2026-11-20",
+      "2026-11-21"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5477,6 +5502,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-17",
       "2026-11-19"
+    ],
+    [
+      "2026-11-18",
+      "2026-11-21"
     ],
     [
       "2026-05-07",

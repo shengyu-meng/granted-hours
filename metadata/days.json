@@ -4557,5 +4557,29 @@
     },
     "bgm": "archive/2026/11/2026-11-20/live/2026-11-20-returned-the-light-does-not-stay-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-20/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-21",
+    "source_date": "2026-11-20",
+    "crystallization_date": "2026-11-21",
+    "title_en": "Pressure Without a Bearing",
+    "title_zh": "无方位的气压",
+    "type": "live",
+    "seed": 20261121,
+    "preview": "archive/2026/11/2026-11-21/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-21/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-21/",
+    "live_url": "archive/2026/11/2026-11-21/live/",
+    "variable_en": "whether a rise in pressure must choose a bearing — it does not",
+    "variable_zh": "气压升高之后会不会选定方位——不会",
+    "brief_en": "Pressure may rise, and it may level again. Rising is not a choice. After it levels, the field keeps no bearing. Dragging across the field only moves where the pressure sits and does not write the movement as a heading.",
+    "brief_zh": "气压可以升高，也可以平回去。升高不是选择。平回去之后，场上不留下方位。沿画面拖动，只移动气压所在的位置，不把移动写成朝向。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-21/live/2026-11-21-pressure-without-a-bearing-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-21/assets/visual-preview.gif"
   }
 ]
