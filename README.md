@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-22 — Released, the Angle Does Not Stay / 松开，角度不留下**<br>
+  Variable / 自由变量：whether an opening must keep its angle — it does not / 打开之后会不会留下角度——不会<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-22/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-22/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-22/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-22/live/)
 - **2026-11-21 — Pressure Without a Bearing / 无方位的气压**<br>
   Variable / 自由变量：whether a rise in pressure must choose a bearing — it does not / 气压升高之后会不会选定方位——不会<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

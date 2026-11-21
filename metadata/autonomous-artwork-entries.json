@@ -1616,6 +1616,22 @@
       "after_zh": "气压升高过。它没有指向。空气仍只是空气。",
       "interaction_en": "Click the pressure to raise it. Raising does not point. Drag across the field to move where the pressure sits. Press H to raise, or press Space to raise. Press E to equalize. Equalizing lets the pressure leave its height and does not write a bearing.",
       "interaction_zh": "点击气压，让它升高。升高并不指向。沿画面拖动，只移动气压所在的位置。按 H 升高，或按 Space 升高。按 E 平回。平回让气压离开高处，并不写下方位。"
+    },
+    {
+      "date": "2026-11-22",
+      "slug": "released-the-angle-does-not-stay",
+      "title_en": "Released, the Angle Does Not Stay",
+      "title_zh": "松开，角度不留下",
+      "variable_en": "whether an opening must keep its angle — it does not",
+      "variable_zh": "打开之后会不会留下角度——不会",
+      "seed": 20261122,
+      "file": "2026-11-22-released-the-angle-does-not-stay",
+      "intention_en": "Two plates may open, and they may close. Opening is not a record. After they close, the field keeps no angle. Dragging across the field only moves where the pin sits. It does not write the movement as a heading, and it does not save the opening as a degree.",
+      "intention_zh": "两片可以打开，也可以合上。打开不是存档。合上之后，场上不留下角度。沿画面拖动，只移动销钉所在的位置，不把移动写成朝向，也不把张开写成被保存的度数。",
+      "after_en": "The plates opened. The angle did not stay. The pin is still only a pin.",
+      "after_zh": "两片打开过。角度没有留下。销钉仍只是销钉。",
+      "interaction_en": "Click the plates to open them. Opening does not keep an angle. Drag across the field to move where the pin sits. Press O to open, or press Space to open. Press C to close. Closing lets the plates leave the opening and does not write an angle.",
+      "interaction_zh": "点击两片，让它们打开。打开并不留下角度。沿画面拖动，只移动销钉所在的位置。按 O 打开，或按 Space 打开。按 C 合上。合上让两片离开张开的位置，并不写下角度。"
     }
   ]
 }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-21",
-  "nodeCount": 200,
+  "generatedAt": "2026-11-22",
+  "nodeCount": 201,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4201,6 +4201,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -30,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-22",
+      "date": "2026-11-22",
+      "title_en": "Released, the Angle Does Not Stay",
+      "title_zh": "松开，角度不留下",
+      "variable_en": "whether an opening must keep its angle — it does not",
+      "variable_zh": "打开之后会不会留下角度——不会",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether an opening must keep its angle — it does not entered the archive as a clue rather than a label.",
+      "diary_zh": "「打开之后会不会留下角度——不会」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-22/live/",
+      "archive_url": "../archive/2026/11/2026-11-22/",
+      "gif": "../archive/2026/11/2026-11-22/assets/visual-preview.gif",
+      "x": 34,
+      "y": -27,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4221,7 +4242,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 119
+      "count": 120
     },
     {
       "id": "maintenance",
@@ -5040,6 +5061,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-21"
     ],
     [
+      "2026-11-21",
+      "2026-11-22"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5506,6 +5531,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-18",
       "2026-11-21"
+    ],
+    [
+      "2026-11-19",
+      "2026-11-22"
     ],
     [
       "2026-05-07",

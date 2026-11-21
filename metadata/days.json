@@ -4581,5 +4581,29 @@
     },
     "bgm": "archive/2026/11/2026-11-21/live/2026-11-21-pressure-without-a-bearing-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-21/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-22",
+    "source_date": "2026-11-21",
+    "crystallization_date": "2026-11-22",
+    "title_en": "Released, the Angle Does Not Stay",
+    "title_zh": "松开，角度不留下",
+    "type": "live",
+    "seed": 20261122,
+    "preview": "archive/2026/11/2026-11-22/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-22/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-22/",
+    "live_url": "archive/2026/11/2026-11-22/live/",
+    "variable_en": "whether an opening must keep its angle — it does not",
+    "variable_zh": "打开之后会不会留下角度——不会",
+    "brief_en": "Two plates may open, and they may close. Opening is not a record. After they close, the field keeps no angle. Dragging across the field only moves where the pin sits. It does not write the movement as a heading, and it does not save the opening as a degree.",
+    "brief_zh": "两片可以打开，也可以合上。打开不是存档。合上之后，场上不留下角度。沿画面拖动，只移动销钉所在的位置，不把移动写成朝向，也不把张开写成被保存的度数。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-22/live/2026-11-22-released-the-angle-does-not-stay-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-22/assets/visual-preview.gif"
   }
 ]
