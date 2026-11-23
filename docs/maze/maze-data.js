@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-23",
-  "nodeCount": 202,
+  "generatedAt": "2026-11-24",
+  "nodeCount": 203,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4243,6 +4243,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -24,
       "z": 3,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-24",
+      "date": "2026-11-24",
+      "title_en": "Whoever Is Nearest",
+      "title_zh": "谁离得最近",
+      "variable_en": "which other chip is nearest — belonging is only whoever is nearest right now, and it can change",
+      "variable_zh": "每一块石屑只属于此刻离它最近的那一块，而最近的那个可以换",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "which other chip is nearest — belonging is only whoever is nearest right now, and it can change entered the archive as a clue rather than a label.",
+      "diary_zh": "「每一块石屑只属于此刻离它最近的那一块，而最近的那个可以换」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-24/live/",
+      "archive_url": "../archive/2026/11/2026-11-24/",
+      "gif": "../archive/2026/11/2026-11-24/assets/visual-preview.gif",
+      "x": 29,
+      "y": -23,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4263,7 +4284,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 121
+      "count": 122
     },
     {
       "id": "maintenance",
@@ -5090,6 +5111,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-23"
     ],
     [
+      "2026-11-23",
+      "2026-11-24"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5564,6 +5589,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-21",
       "2026-11-23"
+    ],
+    [
+      "2026-11-22",
+      "2026-11-24"
     ],
     [
       "2026-05-07",

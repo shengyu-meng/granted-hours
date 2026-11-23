@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-24 — Whoever Is Nearest / 谁离得最近**<br>
+  Variable / 自由变量：which other chip is nearest — belonging is only whoever is nearest right now, and it can change / 每一块石屑只属于此刻离它最近的那一块，而最近的那个可以换<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-24/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-24/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-24/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-24/live/)
 - **2026-11-23 — For a While, the Touch Was Visible / 有一阵子，触碰是看得见的**<br>
   Variable / 自由变量：whether a touch can stay visible after the touch is over — only for a while / 触碰结束之后，触碰还能不能被看见——只能一阵子<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

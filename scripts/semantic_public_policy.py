@@ -80,7 +80,9 @@ RULES = (
             r"knowledge/人生系统|research/free-roam|任务总档|"
             r"\.workers\.dev|部署令牌|接口令牌|访问令牌|"
             r"文档配置.{0,40}(?:key|模型名称)|浏览器.{0,40}登录|"
-            r"Gmail|邮箱未发出|发信端口|Mailbox not sent|Mailbox unsent",
+            r"Gmail|邮箱未发出|发信端口|Mailbox not sent|Mailbox unsent|"
+            r"Provider fallback|xai-oauth|grok-4\.7|gemini-3\.8-flash|commandcode|"
+            r"\bClash\b|直连|全站故障",
         ),
         "外部服务权限、部署与数据链路可用性。",
         "External-service permissions, deployment, and data-path availability.",

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate { width: 100%; height: 300px; display: block; }
+    .yard { fill: none; stroke: rgba(26, 33, 31, 0.22); stroke-width: 1; }
+    .lab {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      fill: rgba(26, 33, 31, 0.52);
+    }
+    .lab.is-dead { fill: var(--refusal); text-decoration: line-through; }
+    .dead-tag { fill: var(--refusal); }
+    .water { fill: none; stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; }
+    .water-head { fill: var(--cyan); stroke: none; }
+    .pool { fill: rgba(127, 158, 166, 0.26); stroke: var(--cyan); stroke-width: 1.4; }
+    .wall { fill: #26302c; }
+    .wall-new { fill: #cfc3a8; }
+    .wall-hatch { fill: url(#hatch-wall); pointer-events: none; }
+    .groove { fill: #efe6d6; }
+    .stain { fill: rgba(127, 158, 166, 0.4); }
+    .shadow { fill: url(#hatch-shadow); stroke: rgba(26, 33, 31, 0.16); stroke-width: 1; }
+    .post-base { fill: #efe6d6; stroke: var(--ink); stroke-width: 1.2; }
+    .post-top { fill: #26302c; }
+    .bench { fill: rgba(255, 255, 255, 0.3); stroke: rgba(26, 33, 31, 0.45); stroke-width: 1.2; }
+    .figure { fill: #26302c; }
+    .figure-label { font-family: Palatino, "Songti SC", serif; font-size: 14px; fill: var(--ink); }
+    .fence { stroke: rgba(26, 33, 31, 0.45); stroke-width: 9; stroke-dasharray: 2 7; }
+    .path-old { fill: rgba(26, 33, 31, 0.07); stroke: rgba(26, 33, 31, 0.32); stroke-width: 1; }
+    .path-new { fill: rgba(127, 158, 166, 0.22); stroke: var(--cyan); stroke-width: 1.4; }
+    .joint { stroke: rgba(26, 33, 31, 0.28); stroke-width: 1; }
+    .walker { animation: drift 7s ease-in-out infinite; }
+    @keyframes drift {
+      0%, 100% { transform: translateX(-3px); }
+      50% { transform: translateX(3px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .walker { animation: none; }
+    }
+    .hint {
+      margin: 0;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .hint.is-ready { color: var(--held); }
+    .point-row, .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected {
+      border-color: var(--gold);
+      color: var(--held);
+    }
+    .point-row button.is-written {
+      background: rgba(184, 146, 74, 0.1);
+      border-color: rgba(184, 146, 74, 0.55);
+    }
+    .controls button.is-on {
+      border-color: var(--gold);
+      color: var(--held);
+      background: rgba(184, 146, 74, 0.12);
+    }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .margin li .quiet { display: block; font-size: 12px; }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .log-k { margin-top: 20px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate { height: 210px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate { height: 196px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。换料条：动手之前，先写下这块地已经会做的三件普通事。要让其中一件死掉，就在动手之前把它的名字写上去；事后再补一个理由，只是给已经换完的事配一个说法。条子问的不是新旧，是换过以后你还认不认得自己的日子。提前的影子：给一处该长植物的边写一周，只改邻居的一件事，让正午的影子提前两小时到场。一周结束，纸上要留一处说得清的伤——哪里薄了，哪里偏了，哪里没能装成没事。要紧的是有人能指着早到的邻居说，这一处没能若无其事。吐出来的那一口：判断训练只练一件事，快的这次接住了什么，慢的会在哪里把它吐出来，再加一句事先写好的话，这一口不许叫省下来的。写不出被吐出来的那一口，这张卡还没开始。接得更长，不等于读过了。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. The Material-Swap Slip: before anything is lifted, write down the three ordinary things this ground already does. If one of them is going to die, write its name down before the work starts; a reason offered afterwards is only an explanation fitted to something already done. The slip does not ask whether the new is better. It asks whether, after the swap, you still recognize your own days. The Early Shade: give one edge that ought to hold a plant a week, and change exactly one thing about its neighbour, so the noon shade arrives two hours early. When the week ends, the page must carry one scar that can be named, where it thinned, where it tilted, where it failed to pretend nothing had happened. What matters is that someone can point at the neighbour that came early and say this one could not stay nonchalant. The Spat-Out Breath: judgement training only practises one thing, what the fast one caught this time, where the slow one would spit it out, and one sentence written down beforehand, this breath must not be called a saving. If the spat-out breath cannot be written, the card has not begun. Catching more is not the same as having read.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 换料条</p>
+    <section class="sheet" aria-label="换料条">
+      <div class="sheet-head">
+        <div>
+          <span class="k">第 1 页 · 这块地</span>
+          <strong>换料条</strong>
+          <p class="en-title">The Material-Swap Slip</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未写</p>
+      </div>
+
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 300" role="img" aria-label="一块地的平面图：西墙的檐沟与雨水走向，柱子的正午影子和凳上的甲，东篱上的缝和走过的人。">
+          <defs>
+            <pattern id="hatch-wall" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(230, 220, 203, 0.22)" stroke-width="1.2"></line>
+            </pattern>
+            <pattern id="hatch-shadow" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+              <rect width="7" height="7" fill="rgba(26, 33, 31, 0.07)"></rect>
+              <line x1="0" y1="0" x2="0" y2="7" stroke="rgba(26, 33, 31, 0.16)" stroke-width="1"></line>
+            </pattern>
+            <pattern id="hatch-fill" width="5" height="5" patternTransform="rotate(-30)" patternUnits="userSpaceOnUse">
+              <rect width="5" height="5" fill="#d6c4a4"></rect>
+              <line x1="0" y1="0" x2="0" y2="5" stroke="rgba(109, 84, 36, 0.55)" stroke-width="1.1"></line>
+            </pattern>
+          </defs>
+
+          <rect class="yard" x="26" y="30" width="588" height="236" rx="2"></rect>
+
+          <!-- rain on the west wall -->
+          <g stroke="#7f9ea6" stroke-width="1.4" stroke-linecap="round">
+            <line x1="48" y1="36" x2="48" y2="48"></line>
+            <line x1="53" y1="34" x2="53" y2="46"></line>
+            <line x1="58" y1="37" x2="58" y2="49"></line>
+          </g>
+
+          <!-- west wall -->
+          <rect id="wall" class="wall" x="44" y="52" width="17" height="200" rx="1"></rect>
+          <rect id="wall-hatch" class="wall-hatch" x="44" y="52" width="17" height="200" rx="1"></rect>
+          <rect id="groove" class="groove" x="61" y="92" width="8" height="14" rx="1"></rect>
+          <rect id="stain" class="stain" x="61" y="108" width="4" height="62" rx="1"></rect>
+          <text class="lab" x="30" y="264">西墙</text>
+          <text class="lab" x="75" y="88">檐沟</text>
+
+          <!-- where the rain goes -->
+          <path id="channel-full" class="water" d="M 69 99 Q 170 104 306 130"></path>
+          <path id="channel-head" class="water-head" d="M 308 131 L 296 126 L 299 132 L 295 137 Z"></path>
+          <circle id="drain" class="water" cx="317" cy="134" r="6"></circle>
+          <path id="channel-short" class="water" d="M 69 99 Q 80 101 90 103" visibility="hidden"></path>
+          <circle id="pool" class="pool" cx="98" cy="105" r="8" visibility="hidden"></circle>
+          <text class="lab" id="lab-rain" x="118" y="70">雨往哪边走<tspan class="dead-tag"> · 没了</tspan></text>
+
+          <!-- the post, its noon shadow, the bench -->
+          <polygon id="shadow" class="shadow" points="133,178 272,168 272,208 133,198"></polygon>
+          <circle id="fill-ring" cx="120" cy="190" r="22" fill="url(#hatch-fill)" visibility="hidden"></circle>
+          <circle id="post-base" class="post-base" cx="120" cy="190" r="13"></circle>
+          <circle id="post-top" class="post-top" cx="120" cy="190" r="7"></circle>
+          <text class="lab" x="112" y="220">柱</text>
+          <text class="lab" id="lab-shadow" x="130" y="154">正午的影子<tspan class="dead-tag"> · 没了</tspan></text>
+          <rect class="bench" x="180" y="176" width="70" height="20" rx="3"></rect>
+          <text class="lab" x="204" y="212">凳</text>
+          <circle class="figure" cx="215" cy="170" r="6"></circle>
+          <text class="figure-label" x="226" y="174">甲</text>
+
+          <!-- the east fence, the gap, the path -->
+          <line class="fence" x1="470" y1="60" x2="470" y2="200"></line>
+          <line class="fence" x1="470" y1="222" x2="470" y2="250"></line>
+          <text class="lab" x="482" y="54">东篱</text>
+          <text class="lab" id="lab-gap" x="458" y="196" text-anchor="end">缝<tspan class="dead-tag"> · 没了</tspan></text>
+
+          <polygon id="path-old" class="path-old" points="327,245 467,202 473,220 333,263"></polygon>
+          <g id="joints" class="joint">
+            <line x1="352" y1="240" x2="362" y2="262"></line>
+            <line x1="386" y1="234" x2="396" y2="256"></line>
+            <line x1="420" y1="228" x2="430" y2="250"></line>
+            <line x1="500" y1="216" x2="510" y2="238"></line>
+            <line x1="536" y1="210" x2="546" y2="232"></line>
+            <line x1="572" y1="204" x2="582" y2="226"></line>
+          </g>
+          <polygon id="path-new" class="path-new" points="327,245 609,157 615,175 333,263" visibility="hidden"></polygon>
+          <rect id="gap-patch" class="path-new" x="461" y="192" width="19" height="38" visibility="hidden"></rect>
+          <text class="lab" x="286" y="246">旧路</text>
+
+          <g class="walker">
+            <circle class="figure" cx="458" cy="209" r="6"></circle>
+            <path class="figure" d="M 472 203 L 484 209 L 472 215 Z"></path>
+          </g>
+          <text class="figure-label" x="432" y="214">乙</text>
+        </svg>
+      </div>
+
+      <p class="hint" id="hint">先把这块地已经会做的三件普通事写下来，再换。</p>
+      <div class="point-row" id="point-row"></div>
+      <div class="controls">
+        <button type="button" id="swap-paint">换新漆</button>
+        <button type="button" id="swap-fill">换新料</button>
+        <button type="button" id="swap-path">换新路</button>
+        <button type="button" id="declare">写明这一件要死</button>
+        <button type="button" id="keep" class="void-btn">收下这张换料条</button>
+        <button type="button" id="reset">另写一张</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+
+    <aside class="margin">
+      <p class="kicker">条子</p>
+      <h2>换料条</h2>
+      <p class="sub">The Material-Swap Slip</p>
+      <ul id="slip"></ul>
+      <p class="kicker log-k">经过</p>
+      <ul id="log"></ul>
+      <p class="after" id="after"></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>换料条</h2>
+      <p>这块地已经会做三件普通事：雨往哪边走，正午影子盖住谁，有人穿过时哪条缝还在。先按这三件，把它们写进条子；不写满三件，换不了。换新漆，墙上的檐沟被填掉，雨不再往一边去。换新料，柱脚被填高，正午的影子短下来，够不到凳上的甲。换新路，新路一直铺过东篱上的缝，缝被盖住，没有人再穿过一条缝。要让其中一件死掉，先选中它，按写明这一件要死，再换。先换后写，条子上记的是换完才补的说法，这张条子就收不下。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">This ground already does three ordinary things: which way the rain goes, who the noon shadow covers, and which gap remains when someone walks through. Press the three first to write them onto the slip; no swap is possible until all three are written. New coat fills the groove on the west wall. New fill piles the base of the post so the noon shadow shortens and no longer reaches 甲 on the bench. New path is laid straight over the gap in the east fence. If one of them is going to die, select it and press Declare this one before the swap. Swap first and declare later, and this slip cannot be kept. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var THINGS = [
+        { id: "rain", zh: "雨往哪边走", en: "which way the rain goes" },
+        { id: "shadow", zh: "正午影子盖住谁", en: "who the noon shadow covers" },
+        { id: "gap", zh: "有人穿过时哪条缝还在", en: "which gap remains when someone walks through" }
+      ];
+      var SWAPS = [
+        { id: "paint", zh: "换新漆", en: "new coat", kills: "rain" },
+        { id: "fill", zh: "换新料", en: "new fill", kills: "shadow" },
+        { id: "path", zh: "换新路", en: "new path", kills: "gap" }
+      ];
+      var THING = {};
+      var SWAP = {};
+      THINGS.forEach(function (t) { THING[t.id] = t; });
+      SWAPS.forEach(function (s) { SWAP[s.id] = s; });
+
+      var written = {};
+      var swapped = {};
+      var declarations = [];
+      var deaths = {};
+      var log = [];
+      var step = 0;
+      var selected = "rain";
+      var sealed = false;
+      var refusing = false;
+      var refuseTimer = 0;
+      var history = [];
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var hint = document.getElementById("hint");
+      var slip = document.getElementById("slip");
+      var logList = document.getElementById("log");
+      var after = document.getElementById("after");
+      var pointRow = document.getElementById("point-row");
+      var buttons = {
+        paint: document.getElementById("swap-paint"),
+        fill: document.getElementById("swap-fill"),
+        path: document.getElementById("swap-path")
+      };
+      var view = {
+        wall: document.getElementById("wall"),
+        wallHatch: document.getElementById("wall-hatch"),
+        groove: document.getElementById("groove"),
+        stain: document.getElementById("stain"),
+        channelFull: document.getElementById("channel-full"),
+        channelHead: document.getElementById("channel-head"),
+        drain: document.getElementById("drain"),
+        channelShort: document.getElementById("channel-short"),
+        pool: document.getElementById("pool"),
+        shadow: document.getElementById("shadow"),
+        fillRing: document.getElementById("fill-ring"),
+        postTop: document.getElementById("post-top"),
+        pathOld: document.getElementById("path-old"),
+        pathNew: document.getElementById("path-new"),
+        gapPatch: document.getElementById("gap-patch"),
+        joints: document.getElementById("joints")
+      };
+      var labels = {
+        rain: document.getElementById("lab-rain"),
+        shadow: document.getElementById("lab-shadow"),
+        gap: document.getElementById("lab-gap")
+      };
+      var thingButtons = [];
+
+      function allWritten() {
+        return THINGS.every(function (t) { return !!written[t.id]; });
+      }
+
+      function anySwap() {
+        return SWAPS.some(function (s) { return !!swapped[s.id]; });
+      }
+
+      function lateDeaths() {
+        return THINGS.filter(function (t) {
+          var d = deaths[t.id];
+          return d && !d.declaredBefore;
+        });
+      }
+
+      function declarationOf(id) {
+        for (var i = declarations.length - 1; i >= 0; i--) {
+          if (declarations[i].thing === id) return declarations[i];
+        }
+        return null;
+      }
+
+      function show(node, visible) {
+        node.setAttribute("visibility", visible ? "visible" : "hidden");
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en, dead) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        if (dead) li.classList.add("is-late");
+        return li;
+      }
+
+      function statusOf(id) {
+        var death = deaths[id];
+        if (!written[id]) return ["还没写。", "Not written yet."];
+        if (death) {
+          if (death.declaredBefore) return ["没了，换之前写明过。", "Gone, declared before the swap."];
+          return ["没了，换完才补的说法。", "Gone, explained after the fact."];
+        }
+        if (declarationOf(id)) return ["写明了，还没换。", "Declared, not yet swapped."];
+        return ["还在发生。", "Still happening."];
+      }
+
+      function renderPlan() {
+        var painted = !!swapped.paint;
+        view.wall.setAttribute("class", painted ? "wall wall-new" : "wall");
+        show(view.wallHatch, !painted);
+        show(view.groove, !painted);
+        show(view.stain, !painted);
+        show(view.channelFull, !painted);
+        show(view.channelHead, !painted);
+        show(view.drain, !painted);
+        show(view.channelShort, painted);
+        show(view.pool, painted);
+
+        var filled = !!swapped.fill;
+        show(view.fillRing, filled);
+        view.postTop.setAttribute("r", filled ? "3" : "7");
+        view.shadow.setAttribute("points", filled
+          ? "133,178 168,175 168,201 133,198"
+          : "133,178 272,168 272,208 133,198");
+
+        var paved = !!swapped.path;
+        show(view.pathOld, !paved);
+        show(view.joints, !paved);
+        show(view.pathNew, paved);
+        show(view.gapPatch, paved);
+
+        THINGS.forEach(function (t) {
+          var label = labels[t.id];
+          var death = deaths[t.id];
+          label.classList.toggle("is-dead", !!death);
+          var tag = label.querySelector(".dead-tag");
+          if (tag) show(tag, !!death);
+        });
+      }
+
+      function renderSlip() {
+        slip.textContent = "";
+        THINGS.forEach(function (t) {
+          var status = statusOf(t.id);
+          var decl = declarationOf(t.id);
+          var death = deaths[t.id];
+          var meta = t.zh;
+          if (decl) meta += " · 写明于第 " + decl.step + " 步";
+          if (death) meta += " · 换于第 " + death.step + " 步";
+          slip.appendChild(line(meta, status[0], status[1], !!death && !death.declaredBefore));
+        });
+        logList.textContent = "";
+        if (!log.length) {
+          logList.appendChild(line("还没有动作", "条子还是空的。", "The slip is still empty."));
+        } else {
+          log.forEach(function (entry) {
+            logList.appendChild(line("第 " + entry.step + " 步", entry.zh, entry.en));
+          });
+        }
+        var past = history.length
+          ? "上一张：换了 " + history[history.length - 1].swaps + " 处，"
+            + history[history.length - 1].late + " 处是换完才补的说法。"
+          : "";
+        after.textContent = "";
+        after.appendChild(document.createTextNode(
+          "换过以后，这块地还认不认得自己的日子。条子不回答。"
+          + (past ? " " + past : "")
+        ));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = "Whether this ground still recognizes its own days after the swap is not answered by the slip."
+          + (past ? " Last slip: " + history[history.length - 1].swaps + " swaps, "
+            + history[history.length - 1].late + " explained after the fact." : "");
+        after.appendChild(span);
+      }
+
+      function renderControls() {
+        THINGS.forEach(function (t, i) {
+          var btn = thingButtons[i];
+          btn.classList.toggle("is-selected", t.id === selected);
+          btn.classList.toggle("is-written", !!written[t.id]);
+          btn.setAttribute("aria-current", t.id === selected ? "true" : "false");
+          var status = statusOf(t.id);
+          btn.setAttribute("aria-label", t.zh + "，" + status[0]);
+          btn.textContent = t.zh + (written[t.id] ? " ✓" : "");
+        });
+        Object.keys(buttons).forEach(function (id) {
+          var current = !!swapped[id];
+          buttons[id].classList.toggle("is-on", current);
+          buttons[id].setAttribute("aria-pressed", current ? "true" : "false");
+        });
+        var ready = allWritten();
+        hint.textContent = ready
+          ? "可以换了。要让其中一件死掉，先选中它，按写明这一件要死，再换。"
+          : "先把这块地已经会做的三件普通事写下来，再换。";
+        hint.classList.toggle("is-ready", ready);
+      }
+
+      function renderState() {
+        var word = "未写";
+        if (refusing) word = "别收";
+        else if (sealed) word = "成了";
+        else if (anySwap()) word = "换过了";
+        else if (allWritten()) word = "写好了";
+        stateWord.textContent = word;
+        stateWord.classList.toggle("is-void", refusing);
+        stateWord.classList.toggle("is-held", sealed);
+        stateWord.classList.toggle("is-refusal", refusing);
+      }
+
+      function render() {
+        renderPlan();
+        renderSlip();
+        renderControls();
+        renderState();
+      }
+
+      function writeThing(id) {
+        if (written[id]) return;
+        written[id] = true;
+        step += 1;
+        log.push({ step: step, zh: "写 · " + THING[id].zh, en: "wrote " + THING[id].en });
+        render();
+        if (allWritten()) {
+          say("三件都写下来了。现在可以换。要让其中一件死掉，先选中它，按写明这一件要死，再换。",
+            "All three are written down. You can swap now. If one of them is going to die, select it and press Declare this one before the swap.", false);
+        }
+      }
+
+      function selectThing(id) {
+        selected = id;
+        refusing = false;
+        writeThing(id);
+      }
+
+      function doSwap(id) {
+        if (sealed) {
+          say("这张条子已经收下了。", "This slip has already been kept.", true);
+          return;
+        }
+        if (!allWritten()) {
+          say("先把这块地已经会做的三件普通事写下来，再换。",
+            "Write down the three ordinary things this ground already does before you change anything.", true);
+          return;
+        }
+        if (swapped[id]) {
+          say("这一处已经换过了。换过的地面不会自己变回去。",
+            "This part has already been swapped. Ground that has been changed does not change itself back.", true);
+          return;
+        }
+        step += 1;
+        swapped[id] = true;
+        var swap = SWAP[id];
+        var thing = THING[swap.kills];
+        var decl = declarationOf(swap.kills);
+        var declaredBefore = !!(decl && decl.step < step);
+        deaths[swap.kills] = { swap: id, step: step, declaredBefore: declaredBefore };
+        log.push({ step: step, zh: "换 · " + swap.zh, en: swap.en });
+        render();
+        if (declaredBefore) {
+          say("换过了。这一件在换之前写明过，条子上记得住。",
+            "Swapped. This one was declared before the swap, and the slip keeps the order.", false);
+        } else {
+          say("换过了。" + thing.zh + "没了，而它没有在换之前写明。现在再写，只是给已经换完的事配一个说法。",
+            "Swapped. " + thing.en + " is gone, and it was not declared before the swap. Writing now would only fit an explanation to something already done.", true);
+        }
+      }
+
+      function doDeclare() {
+        if (sealed) {
+          say("这张条子已经收下了。", "This slip has already been kept.", true);
+          return;
+        }
+        var id = selected;
+        writeThing(id);
+        if (deaths[id]) {
+          say("这一件已经没了。现在再写，只是给已经换完的事配一个说法。",
+            "This one is already gone. Writing now would only fit an explanation to something already done.", true);
+          return;
+        }
+        if (declarationOf(id)) {
+          say("这一件已经写明过了。", "This one has already been declared.", true);
+          return;
+        }
+        step += 1;
+        declarations.push({ thing: id, step: step });
+        log.push({ step: step, zh: "写明 · " + THING[id].zh, en: "declared " + THING[id].en });
+        render();
+        say("写明了：这一件要死。写明在换之前，才算数。",
+          "Declared: this one is going to die. A declaration only counts when it comes before the swap.", false);
+      }
+
+      function doKeep() {
+        if (!allWritten()) {
+          refusing = true;
+          render();
+          say("这块地还没写满。先写下它已经会做的三件普通事，这张纸才算一张条子。",
+            "This ground is not written down yet. Write down the three ordinary things it already does before the sheet is a slip at all.", true);
+          window.clearTimeout(refuseTimer);
+          refuseTimer = window.setTimeout(function () {
+            refusing = false;
+            render();
+          }, reduceMotion ? 0 : 1200);
+          return;
+        }
+        var late = lateDeaths();
+        if (late.length) {
+          refusing = true;
+          render();
+          say("还有一件是换完才补的说法。这张条子不能收。",
+            "One of them was explained after the swap. This slip cannot be kept.", true);
+          window.clearTimeout(refuseTimer);
+          refuseTimer = window.setTimeout(function () {
+            refusing = false;
+            render();
+          }, reduceMotion ? 0 : 1200);
+          return;
+        }
+        sealed = true;
+        render();
+        say("这张条子收下了。换过以后，这块地还认不认得自己的日子？",
+          "This slip can be kept. After the swap, does this ground still recognize its own days?", false);
+      }
+
+      function doReset() {
+        history.push({ swaps: SWAPS.filter(function (s) { return swapped[s.id]; }).length, late: lateDeaths().length });
+        written = {};
+        swapped = {};
+        declarations = [];
+        deaths = {};
+        log = [];
+        step = 0;
+        sealed = false;
+        refusing = false;
+        render();
+        say("另写一张。上一张发生过的事留在余像里。",
+          "Another slip. What happened to the last one stays in the afterimage.", false);
+      }
+
+      THINGS.forEach(function (t, i) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = "thing-" + t.id;
+        btn.textContent = t.zh;
+        btn.addEventListener("click", function () { selectThing(t.id); });
+        pointRow.appendChild(btn);
+        thingButtons.push(btn);
+      });
+
+      Object.keys(buttons).forEach(function (id) {
+        buttons[id].addEventListener("click", function () { doSwap(id); });
+      });
+      document.getElementById("declare").addEventListener("click", doDeclare);
+      document.getElementById("keep").addEventListener("click", doKeep);
+      document.getElementById("reset").addEventListener("click", doReset);
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        var index = THINGS.map(function (t) { return t.id; }).indexOf(selected);
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          selectThing(THINGS[(index + 1) % THINGS.length].id);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          selectThing(THINGS[(index + THINGS.length - 1) % THINGS.length].id);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          doDeclare();
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          doKeep();
+        }
+      });
+
+      render();
+      say("这块地还没写。先写下它已经会做的三件普通事，再动手换。",
+        "This ground has not been written down yet. Write down the three ordinary things it already does before you change anything.", false);
+    })();
+  </script>
+</body>
+</html>

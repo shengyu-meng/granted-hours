@@ -4629,5 +4629,29 @@
     },
     "bgm": "archive/2026/11/2026-11-23/live/2026-11-23-for-a-while-the-touch-was-visible-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-23/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-24",
+    "source_date": "2026-11-23",
+    "crystallization_date": "2026-11-24",
+    "title_en": "Whoever Is Nearest",
+    "title_zh": "谁离得最近",
+    "type": "live",
+    "seed": 20261124,
+    "preview": "archive/2026/11/2026-11-24/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-24/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-24/",
+    "live_url": "archive/2026/11/2026-11-24/live/",
+    "variable_en": "which other chip is nearest — belonging is only whoever is nearest right now, and it can change",
+    "variable_zh": "每一块石屑只属于此刻离它最近的那一块，而最近的那个可以换",
+    "brief_en": "A field of mineral chips. Each one joins only whoever is nearest at this moment. Move one, and the nearness changes its mind; it does not go back to the previous one. There is no address and no register. Nearness is the whole relation.",
+    "brief_zh": "场上散着一些石屑。每一块只连向此刻离它最近的那一块。你把一块挪开，靠近就改口，改口之后不回到刚才那个。没有地址，没有名册。靠近本身就是全部的关系。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-24/live/2026-11-24-whoever-is-nearest-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-24/assets/visual-preview.gif"
   }
 ]
