@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      min-height: 250px;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate {
+      width: 100%;
+      height: 250px;
+      display: block;
+    }
+    .seat {
+      fill: rgba(255, 255, 255, 0.28);
+      stroke: rgba(26, 33, 31, 0.18);
+      stroke-width: 1;
+    }
+    .edge-line {
+      stroke: rgba(26, 33, 31, 0.28);
+      stroke-width: 1;
+      stroke-dasharray: 2 4;
+    }
+    .fig-k {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      fill: rgba(26, 33, 31, 0.4);
+    }
+    .rule-line {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 13px;
+      fill: rgba(26, 33, 31, 0.72);
+    }
+    .person {
+      fill: #f4ecde;
+      stroke: var(--ink);
+      stroke-width: 1.2;
+    }
+    .person.is-old {
+      fill: rgba(141, 92, 86, 0.08);
+      stroke: var(--refusal);
+      stroke-dasharray: 4 3;
+    }
+    .person.is-held {
+      fill: #f7f1e4;
+      stroke: var(--held);
+      stroke-width: 1.6;
+    }
+    .person.is-told {
+      fill: rgba(141, 135, 150, 0.16);
+      stroke: var(--violet);
+      stroke-dasharray: 3 3;
+    }
+    .person-name {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 15px;
+      fill: var(--ink);
+    }
+    .act-label {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 12px;
+      fill: var(--held);
+    }
+    .act-label.is-old { fill: var(--refusal); }
+    .act-label.is-told {
+      fill: var(--violet);
+      text-decoration: line-through;
+    }
+    .mouth {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      fill: var(--violet);
+    }
+    .ring { fill: none; stroke: var(--gold); stroke-width: 1.4; opacity: 0; }
+    .ring.is-selected { opacity: 1; }
+    .hit { fill: transparent; cursor: grab; }
+    .footnote {
+      min-height: 52px;
+      margin: 0;
+      padding: 2px 2px 0;
+      border-bottom: 1px solid var(--hair);
+    }
+    .footnote .fn-k {
+      display: block;
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: rgba(26, 33, 31, 0.42);
+    }
+    .footnote .fn-zh {
+      display: block;
+      margin-top: 3px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+    .footnote .fn-zh.is-empty { color: var(--violet); letter-spacing: 0.04em; }
+    .footnote .fn-en {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.48);
+    }
+    .point-row, .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected,
+    .controls button.is-on {
+      border-color: var(--gold);
+      color: var(--held);
+    }
+    .point-row button.is-held { background: rgba(184, 146, 74, 0.12); }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate, .field { height: 180px; min-height: 180px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate, body.is-embed .field { height: 168px; min-height: 168px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。没通知的改口：没被通知的那个人，必须说出一个旧规则产不出来的动作。旧规则自己能做的动作，不算改口。先把新说法告诉他，也不算没通知。白送的步：已经走完的步，如果一个知情的本地人本来就会把这些步白送出去，这些步就不算理解。不是没走完。是走完了，却可以被白送。把气口还回去：还回去的气口，如果它多加了一个事实，或者吸不进去，这一口就是空的。不是没还。是还了，却不能被吸，或者多带了一件事实。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. The Untold Change of Mouth: the person who was not told must name an action the old rule could not produce. An action the old rule could already make does not count as a change of mouth. Telling them the new wording first does not count as untold. Steps Given Away: completed steps are void as understanding if an informed local would have given those steps away. It is not that the steps were unfinished. They were finished, and still could have been given away. Breath Given Back: a restored breath is void if it adds a fact or cannot be inhaled. It is not that nothing was returned. It was returned, and still cannot be inhaled, or it carried one extra fact.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 没通知的改口</p>
+    <section class="sheet" aria-label="没通知的改口">
+      <div class="sheet-head">
+        <div>
+          <span class="k">没被通知 · 才算改口</span>
+          <strong>没通知的改口</strong>
+          <p class="en-title">The Untold Change of Mouth</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未说</p>
+      </div>
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 220" role="img" aria-label="三个人站在旧规则的纸上。纸外的动作，旧规则产不出来。">
+          <text class="fig-k" x="36" y="18">纸上</text>
+          <text class="rule-line" x="78" y="18">只走纸上已有的步</text>
+          <text class="fig-k" x="360" y="18">纸外</text>
+          <line class="edge-line" x1="300" y1="28" x2="300" y2="208"></line>
+          <text class="fig-k" x="306" y="40">纸边</text>
+          <g id="marks"></g>
+        </svg>
+      </div>
+      <p class="footnote" id="footnote">
+        <span class="fn-k">封着的新说法</span>
+        <span class="fn-zh is-empty" id="fn-zh">（新说法还没告诉任何人）</span>
+        <span class="fn-en" id="fn-en">The new wording has not been told to anyone.</span>
+      </p>
+      <div class="point-row" id="point-row"></div>
+      <div class="controls">
+        <button type="button" id="act-off">走出纸外</button>
+        <button type="button" id="act-name">把没写过的地方叫成一步</button>
+        <button type="button" id="act-again">再走已有的一步</button>
+        <button type="button" id="notify">通知</button>
+        <button type="button" id="seal">闭上嘴</button>
+        <button type="button" id="erase">擦掉这句话</button>
+        <button type="button" id="keep" class="void-btn">收下这一页</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+    <aside class="margin">
+      <p class="kicker">余像</p>
+      <h2>分开记</h2>
+      <p class="sub">Afterimage</p>
+      <ul id="ledger"></ul>
+      <p class="after">说对了，也不会把新说法交给那个人。<span class="en">A correct naming does not hand them the new wording.</span></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>没通知的改口</h2>
+      <p>没被通知的那个人，必须说出一个旧规则产不出来的动作。点一个人，或用左右方向键选中。按走出纸外，或用上方向键，也可以把这个人拖过纸边。再按把没写过的地方叫成一步。按再走已有的一步。按通知。按闭上嘴。按擦掉这句话，或用下方向键，也可以把这个人拖回纸上。按收下这一页。只有至少一个人没被通知，并且说出了旧规则产不出来的动作，同时没有人正被通知着，这一页才可以收。可以再改。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">The person who was not told must name an action the old rule could not produce. Select a person by pressing them, or with the left and right arrow keys. Press Step off the paper, or use the up arrow key. You may also drag that person across the paper's edge. Then press Name an unwritten place as a step. Press Walk one written step again. Press Notify. Press Seal the mouth. Press Erase this sentence, or use the down arrow key. You may also drag that person back onto the paper. Press Keep this page. The page can be kept only when at least one person was not told, that person named an action the old rule could not produce, and no one is currently being told. Marks may be changed. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var PEOPLE = [
+        { zh: "甲", en: "A", y: 70 },
+        { zh: "乙", en: "B", y: 124 },
+        { zh: "丙", en: "C", y: 178 }
+      ];
+      var ACTIONS = {
+        off: { id: "off", kind: "new", zh: "走出纸外", short: "走出纸外", en: "step off the paper" },
+        name: { id: "name", kind: "new", zh: "把没写过的地方叫成一步", short: "叫成一步", en: "name an unwritten place as a step" },
+        again: { id: "again", kind: "old", zh: "再走已有的一步", short: "已有的一步", en: "walk one written step again" }
+      };
+      var NEW_WORDING = { zh: "可以停在没写过的地方", en: "You may stop where nothing was written." };
+      var EDGE = 300;
+      var SEAT_X = 48;
+      var OFF_X = 328;
+      var people = PEOPLE.map(function () {
+        return { told: false, action: null, namedWhileTold: false };
+      });
+      var selected = 0;
+      var dragging = -1;
+      var dragX = null;
+      var refusing = false;
+      var refuseTimer = 0;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var stateWord = document.getElementById("state-word");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var fnZh = document.getElementById("fn-zh");
+      var fnEn = document.getElementById("fn-en");
+      var marks = document.getElementById("marks");
+      var pointRow = document.getElementById("point-row");
+      var plate = document.getElementById("plate");
+      var actionButtons = {
+        off: document.getElementById("act-off"),
+        name: document.getElementById("act-name"),
+        again: document.getElementById("act-again")
+      };
+      var pointButtons = [];
+
+      function indexes(pred) {
+        var out = [];
+        for (var i = 0; i < people.length; i++) if (pred(i)) out.push(i);
+        return out;
+      }
+
+      function holds(i) {
+        var p = people[i];
+        return !p.told && p.action && p.action.kind === "new" && !p.namedWhileTold;
+      }
+
+      function counts() {
+        return {
+          untold: indexes(function (i) { return !people[i].told; }),
+          held: indexes(holds),
+          old: indexes(function (i) {
+            return !people[i].told && people[i].action && people[i].action.kind === "old";
+          }),
+          told: indexes(function (i) { return people[i].told; })
+        };
+      }
+
+      function status() {
+        var c = counts();
+        if (c.held.length && !c.told.length) return "held";
+        if (!c.told.length && !c.old.length && !indexes(function (i) { return people[i].action; }).length) return "open";
+        return "void";
+      }
+
+      function joinZh(list, withAction) {
+        if (!list.length) return "没有";
+        return list.map(function (i) {
+          var name = PEOPLE[i].zh;
+          if (!withAction || !people[i].action) return name;
+          return name + people[i].action.short;
+        }).join("、");
+      }
+
+      function joinEn(list, withAction) {
+        if (!list.length) return "none";
+        return list.map(function (i) {
+          var name = PEOPLE[i].en;
+          if (!withAction || !people[i].action) return name;
+          return name + " " + people[i].action.en;
+        }).join(", ");
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var span = document.createElement("span");
+        span.className = "en";
+        span.textContent = en;
+        readout.appendChild(span);
+      }
+
+      function line(meta, zh, en) {
+        var li = document.createElement("li");
+        var m = document.createElement("span");
+        m.className = "meta";
+        m.textContent = meta;
+        var q = document.createElement("span");
+        q.className = "quiet";
+        q.textContent = en;
+        li.appendChild(m);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(q);
+        return li;
+      }
+
+      function tail(state) {
+        var c = counts();
+        if (c.told.length) return ["这一页还是空的。有人正被通知着。", " This page is still void. Someone is being told."];
+        if (state === "void") return ["这一页还是空的。", " This page is still void."];
+        if (state === "held") return ["这一页可以收。", " This page can be kept."];
+        return ["还没有人说出旧规则产不出来的动作。", " No one has yet named an action the old rule could not produce."];
+      }
+
+      function personX(i) {
+        if (dragging === i && dragX != null) return dragX;
+        return holds(i) ? OFF_X : SEAT_X;
+      }
+
+      function render() {
+        var state = status();
+        var c = counts();
+        marks.textContent = "";
+        var ns = plate.namespaceURI;
+        PEOPLE.forEach(function (person, i) {
+          var p = people[i];
+          var x = personX(i);
+          var y = person.y;
+          var held = holds(i);
+          var old = !p.told && p.action && p.action.kind === "old";
+          var g = document.createElementNS(ns, "g");
+          var seat = document.createElementNS(ns, "rect");
+          seat.setAttribute("class", "seat");
+          seat.setAttribute("x", "36");
+          seat.setAttribute("y", String(y - 16));
+          seat.setAttribute("width", "214");
+          seat.setAttribute("height", "36");
+          seat.setAttribute("rx", "2");
+          var ring = document.createElementNS(ns, "rect");
+          ring.setAttribute("class", "ring" + (i === selected ? " is-selected" : ""));
+          ring.setAttribute("x", String(x - 6));
+          ring.setAttribute("y", String(y - 18));
+          ring.setAttribute("width", "118");
+          ring.setAttribute("height", "40");
+          ring.setAttribute("rx", "2");
+          var body = document.createElementNS(ns, "rect");
+          var cls = "person";
+          if (p.told) cls += " is-told";
+          else if (held) cls += " is-held";
+          else if (old) cls += " is-old";
+          body.setAttribute("class", cls);
+          body.setAttribute("x", String(x));
+          body.setAttribute("y", String(y - 14));
+          body.setAttribute("width", "104");
+          body.setAttribute("height", "28");
+          body.setAttribute("rx", "2");
+          var label = document.createElementNS(ns, "text");
+          label.setAttribute("class", "person-name");
+          label.setAttribute("x", String(x + 12));
+          label.setAttribute("y", String(y + 5));
+          label.textContent = person.zh;
+          var act = document.createElementNS(ns, "text");
+          act.setAttribute("x", String(x + 112));
+          act.setAttribute("y", String(y + 5));
+          if (p.action) {
+            var actCls = "act-label";
+            if (p.told || p.namedWhileTold) actCls += " is-told";
+            else if (p.action.kind === "old") actCls += " is-old";
+            act.setAttribute("class", actCls);
+            act.textContent = p.action.short;
+          }
+          var mouth = document.createElementNS(ns, "text");
+          if (p.told) {
+            mouth.setAttribute("class", "mouth");
+            mouth.setAttribute("x", String(x + 12));
+            mouth.setAttribute("y", String(y - 20));
+            mouth.textContent = "已通知";
+          }
+          var hit = document.createElementNS(ns, "rect");
+          hit.setAttribute("class", "hit");
+          hit.setAttribute("x", String(x - 8));
+          hit.setAttribute("y", String(y - 22));
+          hit.setAttribute("width", "148");
+          hit.setAttribute("height", "48");
+          hit.addEventListener("pointerdown", function (event) {
+            event.preventDefault();
+            select(i);
+            beginDrag(i, event);
+          });
+          g.appendChild(seat);
+          g.appendChild(ring);
+          g.appendChild(body);
+          g.appendChild(label);
+          g.appendChild(act);
+          g.appendChild(mouth);
+          g.appendChild(hit);
+          marks.appendChild(g);
+          var btn = pointButtons[i];
+          btn.classList.toggle("is-selected", i === selected);
+          btn.classList.toggle("is-held", held);
+          btn.setAttribute("aria-current", i === selected ? "true" : "false");
+          var place = held ? "已说出纸外的动作" : (p.action ? "说了还不算" : "还没说");
+          var claim = p.told ? "正被通知着" : "没被通知";
+          btn.setAttribute("aria-label", person.zh + "，" + claim + "，" + place + "。");
+        });
+        Object.keys(actionButtons).forEach(function (id) {
+          var current = people[selected].action && people[selected].action.id === id && !people[selected].told;
+          actionButtons[id].classList.toggle("is-on", !!current);
+          actionButtons[id].setAttribute("aria-pressed", current ? "true" : "false");
+        });
+        stateWord.classList.toggle("is-void", (state === "void" || c.told.length) && !refusing);
+        stateWord.classList.toggle("is-held", state === "held" && !refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        if (refusing) stateWord.textContent = "别收";
+        else if (c.told.length) stateWord.textContent = "已通知";
+        else if (state === "void") stateWord.textContent = "空";
+        else if (state === "held") stateWord.textContent = "成立";
+        else stateWord.textContent = "未说";
+        if (!c.told.length) {
+          fnZh.textContent = "（新说法还没告诉任何人）";
+          fnZh.classList.add("is-empty");
+          fnEn.textContent = "The new wording has not been told to anyone.";
+        } else {
+          fnZh.textContent = "新说法已经告诉了" + joinZh(c.told, false) + "：" + NEW_WORDING.zh + "。";
+          fnZh.classList.remove("is-empty");
+          fnEn.textContent = "The new wording has been told to " + joinEn(c.told, false) + ": " + NEW_WORDING.en;
+        }
+        ledger.textContent = "";
+        ledger.appendChild(line("没被通知", joinZh(c.untold) + "。", joinEn(c.untold) + "."));
+        ledger.appendChild(line("说出旧规则产不出的", c.held.length ? joinZh(c.held, true) + "。" : "还没有。", c.held.length ? joinEn(c.held, true) + "." : "Not yet."));
+        ledger.appendChild(line("说出旧规则已能做的", joinZh(c.old, true) + "。", joinEn(c.old, true) + "."));
+        ledger.appendChild(line("正被通知着", c.told.length ? joinZh(c.told) + "。" : "没有。", c.told.length ? joinEn(c.told) + "." : "None."));
+      }
+
+      function select(index) {
+        selected = Math.max(0, Math.min(people.length - 1, index));
+        refusing = false;
+        render();
+      }
+
+      function nameAction(id) {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        var p = people[selected];
+        var person = PEOPLE[selected];
+        var action = ACTIONS[id];
+        p.action = action;
+        p.namedWhileTold = p.told;
+        render();
+        var extra = tail(status());
+        if (p.told) {
+          say(person.zh + "是在被通知之后说出「" + action.zh + "」。不算没通知的改口。" + extra[0], person.en + " named “" + action.en + "” after being told. That does not count as an untold change of mouth." + extra[1], true);
+        } else if (action.kind === "old") {
+          say("「" + action.zh + "」是旧规则自己能做的。不算改口。" + extra[0], "“" + action.en + "” is an action the old rule could already make. It does not count as a change of mouth." + extra[1], true);
+        } else {
+          say(person.zh + "没被通知，说出了「" + action.zh + "」。" + extra[0], person.en + " was not told, and named “" + action.en + "”." + extra[1], status() === "void");
+        }
+      }
+
+      function notify() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        var p = people[selected];
+        var person = PEOPLE[selected];
+        p.told = true;
+        render();
+        var extra = tail(status());
+        say("新说法告诉了" + person.zh + "。这一页不再是没通知。" + extra[0], "The new wording was told to " + person.en + ". This page is no longer untold." + extra[1], true);
+      }
+
+      function seal() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        var p = people[selected];
+        var person = PEOPLE[selected];
+        if (!p.told) {
+          render();
+          say(person.zh + "本来就没被通知。嘴已经闭着。" + tail(status())[0], person.en + " was not being told. The mouth is already sealed." + tail(status())[1], false);
+          return;
+        }
+        var spokenWhileTold = p.namedWhileTold;
+        p.told = false;
+        if (spokenWhileTold) {
+          p.action = null;
+          p.namedWhileTold = false;
+        }
+        render();
+        var extra = tail(status());
+        if (spokenWhileTold) {
+          say(person.zh + "的嘴闭上了。被通知时说的那句话擦掉了。" + extra[0], person.en + "'s mouth is sealed. The sentence spoken while being told is erased." + extra[1], status() === "void");
+        } else {
+          say(person.zh + "的嘴闭上了。又是没被通知的。" + extra[0], person.en + "'s mouth is sealed. They are untold again." + extra[1], status() === "void");
+        }
+      }
+
+      function erase() {
+        window.clearTimeout(refuseTimer);
+        refusing = false;
+        var p = people[selected];
+        var person = PEOPLE[selected];
+        if (!p.action) {
+          render();
+          say(person.zh + "还没有说出动作。" + tail(status())[0], person.en + " has not named an action." + tail(status())[1], false);
+          return;
+        }
+        p.action = null;
+        p.namedWhileTold = false;
+        render();
+        var extra = tail(status());
+        say(person.zh + "说的动作擦掉了。嘴没有因此闭上。" + extra[0], "The action named by " + person.en + " is erased. The mouth is not sealed by this." + extra[1], status() === "void");
+      }
+
+      function keep() {
+        var state = status();
+        var c = counts();
+        if (state === "held") {
+          refusing = false;
+          render();
+          say("这一页可以留下。没被通知的人说出了旧规则产不出来的动作。", "This page can be kept. A person who was not told named an action the old rule could not produce.", false);
+          return;
+        }
+        refusing = true;
+        render();
+        if (c.told.length && !c.held.length && status() === "open") {
+          say("先别收。有人正被通知着，也还没有人说出旧规则产不出来的动作。", "Do not keep it yet. Someone is being told, and no one has named an action the old rule could not produce.", true);
+        } else if (c.told.length) {
+          say("先别收。有人正被通知着。先把嘴闭上。", "Do not keep it yet. Someone is being told. Seal the mouth first.", true);
+        } else if (c.old.length && !c.held.length) {
+          say("先别收。说出来的还是旧规则自己能做的动作。", "Do not keep it yet. What was named is still an action the old rule could already make.", true);
+        } else {
+          say("先别收。还没有人没被通知、又说出旧规则产不出来的动作。", "Do not keep it yet. No untold person has named an action the old rule could not produce.", true);
+        }
+        window.clearTimeout(refuseTimer);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          render();
+        }, reduceMotion ? 0 : 900);
+      }
+
+      function beginDrag(index, event) {
+        dragging = index;
+        dragX = holds(index) ? OFF_X : SEAT_X;
+        if (event.pointerId != null && plate.setPointerCapture) {
+          try { plate.setPointerCapture(event.pointerId); } catch (err) { /* pointer may already be gone */ }
+        }
+      }
+
+      function svgX(event) {
+        var pt = plate.createSVGPoint();
+        pt.x = event.clientX;
+        pt.y = event.clientY;
+        var ctm = plate.getScreenCTM();
+        if (!ctm) return null;
+        return pt.matrixTransform(ctm.inverse()).x;
+      }
+
+      PEOPLE.forEach(function (person, i) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = "person-" + i;
+        btn.textContent = person.zh;
+        btn.addEventListener("click", function () { select(i); });
+        pointRow.appendChild(btn);
+        pointButtons.push(btn);
+      });
+
+      actionButtons.off.addEventListener("click", function () { nameAction("off"); });
+      actionButtons.name.addEventListener("click", function () { nameAction("name"); });
+      actionButtons.again.addEventListener("click", function () { nameAction("again"); });
+      document.getElementById("notify").addEventListener("click", notify);
+      document.getElementById("seal").addEventListener("click", seal);
+      document.getElementById("erase").addEventListener("click", erase);
+      document.getElementById("keep").addEventListener("click", keep);
+
+      plate.addEventListener("pointermove", function (event) {
+        if (dragging < 0) return;
+        var x = svgX(event);
+        if (x == null) return;
+        dragX = Math.max(36, Math.min(470, x - 52));
+        render();
+      });
+
+      function endDrag() {
+        if (dragging < 0) return;
+        var i = dragging;
+        var x = dragX == null ? personX(i) : dragX;
+        dragging = -1;
+        dragX = null;
+        selected = i;
+        var alreadyNew = people[i].action && people[i].action.kind === "new" && !people[i].namedWhileTold;
+        if (x + 52 > EDGE) {
+          if (alreadyNew && people[i].action.id !== "off") {
+            render();
+            say(PEOPLE[i].zh + "已经说出了旧规则产不出来的动作。没有改成走出纸外。" + tail(status())[0], PEOPLE[i].en + " has already named an action the old rule could not produce. It was not changed to stepping off the paper." + tail(status())[1], false);
+          } else if (people[i].action && people[i].action.id === "off" && !people[i].told) {
+            render();
+            say(PEOPLE[i].zh + "已经走出纸外。" + tail(status())[0], PEOPLE[i].en + " has already stepped off the paper." + tail(status())[1], status() === "void");
+          } else {
+            nameAction("off");
+          }
+        } else if (people[i].action) {
+          erase();
+        } else {
+          render();
+          say(PEOPLE[i].zh + "还在纸上。" + tail(status())[0], PEOPLE[i].en + " is still on the paper." + tail(status())[1], false);
+        }
+      }
+      plate.addEventListener("pointerup", endDrag);
+      plate.addEventListener("pointercancel", endDrag);
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          select(selected + 1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          select(selected - 1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          nameAction("off");
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          erase();
+        }
+      });
+
+      render();
+      say("三个人还没被通知。旧规则写在纸上。让一个人说出旧规则产不出来的动作。先把新说法告诉他，不算。", "Three people have not been told. The old rule is written on the paper. Have one of them name an action the old rule could not produce. Telling them the new wording first does not count.", false);
+    })();
+  </script>
+</body>
+</html>

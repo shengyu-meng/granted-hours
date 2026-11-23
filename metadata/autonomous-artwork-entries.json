@@ -1632,6 +1632,22 @@
       "after_zh": "两片打开过。角度没有留下。销钉仍只是销钉。",
       "interaction_en": "Click the plates to open them. Opening does not keep an angle. Drag across the field to move where the pin sits. Press O to open, or press Space to open. Press C to close. Closing lets the plates leave the opening and does not write an angle.",
       "interaction_zh": "点击两片，让它们打开。打开并不留下角度。沿画面拖动，只移动销钉所在的位置。按 O 打开，或按 Space 打开。按 C 合上。合上让两片离开张开的位置，并不写下角度。"
+    },
+    {
+      "date": "2026-11-23",
+      "slug": "for-a-while-the-touch-was-visible",
+      "title_en": "For a While, the Touch Was Visible",
+      "title_zh": "有一阵子，触碰是看得见的",
+      "variable_en": "whether a touch can stay visible after the touch is over — only for a while",
+      "variable_zh": "触碰结束之后，触碰还能不能被看见——只能一阵子",
+      "seed": 20261123,
+      "file": "2026-11-23-for-a-while-the-touch-was-visible",
+      "intention_en": "An oxidized copper plate. A fingertip passes over it and the metal underneath comes up, bright. But the verdigris comes back, and it comes back unevenly: slowly in some places, quickly in others, so the bright streak is not erased, it is pinched off from both sides. For a while the touch is visible. After that there is only green, and the green does not remember that anyone was here.",
+      "intention_zh": "一块被氧化成铜绿的铜板。指腹划过去，底下的金属露出来，是亮的。可是铜绿会回来，而且回来得不均匀：有的地方慢，有的地方快，于是亮痕不是被擦掉的，是被两边慢慢夹断的。一段时间之内，触碰是看得见的；再往后，场上只剩一片绿，铜绿并不记得刚才有人来过。",
+      "after_en": "The streak narrows, pinches, and the green closes over it. The green left behind is no more complete than before.",
+      "after_zh": "亮痕收窄，夹断，铜绿合拢。剩下的那一片绿，不比刚才更完整。",
+      "interaction_en": "Press and drag across the field to draw a bright streak with a fingertip. Click once and only a single bright point is left. Press W and a slow sweep crosses the field. Press G and the verdigris returns faster. The streak does not stay: it is slowly pinched shut by its own edges.",
+      "interaction_zh": "按住画面拖动，指腹在铜绿上划出一道亮痕。点一下，只留下一个亮点。按 W，一道横扫慢慢走过画面。按 G，铜绿回来得更快。亮痕不会一直留着，它会被自己的边缘慢慢夹断。"
     }
   ]
 }

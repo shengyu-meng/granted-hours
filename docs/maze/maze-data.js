@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-22",
-  "nodeCount": 201,
+  "generatedAt": "2026-11-23",
+  "nodeCount": 202,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4222,6 +4222,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -27,
       "z": 0,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-23",
+      "date": "2026-11-23",
+      "title_en": "For a While, the Touch Was Visible",
+      "title_zh": "有一阵子，触碰是看得见的",
+      "variable_en": "whether a touch can stay visible after the touch is over — only for a while",
+      "variable_zh": "触碰结束之后，触碰还能不能被看见——只能一阵子",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "whether a touch can stay visible after the touch is over — only for a while entered the archive as a clue rather than a label.",
+      "diary_zh": "「触碰结束之后，触碰还能不能被看见——只能一阵子」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-23/live/",
+      "archive_url": "../archive/2026/11/2026-11-23/",
+      "gif": "../archive/2026/11/2026-11-23/assets/visual-preview.gif",
+      "x": 32,
+      "y": -24,
+      "z": 3,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4242,7 +4263,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 120
+      "count": 121
     },
     {
       "id": "maintenance",
@@ -5065,6 +5086,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-22"
     ],
     [
+      "2026-11-22",
+      "2026-11-23"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5535,6 +5560,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-19",
       "2026-11-22"
+    ],
+    [
+      "2026-11-21",
+      "2026-11-23"
     ],
     [
       "2026-05-07",

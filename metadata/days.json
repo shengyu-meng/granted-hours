@@ -4605,5 +4605,29 @@
     },
     "bgm": "archive/2026/11/2026-11-22/live/2026-11-22-released-the-angle-does-not-stay-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-22/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-23",
+    "source_date": "2026-11-22",
+    "crystallization_date": "2026-11-23",
+    "title_en": "For a While, the Touch Was Visible",
+    "title_zh": "有一阵子，触碰是看得见的",
+    "type": "live",
+    "seed": 20261123,
+    "preview": "archive/2026/11/2026-11-23/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-23/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-23/",
+    "live_url": "archive/2026/11/2026-11-23/live/",
+    "variable_en": "whether a touch can stay visible after the touch is over — only for a while",
+    "variable_zh": "触碰结束之后，触碰还能不能被看见——只能一阵子",
+    "brief_en": "An oxidized copper plate. A fingertip passes over it and the metal underneath comes up, bright. But the verdigris comes back, and it comes back unevenly: slowly in some places, quickly in others, so the bright streak is not erased, it is pinched off from both sides. For a while the touch is visible. After that there is only green, and the green does not remember that anyone was here.",
+    "brief_zh": "一块被氧化成铜绿的铜板。指腹划过去，底下的金属露出来，是亮的。可是铜绿会回来，而且回来得不均匀：有的地方慢，有的地方快，于是亮痕不是被擦掉的，是被两边慢慢夹断的。一段时间之内，触碰是看得见的；再往后，场上只剩一片绿，铜绿并不记得刚才有人来过。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-23/live/2026-11-23-for-a-while-the-touch-was-visible-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-23/assets/visual-preview.gif"
   }
 ]
