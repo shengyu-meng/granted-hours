@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate { width: 100%; height: 300px; display: block; }
+    .yard { fill: none; stroke: rgba(26, 33, 31, 0.22); stroke-width: 1; }
+    .ground-hatch { stroke: rgba(26, 33, 31, 0.08); stroke-width: 1; }
+    .eye-line {
+      fill: none;
+      stroke: rgba(141, 135, 150, 0.85);
+      stroke-width: 1.15;
+      stroke-dasharray: 3 5;
+      pointer-events: none;
+    }
+    .line-hit {
+      fill: none;
+      stroke: transparent;
+      stroke-width: 18;
+      cursor: pointer;
+    }
+    .line-hit:focus { outline: none; }
+    .line-hit:focus-visible { stroke: rgba(127, 158, 166, 0.45); }
+    .foot-line {
+      fill: none;
+      stroke: rgba(184, 146, 74, 0.9);
+      stroke-width: 1.35;
+      pointer-events: none;
+    }
+    .foot-line.is-pointed { stroke: #8d6a2e; stroke-width: 1.8; }
+    .lab {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      fill: rgba(26, 33, 31, 0.55);
+      pointer-events: none;
+    }
+    .lab.is-measured { fill: var(--held); }
+    .lab.is-confessed { fill: #5c5870; }
+    .lab.is-illicit { fill: var(--refusal); }
+    .mark-body { fill: #efe6d6; stroke: rgba(26, 33, 31, 0.55); stroke-width: 1.2; cursor: pointer; }
+    .mark-body.is-selected { stroke: var(--gold); stroke-width: 1.8; }
+    .mark-body.is-measured { fill: #e4d3ae; }
+    .mark-body.is-confessed { fill: #ddd8e0; stroke: #6d6878; }
+    .mark-body.is-illicit { fill: #e7d2ce; stroke: var(--refusal); }
+    .glyph { fill: none; stroke: rgba(26, 33, 31, 0.45); stroke-width: 1.15; pointer-events: none; }
+    .foot-mark { fill: #26302c; cursor: grab; }
+    .foot-mark:active { cursor: grabbing; }
+    .foot-label {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 13px;
+      fill: var(--ink);
+      pointer-events: none;
+    }
+    .hint {
+      margin: 0;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .hint.is-ready { color: var(--held); }
+    .point-row, .controls, .walk-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .walk-row button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected { border-color: var(--gold); color: var(--held); }
+    .point-row button.is-measured { background: rgba(184, 146, 74, 0.12); }
+    .point-row button.is-confessed { background: rgba(141, 135, 150, 0.16); }
+    .point-row button.is-illicit { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .controls button.is-on {
+      border-color: var(--gold);
+      color: var(--held);
+      background: rgba(184, 146, 74, 0.12);
+    }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .walk-row button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .margin li .quiet { display: block; font-size: 12px; }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .log-k { margin-top: 20px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate { height: 210px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate { height: 196px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。替身半径：脚底下那一小块才许有量过的东西。眼睛还看得到、人还没走到的，必须自报是替身，并写出缺的那块骨头。来的人指不出这条线，这页作废。换一天就死：当时走通的办法，换一个普通日子就会空。写不出这个普通日子，那次赢不许记成方法。回不来的：带出来的只许放在自己桌上。必须单写一件碰过、一拿出来就死掉的。没有这件，这页只是一次成功的搬运。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. The Stand-in Radius: only the small patch underfoot may hold what was measured. What the eye still sees, and no one has walked to, must confess it is a stand-in and name the missing bone. If the person who arrives cannot point out this line, the page is void. Dies If the Day Changes: a way that worked that day goes empty on an ordinary day. If that ordinary day cannot be written, the win may not be kept as a method. What Cannot Come Back: what is carried out may only be what can sit on your own table. One touched thing that dies the moment it is taken out must be written alone. Without it, the page is only a successful carrying.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 替身半径</p>
+    <section class="sheet" aria-label="替身半径">
+      <div class="sheet-head">
+        <div>
+          <span class="k">第 1 页 · 这块地</span>
+          <strong>替身半径</strong>
+          <p class="en-title">The Stand-in Radius</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未指线</p>
+      </div>
+
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 300" role="img" aria-label="一页地。脚在近处，一条线跟着脚走。眼睛的圈不跟着脚。井口、石缝、北树、东坡都在纸上。">
+          <rect class="yard" x="28" y="22" width="584" height="256" rx="2"></rect>
+          <g class="ground-hatch">
+            <line x1="48" y1="48" x2="590" y2="48"></line>
+            <line x1="48" y1="248" x2="590" y2="248"></line>
+            <line x1="48" y1="48" x2="48" y2="248"></line>
+          </g>
+          <circle id="eye-visible" class="eye-line" cx="320" cy="150" r="118"></circle>
+          <text class="lab" x="214" y="42">眼睛的圈</text>
+          <circle id="foot-visible" class="foot-line" cx="206" cy="186" r="92"></circle>
+          <circle id="eye-hit" class="line-hit" cx="320" cy="150" r="118" tabindex="0" role="button" aria-label="眼睛的圈，不跟着脚走"></circle>
+          <circle id="foot-hit" class="line-hit" cx="206" cy="186" r="92" tabindex="0" role="button" aria-label="跟着脚走的那条线"></circle>
+          <g id="well" class="place" transform="translate(168 168)">
+            <circle class="mark-body" r="11"></circle>
+            <rect class="glyph" x="-4.5" y="-4.5" width="9" height="9"></rect>
+          </g>
+          <text class="lab" id="lab-well" x="146" y="152">井口</text>
+          <g id="crack" class="place" transform="translate(252 220)">
+            <circle class="mark-body" r="11"></circle>
+            <path class="glyph" d="M -6 2 L -1 -4 M 1 5 L 6 -1"></path>
+          </g>
+          <text class="lab" id="lab-crack" x="266" y="224">石缝</text>
+          <g id="tree" class="place" transform="translate(478 64)">
+            <circle class="mark-body" r="11"></circle>
+            <path class="glyph" d="M 0 6 L 0 -1 M -5 -2 L 0 -7 L 5 -2"></path>
+          </g>
+          <text class="lab" id="lab-tree" x="492" y="60">北树</text>
+          <g id="slope" class="place" transform="translate(560 188)">
+            <circle class="mark-body" r="11"></circle>
+            <path class="glyph" d="M -6 4 L 6 -4"></path>
+          </g>
+          <text class="lab" id="lab-slope" x="520" y="214">东坡</text>
+          <g id="foot">
+            <circle class="foot-mark" cx="206" cy="186" r="7"></circle>
+            <text class="foot-label" id="foot-label" x="216" y="182">脚</text>
+          </g>
+        </svg>
+      </div>
+
+      <p class="hint" id="hint">指出跟着脚走的那条线。眼睛的圈不算。远处还装着像真的。</p>
+      <div class="point-row" id="point-row"></div>
+      <div class="walk-row">
+        <button type="button" id="west">往西</button>
+        <button type="button" id="east">往东</button>
+        <button type="button" id="north">往北</button>
+        <button type="button" id="south">往南</button>
+      </div>
+      <div class="controls">
+        <button type="button" id="measure">记下量过</button>
+        <button type="button" id="confess">自报替身</button>
+        <button type="button" id="withdraw">收回这一量</button>
+        <button type="button" id="keep" class="void-btn">收下这一页</button>
+        <button type="button" id="reset">另写一页</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+
+    <aside class="margin">
+      <p class="kicker">页子</p>
+      <h2>替身半径</h2>
+      <p class="sub">The Stand-in Radius</p>
+      <ul id="ledger"></ul>
+      <p class="kicker log-k">经过</p>
+      <ul id="log"></ul>
+      <p class="after" id="after"></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>替身半径</h2>
+      <p>脚底下那一小块才许有量过的东西。眼睛还看得到、人还没走到的，必须自报是替身，并写出缺的那块骨头。拖动脚，或按往西、往东、往北、往南，线跟着脚走。点一处，或用左右方向键选中。按记下量过，或用上方向键，只在脚底下记得住。远处按自报替身，或在远处时用上方向键。量过的一处若离开脚底，按收回这一量，或用下方向键，再让它自报。点跟着脚走的那条线，或聚焦后按回车。眼睛的圈不算。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">Only the small patch underfoot may hold what was measured. What the eye still sees, and no one has walked to, must confess it is a stand-in and name the missing bone. Drag the foot, or press West, East, North, South. The line follows the foot. Select a place by pressing it, or with the left and right arrow keys. Press Record as measured, or use the up arrow, only while it is underfoot. Far away, press Confess as stand-in, or use the up arrow. If a measured place leaves the foot, press Withdraw this measurement, or use the down arrow, then let it confess. Point the line that follows the foot, or focus it and press Enter. The eye's circle does not count. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var MARKS = [
+        { id: "well", zh: "井口", en: "the well mouth", bone: "井深", boneEn: "the depth", x: 168, y: 168 },
+        { id: "crack", zh: "石缝", en: "the stone crack", bone: "缝宽", boneEn: "the width", x: 252, y: 220 },
+        { id: "tree", zh: "北树", en: "the north tree", bone: "年轮", boneEn: "the rings", x: 478, y: 64 },
+        { id: "slope", zh: "东坡", en: "the east slope", bone: "坡度", boneEn: "the grade", x: 560, y: 188 }
+      ];
+      var MARK = {};
+      MARKS.forEach(function (m) { MARK[m.id] = m; });
+      var RADIUS = 92;
+      var EYE = { x: 320, y: 150, r: 118 };
+      var foot = { x: 206, y: 186 };
+      var measured = {};
+      var confessed = {};
+      var pointed = false;
+      var selected = "well";
+      var sealed = false;
+      var refusing = false;
+      var refuseTimer = 0;
+      var step = 0;
+      var log = [];
+      var history = [];
+      var dragging = false;
+      var dragId = null;
+
+      var plate = document.getElementById("plate");
+      var field = document.getElementById("field");
+      var stateWord = document.getElementById("state-word");
+      var hint = document.getElementById("hint");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var logList = document.getElementById("log");
+      var after = document.getElementById("after");
+      var pointRow = document.getElementById("point-row");
+      var footVisible = document.getElementById("foot-visible");
+      var footHit = document.getElementById("foot-hit");
+      var footMark = document.querySelector(".foot-mark");
+      var footLabel = document.getElementById("foot-label");
+      var eyeHit = document.getElementById("eye-hit");
+      var markButtons = {};
+
+      function dist(a, b) {
+        var dx = a.x - b.x;
+        var dy = a.y - b.y;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      function inside(id) {
+        return dist(foot, MARK[id]) <= RADIUS;
+      }
+
+      function insideIds() {
+        return MARKS.filter(function (m) { return inside(m.id); }).map(function (m) { return m.id; });
+      }
+
+      function statusOf(id) {
+        var inn = inside(id);
+        if (measured[id] && !inn) return "illicit";
+        if (measured[id] && inn) return "measured";
+        if (!inn && confessed[id]) return "confessed";
+        if (!inn) return "pretend";
+        return "near";
+      }
+
+      function canKeep() {
+        if (!pointed) return false;
+        var nearMeasured = MARKS.some(function (m) { return inside(m.id) && measured[m.id]; });
+        if (!nearMeasured) return false;
+        return MARKS.every(function (m) {
+          if (inside(m.id)) return true;
+          return confessed[m.id] && !measured[m.id];
+        });
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.innerHTML = "";
+        readout.appendChild(document.createTextNode(zh));
+        var line = document.createElement("span");
+        line.className = "en";
+        line.textContent = en;
+        readout.appendChild(line);
+      }
+
+      function pushLog(zh, en) {
+        step += 1;
+        log.push({ step: step, zh: zh, en: en });
+      }
+
+      function clearRefuse() {
+        refusing = false;
+        window.clearTimeout(refuseTimer);
+      }
+
+      function refuse(zh, en) {
+        refusing = true;
+        render();
+        say(zh, en, true);
+        window.clearTimeout(refuseTimer);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          render();
+        }, 1200);
+      }
+
+      function renderMarks() {
+        MARKS.forEach(function (m) {
+          var group = document.getElementById(m.id);
+          var body = group.querySelector(".mark-body");
+          var lab = document.getElementById("lab-" + m.id);
+          var st = statusOf(m.id);
+          body.classList.toggle("is-selected", selected === m.id);
+          body.classList.toggle("is-measured", st === "measured");
+          body.classList.toggle("is-confessed", st === "confessed");
+          body.classList.toggle("is-illicit", st === "illicit");
+          lab.classList.toggle("is-measured", st === "measured");
+          lab.classList.toggle("is-confessed", st === "confessed");
+          lab.classList.toggle("is-illicit", st === "illicit");
+          var text = m.zh;
+          if (st === "measured") text = m.zh + " · 量过 · " + m.bone;
+          else if (st === "confessed") text = m.zh + " · 替身 · 缺" + m.bone;
+          else if (st === "illicit") text = m.zh + " · 量过 · 不在脚下";
+          lab.textContent = text;
+          var btn = markButtons[m.id];
+          if (btn) {
+            btn.classList.toggle("is-selected", selected === m.id);
+            btn.classList.toggle("is-measured", st === "measured");
+            btn.classList.toggle("is-confessed", st === "confessed");
+            btn.classList.toggle("is-illicit", st === "illicit");
+            btn.setAttribute("aria-pressed", selected === m.id ? "true" : "false");
+          }
+        });
+      }
+
+      function renderFoot() {
+        footVisible.setAttribute("cx", foot.x);
+        footVisible.setAttribute("cy", foot.y);
+        footHit.setAttribute("cx", foot.x);
+        footHit.setAttribute("cy", foot.y);
+        footMark.setAttribute("cx", foot.x);
+        footMark.setAttribute("cy", foot.y);
+        footLabel.setAttribute("x", foot.x + 12);
+        footLabel.setAttribute("y", foot.y - 8);
+        footVisible.classList.toggle("is-pointed", pointed);
+        footHit.setAttribute("aria-pressed", pointed ? "true" : "false");
+      }
+
+      function addItem(list, meta, zh, en) {
+        var li = document.createElement("li");
+        var tag = document.createElement("span");
+        tag.className = "meta";
+        tag.textContent = meta;
+        li.appendChild(tag);
+        li.appendChild(document.createTextNode(zh));
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(quiet);
+        list.appendChild(li);
+      }
+
+      function names(ids) {
+        if (!ids.length) return "无";
+        return ids.map(function (id) { return MARK[id].zh; }).join("、");
+      }
+
+      function namesEn(ids) {
+        if (!ids.length) return "none";
+        return ids.map(function (id) { return MARK[id].en; }).join(", ");
+      }
+
+      function renderLedger() {
+        ledger.innerHTML = "";
+        var measuredNear = MARKS.filter(function (m) { return statusOf(m.id) === "measured"; }).map(function (m) { return m.id; });
+        var confessedFar = MARKS.filter(function (m) { return statusOf(m.id) === "confessed"; }).map(function (m) { return m.id; });
+        var pretending = MARKS.filter(function (m) { return statusOf(m.id) === "pretend"; }).map(function (m) { return m.id; });
+        var illicit = MARKS.filter(function (m) { return statusOf(m.id) === "illicit"; }).map(function (m) { return m.id; });
+        addItem(ledger, "脚下", names(measuredNear), namesEn(measuredNear));
+        addItem(ledger, "自报", names(confessedFar), namesEn(confessedFar));
+        addItem(ledger, "装真", names(pretending), namesEn(pretending));
+        addItem(ledger, "离开", names(illicit), namesEn(illicit));
+        addItem(ledger, "线", pointed ? "指出了" : "还没被指出", pointed ? "pointed out" : "not yet pointed out");
+        logList.innerHTML = "";
+        log.slice(-6).forEach(function (item) {
+          addItem(logList, String(item.step), item.zh, item.en);
+        });
+        after.innerHTML = "";
+        if (!history.length) {
+          after.appendChild(document.createTextNode("还没有上一页。"));
+          var en = document.createElement("span");
+          en.className = "en";
+          en.textContent = "There is no previous page yet.";
+          after.appendChild(en);
+          return;
+        }
+        var last = history[history.length - 1];
+        after.appendChild(document.createTextNode(last.zh));
+        var enLast = document.createElement("span");
+        enLast.className = "en";
+        enLast.textContent = last.en;
+        after.appendChild(enLast);
+      }
+
+      function renderState() {
+        var word = "未指线";
+        if (refusing) word = "别收";
+        else if (sealed) word = "收下";
+        else if (canKeep()) word = "可收";
+        else if (MARKS.some(function (m) { return statusOf(m.id) === "illicit"; })) word = "离开";
+        else if (MARKS.some(function (m) { return statusOf(m.id) === "pretend"; })) word = "装真";
+        else if (pointed) word = "已指线";
+        stateWord.textContent = word;
+        stateWord.classList.toggle("is-void", refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        stateWord.classList.toggle("is-held", sealed || canKeep());
+        var ready = canKeep() && !sealed;
+        hint.textContent = ready
+          ? "线指出了。远处不再装。这一页可以收。"
+          : "指出跟着脚走的那条线。眼睛的圈不算。远处还装着的，必须自报。";
+        hint.classList.toggle("is-ready", ready);
+        document.getElementById("keep").classList.toggle("is-on", ready);
+      }
+
+      function render() {
+        renderFoot();
+        renderMarks();
+        renderLedger();
+        renderState();
+      }
+
+      function selectMark(id) {
+        selected = id;
+        clearRefuse();
+        render();
+      }
+
+      function moveFoot(x, y, quiet) {
+        if (sealed) {
+          say("这一页已经收下了。", "This page has already been kept.", true);
+          return;
+        }
+        clearRefuse();
+        var before = insideIds();
+        foot.x = Math.max(64, Math.min(576, x));
+        foot.y = Math.max(48, Math.min(252, y));
+        var afterIds = insideIds();
+        render();
+        if (quiet) return;
+        var left = before.filter(function (id) { return afterIds.indexOf(id) < 0; });
+        var entered = afterIds.filter(function (id) { return before.indexOf(id) < 0; });
+        if (!left.length && !entered.length) return;
+        var zh = [];
+        var en = [];
+        left.forEach(function (id) {
+          zh.push(MARK[id].zh + "离开了脚底");
+          en.push(MARK[id].en + " left the foot");
+        });
+        entered.forEach(function (id) {
+          zh.push(MARK[id].zh + "到了脚底下");
+          en.push(MARK[id].en + " is underfoot");
+        });
+        say(zh.join("。") + "。", en.join(". ") + ".", false);
+      }
+
+      function stepFoot(dx, dy) {
+        moveFoot(foot.x + dx, foot.y + dy, false);
+      }
+
+      function doMeasure() {
+        if (sealed) {
+          say("这一页已经收下了。", "This page has already been kept.", true);
+          return;
+        }
+        clearRefuse();
+        var id = selected;
+        var m = MARK[id];
+        if (!inside(id)) {
+          refuse(m.zh + "不在脚底下。不许记成量过的。", m.en + " is not underfoot. It may not be recorded as measured.");
+          return;
+        }
+        if (measured[id]) {
+          say(m.zh + "已经量过，骨头是" + m.bone + "。", m.en + " is already measured. The bone is " + m.boneEn + ".", false);
+          return;
+        }
+        measured[id] = true;
+        pushLog("量过 · " + m.zh + " · " + m.bone, "measured " + m.en + ", " + m.boneEn);
+        render();
+        say("记下了。" + m.zh + "的骨头是" + m.bone + "。只许留在脚底下。",
+          "Recorded. The bone of " + m.en + " is " + m.boneEn + ". It may remain only underfoot.", false);
+      }
+
+      function doConfess() {
+        if (sealed) {
+          say("这一页已经收下了。", "This page has already been kept.", true);
+          return;
+        }
+        clearRefuse();
+        var id = selected;
+        var m = MARK[id];
+        if (inside(id)) {
+          refuse(m.zh + "在脚底下。脚底下的不必自报替身。", m.en + " is underfoot. What is underfoot does not need to confess.");
+          return;
+        }
+        if (measured[id]) {
+          refuse(m.zh + "还记着量过。先收回这一量，它已经不在脚底下。", m.en + " is still recorded as measured. Withdraw it. It is no longer underfoot.");
+          return;
+        }
+        if (confessed[id]) {
+          say(m.zh + "已经自报。缺的骨头是" + m.bone + "。", m.en + " has already confessed. The missing bone is " + m.boneEn + ".", false);
+          return;
+        }
+        confessed[id] = true;
+        pushLog("自报 · " + m.zh + " · 缺" + m.bone, "confessed " + m.en + ", missing " + m.boneEn);
+        render();
+        say(m.zh + "自报是替身。缺的骨头是" + m.bone + "。",
+          m.en + " confesses it is a stand-in. The missing bone is " + m.boneEn + ".", false);
+      }
+
+      function doWithdraw() {
+        if (sealed) {
+          say("这一页已经收下了。", "This page has already been kept.", true);
+          return;
+        }
+        clearRefuse();
+        var id = selected;
+        var m = MARK[id];
+        if (!measured[id]) {
+          say(m.zh + "没有量过的东西可收。", m.en + " has no measurement to withdraw.", true);
+          return;
+        }
+        delete measured[id];
+        pushLog("收回 · " + m.zh, "withdrew " + m.en);
+        render();
+        if (inside(id)) {
+          say("收回了。" + m.zh + "还在脚底下，可以再量。", "Withdrawn. " + m.en + " is still underfoot, and may be measured again.", false);
+        } else {
+          say("收回了。" + m.zh + "在远处。它还得自报替身，并写出缺的骨头。",
+            "Withdrawn. " + m.en + " is far. It still has to confess, and name the missing bone.", false);
+        }
+      }
+
+      function pointLine(kind) {
+        if (sealed) {
+          say("这一页已经收下了。", "This page has already been kept.", true);
+          return;
+        }
+        clearRefuse();
+        if (kind === "eye") {
+          pushLog("指错 · 眼睛的圈", "pointed at the eye's circle");
+          if (pointed) {
+            say("你指的是眼睛的圈。跟着脚的那条线已经指出了，这一下不算。",
+              "You pointed at the eye's circle. The line that follows the foot is already pointed out. This one does not count.", true);
+            return;
+          }
+          refuse("你指的是眼睛的圈。它不跟着脚。这条线还没被指出。",
+            "You pointed at the eye's circle. It does not follow the foot. This line has not been pointed out.");
+          return;
+        }
+        pointed = true;
+        pushLog("指出 · 跟着脚的线", "pointed out the line that follows the foot");
+        render();
+        say("这条线被指出来了。它跟着脚走。", "This line has been pointed out. It follows the foot.", false);
+      }
+
+      function doKeep() {
+        if (sealed) {
+          say("这一页已经收下了。", "This page has already been kept.", true);
+          return;
+        }
+        clearRefuse();
+        if (!pointed) {
+          refuse("来的人还没指出这条线。这页不能收。", "The person who arrives has not pointed out this line. This page cannot be kept.");
+          return;
+        }
+        var illicit = MARKS.filter(function (m) { return statusOf(m.id) === "illicit"; });
+        if (illicit.length) {
+          refuse(illicit[0].zh + "量过，却不在脚底下。先收回，这页不能收。",
+            illicit[0].en + " was measured, and is no longer underfoot. Withdraw it. This page cannot be kept.");
+          return;
+        }
+        var pretending = MARKS.filter(function (m) { return statusOf(m.id) === "pretend"; });
+        if (pretending.length) {
+          refuse(pretending[0].zh + "还在装成真的。它必须自报替身，并写出缺的骨头。",
+            pretending[0].en + " is still pretending to be true. It must confess, and name the missing bone.");
+          return;
+        }
+        var nearMeasured = MARKS.some(function (m) { return inside(m.id) && measured[m.id]; });
+        if (!nearMeasured) {
+          refuse("脚底下还没有量过的东西。这条线还没分开真的和替身。",
+            "Nothing underfoot has been measured. The line has not yet separated the true from the stand-in.");
+          return;
+        }
+        sealed = true;
+        pushLog("收下这一页", "kept this page");
+        render();
+        say("这一页收下了。远处还算不算真，页子不回答。",
+          "This page can be kept. Whether the far ground still counts as true is not answered by the page.", false);
+      }
+
+      function snapshot() {
+        function picked(pred, lang) {
+          var found = MARKS.filter(pred);
+          if (!found.length) return lang === "en" ? "none" : "无";
+          return found.map(function (m) { return lang === "en" ? m.en : m.zh; }).join(lang === "en" ? ", " : "、");
+        }
+        var measuredNear = function (m) { return statusOf(m.id) === "measured"; };
+        var confessedFar = function (m) { return statusOf(m.id) === "confessed"; };
+        var pretending = function (m) { return statusOf(m.id) === "pretend"; };
+        var illicit = function (m) { return statusOf(m.id) === "illicit"; };
+        var zh = (sealed ? "上一页收下了。" : "上一页没有收下。")
+          + (pointed ? "线指出了。" : "线没有被指出。")
+          + "脚下：" + picked(measuredNear, "zh") + "。"
+          + "自报：" + picked(confessedFar, "zh") + "。"
+          + "装真：" + picked(pretending, "zh") + "。"
+          + "离开：" + picked(illicit, "zh") + "。";
+        var en = (sealed ? "The last page was kept. " : "The last page was not kept. ")
+          + (pointed ? "The line was pointed out. " : "The line was not pointed out. ")
+          + "Underfoot: " + picked(measuredNear, "en") + ". "
+          + "Confessed: " + picked(confessedFar, "en") + ". "
+          + "Pretending: " + picked(pretending, "en") + ". "
+          + "Left the foot: " + picked(illicit, "en") + ".";
+        history.push({ zh: zh, en: en });
+      }
+
+      function doReset() {
+        snapshot();
+        clearRefuse();
+        measured = {};
+        confessed = {};
+        pointed = false;
+        sealed = false;
+        refusing = false;
+        step = 0;
+        log = [];
+        foot.x = 206;
+        foot.y = 186;
+        selected = "well";
+        render();
+        say("另写一页。上一页发生过的事留在余像里。", "Another page. What happened to the last one stays in the afterimage.", false);
+      }
+
+      function toView(event) {
+        var rect = plate.getBoundingClientRect();
+        var vb = plate.viewBox.baseVal;
+        return {
+          x: (event.clientX - rect.left) / rect.width * vb.width,
+          y: (event.clientY - rect.top) / rect.height * vb.height
+        };
+      }
+
+      MARKS.forEach(function (m) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = "pick-" + m.id;
+        btn.textContent = m.zh;
+        btn.addEventListener("click", function () { selectMark(m.id); });
+        pointRow.appendChild(btn);
+        markButtons[m.id] = btn;
+        var group = document.getElementById(m.id);
+        group.addEventListener("pointerdown", function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          selectMark(m.id);
+        });
+      });
+
+      document.getElementById("west").addEventListener("click", function () { stepFoot(-28, 0); });
+      document.getElementById("east").addEventListener("click", function () { stepFoot(28, 0); });
+      document.getElementById("north").addEventListener("click", function () { stepFoot(0, -28); });
+      document.getElementById("south").addEventListener("click", function () { stepFoot(0, 28); });
+      document.getElementById("measure").addEventListener("click", doMeasure);
+      document.getElementById("confess").addEventListener("click", doConfess);
+      document.getElementById("withdraw").addEventListener("click", doWithdraw);
+      document.getElementById("keep").addEventListener("click", doKeep);
+      document.getElementById("reset").addEventListener("click", doReset);
+
+      function bindLine(el, kind) {
+        el.addEventListener("pointerdown", function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          pointLine(kind);
+        });
+        el.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            pointLine(kind);
+          }
+        });
+      }
+      bindLine(footHit, "foot");
+      bindLine(eyeHit, "eye");
+
+      footMark.addEventListener("pointerdown", function (event) {
+        if (sealed) return;
+        dragging = true;
+        dragId = event.pointerId;
+        field.setPointerCapture(event.pointerId);
+        event.stopPropagation();
+        event.preventDefault();
+      });
+      field.addEventListener("pointermove", function (event) {
+        if (!dragging || event.pointerId !== dragId) return;
+        var p = toView(event);
+        moveFoot(p.x, p.y, false);
+      });
+      function endDrag(event) {
+        if (event.pointerId !== dragId) return;
+        dragging = false;
+        dragId = null;
+      }
+      field.addEventListener("pointerup", endDrag);
+      field.addEventListener("pointercancel", endDrag);
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        var index = MARKS.map(function (m) { return m.id; }).indexOf(selected);
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          selectMark(MARKS[(index + 1) % MARKS.length].id);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          selectMark(MARKS[(index + MARKS.length - 1) % MARKS.length].id);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          if (inside(selected)) doMeasure();
+          else doConfess();
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          doWithdraw();
+        }
+      });
+
+      render();
+      say("脚在这儿。只有脚底下才许有量过的东西。远处要自报替身。来的人还没指出这条线。",
+        "The foot is here. Only what is underfoot may be measured. The far places must confess. The person who arrives has not pointed out this line.", false);
+    })();
+  </script>
+</body>
+</html>
