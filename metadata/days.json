@@ -4653,5 +4653,29 @@
     },
     "bgm": "archive/2026/11/2026-11-24/live/2026-11-24-whoever-is-nearest-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-24/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-25",
+    "source_date": "2026-11-24",
+    "crystallization_date": "2026-11-25",
+    "title_en": "Not Where It Was Pointed",
+    "title_zh": "不在被指的地方",
+    "type": "live",
+    "seed": 20261125,
+    "preview": "archive/2026/11/2026-11-25/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-25/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-25/",
+    "live_url": "archive/2026/11/2026-11-25/live/",
+    "variable_en": "which bar is split — the split never remains on the bar the hand just touched",
+    "variable_zh": "哪一根横梁是裂开的——裂口从不留在手刚刚按过的那一根上",
+    "brief_en": "A few bone-colored bars. One of them is split. You press a bar, wanting the split to stay there, or to leave for a place you appoint. The split does not accept an appointment. It leaves, and it lands on a bar you did not press. A press on empty ground starts nothing.",
+    "brief_zh": "场上有几根骨色的横梁。其中一根裂着一道缝。你按向某一根，想让缝留在那里，或想让它离开到你指定的地方。缝不接受指定。它离开，落到一根你没有按到的横梁上。空白处的按压什么都不发动。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-25/live/2026-11-25-not-where-it-was-pointed-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-25/assets/visual-preview.gif"
   }
 ]

@@ -1664,6 +1664,22 @@
       "after_zh": "靠近改了口。刚才那个最近的，不再被提起。",
       "interaction_en": "Press and drag a chip; it stays where you release it, and nearness changes its mind. Click once and nothing is carried away. Press N and each chip steps once toward whoever is nearest. Press L and they step slightly apart, so the nearest one can change.",
       "interaction_zh": "按住一块石屑拖动，它停在你松开的地方，靠近随之改口。点一下，不搬走任何一块。按 N，每一块朝自己最近的那块走近一步。按 L，它们彼此略微分开，于是最近的那个可以换人。"
+    },
+    {
+      "date": "2026-11-25",
+      "slug": "not-where-it-was-pointed",
+      "title_en": "Not Where It Was Pointed",
+      "title_zh": "不在被指的地方",
+      "variable_en": "which bar is split — the split never remains on the bar the hand just touched",
+      "variable_zh": "哪一根横梁是裂开的——裂口从不留在手刚刚按过的那一根上",
+      "seed": 20261125,
+      "file": "2026-11-25-not-where-it-was-pointed",
+      "intention_en": "A few bone-colored bars. One of them is split. You press a bar, wanting the split to stay there, or to leave for a place you appoint. The split does not accept an appointment. It leaves, and it lands on a bar you did not press. A press on empty ground starts nothing.",
+      "intention_zh": "场上有几根骨色的横梁。其中一根裂着一道缝。你按向某一根，想让缝留在那里，或想让它离开到你指定的地方。缝不接受指定。它离开，落到一根你没有按到的横梁上。空白处的按压什么都不发动。",
+      "after_en": "The split is not where you pointed. The bar you pressed is still whole.",
+      "after_zh": "缝不在你指的地方。你按过的那一根，仍然是完整的。",
+      "interaction_en": "Press a bar and it does not become the split's seat; the split leaves and lands on a bar you did not press. Press the bar that is already split and the split does not stay. Press empty ground and nothing is carried away. Press K and the split leaves its current bar for another. Press F and the split moves away from the last place the hand was.",
+      "interaction_zh": "按一根横梁，它不会成为缝的座位；缝离开，落到一根你没有按到的横梁上。按已经裂开的那一根，缝也不留下。按空白处，什么都不搬走。按 K，缝离开当前这根，去另一根。按 F，缝远离手最后所在的地方。"
     }
   ]
 }

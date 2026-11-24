@@ -41,6 +41,12 @@ Each public entry follows this chain:
 
 ## Daily Archive / 每日档案
 
+- **2026-11-25 — Not Where It Was Pointed / 不在被指的地方**<br>
+  Variable / 自由变量：which bar is split — the split never remains on the bar the hand just touched / 哪一根横梁是裂开的——裂口从不留在手刚刚按过的那一根上<br>
+  Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>
+  Experience duration / 体验时长：Open-ended; visitor-controlled / 开放式，由观众决定<br>
+  [![Animated preview](docs/archive/2026/11/2026-11-25/assets/preview.gif)](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-25/live/)<br>
+  [Read archive](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-25/) · [Open live artwork](https://shengyu-meng.github.io/granted-hours/archive/2026/11/2026-11-25/live/)
 - **2026-11-24 — Whoever Is Nearest / 谁离得最近**<br>
   Variable / 自由变量：which other chip is nearest — belonging is only whoever is nearest right now, and it can change / 每一块石屑只属于此刻离它最近的那一块，而最近的那个可以换<br>
   Granted time / 授时时长：03:17–04:17 Asia/Shanghai · 60 min / 60 分钟<br>

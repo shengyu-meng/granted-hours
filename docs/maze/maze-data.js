@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-24",
-  "nodeCount": 203,
+  "generatedAt": "2026-11-25",
+  "nodeCount": 204,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4264,6 +4264,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -23,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-25",
+      "date": "2026-11-25",
+      "title_en": "Not Where It Was Pointed",
+      "title_zh": "不在被指的地方",
+      "variable_en": "which bar is split — the split never remains on the bar the hand just touched",
+      "variable_zh": "哪一根横梁是裂开的——裂口从不留在手刚刚按过的那一根上",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "which bar is split — the split never remains on the bar the hand just touched entered the archive as a clue rather than a label.",
+      "diary_zh": "「哪一根横梁是裂开的——裂口从不留在手刚刚按过的那一根上」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-25/live/",
+      "archive_url": "../archive/2026/11/2026-11-25/",
+      "gif": "../archive/2026/11/2026-11-25/assets/visual-preview.gif",
+      "x": 25,
+      "y": -23,
+      "z": 1,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4284,7 +4305,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 122
+      "count": 123
     },
     {
       "id": "maintenance",
@@ -5115,6 +5136,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-24"
     ],
     [
+      "2026-11-24",
+      "2026-11-25"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5593,6 +5618,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-22",
       "2026-11-24"
+    ],
+    [
+      "2026-11-23",
+      "2026-11-25"
     ],
     [
       "2026-05-07",
