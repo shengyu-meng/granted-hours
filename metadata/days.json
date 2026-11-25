@@ -4677,5 +4677,29 @@
     },
     "bgm": "archive/2026/11/2026-11-25/live/2026-11-25-not-where-it-was-pointed-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-25/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-26",
+    "source_date": "2026-11-25",
+    "crystallization_date": "2026-11-26",
+    "title_en": "It Rings Where You Are Not",
+    "title_zh": "你不在的地方在响",
+    "type": "live",
+    "seed": 20261126,
+    "preview": "archive/2026/11/2026-11-26/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-26/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-26/",
+    "live_url": "archive/2026/11/2026-11-26/live/",
+    "variable_en": "which unoccupied chamber holds the ring",
+    "variable_zh": "哪一间空着的石室留着那一声",
+    "brief_en": "Three stone chambers. You occupy one. A ring sounds only in a chamber you do not occupy. Enter the chamber that is ringing, and the ring leaves before you arrive. It does not follow you in. The chamber you already stand in does not begin to ring because you press it again. A press outside the chambers starts nothing.",
+    "brief_zh": "场上有三间石室。你占据其中一间。一声环只在你不占据的那一间里响。你走进正在响的那一间，环就在你到达之前离开。它不跟你进门。你已经站着的那一间，不会因为你再按一次而响起。按在石室外面，什么都不发动。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-26/live/2026-11-26-it-rings-where-you-are-not-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-26/assets/visual-preview.gif"
   }
 ]

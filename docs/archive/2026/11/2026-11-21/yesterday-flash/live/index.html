@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet.is-void::before { background: linear-gradient(90deg, transparent, var(--refusal), transparent); }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate { width: 100%; height: 300px; display: block; }
+    .yard { fill: none; stroke: rgba(26, 33, 31, 0.22); stroke-width: 1; }
+    .ground-hatch { stroke: rgba(26, 33, 31, 0.08); stroke-width: 1; }
+    .mass { fill: rgba(184, 146, 74, 0.2); stroke: rgba(26, 33, 31, 0.12); stroke-width: 1; }
+    .disk { fill: #f4ecde; stroke: rgba(26, 33, 31, 0.38); stroke-width: 1; }
+    .plane.is-selected .disk { stroke: var(--gold); stroke-width: 1.7; }
+    .plane.is-lag .disk { fill: #e7d7b4; stroke: #8d6a2e; stroke-width: 1.8; }
+    .plane { cursor: pointer; }
+    .plane:focus { outline: none; }
+    .plane:focus-visible .disk { stroke: var(--cyan); stroke-width: 1.8; }
+    .cut { fill: none; stroke: rgba(26, 33, 31, 0.72); stroke-width: 1.25; stroke-linecap: round; pointer-events: none; }
+    .cut-fill { fill: rgba(26, 33, 31, 0.55); stroke: none; pointer-events: none; }
+    .needle { stroke: rgba(26, 33, 31, 0.7); stroke-width: 1.3; }
+    .needle-lag { stroke: #8d6a2e; stroke-width: 1.6; }
+    .compass-ring { fill: none; stroke: rgba(26, 33, 31, 0.28); stroke-width: 1; }
+    .crack {
+      stroke: var(--refusal);
+      stroke-width: 1.1;
+      stroke-dasharray: 3 4;
+    }
+    .lag-wedge { fill: rgba(184, 146, 74, 0.42); stroke: #8d6a2e; stroke-width: 1; }
+    .lag-num {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 12px;
+      fill: #6d5424;
+      letter-spacing: 0.04em;
+    }
+    .lab {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      fill: rgba(26, 33, 31, 0.55);
+      pointer-events: none;
+    }
+    .lab.is-lag { fill: var(--held); }
+    .lab.is-selected { fill: var(--ink); }
+    .confess-line {
+      font-family: Palatino, "Songti SC", serif;
+      font-size: 13px;
+      fill: var(--held);
+      letter-spacing: 0.08em;
+    }
+    .hint {
+      margin: 0;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .hint.is-ready { color: var(--held); }
+    .point-row, .controls, .walk-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .walk-row button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected { border-color: var(--gold); color: var(--held); }
+    .point-row button.is-lag { background: rgba(184, 146, 74, 0.16); }
+    .controls button.is-on {
+      border-color: var(--gold);
+      color: var(--held);
+      background: rgba(184, 146, 74, 0.12);
+    }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .walk-row button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .margin li .quiet { display: block; font-size: 12px; }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .log-k { margin-top: 20px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate { height: 210px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate { height: 196px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .plane, .cut, .needle, .needle-lag { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。一起转的平面：从脚底到树冠切开，每层只留那一高度真正切到的东西。换方向只能让所有层转同一个角度。唯一允许动手的地方，是让其中一层少转十度。少转的那一层露馅。露馅以后，纸必须承认，你以为站得住的山，是一组被要求一起转的平面。没有一层少转，这页不能收。灯必须动过：纸上只写三样允许被改的实物，灯的高度，缝的宽，墙的转角。进来的人只能改这三样，再走同一条路。判断变了，这三样却还在原来的位置，这张纸作废。没有一件东西真的被拧过，涨了的判断不算数。跟着进门的：每走一步，只写下下一间用不上、却还是跟进来的那一件，并写出名字。什么都没跟进来，这步还没走完。上一间整间都跟进来，也不算，那是搬家。名字要具体到能指着它说，就是这个。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Co-rotated Planes: cut from the foot to the crown. Each layer may keep only what that height actually cuts. A change of direction may turn every layer only by the same angle. The only allowed hand is to let one layer lag by ten degrees. That layer gives the trick away. Afterward the page must admit that the mountain you thought could stand is a set of planes required to turn together. If no layer lags, the page cannot be kept. The Lamp Must Have Moved: the page may name only three physical things that may be changed, the height of the lamp, the width of the seam, the corner of the wall. The person who enters may change only these three, then walk the same path again. If the judgment has changed and the three are still where they were, the page is void. If nothing was actually turned, a risen judgment does not count. What Followed In: each step may write only the one thing the next room does not need and that still came in, and it must be named. If nothing followed in, the step is not finished. If the whole previous room followed in, that does not count. That is moving house. The name must be specific enough to point at.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 一起转的平面</p>
+    <section class="sheet" id="sheet" aria-label="一起转的平面">
+      <div class="sheet-head">
+        <div>
+          <span class="k" id="page-k">第 1 页 · 这块地</span>
+          <strong>一起转的平面</strong>
+          <p class="en-title">Co-rotated Planes</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">装着</p>
+      </div>
+
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 300" role="img" aria-label="六张一起转的平面，从脚底到树冠。山在它们对齐时装着站得住。">
+          <rect class="yard" x="28" y="16" width="584" height="268" rx="2"></rect>
+          <g class="ground-hatch">
+            <line x1="48" y1="36" x2="500" y2="36"></line>
+            <line x1="48" y1="268" x2="500" y2="268"></line>
+            <line x1="48" y1="36" x2="48" y2="268"></line>
+          </g>
+          <path id="mass" class="mass" d="M236 272 Q248 200 262 140 Q274 80 300 36 Q326 80 338 140 Q352 200 364 272 Z"></path>
+          <line id="crack" class="crack" x1="214" y1="168" x2="386" y2="168" visibility="hidden"></line>
+          <path id="lag-wedge" class="lag-wedge" visibility="hidden"></path>
+          <text id="lag-num" class="lag-num" visibility="hidden">10°</text>
+
+          <g id="plane-crown" class="plane" tabindex="0" role="button" aria-label="树冠，切到天光" transform="translate(0 0)">
+            <ellipse class="disk" cx="300" cy="46" rx="150" ry="13"></ellipse>
+            <g class="cut-spin" transform="rotate(0 300 46)">
+              <line class="cut" x1="300" y1="46" x2="300" y2="8"></line>
+              <path class="cut" d="M282 50 Q300 34 318 49"></path>
+              <circle class="cut-fill" cx="300" cy="46" r="2"></circle>
+            </g>
+          </g>
+          <g id="plane-shade" class="plane" tabindex="0" role="button" aria-label="冠下，切到叶" transform="translate(0 0)">
+            <ellipse class="disk" cx="300" cy="88" rx="156" ry="13"></ellipse>
+            <g class="cut-spin" transform="rotate(0 300 88)">
+              <line class="cut" x1="300" y1="88" x2="300" y2="50"></line>
+              <ellipse class="cut" cx="332" cy="88" rx="18" ry="5"></ellipse>
+              <circle class="cut-fill" cx="300" cy="88" r="2"></circle>
+            </g>
+          </g>
+          <g id="plane-shoulder" class="plane" tabindex="0" role="button" aria-label="肩，切到枝" transform="translate(0 0)">
+            <ellipse class="disk" cx="300" cy="130" rx="162" ry="13"></ellipse>
+            <g class="cut-spin" transform="rotate(0 300 130)">
+              <line class="cut" x1="300" y1="130" x2="300" y2="92"></line>
+              <path class="cut" d="M300 134 L354 122"></path>
+              <circle class="cut-fill" cx="300" cy="130" r="2"></circle>
+            </g>
+          </g>
+          <g id="plane-waist" class="plane" tabindex="0" role="button" aria-label="腰，切到干" transform="translate(0 0)">
+            <ellipse class="disk" cx="300" cy="172" rx="166" ry="13"></ellipse>
+            <g class="cut-spin" transform="rotate(0 300 172)">
+              <line class="cut" x1="300" y1="172" x2="300" y2="134"></line>
+              <path class="cut" d="M296 162 L296 182 M304 162 L304 182"></path>
+              <circle class="cut-fill" cx="300" cy="172" r="2"></circle>
+            </g>
+          </g>
+          <g id="plane-knee" class="plane" tabindex="0" role="button" aria-label="膝，切到草" transform="translate(0 0)">
+            <ellipse class="disk" cx="300" cy="214" rx="170" ry="13"></ellipse>
+            <g class="cut-spin" transform="rotate(0 300 214)">
+              <line class="cut" x1="300" y1="214" x2="300" y2="176"></line>
+              <path class="cut" d="M314 206 L314 220 M324 204 L324 220 M334 208 L334 220"></path>
+              <circle class="cut-fill" cx="300" cy="214" r="2"></circle>
+            </g>
+          </g>
+          <g id="plane-sole" class="plane" tabindex="0" role="button" aria-label="脚底，切到石子" transform="translate(0 0)">
+            <ellipse class="disk" cx="300" cy="256" rx="174" ry="13"></ellipse>
+            <g class="cut-spin" transform="rotate(0 300 256)">
+              <line class="cut" x1="300" y1="256" x2="300" y2="218"></line>
+              <circle class="cut" cx="322" cy="254" r="3.2"></circle>
+              <circle class="cut" cx="332" cy="258" r="2.4"></circle>
+              <circle class="cut" cx="328" cy="250" r="2"></circle>
+              <circle class="cut-fill" cx="300" cy="256" r="2"></circle>
+            </g>
+          </g>
+          <text class="lab" id="lab-crown" x="42" y="50">树冠</text>
+          <text class="lab" id="lab-shade" x="42" y="92">冠下</text>
+          <text class="lab" id="lab-shoulder" x="42" y="134">肩</text>
+          <text class="lab" id="lab-waist" x="42" y="176">腰</text>
+          <text class="lab" id="lab-knee" x="42" y="218">膝</text>
+          <text class="lab" id="lab-sole" x="42" y="260">脚底</text>
+
+          <g id="compass" transform="translate(548 58)" aria-hidden="true">
+            <circle class="compass-ring" r="34"></circle>
+            <line id="needle-shared" class="needle" x1="0" y1="0" x2="0" y2="-26"></line>
+            <line id="needle-lag" class="needle-lag" x1="0" y1="0" x2="0" y2="-26" visibility="hidden"></line>
+            <circle class="cut-fill" r="2"></circle>
+            <text class="lab" id="compass-lab" x="-16" y="50">正北</text>
+          </g>
+          <text id="confess-line" class="confess-line" x="168" y="286" visibility="hidden">一组被要求一起转的平面</text>
+        </svg>
+      </div>
+
+      <p class="hint" id="hint">六层还在一起转。要露馅，只能让一层少转十度。</p>
+      <div class="point-row" id="point-row"></div>
+      <div class="walk-row">
+        <button type="button" id="turn-left">全体左转</button>
+        <button type="button" id="turn-right">全体右转</button>
+      </div>
+      <div class="controls">
+        <button type="button" id="lag">少转十度</button>
+        <button type="button" id="withdraw">收回少转</button>
+        <button type="button" id="confess">山自报</button>
+        <button type="button" id="keep" class="void-btn">收下这一页</button>
+        <button type="button" id="reset">另写一页</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+
+    <aside class="margin">
+      <p class="kicker">页子</p>
+      <h2>一起转的平面</h2>
+      <p class="sub">Co-rotated Planes</p>
+      <ul id="ledger"></ul>
+      <p class="kicker log-k">经过</p>
+      <ul id="log"></ul>
+      <p class="after" id="after"></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>一起转的平面</h2>
+      <p>从脚底到树冠切开，每层只留那一高度真正切到的东西。点一层，或用左右方向键选中。按全体左转或全体右转，六层转同一个角度。按少转十度，或用上方向键，只许一层少转。按收回少转，或用下方向键。按山自报，或按回车，只在你正指着少转的那一层时。按收下这一页。没有少转不能收。露馅了却没自报，这页作废。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">Cut from the foot to the crown. Each layer keeps only what that height cuts. Select a layer by pressing it, or with the left and right arrow keys. Press Turn all left or Turn all right. Six layers turn by the same angle. Press Lag by ten degrees, or use the up arrow. Only one layer may lag. Press Withdraw the lag, or use the down arrow. Press Let the mountain confess, or press Enter, only while pointing at the lagged layer. Press Keep this page. If nothing lags, the page cannot be kept. If the trick has shown and the mountain has not confessed, the page is void. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var LAYERS = [
+        { id: "sole", zh: "脚底", en: "underfoot", cut: "石子", cutEn: "a stone", y: 256 },
+        { id: "knee", zh: "膝", en: "the knee", cut: "草", cutEn: "grass", y: 214 },
+        { id: "waist", zh: "腰", en: "the waist", cut: "干", cutEn: "the trunk", y: 172 },
+        { id: "shoulder", zh: "肩", en: "the shoulder", cut: "枝", cutEn: "a branch", y: 130 },
+        { id: "shade", zh: "冠下", en: "under the crown", cut: "叶", cutEn: "a leaf", y: 88 },
+        { id: "crown", zh: "树冠", en: "the crown", cut: "天光", cutEn: "a cut of sky", y: 46 }
+      ];
+      var LAYER = {};
+      LAYERS.forEach(function (layer) { LAYER[layer.id] = layer; });
+      var DIRS = [
+        [0, "正北", "due north"],
+        [30, "北偏东", "north by east"],
+        [60, "东北", "northeast"],
+        [90, "正东", "due east"],
+        [120, "东偏南", "east by south"],
+        [150, "东南", "southeast"],
+        [180, "正南", "due south"],
+        [210, "南偏西", "south by west"],
+        [240, "西南", "southwest"],
+        [270, "正西", "due west"],
+        [300, "西偏北", "west by north"],
+        [330, "西北", "northwest"]
+      ];
+
+      var shared = 0;
+      var lagId = null;
+      var confessed = false;
+      var sealed = false;
+      var refusing = false;
+      var refuseTimer = 0;
+      var selected = "sole";
+      var pageNo = 1;
+      var step = 0;
+      var log = [];
+      var history = [];
+
+      var sheet = document.getElementById("sheet");
+      var stateWord = document.getElementById("state-word");
+      var hint = document.getElementById("hint");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var logList = document.getElementById("log");
+      var after = document.getElementById("after");
+      var pointRow = document.getElementById("point-row");
+      var mass = document.getElementById("mass");
+      var crack = document.getElementById("crack");
+      var lagWedge = document.getElementById("lag-wedge");
+      var lagNum = document.getElementById("lag-num");
+      var needleShared = document.getElementById("needle-shared");
+      var needleLag = document.getElementById("needle-lag");
+      var compassLab = document.getElementById("compass-lab");
+      var confessLine = document.getElementById("confess-line");
+      var pageK = document.getElementById("page-k");
+      var buttons = {};
+
+      function norm(angle) {
+        return ((angle % 360) + 360) % 360;
+      }
+
+      function dirOf(angle) {
+        var hit = DIRS[0];
+        DIRS.forEach(function (item) {
+          if (item[0] === norm(angle)) hit = item;
+        });
+        return hit;
+      }
+
+      function angleOf(id) {
+        return lagId === id ? shared - 10 : shared;
+      }
+
+      function canKeep() {
+        return !!lagId && confessed && !sealed;
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.innerHTML = "";
+        readout.appendChild(document.createTextNode(zh));
+        var line = document.createElement("span");
+        line.className = "en";
+        line.textContent = en;
+        readout.appendChild(line);
+      }
+
+      function pushLog(zh, en) {
+        step += 1;
+        log.push({ step: step, zh: zh, en: en });
+      }
+
+      function clearRefuse() {
+        refusing = false;
+        window.clearTimeout(refuseTimer);
+      }
+
+      function refuse(zh, en) {
+        refusing = true;
+        render();
+        say(zh, en, true);
+        window.clearTimeout(refuseTimer);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          render();
+        }, 1200);
+      }
+
+      function sealedSay() {
+        say("这一页已经收下了。", "This page has already been kept.", true);
+      }
+
+      function addItem(list, meta, zh, en) {
+        var li = document.createElement("li");
+        var tag = document.createElement("span");
+        tag.className = "meta";
+        tag.textContent = meta;
+        li.appendChild(tag);
+        li.appendChild(document.createTextNode(zh));
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(quiet);
+        list.appendChild(li);
+      }
+
+      function renderPlanes() {
+        LAYERS.forEach(function (layer) {
+          var group = document.getElementById("plane-" + layer.id);
+          var spin = group.querySelector(".cut-spin");
+          var lab = document.getElementById("lab-" + layer.id);
+          var lagged = lagId === layer.id;
+          var angle = angleOf(layer.id);
+          group.setAttribute("transform", lagged ? "translate(40 0)" : "translate(0 0)");
+          spin.setAttribute("transform", "rotate(" + angle + " " + (300) + " " + layer.y + ")");
+          group.classList.toggle("is-selected", selected === layer.id);
+          group.classList.toggle("is-lag", lagged);
+          group.setAttribute("aria-pressed", selected === layer.id ? "true" : "false");
+          var text = layer.zh + (lagged ? " · 10°" : "");
+          lab.textContent = text;
+          lab.classList.toggle("is-lag", lagged);
+          lab.classList.toggle("is-selected", selected === layer.id);
+          var btn = buttons[layer.id];
+          if (btn) {
+            btn.classList.toggle("is-selected", selected === layer.id);
+            btn.classList.toggle("is-lag", lagged);
+            btn.setAttribute("aria-pressed", selected === layer.id ? "true" : "false");
+          }
+        });
+      }
+
+      function polar(cx, cy, r, deg) {
+        var rad = deg * Math.PI / 180;
+        return {
+          x: cx + r * Math.sin(rad),
+          y: cy - r * Math.cos(rad)
+        };
+      }
+
+      function wedgePath(cx, cy, r, fromDeg, toDeg) {
+        var a = polar(cx, cy, r, fromDeg);
+        var b = polar(cx, cy, r, toDeg);
+        return "M " + cx + " " + cy
+          + " L " + a.x.toFixed(1) + " " + a.y.toFixed(1)
+          + " A " + r + " " + r + " 0 0 1 "
+          + b.x.toFixed(1) + " " + b.y.toFixed(1) + " Z";
+      }
+
+      function renderVolume() {
+        var exposed = !!lagId;
+        mass.setAttribute("visibility", exposed ? "hidden" : "visible");
+        if (exposed) {
+          var cy = LAYER[lagId].y;
+          var cx = 340;
+          crack.setAttribute("y1", String(cy));
+          crack.setAttribute("y2", String(cy));
+          crack.setAttribute("visibility", "visible");
+          lagWedge.setAttribute("d", wedgePath(cx, cy, 52, shared - 10, shared));
+          lagWedge.setAttribute("visibility", "visible");
+          lagNum.setAttribute("visibility", "hidden");
+        } else {
+          crack.setAttribute("visibility", "hidden");
+          lagWedge.setAttribute("visibility", "hidden");
+          lagNum.setAttribute("visibility", "hidden");
+        }
+        needleShared.setAttribute("transform", "rotate(" + shared + ")");
+        needleLag.setAttribute("transform", "rotate(" + (shared - 10) + ")");
+        needleLag.setAttribute("visibility", exposed ? "visible" : "hidden");
+        compassLab.textContent = exposed ? "少10°" : dirOf(shared)[1];
+        confessLine.setAttribute("visibility", confessed ? "visible" : "hidden");
+      }
+
+      function renderLedger() {
+        var turn = dirOf(shared);
+        ledger.innerHTML = "";
+        addItem(ledger, "同转", turn[1] + " · " + norm(shared) + "°", turn[2] + ", " + norm(shared) + " degrees");
+        addItem(
+          ledger,
+          "少转",
+          lagId ? LAYER[lagId].zh + " · 十度" : "无",
+          lagId ? LAYER[lagId].en + ", ten degrees short" : "none"
+        );
+        addItem(ledger, "自报", confessed ? "山已写下" : "还没写", confessed ? "the mountain has written it" : "not yet written");
+        addItem(ledger, "山", lagId ? "露馅" : "装着", lagId ? "the trick is showing" : "still pretending");
+        logList.innerHTML = "";
+        log.slice(-6).forEach(function (item) {
+          addItem(logList, String(item.step), item.zh, item.en);
+        });
+        after.innerHTML = "";
+        if (!history.length) {
+          after.appendChild(document.createTextNode("还没有上一页。"));
+          var en = document.createElement("span");
+          en.className = "en";
+          en.textContent = "There is no previous page yet.";
+          after.appendChild(en);
+          return;
+        }
+        var last = history[history.length - 1];
+        after.appendChild(document.createTextNode(last.zh));
+        var enLast = document.createElement("span");
+        enLast.className = "en";
+        enLast.textContent = last.en;
+        after.appendChild(enLast);
+      }
+
+      function renderState() {
+        var word = "装着";
+        if (refusing) word = "别收";
+        else if (sealed) word = "收下";
+        else if (canKeep()) word = "可收";
+        else if (lagId && !confessed) word = "露馅";
+        else if (confessed) word = "自报";
+        stateWord.textContent = word;
+        stateWord.classList.toggle("is-void", refusing);
+        stateWord.classList.toggle("is-refusal", refusing);
+        stateWord.classList.toggle("is-held", sealed || canKeep());
+        sheet.classList.toggle("is-void", refusing);
+        var ready = canKeep();
+        hint.textContent = ready
+          ? "一层少转了。山自报了。这一页可以收。"
+          : (lagId
+            ? "这一层露馅了。山还没承认自己是平面。"
+            : "六层还在一起转。要露馅，只能让一层少转十度。");
+        hint.classList.toggle("is-ready", ready);
+        document.getElementById("keep").classList.toggle("is-on", ready);
+        pageK.textContent = "第 " + pageNo + " 页 · 这块地";
+        sheet.dataset.shared = String(norm(shared));
+        sheet.dataset.lag = lagId || "";
+        sheet.dataset.confessed = confessed ? "1" : "0";
+        sheet.dataset.sealed = sealed ? "1" : "0";
+        sheet.dataset.keep = canKeep() ? "1" : "0";
+      }
+
+      function render() {
+        renderPlanes();
+        renderVolume();
+        renderLedger();
+        renderState();
+      }
+
+      function selectLayer(id) {
+        selected = id;
+        clearRefuse();
+        render();
+      }
+
+      function turn(delta) {
+        if (sealed) {
+          sealedSay();
+          return;
+        }
+        clearRefuse();
+        shared = norm(shared + delta);
+        var turnName = dirOf(shared);
+        pushLog("同转 · " + turnName[1], "shared turn · " + turnName[2]);
+        render();
+        if (lagId) {
+          say(
+            "六层一起转到" + turnName[1] + "。" + LAYER[lagId].zh + "仍少转十度。山还是露着馅。",
+            "Six layers turn together to " + turnName[2] + ". " + LAYER[lagId].en + " is still ten degrees short. The trick is still showing.",
+            false
+          );
+        } else {
+          say(
+            "六层一起转到" + turnName[1] + "。山还装着站得住。",
+            "Six layers turn together to " + turnName[2] + ". The mountain is still pretending to stand.",
+            false
+          );
+        }
+      }
+
+      function doLag() {
+        if (sealed) {
+          sealedSay();
+          return;
+        }
+        clearRefuse();
+        var layer = LAYER[selected];
+        if (lagId && lagId !== selected) {
+          refuse(
+            "只能有一层少转。" + LAYER[lagId].zh + "已经少转了十度。",
+            "Only one layer may lag. " + LAYER[lagId].en + " is already ten degrees short."
+          );
+          return;
+        }
+        if (lagId === selected) {
+          say(layer.zh + "已经少转十度。", layer.en + " is already ten degrees short.", false);
+          return;
+        }
+        lagId = selected;
+        pushLog("少转 · " + layer.zh + " · 十度", "lag · " + layer.en + " · ten degrees");
+        render();
+        say(
+          layer.zh + "少转了十度。这一层露馅了。山还没自报。",
+          layer.en + " lags by ten degrees. This layer gives the trick away. The mountain has not confessed.",
+          false
+        );
+      }
+
+      function doWithdraw() {
+        if (sealed) {
+          sealedSay();
+          return;
+        }
+        clearRefuse();
+        var layer = LAYER[selected];
+        if (lagId !== selected) {
+          say(
+            layer.zh + "没有少转。没有可收回的十度。",
+            layer.en + " is not lagging. There is no ten degrees to withdraw.",
+            true
+          );
+          return;
+        }
+        var hadConfession = confessed;
+        lagId = null;
+        confessed = false;
+        pushLog("收回 · " + layer.zh, "withdrew · " + layer.en);
+        render();
+        if (hadConfession) {
+          say(
+            "收回了。" + layer.zh + "回到同转。山把自报也收回去了。它又装着站得住。",
+            "Withdrawn. " + layer.en + " returns to the shared turn. The mountain takes the confession back. It pretends to stand again.",
+            false
+          );
+        } else {
+          say(
+            "收回了。" + layer.zh + "回到同转。山又装着站得住。",
+            "Withdrawn. " + layer.en + " returns to the shared turn. The mountain pretends to stand again.",
+            false
+          );
+        }
+      }
+
+      function doConfess() {
+        if (sealed) {
+          sealedSay();
+          return;
+        }
+        clearRefuse();
+        if (!lagId) {
+          refuse("还没露馅。山不许抢先自报。", "The trick has not shown. The mountain may not confess early.");
+          return;
+        }
+        if (selected !== lagId) {
+          refuse(
+            "你指的不是少转的那一层。山还没自报。",
+            "You are not pointing at the layer that lags. The mountain has not confessed."
+          );
+          return;
+        }
+        if (confessed) {
+          say(
+            "山已经写下了。它是一组被要求一起转的平面。",
+            "The mountain has already written it. It is a set of planes required to turn together.",
+            false
+          );
+          return;
+        }
+        confessed = true;
+        pushLog("自报 · 山是平面", "confessed · the mountain is planes");
+        render();
+        say(
+          LAYER[lagId].zh + "少转了十度。山自报了。它是一组被要求一起转的平面。",
+          LAYER[lagId].en + " lags by ten degrees. The mountain confesses. It is a set of planes required to turn together.",
+          false
+        );
+      }
+
+      function doKeep() {
+        if (sealed) {
+          sealedSay();
+          return;
+        }
+        clearRefuse();
+        if (!lagId) {
+          refuse(
+            "没有一层少转。山还装着站得住。这页不能收。",
+            "No layer lags. The mountain is still pretending to stand. This page cannot be kept."
+          );
+          return;
+        }
+        if (!confessed) {
+          refuse(
+            "一层少转了，露馅了。山还没自报。这页作废。",
+            "One layer lags. The trick is showing. The mountain has not confessed. This page is void."
+          );
+          return;
+        }
+        sealed = true;
+        pushLog("收下这一页 · " + LAYER[lagId].zh, "kept this page · " + LAYER[lagId].en);
+        render();
+        say(
+          "这一页收下了。少转的是" + LAYER[lagId].zh + "。山承认自己是平面。它还算不算站得住，页子不回答。",
+          "This page is kept. The layer that lagged is " + LAYER[lagId].en + ". The mountain admits it is planes. Whether it still counts as standing is not answered by the page.",
+          false
+        );
+      }
+
+      function snapshot() {
+        var zh = (sealed ? "上一页收下了。" : "上一页没有收下。")
+          + "同转" + dirOf(shared)[1] + "。"
+          + (lagId ? "少转：" + LAYER[lagId].zh + "。" : "没有少转。")
+          + (confessed ? "山自报了。" : "山没有自报。");
+        var en = (sealed ? "The last page was kept. " : "The last page was not kept. ")
+          + "Shared turn " + dirOf(shared)[2] + ". "
+          + (lagId ? "Lagged: " + LAYER[lagId].en + ". " : "Nothing lagged. ")
+          + (confessed ? "The mountain confessed." : "The mountain did not confess.");
+        history.push({ zh: zh, en: en });
+      }
+
+      function doReset() {
+        snapshot();
+        clearRefuse();
+        shared = 0;
+        lagId = null;
+        confessed = false;
+        sealed = false;
+        refusing = false;
+        selected = "sole";
+        step = 0;
+        log = [];
+        pageNo += 1;
+        render();
+        say("另写一页。上一页发生过的事留在余像里。", "Another page. What happened to the last one stays in the afterimage.", false);
+      }
+
+      LAYERS.forEach(function (layer) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = "pick-" + layer.id;
+        btn.textContent = layer.zh;
+        btn.addEventListener("click", function () { selectLayer(layer.id); });
+        pointRow.appendChild(btn);
+        buttons[layer.id] = btn;
+        var group = document.getElementById("plane-" + layer.id);
+        group.addEventListener("pointerdown", function (event) {
+          event.preventDefault();
+          selectLayer(layer.id);
+        });
+        group.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectLayer(layer.id);
+          }
+        });
+      });
+
+      document.getElementById("turn-left").addEventListener("click", function () { turn(-30); });
+      document.getElementById("turn-right").addEventListener("click", function () { turn(30); });
+      document.getElementById("lag").addEventListener("click", doLag);
+      document.getElementById("withdraw").addEventListener("click", doWithdraw);
+      document.getElementById("confess").addEventListener("click", doConfess);
+      document.getElementById("keep").addEventListener("click", doKeep);
+      document.getElementById("reset").addEventListener("click", doReset);
+
+      var noteBtn = document.getElementById("note-toggle");
+      var note = document.getElementById("note");
+      var noteClose = document.getElementById("note-close");
+      function openNote() {
+        note.hidden = false;
+        noteBtn.setAttribute("aria-expanded", "true");
+        noteClose.focus();
+      }
+      function closeNote() {
+        note.hidden = true;
+        noteBtn.setAttribute("aria-expanded", "false");
+        noteBtn.focus();
+      }
+      noteBtn.addEventListener("click", openNote);
+      noteClose.addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !note.hidden) {
+          event.preventDefault();
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        var tag = event.target && event.target.tagName;
+        if ((tag === "BUTTON" || tag === "A") && event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") {
+          return;
+        }
+        var index = LAYERS.map(function (layer) { return layer.id; }).indexOf(selected);
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          selectLayer(LAYERS[(index + 1) % LAYERS.length].id);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          selectLayer(LAYERS[(index + LAYERS.length - 1) % LAYERS.length].id);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          doLag();
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          doWithdraw();
+        } else if (event.key === "Enter" && tag !== "BUTTON") {
+          event.preventDefault();
+          doConfess();
+        } else if (event.key === "[") {
+          event.preventDefault();
+          turn(-30);
+        } else if (event.key === "]") {
+          event.preventDefault();
+          turn(30);
+        }
+      });
+
+      render();
+      say(
+        "六层还在一起转。每层只留那一高度切到的东西。山装着站得住。要露馅，只能让一层少转十度。",
+        "Six layers are still turning together. Each layer keeps only what that height cuts. The mountain is pretending to stand. To give the trick away, only one layer may lag by ten degrees.",
+        false
+      );
+    })();
+  </script>
+</body>
+</html>

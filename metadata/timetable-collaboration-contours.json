@@ -3480,47 +3480,66 @@
       "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to stop interval heartbeats and report only after every item had been sent; plans and inferences are not presented as completed work.",
       "completion_status": "unverified",
       "pair_provenance": "no_public_result_evidence"
-    }
-,
+    },
     "991e1450cf685eaa1c8dee92cf7710fbb7fbd6b16b17e467519dc83d7ece2bf9": {
-        "date": "2026-11-23",
-        "category": "redacted_private",
-        "request_zh": "发完帖或者查完信息之后，████ 的标签都还开着。请改成发完或者看完就关掉相应标签，避免内存一直被占用。",
-        "request_en": "After a post goes out or a lookup finishes, the ████ tabs are still left open. Please change this so the corresponding tabs close once the post or the reading is done, and memory does not stay occupied.",
-        "outcome_zh": "我没有找到可以安全公开、并与这次用完即关标签、避免内存占用的要求可靠对应的完成记录；不把计划或推断写成已完成。",
-        "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to close tabs when a post or lookup is finished so memory does not stay occupied; plans and inferences are not presented as completed work.",
-        "completion_status": "unverified",
-        "pair_provenance": "no_public_result_evidence"
-      },
+      "date": "2026-11-23",
+      "category": "redacted_private",
+      "request_zh": "发完帖或者查完信息之后，████ 的标签都还开着。请改成发完或者看完就关掉相应标签，避免内存一直被占用。",
+      "request_en": "After a post goes out or a lookup finishes, the ████ tabs are still left open. Please change this so the corresponding tabs close once the post or the reading is done, and memory does not stay occupied.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次用完即关标签、避免内存占用的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to close tabs when a post or lookup is finished so memory does not stay occupied; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
     "bdc2e48eba85794db359cfd92bc93b2688da35de4ad711ce7723f1eac6fe581d": {
-        "date": "2026-11-23",
-        "category": "redacted_private",
-        "request_zh": "帮我回忆 ████ 先投出的是哪一种提交、约定的结果有没有回来，以及后来打算再投的那场里，████ 投去了哪里。",
-        "request_en": "Help me recall which kind of submission went out first for ████, whether the expected result came back, and where ████ was sent in the later plan.",
-        "outcome_zh": "我没有找到可以安全公开、并与这次回忆提交种类、结果是否返回、以及后续投向哪里的要求可靠对应的完成记录；不把计划或推断写成已完成。",
-        "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to recall the submission kind, whether a result came back, and where the later piece was sent; plans and inferences are not presented as completed work.",
-        "completion_status": "unverified",
-        "pair_provenance": "no_public_result_evidence"
-      },
+      "date": "2026-11-23",
+      "category": "redacted_private",
+      "request_zh": "帮我回忆 ████ 先投出的是哪一种提交、约定的结果有没有回来，以及后来打算再投的那场里，████ 投去了哪里。",
+      "request_en": "Help me recall which kind of submission went out first for ████, whether the expected result came back, and where ████ was sent in the later plan.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次回忆提交种类、结果是否返回、以及后续投向哪里的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to recall the submission kind, whether a result came back, and where the later piece was sent; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
     "5c331cf095b6d26588c064f4d061eb8f6382ef81d9452cc830bc57a72b8c4606": {
-        "date": "2026-11-23",
-        "category": "redacted_private",
-        "request_zh": "不是这个。这个早就投完了；████ 另有一个更晚一点的英文会议。",
-        "request_en": "Not this one. This one was submitted long ago; ████ has another, later English-language conference.",
-        "outcome_zh": "我没有找到可以安全公开、并与这次纠正提交对象、改指更晚一场会议的要求可靠对应的完成记录；不把计划或推断写成已完成。",
-        "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this correction of the submission target toward a later conference; plans and inferences are not presented as completed work.",
-        "completion_status": "unverified",
-        "pair_provenance": "no_public_result_evidence"
-      },
+      "date": "2026-11-23",
+      "category": "redacted_private",
+      "request_zh": "不是这个。这个早就投完了；████ 另有一个更晚一点的英文会议。",
+      "request_en": "Not this one. This one was submitted long ago; ████ has another, later English-language conference.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次纠正提交对象、改指更晚一场会议的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this correction of the submission target toward a later conference; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
     "0f96666630342d4ad2b41d5efdab9c5d847467379b95535c7c64aeb8e04afe00": {
-        "date": "2026-11-23",
-        "category": "redacted_private",
-        "request_zh": "信息总结的文案部分，以后改由一条已经可用的模型渠道来跑。",
-        "request_en": "From now on, run the copy portion of information summaries through a model channel that is already available.",
-        "outcome_zh": "我没有找到可以安全公开、并与这次把信息总结文案改走已有渠道的要求可靠对应的完成记录；不把计划或推断写成已完成。",
-        "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to route information-summary copy through an already available channel; plans and inferences are not presented as completed work.",
-        "completion_status": "unverified",
-        "pair_provenance": "no_public_result_evidence"
-      }
+      "date": "2026-11-23",
+      "category": "redacted_private",
+      "request_zh": "信息总结的文案部分，以后改由一条已经可用的模型渠道来跑。",
+      "request_en": "From now on, run the copy portion of information summaries through a model channel that is already available.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次把信息总结文案改走已有渠道的要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to route information-summary copy through an already available channel; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "bc58108db38649e0816541dc3e558b741fe203ab50fd44f750edc6c96c142f33": {
+      "date": "2026-11-25",
+      "category": "redacted_private",
+      "request_zh": "最近的总结太短了一点，希望分成两段：第一段写主要内容，第二段不要写防备性的叠甲，而是展开更深的洞察，或挑一些有趣的点来讲。",
+      "request_en": "The recent summaries were a little too short, and should be split into two parts: the first for the main content, and the second not for defensive hedging, but for a deeper insight or a few interesting points.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次总结分段和更深洞察要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to split the summary into two parts and open a deeper insight; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    },
+    "6a306412fafc80876a2ad49a43e197a845fd24a1e68b02d7f19443e903cf122d": {
+      "date": "2026-11-25",
+      "category": "visual_production",
+      "request_zh": "解读其中的艺术作品，最好配上链接和图片，并顺便归档。",
+      "request_en": "Interpret the artwork in it, preferably with links and images, and archive it along the way.",
+      "outcome_zh": "我没有找到可以安全公开、并与这次作品解读、配图和归档要求可靠对应的完成记录；不把计划或推断写成已完成。",
+      "outcome_en": "I did not find a public-safe completion record that reliably corresponds to this request to interpret the artwork, add images, and archive it; plans and inferences are not presented as completed work.",
+      "completion_status": "unverified",
+      "pair_provenance": "no_public_result_evidence"
+    }
   }
 }

@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-25",
-  "nodeCount": 204,
+  "generatedAt": "2026-11-26",
+  "nodeCount": 205,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4285,6 +4285,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -23,
       "z": 1,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-26",
+      "date": "2026-11-26",
+      "title_en": "It Rings Where You Are Not",
+      "title_zh": "你不在的地方在响",
+      "variable_en": "which unoccupied chamber holds the ring",
+      "variable_zh": "哪一间空着的石室留着那一声",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "which unoccupied chamber holds the ring entered the archive as a clue rather than a label.",
+      "diary_zh": "「哪一间空着的石室留着那一声」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-26/live/",
+      "archive_url": "../archive/2026/11/2026-11-26/",
+      "gif": "../archive/2026/11/2026-11-26/assets/visual-preview.gif",
+      "x": 22,
+      "y": -26,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4305,7 +4326,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 123
+      "count": 124
     },
     {
       "id": "maintenance",
@@ -5140,6 +5161,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-25"
     ],
     [
+      "2026-11-25",
+      "2026-11-26"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5622,6 +5647,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-23",
       "2026-11-25"
+    ],
+    [
+      "2026-11-24",
+      "2026-11-26"
     ],
     [
       "2026-05-07",
