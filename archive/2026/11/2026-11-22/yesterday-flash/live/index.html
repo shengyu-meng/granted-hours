@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet.is-void::before { background: linear-gradient(90deg, transparent, var(--refusal), transparent); }
+    .sheet.is-held::before { background: linear-gradient(90deg, transparent, var(--held), transparent); }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate { width: 100%; height: 320px; display: block; }
+    .yard { fill: none; stroke: rgba(26, 33, 31, 0.22); stroke-width: 1; }
+    .ground { fill: rgba(26, 33, 31, 0.03); }
+    .house { fill: rgba(184, 146, 74, 0.16); stroke: rgba(26, 33, 31, 0.72); stroke-width: 1.4; }
+    .dim { stroke: rgba(26, 33, 31, 0.55); stroke-width: 1; }
+    .weather-band { fill: rgba(127, 158, 166, 0.16); stroke: rgba(62, 89, 96, 0.45); stroke-width: 1; }
+    .rain { stroke: rgba(62, 89, 96, 0.7); stroke-width: 1.1; }
+    .tablet { fill: #f4ecde; stroke: rgba(26, 33, 31, 0.55); stroke-width: 1; }
+    .road { fill: none; stroke: rgba(26, 33, 31, 0.38); stroke-width: 1.3; }
+    .neighbor {
+      fill: rgba(141, 135, 150, 0.12);
+      stroke: rgba(141, 135, 150, 0.7);
+      stroke-width: 1;
+      stroke-dasharray: 3 3;
+    }
+    .door-slab { fill: #f7f1e6; stroke: #6d5424; stroke-width: 1.5; }
+    .door-gap { fill: none; stroke: var(--refusal); stroke-width: 1; stroke-dasharray: 2 3; }
+    .foot { fill: rgba(26, 33, 31, 0.72); }
+    .stamp { fill: rgba(141, 92, 86, 0.16); stroke: var(--refusal); stroke-width: 1.2; }
+    .select-frame { fill: none; stroke: var(--gold); stroke-width: 1.5; }
+    .void-line { stroke: var(--refusal); stroke-width: 1.1; }
+    .lab, .num, .title-band {
+      font-family: ui-monospace, Menlo, monospace;
+      letter-spacing: 0.04em;
+      pointer-events: none;
+    }
+    .lab { font-size: 11px; fill: rgba(26, 33, 31, 0.58); }
+    .lab.is-selected { fill: var(--ink); }
+    .lab.is-silent { fill: var(--held); }
+    .lab.is-void { fill: var(--refusal); }
+    .num { font-size: 13px; fill: rgba(26, 33, 31, 0.78); }
+    .num.is-borrowed { fill: var(--refusal); }
+    .title-band { font-size: 13px; fill: var(--held); letter-spacing: 0.08em; }
+    .hit { fill: transparent; cursor: pointer; }
+    .hit:focus { outline: none; }
+    .hint {
+      margin: 0;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .hint.is-ready { color: var(--held); }
+    .hint.is-void { color: var(--refusal); }
+    .point-row, .controls, .walk-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .walk-row button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected { border-color: var(--gold); color: var(--held); }
+    .point-row button.is-silent { background: rgba(184, 146, 74, 0.16); }
+    .controls button.is-on {
+      border-color: var(--gold);
+      color: var(--held);
+      background: rgba(184, 146, 74, 0.12);
+    }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .walk-row button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .margin li .quiet { display: block; font-size: 12px; }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .log-k { margin-top: 20px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate { height: 220px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate { height: 210px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .select-frame, .stamp, .door-slab, .foot { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。沉默冠名：先写三行已经有公开数字的，房子的轮廓，这一季的天气，表上说这里住着多少人。再写一行表上没有的，一扇对不上轮廓的门，或者一条人在走、地图上却不是路的缝。只有这一行许当标题。用旁边一条相似的街把这行补上数字，这张纸就作废。图不负责怕：左边只写倍数自己能说的话。右边写那句怕。中间空一行，只许填一种图和公告都给不了的证据。把换帅写成怕的证据，纸作废。纸尾若写成要做的那一手，也作废。砍完还齐：动手前只指定一对必须还在一起的东西。然后描述删一半，图层删一半，解释的句子也删一半。删完这一对还是同时落地，这次砍就留下来。如果又写了一句，专门把它们拽回去，这次不算砍。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Silent Naming: first write three lines that already have public figures, the outline of the house, this season's weather, how many the table says live here. Then write one line the table does not have, a door that does not meet the outline, or a seam people walk that the map does not call a road. Only that line may be the title. If a similar street next door is used to put a figure on that line, the page is void. The Chart Does Not Answer for Fear: the left side may say only what a multiple can say for itself. The right side holds the sentence of fear. The blank line between them may hold only a kind of evidence that neither the chart nor the notice can give. Writing a change of leadership as proof of the fear voids the page. If the foot of the page is written as a hand to be played, it is void too. Still Together After the Cut: before the cut, name only one pair that must still land together. Then cut the description in half, the layers in half, and the explanatory sentences in half. If that pair still lands together, the cut is kept. A sentence written afterward to drag them back does not count as a cut.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 沉默冠名</p>
+    <section class="sheet" id="sheet" aria-label="沉默冠名">
+      <div class="sheet-head">
+        <div>
+          <span class="k" id="page-k">第 1 页 · 这块地</span>
+          <strong>沉默冠名</strong>
+          <p class="en-title">Silent Naming</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未名</p>
+      </div>
+
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 320" role="img" aria-label="一块地的四行。三行已有数字。表上没有的那一行还空着。邻街的 41 不在这张纸上。">
+          <rect class="yard" x="18" y="14" width="604" height="292"></rect>
+          <rect class="ground" x="36" y="36" width="430" height="230"></rect>
+
+          <g id="mark-weather">
+            <rect class="weather-band" x="36" y="36" width="430" height="36"></rect>
+            <line class="rain" x1="52" y1="46" x2="52" y2="60"></line>
+            <line class="rain" x1="64" y1="44" x2="64" y2="62"></line>
+            <line class="rain" x1="76" y1="48" x2="76" y2="58"></line>
+            <line class="rain" x1="88" y1="45" x2="88" y2="61"></line>
+            <text class="lab" id="lab-weather" x="108" y="52">这一季</text>
+            <text class="num" x="108" y="66">8.2 毫米</text>
+          </g>
+
+          <g id="mark-outline">
+            <rect class="house" x="150" y="96" width="196" height="112"></rect>
+            <line class="dim" x1="150" y1="220" x2="346" y2="220"></line>
+            <line class="dim" x1="150" y1="216" x2="150" y2="224"></line>
+            <line class="dim" x1="346" y1="216" x2="346" y2="224"></line>
+            <text class="lab" id="lab-outline" x="158" y="114">轮廓 · 四开间</text>
+            <text class="num" x="214" y="236">12.4 米</text>
+          </g>
+
+          <g id="mark-count">
+            <rect class="tablet" x="214" y="132" width="68" height="40"></rect>
+            <text class="lab" id="lab-count" x="224" y="148">表上</text>
+            <text class="num" x="224" y="164">37</text>
+          </g>
+
+          <g id="mark-road" aria-hidden="true">
+            <path class="road" d="M48 248 H250"></path>
+            <text class="lab" x="48" y="264">路</text>
+          </g>
+
+          <g id="mark-neighbor" aria-hidden="true">
+            <rect class="neighbor" x="500" y="96" width="92" height="112"></rect>
+            <text class="lab" x="514" y="128">邻街</text>
+            <text class="num" id="neighbor-num" x="514" y="150">41</text>
+            <text class="lab" x="514" y="172">不在这页</text>
+          </g>
+
+          <g id="mark-door" visibility="hidden">
+            <line class="door-gap" x1="346" y1="146" x2="392" y2="146"></line>
+            <rect class="door-slab" x="392" y="128" width="22" height="40"></rect>
+            <path class="door-slab" d="M392 128 H414 V168 H392" fill="none"></path>
+            <circle class="foot" cx="406" cy="150" r="1.6"></circle>
+            <text class="lab" id="lab-door" x="392" y="122">门</text>
+          </g>
+
+          <g id="mark-seam" visibility="hidden">
+            <ellipse class="foot" cx="78" cy="214" rx="4" ry="2.2" transform="rotate(-28 78 214)"></ellipse>
+            <ellipse class="foot" cx="104" cy="204" rx="4" ry="2.2" transform="rotate(-18 104 204)"></ellipse>
+            <ellipse class="foot" cx="132" cy="198" rx="4" ry="2.2" transform="rotate(-8 132 198)"></ellipse>
+            <ellipse class="foot" cx="160" cy="206" rx="4" ry="2.2" transform="rotate(12 160 206)"></ellipse>
+            <ellipse class="foot" cx="186" cy="220" rx="4" ry="2.2" transform="rotate(24 186 220)"></ellipse>
+            <text class="lab" id="lab-seam" x="78" y="190">缝</text>
+          </g>
+
+          <g id="mark-empty" visibility="hidden">
+            <text class="lab" id="lab-empty" x="48" y="286">表上没有</text>
+          </g>
+
+          <g id="mark-stamp" visibility="hidden">
+            <rect class="stamp" id="stamp-box" x="360" y="118" width="78" height="28"></rect>
+            <text class="num is-borrowed" id="stamp-num" x="372" y="136">41</text>
+          </g>
+
+          <rect class="select-frame" id="select-frame" x="144" y="90" width="208" height="154"></rect>
+          <line class="void-line" id="void-line" x1="48" y1="292" x2="470" y2="292" visibility="hidden"></line>
+          <text class="title-band" id="title-band" x="48" y="308" visibility="hidden"></text>
+
+          <rect class="hit" id="hit-outline" x="150" y="96" width="196" height="112" tabindex="0" role="button" aria-label="轮廓，四开间，宽 12.4 米"></rect>
+          <rect class="hit" id="hit-weather" x="36" y="36" width="430" height="36" tabindex="0" role="button" aria-label="这一季，8.2 毫米"></rect>
+          <rect class="hit" id="hit-count" x="214" y="132" width="68" height="40" tabindex="0" role="button" aria-label="表上写着 37"></rect>
+          <rect class="hit" id="hit-silent" x="36" y="268" width="108" height="24" tabindex="0" role="button" aria-label="表上没有的那一行"></rect>
+          <rect class="hit" id="hit-door" x="386" y="114" width="40" height="62" tabindex="0" role="button" aria-label="对不上轮廓的门"></rect>
+          <rect class="hit" id="hit-seam" x="48" y="186" width="96" height="44" tabindex="0" role="button" aria-label="人在走、地图上却不是路的缝"></rect>
+        </svg>
+      </div>
+
+      <p class="hint" id="hint">三行已经有数字。表上没有的那一行还没写。只有那一行许当标题。</p>
+      <div class="point-row" id="point-row"></div>
+      <div class="walk-row">
+        <button type="button" id="write-door">写门</button>
+        <button type="button" id="write-seam">写缝</button>
+      </div>
+      <div class="controls">
+        <button type="button" id="title-btn">让这一行当标题</button>
+        <button type="button" id="borrow">借邻街的数</button>
+        <button type="button" id="withdraw">收回借数</button>
+        <button type="button" id="keep" class="void-btn">收下这一页</button>
+        <button type="button" id="reset">另写一页</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+
+    <aside class="margin">
+      <p class="kicker">页子</p>
+      <h2>沉默冠名</h2>
+      <p class="sub">Silent Naming</p>
+      <ul id="ledger"></ul>
+      <p class="kicker log-k">经过</p>
+      <ul id="log"></ul>
+      <p class="after" id="after"></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>沉默冠名</h2>
+      <p>先写三行已经有公开数字的。再写一行表上没有的。点一行，或用左右方向键选中。按写门，或按写缝。按让这一行当标题，或用上方向键。只有那一行、并且没有借来的数字，才当得成标题。按借邻街的数，纸作废。按收回借数，或用下方向键。按收下这一页，或按回车。没有写出门或缝，不能收。借了数，不能收。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">First write three lines that already have public figures. Then write the one line the table does not have. Select a line by pressing it, or with the left and right arrow keys. Press Write the door, or Write the seam. Press Let this line be the title, or use the up arrow. Only that line, and only while it has no borrowed figure, may be the title. Press Borrow the neighbor's figure, and the page is void. Press Withdraw the borrowed figure, or use the down arrow. Press Keep this page, or press Enter. If the door or the seam has not been written, the page cannot be kept. If a figure was borrowed, the page cannot be kept. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var LINES = [
+        { id: "outline", zh: "轮廓", en: "outline", figure: "四开间，宽 12.4 米", figureEn: "four bays, 12.4 meters wide" },
+        { id: "weather", zh: "天气", en: "weather", figure: "这一季，8.2 毫米", figureEn: "8.2 millimeters this season" },
+        { id: "count", zh: "人数", en: "count", figure: "表上写着 37", figureEn: "the table says 37" },
+        { id: "silent", zh: "没有的", en: "the uncounted line", figure: "", figureEn: "" }
+      ];
+      var ORDER = ["outline", "weather", "count", "silent"];
+      var KINDS = {
+        door: { zh: "一扇对不上轮廓的门", en: "a door that does not meet the outline" },
+        seam: { zh: "一条人在走、地图上却不是路的缝", en: "a seam people walk that the map does not call a road" }
+      };
+      var FRAMES = {
+        outline: [144, 90, 208, 154],
+        weather: [30, 30, 442, 48],
+        count: [208, 126, 80, 52],
+        silent: [42, 176, 168, 100],
+        door: [384, 108, 60, 72],
+        seam: [62, 176, 140, 58]
+      };
+
+      var selected = "outline";
+      var silentKind = null;
+      var borrowed = false;
+      var titled = false;
+      var sealed = false;
+      var refusing = false;
+      var refuseTimer = 0;
+      var pageNo = 1;
+      var step = 0;
+      var log = [];
+      var lastPage = null;
+      var buttons = {};
+
+      var sheet = document.getElementById("sheet");
+      var stateWord = document.getElementById("state-word");
+      var hint = document.getElementById("hint");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var logList = document.getElementById("log");
+      var after = document.getElementById("after");
+      var pointRow = document.getElementById("point-row");
+      var pageK = document.getElementById("page-k");
+      var frame = document.getElementById("select-frame");
+      var titleBand = document.getElementById("title-band");
+      var voidLine = document.getElementById("void-line");
+      var note = document.getElementById("note");
+      var noteToggle = document.getElementById("note-toggle");
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.textContent = "";
+        readout.appendChild(document.createTextNode(zh));
+        var line = document.createElement("span");
+        line.className = "en";
+        line.textContent = en;
+        readout.appendChild(line);
+      }
+
+      function pushLog(zh, en) {
+        step += 1;
+        log.push({ step: step, zh: zh, en: en });
+      }
+
+      function clearRefuse() {
+        refusing = false;
+        window.clearTimeout(refuseTimer);
+      }
+
+      function refuse(zh, en) {
+        refusing = true;
+        render();
+        say(zh, en, true);
+        window.clearTimeout(refuseTimer);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          render();
+        }, 1200);
+      }
+
+      function sealedSay() {
+        say("这一页已经收下了。", "This page has already been kept.", true);
+      }
+
+      function addItem(list, meta, zh, en) {
+        var li = document.createElement("li");
+        var tag = document.createElement("span");
+        tag.className = "meta";
+        tag.textContent = meta;
+        li.appendChild(tag);
+        li.appendChild(document.createTextNode(zh));
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(quiet);
+        list.appendChild(li);
+      }
+
+      function silentPhrase() {
+        return silentKind ? KINDS[silentKind] : null;
+      }
+
+      function canTitle() {
+        return !!silentKind && !borrowed && !sealed;
+      }
+
+      function canKeep() {
+        return !!silentKind && titled && !borrowed && !sealed;
+      }
+
+      function show(id, on) {
+        var node = document.getElementById(id);
+        if (node) node.setAttribute("visibility", on ? "visible" : "hidden");
+      }
+
+      function placeFrame() {
+        var key = selected;
+        if (selected === "silent" && silentKind) key = silentKind;
+        var box = FRAMES[key];
+        frame.setAttribute("x", box[0]);
+        frame.setAttribute("y", box[1]);
+        frame.setAttribute("width", box[2]);
+        frame.setAttribute("height", box[3]);
+      }
+
+      function placeStamp() {
+        var box = document.getElementById("stamp-box");
+        var num = document.getElementById("stamp-num");
+        if (silentKind === "door") {
+          box.setAttribute("x", 360);
+          box.setAttribute("y", 118);
+          num.setAttribute("x", 372);
+          num.setAttribute("y", 136);
+        } else {
+          box.setAttribute("x", 86);
+          box.setAttribute("y", 168);
+          num.setAttribute("x", 98);
+          num.setAttribute("y", 186);
+        }
+      }
+
+      function selectLine(id) {
+        if (ORDER.indexOf(id) < 0) return;
+        selected = id;
+        render();
+      }
+
+      function writeKind(kind) {
+        if (sealed) return sealedSay();
+        if (borrowed) {
+          return refuse("数字还在那一行上。先收回，再改写。", "The figure is still on that line. Withdraw it before rewriting.");
+        }
+        var changed = silentKind !== kind;
+        var hadTitle = titled;
+        silentKind = kind;
+        if (changed) titled = false;
+        selected = "silent";
+        clearRefuse();
+        if (changed) {
+          pushLog(
+            kind === "door" ? "写下了一扇对不上轮廓的门。" : "写下了一条人在走、地图上却不是路的缝。",
+            kind === "door" ? "Wrote a door that does not meet the outline." : "Wrote a seam people walk that the map does not call a road."
+          );
+          if (hadTitle) {
+            pushLog("那一行改了。标题离开，要重新给。", "That line changed. The title left and must be given again.");
+          }
+        }
+        render();
+        var phrase = KINDS[kind];
+        say(
+          hadTitle && changed ? "写成了" + phrase.zh + "。标题没有跟着过来。" : "这一行写成了" + phrase.zh + "。上面还没有数字。",
+          hadTitle && changed ? "It is now " + phrase.en + ". The title did not follow." : "That line is now " + phrase.en + ". It still has no figure."
+        );
+      }
+
+      function titleLine() {
+        if (sealed) return sealedSay();
+        if (selected !== "silent") {
+          return refuse("有数字的行不许当标题。", "A line that already has a figure may not be the title.");
+        }
+        if (!silentKind) {
+          return refuse("表上没有的那一行还没写出是门还是缝。", "The line the table does not have has not been written as a door or a seam.");
+        }
+        if (borrowed) {
+          return refuse("这行已经被邻街补上了数字，不许当标题。", "This line has already been filled with the neighboring figure. It may not be the title.");
+        }
+        if (titled) {
+          render();
+          return say("标题已经在这一行上。", "The title is already on this line.");
+        }
+        titled = true;
+        clearRefuse();
+        pushLog("标题给了那一行。上面没有数字。", "The title was given to that line. It carries no figure.");
+        render();
+        say("只有这一行当了标题。", "Only this line is the title.");
+      }
+
+      function borrowFigure() {
+        if (sealed) return sealedSay();
+        if (!silentKind) {
+          return refuse("还没写出那一行，邻街的数没有地方可补。", "That line has not been written. The neighboring figure has nowhere to land.");
+        }
+        if (borrowed) {
+          render();
+          return say("邻街的 41 已经在这行上。纸是作废的。", "The neighboring 41 is already on this line. The page is void.", true);
+        }
+        borrowed = true;
+        titled = false;
+        clearRefuse();
+        pushLog("邻街的 41 补上了那一行。纸作废。标题离开。", "The neighboring 41 was set onto that line. The page is void. The title left.");
+        render();
+        say("用旁边一条相似的街把这行补上了数字。这张纸作废。", "A similar street next door was used to put a figure on that line. This page is void.", true);
+      }
+
+      function withdrawFigure() {
+        if (sealed) return sealedSay();
+        if (!borrowed) {
+          render();
+          return say("这一行上没有借来的数字。", "There is no borrowed figure on that line.");
+        }
+        borrowed = false;
+        titled = false;
+        clearRefuse();
+        pushLog("借来的数字离开了。标题没有自动回来。", "The borrowed figure left. The title did not return by itself.");
+        render();
+        say("数字离开了。要当标题，得重新给。", "The figure left. To title the page, give the title again.");
+      }
+
+      function keepPage() {
+        if (sealed) return sealedSay();
+        if (!silentKind) {
+          return refuse("表上没有的那一行还没写，不能收。", "The line the table does not have has not been written. The page cannot be kept.");
+        }
+        if (borrowed) {
+          return refuse("这行被邻街补上了数字，纸作废。", "That line was filled with a neighboring figure. The page is void.");
+        }
+        if (!titled) {
+          return refuse("只有那一行当了标题，这页才收得下。", "The page can be kept only when that line is the title.");
+        }
+        sealed = true;
+        clearRefuse();
+        pushLog("这一页收下了。标题停在那一行。", "This page was kept. The title stays on that line.");
+        render();
+        say("这一页收下了。标题是那一行，上面没有数字。", "This page was kept. The title is that line, and it has no figure.");
+      }
+
+      function resetPage() {
+        lastPage = {
+          pageNo: pageNo,
+          silentKind: silentKind,
+          borrowed: borrowed,
+          titled: titled,
+          sealed: sealed
+        };
+        pageNo += 1;
+        step = 0;
+        log = [];
+        selected = "outline";
+        silentKind = null;
+        borrowed = false;
+        titled = false;
+        sealed = false;
+        clearRefuse();
+        render();
+        say("另写一页。上一页留在余像里。", "Another page. The last one stays in the afterimage.");
+      }
+
+      function renderAfter() {
+        after.textContent = "";
+        if (!lastPage) return;
+        var zh = "上一页没有收下。那一行还没单独当上标题。";
+        var en = "The last page was not kept. That line had not titled it alone.";
+        if (lastPage.sealed) {
+          zh = "上一页收下了。标题是那一行，没有数字。";
+          en = "The last page was kept. The title was that line, with no figure.";
+        } else if (lastPage.borrowed) {
+          zh = "上一页被邻街的数补上，作废了，没有收下。";
+          en = "The last page was filled with a neighboring figure, voided, and not kept.";
+        }
+        after.appendChild(document.createTextNode(zh));
+        var line = document.createElement("span");
+        line.className = "en";
+        line.textContent = en;
+        after.appendChild(line);
+      }
+
+      function renderLedger() {
+        ledger.textContent = "";
+        var phrase = silentPhrase();
+        var silentZh = phrase ? phrase.zh : "还没写";
+        var silentEn = phrase ? phrase.en : "not yet written";
+        var titleZh = titled ? "在那一行上" : "不在";
+        var titleEn = titled ? "on that line" : "not on it";
+        if (borrowed) {
+          titleZh = "被数字盖掉了";
+          titleEn = "covered by a figure";
+        }
+        var pageZh = sealed ? "收下了" : (borrowed ? "作废" : "未收");
+        var pageEn = sealed ? "kept" : (borrowed ? "void" : "not kept");
+        addItem(ledger, "轮廓", "四开间，宽 12.4 米", "four bays, 12.4 meters wide");
+        addItem(ledger, "天气", "这一季，8.2 毫米", "8.2 millimeters this season");
+        addItem(ledger, "人数", "表上写着 37", "the table says 37");
+        addItem(ledger, "没有的", silentZh, silentEn);
+        addItem(ledger, "借数", borrowed ? "邻街的 41" : "没有", borrowed ? "41, from the neighboring street" : "none");
+        addItem(ledger, "标题", titleZh, titleEn);
+        addItem(ledger, "这一页", pageZh, pageEn);
+      }
+
+      function renderLog() {
+        logList.textContent = "";
+        log.forEach(function (item) {
+          addItem(logList, String(item.step), item.zh, item.en);
+        });
+      }
+
+      function renderLabels() {
+        ["outline", "weather", "count"].forEach(function (id) {
+          var lab = document.getElementById("lab-" + id);
+          if (!lab) return;
+          lab.classList.toggle("is-selected", selected === id);
+        });
+        var doorLab = document.getElementById("lab-door");
+        var seamLab = document.getElementById("lab-seam");
+        var emptyLab = document.getElementById("lab-empty");
+        [doorLab, seamLab, emptyLab].forEach(function (lab) {
+          if (!lab) return;
+          lab.classList.toggle("is-selected", selected === "silent");
+          lab.classList.toggle("is-silent", selected === "silent" && !borrowed);
+          lab.classList.toggle("is-void", borrowed);
+        });
+      }
+
+      function render() {
+        var held = sealed || (titled && !borrowed);
+        sheet.classList.toggle("is-void", borrowed || refusing);
+        sheet.classList.toggle("is-held", held && !refusing);
+        pageK.textContent = "第 " + pageNo + " 页 · 这块地";
+        stateWord.className = "state-word";
+        if (sealed) {
+          stateWord.textContent = "收下";
+          stateWord.classList.add("is-held");
+        } else if (borrowed) {
+          stateWord.textContent = "作废";
+          stateWord.classList.add("is-void");
+        } else if (titled) {
+          stateWord.textContent = "已名";
+          stateWord.classList.add("is-held");
+        } else {
+          stateWord.textContent = "未名";
+        }
+
+        show("mark-door", silentKind === "door");
+        show("mark-seam", silentKind === "seam");
+        show("mark-empty", !silentKind && selected === "silent");
+        show("mark-stamp", borrowed && !!silentKind);
+        if (borrowed && silentKind) placeStamp();
+        show("void-line", borrowed);
+        if (titled && silentKind && !borrowed) {
+          titleBand.setAttribute("visibility", "visible");
+          titleBand.textContent = "标题 · " + KINDS[silentKind].zh;
+        } else {
+          titleBand.setAttribute("visibility", "hidden");
+          titleBand.textContent = "";
+        }
+        placeFrame();
+        renderLabels();
+
+        ORDER.forEach(function (id) {
+          var btn = buttons[id];
+          var hit = document.getElementById("hit-" + id);
+          var on = selected === id;
+          if (btn) {
+            btn.classList.toggle("is-selected", on);
+            btn.classList.toggle("is-silent", id === "silent" && !!silentKind);
+            btn.setAttribute("aria-pressed", on ? "true" : "false");
+          }
+          if (hit) hit.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        document.getElementById("write-door").classList.toggle("is-on", silentKind === "door");
+        document.getElementById("write-seam").classList.toggle("is-on", silentKind === "seam");
+        document.getElementById("title-btn").classList.toggle("is-on", titled && !borrowed);
+        document.getElementById("borrow").classList.toggle("is-on", borrowed);
+
+        hint.classList.toggle("is-ready", canKeep());
+        hint.classList.toggle("is-void", borrowed && !sealed);
+        if (sealed) {
+          hint.textContent = "这一页收下了。标题停在那一行。";
+        } else if (borrowed) {
+          hint.textContent = "邻街的 41 补上了。这张纸作废。收回数字，标题也不会自动回来。";
+        } else if (titled) {
+          hint.textContent = "标题是那一行。上面没有数字。可以收下。";
+        } else if (silentKind) {
+          hint.textContent = "那一行写好了，还没有数字。只有它许当标题。";
+        } else {
+          hint.textContent = "三行已经有数字。表上没有的那一行还没写。只有那一行许当标题。";
+        }
+
+        renderLedger();
+        renderLog();
+        renderAfter();
+      }
+
+      LINES.forEach(function (line) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = line.zh;
+        btn.addEventListener("click", function () { selectLine(line.id); });
+        pointRow.appendChild(btn);
+        buttons[line.id] = btn;
+        var hit = document.getElementById("hit-" + line.id);
+        if (hit) {
+          hit.addEventListener("click", function () { selectLine(line.id); });
+          hit.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              selectLine(line.id);
+            }
+          });
+        }
+      });
+      ["hit-door", "hit-seam"].forEach(function (id) {
+        var extra = document.getElementById(id);
+        if (!extra) return;
+        extra.addEventListener("click", function () { selectLine("silent"); });
+        extra.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectLine("silent");
+          }
+        });
+      });
+
+      document.getElementById("write-door").addEventListener("click", function () { writeKind("door"); });
+      document.getElementById("write-seam").addEventListener("click", function () { writeKind("seam"); });
+      document.getElementById("title-btn").addEventListener("click", titleLine);
+      document.getElementById("borrow").addEventListener("click", borrowFigure);
+      document.getElementById("withdraw").addEventListener("click", withdrawFigure);
+      document.getElementById("keep").addEventListener("click", keepPage);
+      document.getElementById("reset").addEventListener("click", resetPage);
+
+      function openNote() {
+        note.hidden = false;
+        noteToggle.setAttribute("aria-expanded", "true");
+        document.getElementById("note-close").focus();
+      }
+
+      function closeNote() {
+        note.hidden = true;
+        noteToggle.setAttribute("aria-expanded", "false");
+        noteToggle.focus();
+      }
+
+      noteToggle.addEventListener("click", function () {
+        if (note.hidden) openNote();
+        else closeNote();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (!note.hidden && event.key === "Escape") {
+          event.preventDefault();
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.target && event.target.closest && event.target.closest(".note")) return;
+        if (event.key === "Enter" && event.target && event.target.tagName === "BUTTON") return;
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          var index = ORDER.indexOf(selected);
+          var next = event.key === "ArrowRight" ? index + 1 : index - 1;
+          if (next < 0) next = ORDER.length - 1;
+          if (next >= ORDER.length) next = 0;
+          selectLine(ORDER[next]);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          titleLine();
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          withdrawFigure();
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          keepPage();
+        }
+      });
+
+      render();
+      say("三行已经写着数字。表上没有的那一行，还等你写门，或写缝。", "Three lines already carry figures. The line the table does not have is still waiting for a door, or a seam.");
+    })();
+  </script>
+</body>
+</html>
