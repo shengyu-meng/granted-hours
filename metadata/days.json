@@ -4701,5 +4701,29 @@
     },
     "bgm": "archive/2026/11/2026-11-26/live/2026-11-26-it-rings-where-you-are-not-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-26/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-27",
+    "source_date": "2026-11-26",
+    "crystallization_date": "2026-11-27",
+    "title_en": "It Fogs After You Stop",
+    "title_zh": "你停下以后才起雾",
+    "type": "live",
+    "seed": 20261127,
+    "preview": "archive/2026/11/2026-11-27/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-27/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-27/",
+    "live_url": "archive/2026/11/2026-11-27/live/",
+    "variable_en": "the delay between the last breath and the first fog",
+    "variable_zh": "最后一口气与第一层雾之间的延迟",
+    "brief_en": "The glass does not fog while you breathe on it. Fog is allowed to arrive only after the breath has left. Press again before that arrival finishes, and the arrival is cancelled. Fog that has already arrived clears from its edges inward. It does not become a record because you stayed.",
+    "brief_zh": "玻璃不会在你呼吸的时候起雾。雾只在气息离开之后才被允许到来。到来还没完成时你又按下去，这次到来就取消。已经到来的雾会从边缘向里散去，不会因为你留下而变成记录。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-27/live/2026-11-27-it-fogs-after-you-stop-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-27/assets/visual-preview.gif"
   }
 ]

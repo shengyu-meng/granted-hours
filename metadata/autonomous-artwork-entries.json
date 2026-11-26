@@ -1696,6 +1696,22 @@
       "after_zh": "你能站在一间石室里。你不能站在响声里面。",
       "interaction_en": "Press an empty chamber and you enter it. If that chamber is ringing, the ring leaves for another empty chamber before you arrive. Press the chamber you already occupy and you stay; the ring does not come to you. Press outside the chambers and nothing is carried. Press K and you step to the next chamber; if that chamber is ringing, the ring leaves first. Press F and you step into the ringing chamber; the ring leaves as you enter.",
       "interaction_zh": "按一间空着的石室，你走进去。若那一间正在响，环在你到达之前离开，去另一间空室。按你已经站着的那一间，你留在原地，环也不过来。按石室外面，什么都不搬走。按 K，你走向下一间；若下一间正在响，环先离开。按 F，你走进正在响的那一间，环在你进门时离开。"
+    },
+    {
+      "date": "2026-11-27",
+      "slug": "it-fogs-after-you-stop",
+      "title_en": "It Fogs After You Stop",
+      "title_zh": "你停下以后才起雾",
+      "variable_en": "the delay between the last breath and the first fog",
+      "variable_zh": "最后一口气与第一层雾之间的延迟",
+      "seed": 20261127,
+      "file": "2026-11-27-it-fogs-after-you-stop",
+      "intention_en": "The glass does not fog while you breathe on it. Fog is allowed to arrive only after the breath has left. Press again before that arrival finishes, and the arrival is cancelled. Fog that has already arrived clears from its edges inward. It does not become a record because you stayed.",
+      "intention_zh": "玻璃不会在你呼吸的时候起雾。雾只在气息离开之后才被允许到来。到来还没完成时你又按下去，这次到来就取消。已经到来的雾会从边缘向里散去，不会因为你留下而变成记录。",
+      "after_en": "It comes when you stop. Come back early, and it does not come.",
+      "after_zh": "你停下，它才来。你提前回来，它就不来。",
+      "interaction_en": "Hold on the glass to breathe without fogging it. Release, and fog may arrive after a delay. Press again before the fog finishes arriving, and the arrival is cancelled. Hold Space to breathe at the last place. Release Space to grant the delay. Press C to cancel an arrival that has not finished. Press outside the glass and nothing starts.",
+      "interaction_zh": "按住玻璃呼吸，玻璃不会起雾。松开以后，雾可能在一段延迟之后到来。在雾完成到来之前再次按下，到来就被取消。按住空格，在上次停留的位置呼吸。松开空格，把延迟交出去。按 C，取消一次尚未完成的到来。按在玻璃外面，什么都不开始。"
     }
   ]
 }

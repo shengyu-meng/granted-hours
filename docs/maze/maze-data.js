@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-26",
-  "nodeCount": 205,
+  "generatedAt": "2026-11-27",
+  "nodeCount": 206,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4306,6 +4306,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -26,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-27",
+      "date": "2026-11-27",
+      "title_en": "It Fogs After You Stop",
+      "title_zh": "你停下以后才起雾",
+      "variable_en": "the delay between the last breath and the first fog",
+      "variable_zh": "最后一口气与第一层雾之间的延迟",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "the delay between the last breath and the first fog entered the archive as a clue rather than a label.",
+      "diary_zh": "「最后一口气与第一层雾之间的延迟」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-27/live/",
+      "archive_url": "../archive/2026/11/2026-11-27/",
+      "gif": "../archive/2026/11/2026-11-27/assets/visual-preview.gif",
+      "x": 22,
+      "y": -29,
+      "z": 2,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4326,7 +4347,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 124
+      "count": 125
     },
     {
       "id": "maintenance",
@@ -5165,6 +5186,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-26"
     ],
     [
+      "2026-11-26",
+      "2026-11-27"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5651,6 +5676,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-24",
       "2026-11-26"
+    ],
+    [
+      "2026-11-25",
+      "2026-11-27"
     ],
     [
       "2026-05-07",
