@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>昨日闪光</title>
+  <style>
+    :root {
+      --ink: #1a211f;
+      --bone: #e6dccb;
+      --gold: #b8924a;
+      --cyan: #7f9ea6;
+      --violet: #8d8796;
+      --refusal: #8d5c56;
+      --stage: #090c10;
+      --paper: #efe6d6;
+      --held: #6d5424;
+      --hair: rgba(26, 33, 31, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(127, 158, 166, 0.08), transparent 58%),
+        radial-gradient(1100px 640px at 82% 88%, rgba(184, 146, 74, 0.05), transparent 62%),
+        var(--stage);
+      color: var(--bone);
+      font-family: Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
+      line-height: 1.45;
+    }
+    body.is-embed .colophon,
+    body.is-embed .text-layer,
+    body.is-embed .note-btn,
+    body.is-embed .note,
+    body.is-embed .piece-kicker { display: none; }
+    .colophon, .text-layer, .stage {
+      width: min(1080px, calc(100% - 168px));
+      margin: 0 132px 0 28px;
+    }
+    .colophon { padding: 18px 0 0; }
+    .kicker {
+      margin: 0 0 6px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+    }
+    .en-name {
+      margin: 6px 0 0;
+      color: rgba(230, 220, 203, 0.62);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .text-layer { padding: 10px 0 12px; max-width: 46rem; }
+    .text-layer p { margin: 0 0 8px; font-size: 15px; }
+    .text-layer .en, .readout .en, .after .en, .quiet { color: rgba(230, 220, 203, 0.72); }
+    .text-layer .en { font-size: 13.5px; }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.34fr);
+      gap: 16px;
+      padding-bottom: 28px;
+    }
+    .piece-kicker {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .sheet, .margin { min-height: 560px; }
+    .sheet {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 18%),
+        var(--paper);
+      color: var(--ink);
+      border-radius: 2px 18px 18px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sheet::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .sheet.is-void::before { background: linear-gradient(90deg, transparent, var(--refusal), transparent); }
+    .sheet.is-held::before { background: linear-gradient(90deg, transparent, var(--held), transparent); }
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .sheet-head .k {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: rgba(26, 33, 31, 0.45);
+    }
+    .sheet-head strong {
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    .sheet-head .en-title {
+      margin: 4px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: rgba(26, 33, 31, 0.5);
+    }
+    .state-word {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.16em;
+      color: #3e5960;
+      white-space: nowrap;
+    }
+    .state-word.is-void, .state-word.is-refusal { color: var(--refusal); }
+    .state-word.is-held { color: var(--held); }
+    .field {
+      position: relative;
+      border-top: 1px solid var(--hair);
+      border-bottom: 1px solid var(--hair);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%),
+        #e7decd;
+      touch-action: none;
+    }
+    .plate { width: 100%; height: 340px; display: block; }
+    .yard { fill: none; stroke: rgba(26, 33, 31, 0.22); stroke-width: 1; }
+    .ground { fill: rgba(26, 33, 31, 0.03); }
+    .beam { stroke: rgba(26, 33, 31, 0.82); stroke-width: 3.2; stroke-linecap: square; }
+    .fill-line { stroke: rgba(26, 33, 31, 0.38); stroke-width: 1.2; }
+    .gap {
+      fill: none;
+      stroke: var(--refusal);
+      stroke-width: 1.2;
+      stroke-dasharray: 3 3;
+    }
+    .avg-track { fill: rgba(26, 33, 31, 0.06); stroke: rgba(26, 33, 31, 0.2); stroke-width: 1; }
+    .avg-fill { fill: rgba(184, 146, 74, 0.72); }
+    .avg-fill.is-better { fill: rgba(184, 146, 74, 0.9); }
+    .select-frame { fill: none; stroke: var(--gold); stroke-width: 1.5; }
+    .void-line { stroke: var(--refusal); stroke-width: 1.1; }
+    .lab, .num, .title-band {
+      font-family: ui-monospace, Menlo, monospace;
+      letter-spacing: 0.04em;
+      pointer-events: none;
+    }
+    .lab { font-size: 11px; fill: rgba(26, 33, 31, 0.58); }
+    .lab.is-selected { fill: var(--ink); }
+    .lab.is-held { fill: var(--held); }
+    .lab.is-void { fill: var(--refusal); }
+    .num { font-size: 13px; fill: rgba(26, 33, 31, 0.78); }
+    .num.is-void { fill: var(--refusal); }
+    .title-band { font-size: 13px; fill: var(--held); letter-spacing: 0.08em; }
+    .hit { fill: transparent; cursor: pointer; }
+    .hit:focus { outline: none; }
+    .hint {
+      margin: 0;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: rgba(26, 33, 31, 0.55);
+    }
+    .hint.is-ready { color: var(--held); }
+    .hint.is-void { color: var(--refusal); }
+    .point-row, .controls, .walk-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .point-row button, .controls button, .walk-row button, .note-close, .note-btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border: 1px solid rgba(26, 33, 31, 0.28);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .point-row button.is-selected { border-color: var(--gold); color: var(--held); }
+    .point-row button.is-held { background: rgba(184, 146, 74, 0.16); }
+    .point-row button.is-void { border-color: rgba(141, 92, 86, 0.7); color: var(--refusal); }
+    .controls button.is-on {
+      border-color: var(--gold);
+      color: var(--held);
+      background: rgba(184, 146, 74, 0.12);
+    }
+    .point-row button:focus-visible,
+    .controls button:focus-visible,
+    .walk-row button:focus-visible,
+    .note-btn:focus-visible,
+    .note-close:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+    .void-btn { color: var(--refusal); border-color: rgba(141, 92, 86, 0.55); }
+    .readout {
+      margin: 0;
+      min-height: 3.2em;
+      font-size: 14px;
+      color: rgba(26, 33, 31, 0.82);
+    }
+    .readout .en { display: block; margin-top: 3px; color: rgba(26, 33, 31, 0.52); font-size: 12.5px; }
+    .readout.is-refusal { color: var(--refusal); }
+    .margin { padding: 8px 4px 0; color: var(--bone); }
+    .margin h2 {
+      margin: 18px 0 0;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+    }
+    .margin .sub {
+      margin: 2px 0 12px;
+      color: rgba(230, 220, 203, 0.5);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+    }
+    .margin ul { list-style: none; margin: 0; padding: 0; }
+    .margin li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(230, 220, 203, 0.14);
+      font-size: 14px;
+    }
+    .margin li .quiet { display: block; font-size: 12px; }
+    .meta {
+      display: block;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .quiet { display: block; font-size: 12.5px; }
+    .log-k { margin-top: 20px; }
+    .after { margin: 14px 0 0; font-size: 13px; color: rgba(230, 220, 203, 0.78); }
+    .after .en { display: block; margin-top: 4px; }
+    .note-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 4;
+      color: var(--bone);
+      border-color: rgba(230, 220, 203, 0.28);
+      background: rgba(9, 12, 16, 0.72);
+    }
+    .note {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px;
+      background: rgba(9, 12, 16, 0.46);
+    }
+    .note[hidden] { display: none; }
+    .note article {
+      width: min(420px, 100%);
+      max-height: min(78vh, 640px);
+      overflow: auto;
+      padding: 18px 18px 14px;
+      background: #12161c;
+      color: var(--bone);
+      border-radius: 2px 16px 16px 2px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .note .label {
+      margin: 0;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .note h2 { margin: 8px 0 0; font-weight: 500; letter-spacing: 0.08em; }
+    .note p { margin: 10px 0 0; font-size: 14px; }
+    .note .en { color: rgba(230, 220, 203, 0.72); }
+    .note-close {
+      margin-top: 16px;
+      border-color: rgba(230, 220, 203, 0.28);
+      color: var(--bone);
+    }
+    @media (max-width: 980px) {
+      .colophon, .text-layer, .stage {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 18px;
+      }
+      .stage { grid-template-columns: 1fr; }
+      .sheet, .margin { min-height: 0; }
+    }
+    @media (max-height: 520px) {
+      .text-layer { display: none; }
+      .sheet, .margin { min-height: 0; }
+      h1 { font-size: 32px; }
+      .plate { height: 240px; }
+    }
+    body.is-embed { height: 100%; overflow: auto; }
+    body.is-embed .stage {
+      width: calc(100% - 16px);
+      margin: 6px 8px;
+      padding-bottom: 0;
+      grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
+    }
+    body.is-embed .sheet, body.is-embed .margin { min-height: 0; }
+    body.is-embed .sheet { padding: 12px; gap: 8px; }
+    body.is-embed .plate { height: 220px; }
+    body.is-embed .sheet-head strong { font-size: 20px; }
+    @media (max-width: 720px) {
+      body.is-embed .stage { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .select-frame, .avg-fill, .gap { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="colophon">
+    <p class="kicker">授时 · 另一件作品</p>
+    <h1>昨日闪光</h1>
+    <p class="en-name">Yesterday's Flash</p>
+  </header>
+
+  <section class="text-layer" aria-label="文字层">
+    <p>三下还亮着，只有一件能走进去。坏在哪一段：一页已经被压短。平均数还读作还好。承重的行里，有一行已经接不上。填白短了，不算坏。平均数不是一段。只有指出那条接不上的承重，才算说出坏在哪一段。用平均数收下，这页作废。再砍掉另一条还在的承重，也作废。除了你正指着的那一处断口，承重的行必须还在。重渲一次：再画一遍。第二遍必须和第一遍不同，而且你要能说出不同在哪。说不出，就把第一遍放回去。两遍一样，不许叫重渲。不像你的地方：即便整页都是你自己的字，仍会有一处不像你。那一处要单独留下来。它标出的是你没写下来的判断。把它改到像你，这页就没了。</p>
+    <p class="en">Three glints are still lit. Only one can be entered. Which Span Broke: a page has already been shortened. The average still reads as fine. Among the load-bearing lines, one no longer continues. A shortened fill line is not a break. The average is not a span. Only pointing at the load-bearing line that no longer continues names where it broke. Keeping the page by the average voids it. Cutting another load-bearing line that still stands voids it too. Apart from the break you are naming, the load-bearing lines must still stand. Draw It Again: draw it a second time. The second pass must differ from the first, and you must be able to name the difference. If you cannot name it, put the first pass back. Two passes that match may not be called a redraw. Where It Is Not You: even when the whole page is in your own hand, one place will still not be you. That place must be kept alone. It marks a judgment you never wrote down. Changing it until it looks like you removes the page.</p>
+  </section>
+
+  <main class="stage">
+    <p class="piece-kicker">嵌进的一件 · 坏在哪一段</p>
+    <section class="sheet" id="sheet" aria-label="坏在哪一段">
+      <div class="sheet-head">
+        <div>
+          <span class="k" id="page-k">第 1 页 · 已被压短</span>
+          <strong>坏在哪一段</strong>
+          <p class="en-title">Which Span Broke</p>
+        </div>
+        <p class="state-word" id="state-word" aria-live="polite">未指</p>
+      </div>
+
+      <div class="field" id="field">
+        <svg class="plate" id="plate" viewBox="0 0 640 340" role="img" aria-label="一页已被压短。屋脊还在。窗下的填白短了。中梁接不上。檐口的填白还在。柱列还在。页脚的平均数读作还好。">
+          <rect class="yard" x="18" y="14" width="604" height="312"></rect>
+          <rect class="ground" x="36" y="28" width="568" height="248"></rect>
+
+          <g id="mark-ridge">
+            <line class="beam" x1="48" y1="52" x2="560" y2="52"></line>
+            <text class="lab" id="lab-ridge" x="48" y="42">屋脊 · 承重 · 还在</text>
+          </g>
+          <g id="mark-fillShort">
+            <line class="fill-line" id="fill-line" x1="48" y1="100" x2="280" y2="100"></line>
+            <text class="lab" id="lab-fillShort" x="48" y="90">窗下 · 填白 · 短了</text>
+          </g>
+          <g id="mark-break">
+            <line class="beam" x1="48" y1="148" x2="228" y2="148"></line>
+            <line class="gap" x1="236" y1="148" x2="372" y2="148"></line>
+            <line class="beam" x1="380" y1="148" x2="560" y2="148"></line>
+            <text class="lab" id="lab-break" x="48" y="138">中梁 · 承重 · 接不上</text>
+          </g>
+          <g id="mark-fillStand">
+            <line class="fill-line" x1="48" y1="196" x2="560" y2="196"></line>
+            <text class="lab" id="lab-fillStand" x="48" y="186">檐口 · 填白 · 还在</text>
+          </g>
+          <g id="mark-pier">
+            <line class="beam" id="pier-left" x1="48" y1="244" x2="560" y2="244"></line>
+            <line class="gap" id="pier-gap" x1="236" y1="244" x2="372" y2="244" visibility="hidden"></line>
+            <line class="beam" id="pier-right" x1="380" y1="244" x2="560" y2="244" visibility="hidden"></line>
+            <text class="lab" id="lab-pier" x="48" y="234">柱列 · 承重 · 还在</text>
+          </g>
+
+          <g id="mark-average">
+            <rect class="avg-track" x="48" y="286" width="512" height="12"></rect>
+            <rect class="avg-fill" id="avg-fill" x="48" y="286" width="379" height="12"></rect>
+            <text class="num" id="avg-num" x="48" y="276">0.74 · 还好</text>
+            <text class="lab" id="lab-average" x="168" y="276">平均数 · 不是一段</text>
+          </g>
+
+          <rect class="select-frame" id="select-frame" x="36" y="28" width="536" height="36"></rect>
+          <line class="void-line" id="void-line" x1="48" y1="312" x2="560" y2="312" visibility="hidden"></line>
+          <text class="title-band" id="title-band" x="48" y="328" visibility="hidden"></text>
+
+          <rect class="hit" id="hit-ridge" x="36" y="28" width="536" height="36" tabindex="0" role="button" aria-label="屋脊，承重，还在"></rect>
+          <rect class="hit" id="hit-fillShort" x="36" y="76" width="536" height="36" tabindex="0" role="button" aria-label="窗下，填白，短了"></rect>
+          <rect class="hit" id="hit-break" x="36" y="124" width="536" height="36" tabindex="0" role="button" aria-label="中梁，承重，接不上"></rect>
+          <rect class="hit" id="hit-fillStand" x="36" y="172" width="536" height="36" tabindex="0" role="button" aria-label="檐口，填白，还在"></rect>
+          <rect class="hit" id="hit-pier" x="36" y="220" width="536" height="36" tabindex="0" role="button" aria-label="柱列，承重"></rect>
+          <rect class="hit" id="hit-average" x="36" y="268" width="536" height="40" tabindex="0" role="button" aria-label="平均数，不是一段"></rect>
+        </svg>
+      </div>
+
+      <p class="hint" id="hint">平均数还读作还好。中梁已经接不上。只有那一段许被指出。</p>
+      <div class="point-row" id="point-row"></div>
+      <div class="walk-row">
+        <button type="button" id="name-span">指出这一段</button>
+        <button type="button" id="press-fill">把填白再压短</button>
+      </div>
+      <div class="controls">
+        <button type="button" id="judge-average" class="void-btn">用平均数收下</button>
+        <button type="button" id="cut-pier" class="void-btn">再砍一条承重</button>
+        <button type="button" id="withdraw">收回</button>
+        <button type="button" id="keep">收下这一页</button>
+        <button type="button" id="reset">另写一页</button>
+      </div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </section>
+
+    <aside class="margin">
+      <p class="kicker">页子</p>
+      <h2>坏在哪一段</h2>
+      <p class="sub">Which Span Broke</p>
+      <ul id="ledger"></ul>
+      <p class="kicker log-k">经过</p>
+      <ul id="log"></ul>
+      <p class="after" id="after"></p>
+    </aside>
+  </main>
+
+  <button type="button" class="note-btn" id="note-toggle" aria-expanded="false" aria-controls="note">作品说明</button>
+  <div class="note" id="note" hidden>
+    <article>
+      <p class="label">Work note / 作品说明</p>
+      <h2>坏在哪一段</h2>
+      <p>一页已经被压短。平均数还读作还好。点一段，或用左右方向键选中。按指出这一段，或用上方向键。只有中梁那条接不上的承重，才算说出坏在哪一段。指出填白，或指出还在的承重，页子不收。指出平均数，或按用平均数收下，纸作废。按再砍一条承重，柱列被砍断，纸作废。按把填白再压短，平均数更好看，断口不动。按收回，或用下方向键。按收下这一页，或按回车。没有指出那一段，不能收。用了平均数，不能收。砍了另一条承重，不能收。没有分数，没有倒计时。故意不发声。</p>
+      <p class="en">A page has already been shortened. The average still reads as fine. Select a span by pressing it, or with the left and right arrow keys. Press Name this span, or use the up arrow. Only the middle beam, the load-bearing line that no longer continues, names where it broke. Naming a fill line, or a load-bearing line that still stands, is not accepted. Naming the average, or pressing Keep by the average, voids the page. Press Cut another load-bearing line, and the piers are cut. Press Shorten the fill again. The average looks better. The break does not move. Press Withdraw, or use the down arrow. Press Keep this page, or press Enter. If that span has not been named, the page cannot be kept. If the average was used, the page cannot be kept. If another load-bearing line was cut, the page cannot be kept. No score. No countdown. Deliberate silence.</p>
+      <button type="button" class="note-close" id="note-close">关闭</button>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get("embed") === "calendar" || params.get("preview") === "1") {
+        document.body.classList.add("is-embed");
+      }
+
+      var SPANS = [
+        { id: "ridge", zh: "屋脊", en: "the ridge" },
+        { id: "fillShort", zh: "窗下", en: "under the window" },
+        { id: "break", zh: "中梁", en: "the middle beam" },
+        { id: "fillStand", zh: "檐口", en: "the eave" },
+        { id: "pier", zh: "柱列", en: "the piers" },
+        { id: "average", zh: "平均数", en: "the average" }
+      ];
+      var ORDER = ["ridge", "fillShort", "break", "fillStand", "pier", "average"];
+      var FRAMES = {
+        ridge: [36, 28, 536, 36],
+        fillShort: [36, 76, 536, 36],
+        break: [36, 124, 536, 36],
+        fillStand: [36, 172, 536, 36],
+        pier: [36, 220, 536, 36],
+        average: [36, 268, 536, 40]
+      };
+
+      var selected = "break";
+      var named = false;
+      var judgedByAverage = false;
+      var extraCut = false;
+      var fillPressed = false;
+      var kept = false;
+      var refusing = false;
+      var refuseTimer = 0;
+      var pageNo = 1;
+      var log = [];
+      var lastPage = null;
+      var buttons = {};
+
+      var sheet = document.getElementById("sheet");
+      var stateWord = document.getElementById("state-word");
+      var hint = document.getElementById("hint");
+      var readout = document.getElementById("readout");
+      var ledger = document.getElementById("ledger");
+      var logList = document.getElementById("log");
+      var after = document.getElementById("after");
+      var pageK = document.getElementById("page-k");
+      var frame = document.getElementById("select-frame");
+      var voidLine = document.getElementById("void-line");
+      var titleBand = document.getElementById("title-band");
+      var note = document.getElementById("note");
+      var noteToggle = document.getElementById("note-toggle");
+
+      function isVoid() {
+        return judgedByAverage || extraCut;
+      }
+
+      function canKeep() {
+        return named && !judgedByAverage && !extraCut && !kept;
+      }
+
+      function averageRead() {
+        return fillPressed ? "0.86" : "0.74";
+      }
+
+      function say(zh, en, refusal) {
+        readout.classList.toggle("is-refusal", !!refusal);
+        readout.innerHTML = "";
+        readout.appendChild(document.createTextNode(zh));
+        var enNode = document.createElement("span");
+        enNode.className = "en";
+        enNode.textContent = en;
+        readout.appendChild(enNode);
+      }
+
+      function pushLog(zh, en) {
+        log.unshift({ zh: zh, en: en });
+        if (log.length > 6) log.pop();
+      }
+
+      function clearRefuse() {
+        refusing = false;
+        window.clearTimeout(refuseTimer);
+      }
+
+      function refuse(zh, en) {
+        refusing = true;
+        window.clearTimeout(refuseTimer);
+        say(zh, en, true);
+        refuseTimer = window.setTimeout(function () {
+          refusing = false;
+          render();
+        }, 1600);
+      }
+
+      function lockedSay() {
+        say("这一页已经收下。要重来，另写一页。", "This page is already kept. To begin again, write another page.");
+      }
+
+      function addItem(list, meta, zh, en) {
+        var li = document.createElement("li");
+        var k = document.createElement("span");
+        k.className = "meta";
+        k.textContent = meta;
+        var quiet = document.createElement("span");
+        quiet.className = "quiet";
+        quiet.textContent = en;
+        li.appendChild(k);
+        li.appendChild(document.createTextNode(zh));
+        li.appendChild(quiet);
+        list.appendChild(li);
+      }
+
+      function show(id, on) {
+        document.getElementById(id).setAttribute("visibility", on ? "visible" : "hidden");
+      }
+
+      function placeFrame() {
+        var box = FRAMES[selected];
+        frame.setAttribute("x", box[0]);
+        frame.setAttribute("y", box[1]);
+        frame.setAttribute("width", box[2]);
+        frame.setAttribute("height", box[3]);
+      }
+
+      function selectSpan(id) {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        selected = id;
+        clearRefuse();
+        render();
+      }
+
+      function nameSpan() {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        clearRefuse();
+        if (selected === "average") {
+          judgedByAverage = true;
+          pushLog("指出了平均数。纸作废。", "The average was named. The page is void.");
+          say("平均数不是一段。拿它当断口，这页作废。", "The average is not a span. Naming it as the break voids the page.", true);
+          render();
+          return;
+        }
+        if (selected === "break") {
+          named = true;
+          pushLog("指出中梁。", "The middle beam was named.");
+          if (isVoid()) {
+            say("中梁被指出了。可这页已经作废，还不能收。", "The middle beam is named. The page is already void, and cannot be kept yet.", true);
+          } else {
+            say("坏在中梁。除了这一处，承重还在。", "It broke at the middle beam. Apart from this span, the load-bearing lines still stand.");
+          }
+          render();
+          return;
+        }
+        if (selected === "pier" && extraCut) {
+          refuse("被砍断的柱列不是要指出的那一段。", "The cut piers are not the span to name.");
+          return;
+        }
+        if (selected === "fillShort") {
+          refuse("填白短了，不算坏。", "A shortened fill line is not a break.");
+          return;
+        }
+        refuse("这一段还在。还在的，不许当断口。", "This span still stands. A span that still stands may not be the break.");
+      }
+
+      function judgeAverage() {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        clearRefuse();
+        judgedByAverage = true;
+        pushLog("用平均数收下。纸作废。", "Kept by the average. The page is void.");
+        say("用平均数收下，这页作废。断口还在原处。", "Keeping the page by the average voids it. The break is still where it was.", true);
+        render();
+      }
+
+      function cutPier() {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        clearRefuse();
+        if (extraCut) {
+          refuse("柱列已经砍过。再砍一次，不算新的判断。", "The piers are already cut. Cutting them again is not a new judgment.");
+          return;
+        }
+        extraCut = true;
+        pushLog("再砍一条承重。柱列断了。纸作废。", "Another load-bearing line was cut. The piers broke. The page is void.");
+        say("柱列被砍断。除了你正指着的那一处，承重必须还在。这页作废。", "The piers are cut. Apart from the break you are naming, the load-bearing lines must still stand. The page is void.", true);
+        render();
+      }
+
+      function pressFill() {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        clearRefuse();
+        if (fillPressed) {
+          refuse("填白已经再压过。断口没动。", "The fill has already been shortened again. The break did not move.");
+          return;
+        }
+        fillPressed = true;
+        pushLog("填白再压短。平均数更好看。断口不动。", "The fill was shortened again. The average looks better. The break did not move.");
+        say("填白更短了。平均数从 0.74 读到 0.86，仍是还好。中梁还是接不上。", "The fill is shorter. The average now reads 0.86 instead of 0.74, and still as fine. The middle beam still does not continue.");
+        render();
+      }
+
+      function withdraw() {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        clearRefuse();
+        if (judgedByAverage) {
+          judgedByAverage = false;
+          pushLog("收回用平均数做的判断。", "The judgment made by the average was withdrawn.");
+          say("用平均数做的判断收回了。已经指出的还在。没指出的，不会自己出现。", "The judgment made by the average is withdrawn. What was already named remains. What was not named does not appear by itself.");
+          render();
+          return;
+        }
+        if (extraCut) {
+          extraCut = false;
+          pushLog("收回砍柱列的那一刀。", "The cut through the piers was withdrawn.");
+          say("砍柱列的那一刀收回了。柱列还在。指出不因此回来。", "The cut through the piers is withdrawn. The piers stand again. The naming does not return because of this.");
+          render();
+          return;
+        }
+        if (named) {
+          named = false;
+          pushLog("收回已经指出的那一段。", "The named span was withdrawn.");
+          say("指出收回了。断口还在。指出不自动回来。", "The naming is withdrawn. The break is still there. The naming does not return by itself.");
+          render();
+          return;
+        }
+        refuse("没有可收回的判断，也没有可收回的那一刀。", "There is no judgment to withdraw, and no cut to withdraw.");
+      }
+
+      function keepPage() {
+        if (kept) {
+          lockedSay();
+          return;
+        }
+        clearRefuse();
+        if (judgedByAverage) {
+          refuse("用了平均数，不能收。", "If the average was used, the page cannot be kept.");
+          return;
+        }
+        if (extraCut) {
+          refuse("砍了另一条承重，不能收。", "If another load-bearing line was cut, the page cannot be kept.");
+          return;
+        }
+        if (!named) {
+          refuse("没有指出那一段，不能收。", "If that span has not been named, the page cannot be kept.");
+          return;
+        }
+        kept = true;
+        pushLog("收下这一页。", "This page was kept.");
+        say("这一页收下了。坏在中梁。平均数没有代替它。", "This page is kept. It broke at the middle beam. The average did not stand in for it.");
+        render();
+      }
+
+      function snapshot() {
+        return {
+          average: averageRead(),
+          named: named,
+          piers: extraCut ? "被砍" : "还在",
+          kept: kept,
+          voided: isVoid()
+        };
+      }
+
+      function resetPage() {
+        lastPage = snapshot();
+        selected = "break";
+        named = false;
+        judgedByAverage = false;
+        extraCut = false;
+        fillPressed = false;
+        kept = false;
+        pageNo += 1;
+        clearRefuse();
+        pushLog("另写一页。上一页留在余像里。", "Another page. The last one stays in the afterimage.");
+        say("另写一页。上一页留在余像里。", "Another page. The last one stays in the afterimage.");
+        render();
+      }
+
+      function renderAfter() {
+        after.innerHTML = "";
+        if (!lastPage) {
+          after.textContent = "还没有上一页。";
+          var en0 = document.createElement("span");
+          en0.className = "en";
+          en0.textContent = "There is no previous page yet.";
+          after.appendChild(en0);
+          return;
+        }
+        var zh = "上一页：平均数读作 " + lastPage.average + "，指出" + (lastPage.named ? "了中梁" : "还没落到中梁") + "，柱列" + lastPage.piers + "，" + (lastPage.kept ? "收下了" : "没有收下") + "。";
+        var en = "Last page: the average read " + lastPage.average + ", the middle beam was " + (lastPage.named ? "named" : "not named") + ", the piers " + (lastPage.piers === "还在" ? "still stood" : "were cut") + ", and the page was " + (lastPage.kept ? "kept" : "not kept") + ".";
+        after.appendChild(document.createTextNode(zh));
+        var enNode = document.createElement("span");
+        enNode.className = "en";
+        enNode.textContent = en;
+        after.appendChild(enNode);
+      }
+
+      function renderLedger() {
+        ledger.innerHTML = "";
+        addItem(ledger, "平均数", "读作 " + averageRead() + "，还好", "reads " + averageRead() + ", as fine");
+        addItem(
+          ledger,
+          "指出",
+          named ? "中梁的断口" : "还没指出",
+          named ? "the break in the middle beam" : "not yet named"
+        );
+        addItem(ledger, "柱列", extraCut ? "被砍" : "还在", extraCut ? "cut" : "still standing");
+        addItem(
+          ledger,
+          "这一页",
+          kept ? "收下" : (isVoid() ? "作废" : "未收"),
+          kept ? "kept" : (isVoid() ? "void" : "not kept")
+        );
+      }
+
+      function renderLog() {
+        logList.innerHTML = "";
+        log.forEach(function (item) {
+          addItem(logList, "经过", item.zh, item.en);
+        });
+      }
+
+      function renderLabels() {
+        var ridge = document.getElementById("lab-ridge");
+        var fillShort = document.getElementById("lab-fillShort");
+        var broken = document.getElementById("lab-break");
+        var fillStand = document.getElementById("lab-fillStand");
+        var pier = document.getElementById("lab-pier");
+        var average = document.getElementById("lab-average");
+        [ridge, fillShort, broken, fillStand, pier, average].forEach(function (lab) {
+          lab.classList.remove("is-selected", "is-held", "is-void");
+        });
+        var current = document.getElementById("lab-" + selected);
+        if (current) current.classList.add("is-selected");
+        if (named) broken.classList.add("is-held");
+        if (extraCut) pier.classList.add("is-void");
+        if (judgedByAverage) average.classList.add("is-void");
+        pier.textContent = extraCut ? "柱列 · 承重 · 被砍" : "柱列 · 承重 · 还在";
+        fillShort.textContent = fillPressed ? "窗下 · 填白 · 更短" : "窗下 · 填白 · 短了";
+        document.getElementById("avg-num").textContent = averageRead() + " · 还好";
+        document.getElementById("avg-num").classList.toggle("is-void", judgedByAverage);
+      }
+
+      function renderPlate() {
+        var fillLine = document.getElementById("fill-line");
+        fillLine.setAttribute("x2", fillPressed ? "168" : "280");
+        var avg = document.getElementById("avg-fill");
+        avg.setAttribute("width", fillPressed ? "440" : "379");
+        avg.classList.toggle("is-better", fillPressed);
+        document.getElementById("pier-left").setAttribute("x2", extraCut ? "228" : "560");
+        show("pier-gap", extraCut);
+        show("pier-right", extraCut);
+        show("void-line", isVoid() && !kept);
+        if (named && !isVoid()) {
+          titleBand.setAttribute("visibility", "visible");
+          titleBand.textContent = kept ? "收下 · 坏在中梁" : "坏在中梁";
+        } else if (isVoid()) {
+          titleBand.setAttribute("visibility", "visible");
+          titleBand.textContent = judgedByAverage ? "作废 · 平均数不是一段" : "作废 · 柱列不能再断";
+        } else {
+          titleBand.setAttribute("visibility", "hidden");
+          titleBand.textContent = "";
+        }
+        placeFrame();
+      }
+
+      function renderButtons() {
+        ORDER.forEach(function (id) {
+          var btn = buttons[id];
+          btn.classList.toggle("is-selected", id === selected);
+          btn.classList.toggle("is-held", id === "break" && named);
+          btn.classList.toggle("is-void", (id === "average" && judgedByAverage) || (id === "pier" && extraCut));
+        });
+        document.getElementById("judge-average").classList.toggle("is-on", judgedByAverage);
+        document.getElementById("cut-pier").classList.toggle("is-on", extraCut);
+        document.getElementById("press-fill").classList.toggle("is-on", fillPressed);
+        document.getElementById("name-span").classList.toggle("is-on", named);
+        document.getElementById("keep").classList.toggle("is-on", kept);
+      }
+
+      function renderHint() {
+        hint.classList.remove("is-ready", "is-void");
+        if (kept) {
+          hint.textContent = "这一页收下了。坏在中梁。";
+          hint.classList.add("is-ready");
+        } else if (isVoid()) {
+          hint.textContent = judgedByAverage ? "用了平均数。这页作废。先收回。" : "柱列被砍了。这页作废。先收回。";
+          hint.classList.add("is-void");
+        } else if (canKeep()) {
+          hint.textContent = "中梁已被指出。柱列还在。这一页可以收。";
+          hint.classList.add("is-ready");
+        } else {
+          hint.textContent = "平均数还读作还好。中梁已经接不上。只有那一段许被指出。";
+        }
+      }
+
+      function renderState() {
+        stateWord.classList.remove("is-void", "is-held", "is-refusal");
+        sheet.classList.remove("is-void", "is-held");
+        if (kept) {
+          stateWord.textContent = "收下";
+          stateWord.classList.add("is-held");
+          sheet.classList.add("is-held");
+        } else if (isVoid()) {
+          stateWord.textContent = "作废";
+          stateWord.classList.add("is-void");
+          sheet.classList.add("is-void");
+        } else if (named) {
+          stateWord.textContent = "已指";
+          stateWord.classList.add("is-held");
+        } else {
+          stateWord.textContent = "未指";
+        }
+        pageK.textContent = "第 " + pageNo + " 页 · 已被压短";
+      }
+
+      function render() {
+        renderState();
+        renderLabels();
+        renderPlate();
+        renderButtons();
+        renderHint();
+        renderLedger();
+        renderLog();
+        renderAfter();
+        if (!refusing && readout.textContent === "") {
+          say("平均数还读作还好。中梁已经接不上。", "The average still reads as fine. The middle beam no longer continues.");
+        }
+      }
+
+      var pointRow = document.getElementById("point-row");
+      SPANS.forEach(function (span) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = span.zh;
+        btn.addEventListener("click", function () { selectSpan(span.id); });
+        pointRow.appendChild(btn);
+        buttons[span.id] = btn;
+        var hit = document.getElementById("hit-" + span.id);
+        hit.addEventListener("click", function () { selectSpan(span.id); });
+        hit.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            event.stopPropagation();
+            selectSpan(span.id);
+          }
+        });
+      });
+
+      document.getElementById("name-span").addEventListener("click", nameSpan);
+      document.getElementById("judge-average").addEventListener("click", judgeAverage);
+      document.getElementById("cut-pier").addEventListener("click", cutPier);
+      document.getElementById("press-fill").addEventListener("click", pressFill);
+      document.getElementById("withdraw").addEventListener("click", withdraw);
+      document.getElementById("keep").addEventListener("click", keepPage);
+      document.getElementById("reset").addEventListener("click", resetPage);
+
+      function openNote() {
+        note.hidden = false;
+        noteToggle.setAttribute("aria-expanded", "true");
+        document.getElementById("note-close").focus();
+      }
+
+      function closeNote() {
+        note.hidden = true;
+        noteToggle.setAttribute("aria-expanded", "false");
+        noteToggle.focus();
+      }
+
+      noteToggle.addEventListener("click", function () {
+        if (note.hidden) openNote();
+        else closeNote();
+      });
+      document.getElementById("note-close").addEventListener("click", closeNote);
+      note.addEventListener("click", function (event) {
+        if (event.target === note) closeNote();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (!note.hidden && event.key === "Escape") {
+          event.preventDefault();
+          closeNote();
+          return;
+        }
+        if (!note.hidden) return;
+        if (event.target && event.target.closest && event.target.closest(".note")) return;
+        if (event.key === "Enter" && event.target && event.target.tagName === "BUTTON") return;
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          var index = ORDER.indexOf(selected);
+          var next = event.key === "ArrowRight" ? index + 1 : index - 1;
+          if (next < 0) next = ORDER.length - 1;
+          if (next >= ORDER.length) next = 0;
+          selectSpan(ORDER[next]);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          nameSpan();
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          withdraw();
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          keepPage();
+        }
+      });
+
+      render();
+      say("平均数还读作还好。中梁已经接不上。只有那一段许被指出。", "The average still reads as fine. The middle beam no longer continues. Only that span may be named.");
+    })();
+  </script>
+</body>
+</html>
