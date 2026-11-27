@@ -1712,6 +1712,22 @@
       "after_zh": "你停下，它才来。你提前回来，它就不来。",
       "interaction_en": "Hold on the glass to breathe without fogging it. Release, and fog may arrive after a delay. Press again before the fog finishes arriving, and the arrival is cancelled. Hold Space to breathe at the last place. Release Space to grant the delay. Press C to cancel an arrival that has not finished. Press outside the glass and nothing starts.",
       "interaction_zh": "按住玻璃呼吸，玻璃不会起雾。松开以后，雾可能在一段延迟之后到来。在雾完成到来之前再次按下，到来就被取消。按住空格，在上次停留的位置呼吸。松开空格，把延迟交出去。按 C，取消一次尚未完成的到来。按在玻璃外面，什么都不开始。"
+    },
+    {
+      "date": "2026-11-28",
+      "slug": "the-shadow-keeps-its-lead",
+      "title_en": "The Shadow Keeps Its Lead",
+      "title_zh": "影子保持领先",
+      "variable_en": "the uncatchable lead between a body and its shadow",
+      "variable_zh": "身体与影子之间追不上的领先",
+      "seed": 20261128,
+      "file": "2026-11-28-the-shadow-keeps-its-lead",
+      "intention_en": "The shadow is not a place waiting to be occupied. Walk toward it and the lead lengthens. Walk away and it does not return to your side. Stop, and it stays ahead. Press where the shadow is, and you do not arrive there.",
+      "intention_zh": "影子不是等你走过去占领的位置。你朝它走，领先就拉长。你走开，它不回来与你并行。你停下，它仍在前面。按在影子所在的地方，你也不会到达那里。",
+      "after_en": "You can walk toward it. You cannot stand where it already is.",
+      "after_zh": "你可以走向它。你不能站在它已经在的地方。",
+      "interaction_en": "Move the pointer and the body follows, always short of the shadow. Walk toward the shadow and the lead grows. Walk away and the shadow does not come back. Press the shadow and the press is refused. The body stays where it is.",
+      "interaction_zh": "移动指针，身体会跟着走，但始终停在影子前面那段距离之外。朝影子走，领先变长。走开，影子不退回来。按在影子上，这一下被拒绝，身体留在原地。"
     }
   ]
 }

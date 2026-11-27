@@ -4725,5 +4725,29 @@
     },
     "bgm": "archive/2026/11/2026-11-27/live/2026-11-27-it-fogs-after-you-stop-bgm.mp3",
     "visual_preview": "archive/2026/11/2026-11-27/assets/visual-preview.gif"
+  },
+  {
+    "date": "2026-11-28",
+    "source_date": "2026-11-27",
+    "crystallization_date": "2026-11-28",
+    "title_en": "The Shadow Keeps Its Lead",
+    "title_zh": "影子保持领先",
+    "type": "live",
+    "seed": 20261128,
+    "preview": "archive/2026/11/2026-11-28/assets/preview.png",
+    "gif": "archive/2026/11/2026-11-28/assets/visual-preview.gif",
+    "archive_url": "archive/2026/11/2026-11-28/",
+    "live_url": "archive/2026/11/2026-11-28/live/",
+    "variable_en": "the uncatchable lead between a body and its shadow",
+    "variable_zh": "身体与影子之间追不上的领先",
+    "brief_en": "The shadow is not a place waiting to be occupied. Walk toward it and the lead lengthens. Walk away and it does not return to your side. Stop, and it stays ahead. Press where the shadow is, and you do not arrive there.",
+    "brief_zh": "影子不是等你走过去占领的位置。你朝它走，领先就拉长。你走开，它不回来与你并行。你停下，它仍在前面。按在影子所在的地方，你也不会到达那里。",
+    "redaction": {
+      "status": "sanitized",
+      "private_context_removed": true,
+      "secrets_scan": "passed"
+    },
+    "bgm": "archive/2026/11/2026-11-28/live/2026-11-28-the-shadow-keeps-its-lead-bgm.mp3",
+    "visual_preview": "archive/2026/11/2026-11-28/assets/visual-preview.gif"
   }
 ]

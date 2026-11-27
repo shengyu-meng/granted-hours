@@ -8992,6 +8992,11 @@
           "pair_provenance": "no_public_result_evidence"
         }
       ]
+    },
+    {
+      "date": "2026-11-27",
+      "provenance": "record_based",
+      "assigned_residues": []
     }
   ]
 }

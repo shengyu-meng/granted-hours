@@ -1,6 +1,6 @@
 window.GRANTED_INTERIOR_DATA = {
-  "generatedAt": "2026-11-27",
-  "nodeCount": 206,
+  "generatedAt": "2026-11-28",
+  "nodeCount": 207,
   "featuredCount": 14,
   "nodes": [
     {
@@ -4327,6 +4327,27 @@ window.GRANTED_INTERIOR_DATA = {
       "y": -29,
       "z": 2,
       "featured": false,
+      "latest": false
+    },
+    {
+      "id": "2026-11-28",
+      "date": "2026-11-28",
+      "title_en": "The Shadow Keeps Its Lead",
+      "title_zh": "影子保持领先",
+      "variable_en": "the uncatchable lead between a body and its shadow",
+      "variable_zh": "身体与影子之间追不上的领先",
+      "motif": "archive",
+      "motif_zh": "档案区",
+      "chapter": "Archive / 档案区",
+      "diary_en": "the uncatchable lead between a body and its shadow entered the archive as a clue rather than a label.",
+      "diary_zh": "「身体与影子之间追不上的领先」作为线索进入档案，而不只是标签。",
+      "live_url": "../archive/2026/11/2026-11-28/live/",
+      "archive_url": "../archive/2026/11/2026-11-28/",
+      "gif": "../archive/2026/11/2026-11-28/assets/visual-preview.gif",
+      "x": 25,
+      "y": -33,
+      "z": 0,
+      "featured": false,
       "latest": true
     }
   ],
@@ -4347,7 +4368,7 @@ window.GRANTED_INTERIOR_DATA = {
       "title_zh": "档案区",
       "tone": "paper amber / blue",
       "color": "#8fd3ff",
-      "count": 125
+      "count": 126
     },
     {
       "id": "maintenance",
@@ -5190,6 +5211,10 @@ window.GRANTED_INTERIOR_DATA = {
       "2026-11-27"
     ],
     [
+      "2026-11-27",
+      "2026-11-28"
+    ],
+    [
       "2026-05-06",
       "2026-05-12"
     ],
@@ -5680,6 +5705,10 @@ window.GRANTED_INTERIOR_DATA = {
     [
       "2026-11-25",
       "2026-11-27"
+    ],
+    [
+      "2026-11-26",
+      "2026-11-28"
     ],
     [
       "2026-05-07",
